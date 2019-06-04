@@ -83,13 +83,13 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_dashboard) {
-            // Handle the camera action
-        } else if (id == R.id.nav_schedule) {
-            Intent i = new Intent(MainActivity.this, DailyScheduler.class);
-            startActivity(i);
-        } else if (id == R.id.nav_slideshow) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_schedule) {
+
+        } else if (id == R.id.nav_academics) {
+            Intent i = new Intent(MainActivity.this, AcademicsActivity.class);
+            startActivity(i);
+        } else if (id == R.id.nav_academics) {
 
         } else if (id == R.id.nav_share) {
 
