@@ -15,8 +15,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/weatherbox"
-            android:text="Hello Yaar"
+            android:id="@+id/weather"
             android:padding="15dp"
             />
     </android.support.design.card.MaterialCardView>
