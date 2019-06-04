@@ -21,8 +21,9 @@
         </activity>
         <activity
             android:name=".DailySchedule"
-            android:label="@string/title_activity_daily_schedule"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:label="@string/title_activity_daily_schedule">
+
+        </activity>
 
     </application>
 
