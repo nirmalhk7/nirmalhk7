@@ -15,7 +15,7 @@ public class AcademicsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_academics);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        getSupportActionBar().setIcon(R.mipmap.ic_launcher);
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
