@@ -1,5 +1,8 @@
 package com.nirmalhk7.nirmalhk7;
 
+import android.content.Context;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,7 +31,8 @@ import cz.msebera.android.httpclient.Header;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private String weather_base = "https://api.darksky.net/forecast/60569b87b5b2a6220c135e9b2e91646b/12.9894,74.8006??units=si";
+    private String weather_base = "https://api.darksky.net/forecast/60569b87b5b2a6220c135e9b2e91646b/";
+    //12.9894,74.8006?units=si
     private TextView weatherTextView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,9 +49,6 @@ public class MainActivity extends AppCompatActivity
                         .setAction("Action", null).show();
             }
         });
-
-
-
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -62,8 +63,30 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void weatherView(){
-        weatherTextView=findViewById(R.id.weather);
-        requestData(weather_base,"currently","summary");
+        if(isOnline()) {
+            LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+            double longitude;
+            double latitude;
+
+            try {
+                Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                longitude = location.getLongitude();
+                latitude = location.getLatitude();
+            }
+            catch (SecurityException e)
+            {}
+            String x= weather_base.concat(Double.toString(longitude)+","+Double.toString(latitude));
+
+
+            weatherTextView = findViewById(R.id.weather);
+
+            requestData(weather_base, "currently", "summary");
+
+        }
+        else{
+            weatherTextView = findViewById(R.id.weather);
+            weatherTextView.setText("Phone not connected");
+        }
     }
     private boolean isOnline() {
         // get Connectivity Manager object to check connection
@@ -172,7 +195,7 @@ public class MainActivity extends AppCompatActivity
 
                 } catch (Exception e) {
 
-                    Log.e("Darksky :", e.toString());
+                    Log.e("DarkSky :", e.toString());
 
                 }
 
@@ -191,6 +214,7 @@ public class MainActivity extends AppCompatActivity
                 Toast.makeText(MainActivity.this, "Request Failed",
                         Toast.LENGTH_SHORT).show();
             }
+
         });
     }
 
