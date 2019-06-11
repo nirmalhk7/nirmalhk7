@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,9 +18,18 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import org.json.JSONObject;
+
+import cz.msebera.android.httpclient.Header;
+
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private String weather_base = "https://api.darksky.net/forecast/60569b87b5b2a6220c135e9b2e91646b/12.9894,74.8006??units=si";
+    private TextView weatherTextView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,19 +57,13 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        weatherShow();
+        weatherView();
 
     }
 
-    public void weatherShow(){
-        TextView weather= findViewById(R.id.weather);
-        if(isOnline())
-        {
-            weather.setText("Phone is Connected");
-        }
-        else{
-            weather.setText("Phone is not Connected");
-        }
+    public void weatherView(){
+        weatherTextView=findViewById(R.id.weather);
+        requestData(weather_base,"currently","summary");
     }
     private boolean isOnline() {
         // get Connectivity Manager object to check connection
@@ -143,6 +147,51 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer =findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+    private void requestData(String url,final String field,final String query) {
+        //Everything below is part of the Android Asynchronous HTTP Client
+
+        AsyncHttpClient client = new AsyncHttpClient();
+
+        client.get(url, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers,
+                                  JSONObject response) {
+                // called when response HTTP status is "200 OK"
+                Log.d("Bitcoin", "JSON: " + response.toString());
+
+                try {
+
+                    //The “ask” value below is a field in the JSON Object that was
+                    //retrieved from the BitcoinAverage API. It contains the current
+                    //bitcoin price
+
+
+                    String weather = response.getJSONObject(field).getString(query);
+                    weatherTextView.setText(weather);
+
+                } catch (Exception e) {
+
+                    Log.e("Darksky :", e.toString());
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable e,
+                                  JSONObject response) {
+
+                // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+
+                Log.d("Bitcoin r", "Request fail! Status code: " + statusCode);
+                Log.d("Bitcoin z", "Fail response: " + response);
+                Log.e("ERROR", e.toString());
+
+                Toast.makeText(MainActivity.this, "Request Failed",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 }
