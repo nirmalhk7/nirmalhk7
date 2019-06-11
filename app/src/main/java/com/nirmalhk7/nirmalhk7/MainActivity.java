@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-<<<<<<< HEAD
+
         weatherShow();
 
     }
@@ -84,9 +84,7 @@ public class MainActivity extends AppCompatActivity
             return false;
         }
         return false;
-=======
 
->>>>>>> f11463e135ae7d3c905144d11730f6e363d86ff0
     }
 
     @Override
