@@ -65,16 +65,8 @@ public class MainActivity extends AppCompatActivity
     public void weatherView(){
         if(isOnline()) {
             LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-            double longitude;
-            double latitude;
-
-            try {
-                Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                longitude = location.getLongitude();
-                latitude = location.getLatitude();
-            }
-            catch (SecurityException e)
-            {}
+            double longitude=1.1;
+            double latitude=1.1;
             String x= weather_base.concat(Double.toString(longitude)+","+Double.toString(latitude));
 
 
