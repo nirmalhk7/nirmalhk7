@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity
             weather_base = weather_base.concat(Double.toString(longitude) + "," + Double.toString(latitude));
             weather_base = weather_base.concat("?units=si");
             Log.d("WeatherAPI",weather_base);
-            requestData(weather_base, "currently", "summary");
+            requestData(weather_base, "currently", "icon");
 
 
 
@@ -80,9 +81,17 @@ public class MainActivity extends AppCompatActivity
     public void weatherLoad(String x){
 
         LinearLayout weatherView=findViewById(R.id.weatherView);
-        weatherView.addView(weatherTextView);
-        weatherTextView.setText(x);
+        ImageView iconWeather=new ImageView(getApplicationContext());
+        if(x=="clear-day")
+        {
+            iconWeather.setImageDrawable(getDrawable(R.drawable.ic_menu_camera));
+        }
+        else if(x=="cloudy")
+        {
 
+        }
+        LinearLayout weatherText= new LinearLayout(getApplicationContext());
+        weatherText.setOrientation(LinearLayout.VERTICAL);
     }
 
     private boolean isOnline() {
