@@ -1,8 +1,5 @@
 package com.nirmalhk7.nirmalhk7;
 
-import android.content.Context;
-import android.location.Location;
-import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.content.Intent;
 import android.os.Bundle;
@@ -64,15 +61,27 @@ public class MainActivity extends AppCompatActivity
 
     public void weatherView(){
         if(isOnline()) {
-            LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-            double longitude=1.1;
-            double latitude=1.1;
-            String x= weather_base.concat(Double.toString(longitude)+","+Double.toString(latitude));
+
+            GPSTracker gps = new GPSTracker(MainActivity.this);
+
+            // Check if GPS enabled
+            if(gps.canGetLocation()) {
+                double longitude = 1.1;
+                double latitude=1.1;
+                Log.d("GPST",Double.toString(gps.getLatitude()));
+                String x = weather_base.concat(Double.toString(longitude) + "," + Double.toString(latitude));
 
 
-            weatherTextView = findViewById(R.id.weather);
+                weatherTextView = findViewById(R.id.weather);
 
-            requestData(weather_base, "currently", "summary");
+                requestData(weather_base, "currently", "summary");
+            }
+            else{
+                // can't get location
+                // GPS or Network is not enabled
+                // Ask user to enable GPS/network in settings
+                gps.showSettingsAlert();
+            }
 
         }
         else{
@@ -203,8 +212,8 @@ public class MainActivity extends AppCompatActivity
                 Log.d("Bitcoin z", "Fail response: " + response);
                 Log.e("ERROR", e.toString());
 
-                Toast.makeText(MainActivity.this, "Request Failed",
-                        Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Weather Couldn't be Loaded",
+                        Toast.LENGTH_LONG).show();
             }
 
         });
