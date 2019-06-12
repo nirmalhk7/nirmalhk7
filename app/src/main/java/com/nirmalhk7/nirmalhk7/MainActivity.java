@@ -31,6 +31,7 @@ import cz.msebera.android.httpclient.Header;
 
 import android.widget.TextView;
 
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -154,7 +155,7 @@ public class MainActivity extends AppCompatActivity
 
     public void requestData(String url, final String field, final String query) {
         //Everything below is part of the Android Asynchronous HTTP Client
-        
+
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(url, new JsonHttpResponseHandler() {
 
