@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity
     private String weather_base = "https://api.darksky.net/forecast/60569b87b5b2a6220c135e9b2e91646b/";
     //12.9894,74.8006?units=si
     private TextView weatherTextView;
-
+    public String apiRz;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,39 +60,11 @@ public class MainActivity extends AppCompatActivity
         weatherTextView=new TextView(getApplicationContext());
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        WeatherDisplay();
 
-        if (isOnline()) {
-            double longitude = 27.004;
-            double latitude = 49.627;
-            weather_base = weather_base.concat(Double.toString(longitude) + "," + Double.toString(latitude));
-            weather_base = weather_base.concat("?units=si");
-            Log.d("WeatherAPI",weather_base);
-            requestData(weather_base, "currently", "icon");
-
-
-
-        } else {
-            LinearLayout weatherView=findViewById(R.id.weatherView);
-            weatherView.addView(weatherTextView);
-            weatherTextView.setText("Phone not connected");
-        }
     }
 
-    public void weatherLoad(String x){
 
-        LinearLayout weatherView=findViewById(R.id.weatherView);
-        ImageView iconWeather=new ImageView(getApplicationContext());
-        if(x=="clear-day")
-        {
-            iconWeather.setImageDrawable(getDrawable(R.drawable.ic_menu_camera));
-        }
-        else if(x=="cloudy")
-        {
-
-        }
-        LinearLayout weatherText= new LinearLayout(getApplicationContext());
-        weatherText.setOrientation(LinearLayout.VERTICAL);
-    }
 
     private boolean isOnline() {
         // get Connectivity Manager object to check connection
@@ -180,7 +152,7 @@ public class MainActivity extends AppCompatActivity
 
     public void requestData(String url, final String field, final String query) {
         //Everything below is part of the Android Asynchronous HTTP Client
-
+        
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(url, new JsonHttpResponseHandler() {
 
@@ -191,8 +163,12 @@ public class MainActivity extends AppCompatActivity
                 Log.d("Bitcoin", "JSON: " + response.toString());
 
                 try {
-                    String weather = response.getJSONObject(field).getString(query);
-                    weatherLoad(weather);
+                        apiRz = response.getJSONObject(field).getString(query);
+
+                        LinearLayout weatherView=findViewById(R.id.weatherView);
+                        ImageView iconWeather=new ImageView(getApplicationContext());
+                        weatherView.addView(iconWeather);
+                        iconWeather.setImageDrawable(getDrawable(R.drawable.ic_menu_camera));
 
                 } catch (Exception e) {
                     Log.e("DarkSky :", e.toString());
@@ -213,9 +189,29 @@ public class MainActivity extends AppCompatActivity
                 Toast.makeText(MainActivity.this, "Request Failed",
                         Toast.LENGTH_SHORT).show();
             }
-
-
+            public String returnOP(String apiResult)
+            {
+                return apiResult;
+            }
         });
+    }
+    public void WeatherDisplay()
+    {
+        if (isOnline()) {
+            double longitude = 27.004;
+            double latitude = 49.627;
+            weather_base = weather_base.concat(Double.toString(longitude) + "," + Double.toString(latitude));
+            weather_base = weather_base.concat("?units=si");
+            Log.d("WeatherAPI",weather_base);
+
+            requestData(weather_base, "currently", "icon");
+            Log.d("APIAnswer",apiRz+" Hello");
+
+        } else {
+            LinearLayout weatherView=findViewById(R.id.weatherView);
+            weatherView.addView(weatherTextView);
+            weatherTextView.setText("Phone not connected");
+        }
     }
 
 }
