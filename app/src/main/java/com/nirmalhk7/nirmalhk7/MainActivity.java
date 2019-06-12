@@ -1,6 +1,5 @@
 package com.nirmalhk7.nirmalhk7;
 
-import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,7 +17,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,8 +27,6 @@ import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
 
-import android.widget.TextView;
-
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -39,6 +35,7 @@ public class MainActivity extends AppCompatActivity
     //12.9894,74.8006?units=si
     private TextView weatherTextView;
     public String apiRz;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,13 +57,12 @@ public class MainActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-        weatherTextView=new TextView(getApplicationContext());
+        weatherTextView = new TextView(getApplicationContext());
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         WeatherDisplay();
 
     }
-
 
 
     private boolean isOnline() {
@@ -166,12 +162,55 @@ public class MainActivity extends AppCompatActivity
                 Log.d("Bitcoin", "JSON: " + response.toString());
 
                 try {
-                        apiRz = response.getJSONObject(field).getString(query);
+                    apiRz = response.getJSONObject(field).getString(query);
+                    String summary = response.getJSONObject("currently").getString("summary");
+                    String temperature = response.getJSONObject("currently").getString("temperature");
+                    LinearLayout weatherView = findViewById(R.id.weatherView);
 
-                        LinearLayout weatherView=findViewById(R.id.weatherView);
-                        ImageView iconWeather=new ImageView(getApplicationContext());
-                        weatherView.addView(iconWeather);
-                        iconWeather.setImageDrawable(getDrawable(R.drawable.ic_menu_camera));
+                    ImageView iconWeather = findViewById(R.id.weatherIcon);
+                    //https://www.iconfinder.com/iconsets/weather-color-2
+                    if (apiRz.equals("wind")) {
+                        iconWeather.setImageDrawable(getDrawable(R.drawable.ic_iconfinder_windy));
+                    }
+                    else if(apiRz.equals("clear-day"))
+                    {
+                        iconWeather.setImageDrawable(getDrawable(R.drawable.ic_iconfinder_clear_day));
+                    }
+                    else if(apiRz.equals("clear-night"))
+                    {
+                        iconWeather.setImageDrawable(getDrawable(R.drawable.ic_iconfinder_clear_night));
+                    }
+                    else if(apiRz.equals("cloudy"))
+                    {
+                        iconWeather.setImageDrawable(getDrawable(R.drawable.ic_iconfinder_clear_night));
+                    }
+                    else if(apiRz.equals("partly-cloudy-night"))
+                    {
+                        iconWeather.setImageDrawable(getDrawable(R.drawable.ic_iconfinder_cloudy_night));
+                    }
+                    else if(apiRz.equals("partly-cloudy-day"))
+                    {
+                        iconWeather.setImageDrawable(getDrawable(R.drawable.ic_iconfinder_cloudy_sunny));
+                    }else if(apiRz.equals("foggy"))
+                    {
+                        iconWeather.setImageDrawable(getDrawable(R.drawable.ic_iconfinder_clear_night));
+                    }
+                    else if(apiRz.equals("rain"))
+                    {
+                        iconWeather.setImageDrawable(getDrawable(R.drawable.ic_iconfinder_clear_night));
+                    }
+
+
+
+
+                    LinearLayout weatherText = findViewById(R.id.weatherText);
+                    TextView weatherSummary = new TextView(getApplicationContext());
+                    weatherText.addView(weatherSummary);
+                    weatherSummary.setText(summary);
+                    TextView weatherTemp = new TextView(getApplicationContext());
+                    weatherText.addView(weatherTemp);
+                    weatherTemp.setText("Temperatures of " + temperature + " deg C");
+
 
                 } catch (Exception e) {
                     Log.e("DarkSky :", e.toString());
@@ -192,27 +231,28 @@ public class MainActivity extends AppCompatActivity
                 Toast.makeText(MainActivity.this, "Request Failed",
                         Toast.LENGTH_SHORT).show();
             }
-            public String returnOP(String apiResult)
-            {
+
+            public String returnOP(String apiResult) {
                 return apiResult;
             }
         });
     }
-    public void WeatherDisplay()
-    {
+
+    public void WeatherDisplay() {
         if (isOnline()) {
             double longitude = 27.004;
             double latitude = 49.627;
             weather_base = weather_base.concat(Double.toString(longitude) + "," + Double.toString(latitude));
             weather_base = weather_base.concat("?units=si");
-            Log.d("WeatherAPI",weather_base);
+            Log.d("WeatherAPI", weather_base);
 
             requestData(weather_base, "currently", "icon");
-            Log.d("APIAnswer",apiRz+" Hello");
+            Log.d("APIAnswer", apiRz + " Hello");
 
         } else {
-            LinearLayout weatherView=findViewById(R.id.weatherView);
-            weatherView.addView(weatherTextView);
+            LinearLayout weatherText = findViewById(R.id.weatherText);
+            TextView weatherTextView = new TextView(getApplicationContext());
+            weatherText.addView(weatherTextView);
             weatherTextView.setText("Phone not connected");
         }
     }
