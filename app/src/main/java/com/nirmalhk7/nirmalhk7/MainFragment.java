@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,19 +75,20 @@ public class MainFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         api_link = "https://api.darksky.net/forecast/60569b87b5b2a6220c135e9b2e91646b/";
+        weather=getActivity().findViewById(R.id.weather);
         if (isOnline()) {
             double longitude = 27.004;
             double latitude = 49.627;
             api_link = api_link.concat(Double.toString(longitude) + "," + Double.toString(latitude));
             api_link = api_link.concat("?units=si");
             Log.d("WeatherAPI",api_link);
-            weather=getActivity().findViewById(R.id.weather);
             requestData(api_link, "weather");
 
 
         } else {
-            TextView weatherView=getView().findViewById(R.id.weather);
-            weatherView.setText("Phone not connected");
+            TextView error=new TextView(getContext());
+            error.setText("Phone not connected");
+            weather.addView(error);
         }
     }
     public void requestData(String url, final String category) {
@@ -107,10 +109,13 @@ public class MainFragment extends Fragment {
                         String icon = response.getJSONObject("currently").getString("icon");
                         String temp = response.getJSONObject("currently").getString("temperature");
                         String summary = response.getJSONObject("currently").getString("summary");
-                        String rainToday=response.getJSONObject("currently").getString("summary");
+                        String rainWeek=response.getJSONObject("currently").getString("summary");
                         Log.d("WeatherAPI",icon+"with"+temp);
                         weather=getActivity().findViewById(R.id.weather);
                         ImageView weatherIcon=new ImageView(getContext());
+
+
+
                         if (icon.equals("clear-day")) {
                             weatherIcon.setImageResource(R.drawable.ic_iconfinder_sunny);
                             weather.addView(weatherIcon);
@@ -127,7 +132,7 @@ public class MainFragment extends Fragment {
                             weatherIcon.setImageResource(R.drawable.ic_iconfinder_foggy);
                             weather.addView(weatherIcon);
                         } else if (icon.equals("cloudy")) {
-                            weatherIcon.setImageResource(R.drawable.ic_iconfinder_foggy);
+                            weatherIcon.setImageResource(R.drawable.ic_iconfinder_cloudy);
                             weather.addView(weatherIcon);
                         } else if (icon.equals("partly-cloudy-day")) {
                             weatherIcon.setImageResource(R.drawable.ic_iconfinder_partly_cloudy_sunny);
@@ -137,14 +142,20 @@ public class MainFragment extends Fragment {
                             weather.addView(weatherIcon);
                         }
                         Log.d("APIAnswer", icon + temp);
+                        weatherIcon.getLayoutParams().height=200;
+                        weatherIcon.getLayoutParams().width=200;
                         LinearLayout weatherDesc=new LinearLayout(getContext());
                         weatherDesc.setOrientation(LinearLayout.VERTICAL);
                         TextView summaryText=new TextView(getContext());
-                        summaryText.setText(summary);
-                        TextView temperatureText=new TextView(getContext());
-                        temperatureText.setText(temp+"C");
+                        summaryText.setText(summary+". Temperature "+temp+"C");
+
+                        TextView dailyProbability=new TextView(getContext());
+                        dailyProbability.setText(temp+"C");
+
+
                         weatherDesc.addView(summaryText);
-                        weatherDesc.addView(temperatureText);
+                        weatherDesc.addView(dailyProbability);
+                        weatherDesc.setVerticalGravity(Gravity.CENTER);
                         weather.addView(weatherDesc);
                     }
 
