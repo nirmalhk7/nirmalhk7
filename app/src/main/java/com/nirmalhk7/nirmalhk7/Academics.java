@@ -75,7 +75,6 @@ public class Academics extends Fragment {
     }
 
 
-
     @Override
     public void onDetach() {
         super.onDetach();
