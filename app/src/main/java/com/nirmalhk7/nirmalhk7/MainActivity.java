@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -34,8 +36,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        TextView weather= findViewById(R.id.weatherbox);
-        weather.setText("Hello Yaar");
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -43,8 +44,12 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        if (savedInstanceState == null) {
+            navigationView.getMenu().performIdentifierAction(R.id.nav_dashboard, 0);
+        }
 
     }
 
@@ -86,19 +91,21 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         if (id == R.id.nav_dashboard) {
+            Fragment newFragment = new MainFragment();
+            transaction.replace(R.id.fullscreen, newFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_schedule) {
 
         } else if (id == R.id.nav_academics) {
-            Intent i = new Intent(MainActivity.this, AcademicsActivity.class);
-            startActivity(i);
-        } else if (id == R.id.nav_academics) {
-
-        } else if (id == R.id.nav_academics) {
-
-        } else if (id == R.id.nav_academics) {
-
+            Fragment newFragment = new Academics();
+            transaction.replace(R.id.fullscreen, newFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
