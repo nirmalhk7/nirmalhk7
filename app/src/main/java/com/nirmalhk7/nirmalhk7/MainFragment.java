@@ -109,7 +109,7 @@ public class MainFragment extends Fragment {
                         String icon = response.getJSONObject("currently").getString("icon");
                         String temp = response.getJSONObject("currently").getString("temperature");
                         String summary = response.getJSONObject("currently").getString("summary");
-                        String rainWeek=response.getJSONObject("currently").getString("summary");
+                        String rainWeek=response.getJSONObject("currently").getString("precipProbability");
                         Log.d("WeatherAPI",icon+"with"+temp);
                         weather=getActivity().findViewById(R.id.weather);
                         ImageView weatherIcon=new ImageView(getContext());
@@ -150,7 +150,7 @@ public class MainFragment extends Fragment {
                         summaryText.setText(summary+". Temperature "+temp+"C");
 
                         TextView dailyProbability=new TextView(getContext());
-                        dailyProbability.setText(temp+"C");
+                        dailyProbability.setText(rainWeek);
 
 
                         weatherDesc.addView(summaryText);
