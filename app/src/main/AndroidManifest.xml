@@ -25,11 +25,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".DailySchedule"
-            android:label="@string/title_activity_daily_schedule">
-
-        </activity>
 
     </application>
 

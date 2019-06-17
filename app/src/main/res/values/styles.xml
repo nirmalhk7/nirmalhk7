@@ -10,15 +10,7 @@
         <item name="windowActionBar">false</item>
     </style>
 
-    <style name="AppTheme.NoActionBar">
-<<<<<<< HEAD
 
-
-=======
-        <item name="windowActionBar">true</item>
-        <item name="windowNoTitle">true</item>
->>>>>>> cb10b32083ec2474e5f7c7ec686221a738038cba
-    </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 

@@ -1,17 +1,7 @@
 <resources>
     <string name="app_name">nirmalhk7</string>
-<<<<<<< HEAD
-    <string name="entrydisplay">Welcome</string>
-    <string name="dailyscheduler">Your Schedule</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Nirmal Khedkar</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_daily_schedule">DailySchedule</string>
-    <string name="section_format">Hello World from section: %1$d</string>
-=======
+
+
     <string name="entrydisplay_name">Welcome</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -24,5 +14,4 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
->>>>>>> cb10b32083ec2474e5f7c7ec686221a738038cba
 </resources>

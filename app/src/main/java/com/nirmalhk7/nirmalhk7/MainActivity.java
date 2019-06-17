@@ -34,10 +34,6 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private String weather_base = "https://api.darksky.net/forecast/60569b87b5b2a6220c135e9b2e91646b/";
-    //12.9894,74.8006?units=si
-    private TextView weatherTextView;
-    public String apiRz;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,7 +109,10 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_schedule) {
-
+            Fragment newFragment = new DailySchedule();
+            transaction.replace(R.id.fullscreen, newFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
         } else if (id == R.id.nav_academics) {
             Fragment newFragment = new Academics();
             transaction.replace(R.id.fullscreen, newFragment);
