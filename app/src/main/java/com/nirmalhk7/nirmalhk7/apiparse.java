@@ -13,6 +13,7 @@ import org.json.JSONObject;
 import cz.msebera.android.httpclient.Header;
 
 public class apiparse {
+    public static String apir;
     public static void requestData(String url, final String field, final String query) {
         //Everything below is part of the Android Asynchronous HTTP Client
 
@@ -23,11 +24,11 @@ public class apiparse {
             public void onSuccess(int statusCode, Header[] headers,
                                   JSONObject response) {
                 // called when response HTTP status is "200 OK"
-                Log.d("Bitcoin", "JSON: " + response.toString());
+                Log.d("WeatherAPI", "JSON: " + response.toString());
 
                 try {
-                    String apir = response.getJSONObject(field).getString(query);
-
+                   apir = response.getJSONObject(field).getString(query);
+                    Log.d("APIAnswer",apir);
 
                 } catch (Exception e) {
                     Log.e("DarkSky :", e.toString());

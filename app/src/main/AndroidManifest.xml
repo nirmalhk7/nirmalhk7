@@ -15,10 +15,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".AcademicsActivity"
-            android:label="@string/title_activity_academics"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity
             android:name=".MainActivity"
             android:label="@string/entrydisplay_name"
             android:theme="@style/AppTheme.NoActionBar">

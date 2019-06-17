@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -55,44 +57,15 @@ public class MainActivity extends AppCompatActivity
             }
         });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
-
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-        weatherTextView=new TextView(getApplicationContext());
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        WeatherDisplay();
-
-    }
-
-
-
-    private boolean isOnline() {
-        // get Connectivity Manager object to check connection
-        ConnectivityManager connec = (ConnectivityManager) getSystemService(getBaseContext().CONNECTIVITY_SERVICE);
-
-        // Check for network connections
-        if (connec.getNetworkInfo(0).getState() ==
-                android.net.NetworkInfo.State.CONNECTED ||
-                connec.getNetworkInfo(0).getState() ==
-                        android.net.NetworkInfo.State.CONNECTING ||
-                connec.getNetworkInfo(1).getState() ==
-                        android.net.NetworkInfo.State.CONNECTING ||
-                connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTED) {
-
-            return true;
-        } else if (
-                connec.getNetworkInfo(0).getState() ==
-                        android.net.NetworkInfo.State.DISCONNECTED ||
-                        connec.getNetworkInfo(1).getState() ==
-                                android.net.NetworkInfo.State.DISCONNECTED) {
-
-            return false;
+        if (savedInstanceState == null) {
+            navigationView.getMenu().performIdentifierAction(R.id.nav_dashboard, 0);
         }
-        return false;
-
     }
 
     @Override
@@ -133,19 +106,21 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         if (id == R.id.nav_dashboard) {
+            Fragment newFragment = new MainFragment();
+            transaction.replace(R.id.fullscreen, newFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_schedule) {
 
         } else if (id == R.id.nav_academics) {
-            Intent i = new Intent(MainActivity.this, AcademicsActivity.class);
-            startActivity(i);
-        } else if (id == R.id.nav_academics) {
-
-        } else if (id == R.id.nav_academics) {
-
-        } else if (id == R.id.nav_academics) {
-
+            Fragment newFragment = new Academics();
+            transaction.replace(R.id.fullscreen, newFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -153,68 +128,6 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    public void requestData(String url, final String field, final String query) {
-        //Everything below is part of the Android Asynchronous HTTP Client
 
-        AsyncHttpClient client = new AsyncHttpClient();
-        client.get(url, new JsonHttpResponseHandler() {
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers,
-                                  JSONObject response) {
-                // called when response HTTP status is "200 OK"
-                Log.d("Bitcoin", "JSON: " + response.toString());
-
-                try {
-                        apiRz = response.getJSONObject(field).getString(query);
-
-                        LinearLayout weatherView=findViewById(R.id.weatherView);
-                        ImageView iconWeather=new ImageView(getApplicationContext());
-                        weatherView.addView(iconWeather);
-                        iconWeather.setImageDrawable(getDrawable(R.drawable.ic_menu_camera));
-
-                } catch (Exception e) {
-                    Log.e("DarkSky :", e.toString());
-                }
-
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable e,
-                                  JSONObject response) {
-
-                // called when response HTTP status is "4XX" (eg. 401, 403, 404)
-
-                Log.d("Bitcoin r", "Request fail! Status code: " + statusCode);
-                Log.d("Bitcoin z", "Fail response: " + response);
-                Log.e("ERROR", e.toString());
-
-                Toast.makeText(MainActivity.this, "Request Failed",
-                        Toast.LENGTH_SHORT).show();
-            }
-            public String returnOP(String apiResult)
-            {
-                return apiResult;
-            }
-        });
-    }
-    public void WeatherDisplay()
-    {
-        if (isOnline()) {
-            double longitude = 27.004;
-            double latitude = 49.627;
-            weather_base = weather_base.concat(Double.toString(longitude) + "," + Double.toString(latitude));
-            weather_base = weather_base.concat("?units=si");
-            Log.d("WeatherAPI",weather_base);
-
-            requestData(weather_base, "currently", "icon");
-            Log.d("APIAnswer",apiRz+" Hello");
-
-        } else {
-            LinearLayout weatherView=findViewById(R.id.weatherView);
-            weatherView.addView(weatherTextView);
-            weatherTextView.setText("Phone not connected");
-        }
-    }
 
 }
