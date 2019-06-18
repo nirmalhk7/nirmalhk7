@@ -3,13 +3,19 @@ package com.nirmalhk7.nirmalhk7;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabItem;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TableLayout;
+import android.widget.TextView;
 
 
 /**
@@ -53,6 +59,8 @@ public class DailySchedule extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+    DemoCollectionPagerAdapter demoCollectionPagerAdapter;
+    ViewPager viewPager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,6 +69,7 @@ public class DailySchedule extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
@@ -70,12 +79,51 @@ public class DailySchedule extends Fragment {
         return inflater.inflate(R.layout.fragment_daily_schedule, container, false);
     }
 
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        demoCollectionPagerAdapter = new DemoCollectionPagerAdapter(getChildFragmentManager());
+        viewPager = view.findViewById(R.id.pager);
+        viewPager.setAdapter(demoCollectionPagerAdapter);
+        TabLayout tabLayout = view.findViewById(R.id.tablayout);
+        tabLayout.setupWithViewPager(viewPager);
+    }
+
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
     }
+    public class DemoCollectionPagerAdapter extends FragmentStatePagerAdapter {
+        public DemoCollectionPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int i) {
+            Fragment fragment = new DemoObjectFragment();
+            Bundle args = new Bundle();
+            // Our object is just an integer :-P
+            args.putInt(DemoObjectFragment.ARG_OBJECT, i + 1);
+            fragment.setArguments(args);
+            return fragment;
+        }
+
+        @Override
+        public int getCount() {
+            return 100;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return "OBJECT " + (position + 1);
+        }
+    }
+
+    // Instances of this class are fragments representing a single
+// object in our collection.
+
 /*
     @Override
     public void onAttach(Context context) {
