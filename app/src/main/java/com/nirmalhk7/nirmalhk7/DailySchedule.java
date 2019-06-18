@@ -3,10 +3,13 @@ package com.nirmalhk7.nirmalhk7;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.TabItem;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TableLayout;
 
 
 /**
@@ -106,3 +109,4 @@ public class DailySchedule extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 }
+
