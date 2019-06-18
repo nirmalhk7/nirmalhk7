@@ -10,9 +10,13 @@
             android:title="Dashboard" />
 
         <item
+            android:id="@+id/nav_tasks"
+            android:icon="@drawable/ic_check_black"
+            android:title="Tasks Manager" />
+        <item
             android:id="@+id/nav_manage"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:title="Settings" />
     </group>
 
     <item android:title="Academics">
@@ -27,10 +31,16 @@
                 android:title="Marks Manager" />
         </menu>
     </item>
-
     <item android:title="DevWorld">
         <menu>
-
+            <item
+                android:id="@+id/nav_chedule"
+                android:icon="@drawable/ic_schedule"
+                android:title="Daily Scheduler" />
+            <item
+                android:id="@+id/navacademics"
+                android:icon="@drawable/ic_marksmanager"
+                android:title="Marks Manager" />
         </menu>
     </item>
 
