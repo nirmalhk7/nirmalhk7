@@ -20,6 +20,7 @@
             android:background="@color/colorPrimary"
             android:minHeight="?attr/actionBarSize"
             app:tabMode="scrollable"
+            app:tabIndicatorColor="@color/colorAccent"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
             <android.support.design.widget.TabItem
                 android:layout_width="wrap_content"
