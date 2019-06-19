@@ -148,7 +148,6 @@ public class MainFragment extends Fragment {
                         weatherDesc.setOrientation(LinearLayout.VERTICAL);
                         TextView summaryText=new TextView(getContext());
                         summaryText.setText(summary+". Temperature "+temp+"C");
-
                         TextView dailyProbability=new TextView(getContext());
                         dailyProbability.setText(rainWeek);
 
