@@ -94,6 +94,8 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent i=new Intent(MainActivity.this,SettingsActivity.class);
+            startActivity(i);
             return true;
         }
 
@@ -113,7 +115,8 @@ public class MainActivity extends AppCompatActivity
             transaction.addToBackStack(null);
             transaction.commit();
         } else if (id == R.id.nav_manage) {
-
+            Intent i=new Intent(MainActivity.this,SettingsActivity.class);
+            startActivity(i);
         } else if (id == R.id.nav_schedule) {
 
         } else if (id == R.id.nav_academics) {
