@@ -42,6 +42,9 @@ public class MainFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private String api_link;
+    GPSTracker gps;
+    public double longitude;
+    public double latitude;
 
     private OnFragmentInteractionListener mListener;
 
@@ -77,8 +80,13 @@ public class MainFragment extends Fragment {
         api_link = "https://api.darksky.net/forecast/60569b87b5b2a6220c135e9b2e91646b/";
         weather=getActivity().findViewById(R.id.weather);
         if (isOnline()) {
-            double longitude = 27.004;
-            double latitude = 49.627;
+
+            gps=new GPSTracker(getContext());
+            longitude=gps.getLongitude();
+
+            Log.d("GPSTRACKER","D"+longitude);
+            longitude = 27.004;
+            latitude = 49.627;
             api_link = api_link.concat(Double.toString(longitude) + "," + Double.toString(latitude));
             api_link = api_link.concat("?units=si");
             Log.d("WeatherAPI",api_link);
