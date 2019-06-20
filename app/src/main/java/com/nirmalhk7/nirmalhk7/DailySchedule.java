@@ -59,8 +59,6 @@ public class DailySchedule extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-    DemoCollectionPagerAdapter demoCollectionPagerAdapter;
-    ViewPager viewPager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,6 +67,8 @@ public class DailySchedule extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        ViewPager viewPager = getActivity().findViewById(R.id.view_pager);
+        viewPager.setAdapter(new ViewPagerAdapter(getActivity().getSupportFragmentManager()));
 
     }
 
@@ -80,14 +80,7 @@ public class DailySchedule extends Fragment {
     }
 
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        demoCollectionPagerAdapter = new DemoCollectionPagerAdapter(getChildFragmentManager());
-        viewPager = view.findViewById(R.id.pager);
-        viewPager.setAdapter(demoCollectionPagerAdapter);
-        TabLayout tabLayout = view.findViewById(R.id.tablayout);
-        tabLayout.setupWithViewPager(viewPager);
-    }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -95,32 +88,6 @@ public class DailySchedule extends Fragment {
             mListener.onFragmentInteraction(uri);
         }
     }
-    public class DemoCollectionPagerAdapter extends FragmentStatePagerAdapter {
-        public DemoCollectionPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int i) {
-            Fragment fragment = new DemoObjectFragment();
-            Bundle args = new Bundle();
-            // Our object is just an integer :-P
-            args.putInt(DemoObjectFragment.ARG_OBJECT, i + 1);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        @Override
-        public int getCount() {
-            return 100;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return "OBJECT " + (position + 1);
-        }
-    }
-
     // Instances of this class are fragments representing a single
 // object in our collection.
 
