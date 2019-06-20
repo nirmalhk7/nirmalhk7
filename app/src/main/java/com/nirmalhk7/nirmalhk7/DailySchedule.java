@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,6 +58,8 @@ public class DailySchedule extends Fragment {
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
+
+
         return fragment;
     }
 
@@ -67,8 +70,16 @@ public class DailySchedule extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        ViewPager viewPager = getActivity().findViewById(R.id.view_pager);
-        viewPager.setAdapter(new ViewPagerAdapter(getActivity().getSupportFragmentManager()));
+       /* ViewPager viewPager=new ViewPager(getContext());
+        do {
+            try{
+                viewPager = getActivity().findViewById(R.id.view_pager);
+            }
+            catch (Exception e){
+                Log.d("VIEWPAGER","Exception 1");
+            }
+        }while(viewPager==null);
+        viewPager.setAdapter(new ViewPagerAdapter(getActivity().getSupportFragmentManager()));*/
 
     }
 
@@ -77,6 +88,8 @@ public class DailySchedule extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_daily_schedule, container, false);
+
+
     }
 
 
