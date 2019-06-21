@@ -2,6 +2,8 @@ package com.nirmalhk7.nirmalhk7;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -72,8 +74,17 @@ public class callManagerFragment extends Fragment {
             }
             recyclerView.setAdapter(new MycallManagerRecyclerViewAdapter(DummyContent.ITEMS, mListener));
         }
-        Toolbar x=getActivity().findViewById(R.id.toolbar);
 
+        FloatingActionButton fab = getActivity().findViewById(R.id.fab);
+        fab.setVisibility(View.VISIBLE);
+        fab.setImageResource(android.R.drawable.ic_menu_add);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
         return view;
     }
 
