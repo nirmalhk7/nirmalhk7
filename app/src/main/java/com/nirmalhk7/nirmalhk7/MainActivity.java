@@ -127,7 +127,10 @@ public class MainActivity extends AppCompatActivity
             transaction.commit();
         } else if(id==R.id.nav_callManager)
         {
-
+            Fragment newFragment = new callManagerFragment();
+            transaction.replace(R.id.fullscreen, newFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
