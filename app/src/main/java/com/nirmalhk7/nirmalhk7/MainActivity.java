@@ -110,6 +110,7 @@ public class MainActivity extends AppCompatActivity
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         if (id == R.id.nav_dashboard) {
+
             Fragment newFragment = new MainFragment();
             transaction.replace(R.id.fullscreen, newFragment);
             transaction.addToBackStack(null);
@@ -124,6 +125,9 @@ public class MainActivity extends AppCompatActivity
             transaction.replace(R.id.fullscreen, newFragment);
             transaction.addToBackStack(null);
             transaction.commit();
+        } else if(id==R.id.nav_callManager)
+        {
+
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
