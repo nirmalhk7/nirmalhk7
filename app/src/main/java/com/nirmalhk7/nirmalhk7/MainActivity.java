@@ -13,20 +13,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import com.nirmalhk7.nirmalhk7.academics.Academics;
 import com.nirmalhk7.nirmalhk7.callmanager.callManagerFragment;
+import com.nirmalhk7.nirmalhk7.dailyscheduler.DailySchedule;
+import com.nirmalhk7.nirmalhk7.dailyscheduler.DailyScheduleList;
 import com.nirmalhk7.nirmalhk7.settings.SettingsActivity;
 
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private String weather_base = "https://api.darksky.net/forecast/60569b87b5b2a6220c135e9b2e91646b/";
-    //12.9894,74.8006?units=si
-    private TextView weatherTextView;
-    public String apiRz;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +40,7 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
         if (savedInstanceState == null) {
             navigationView.getMenu().performIdentifierAction(R.id.nav_dashboard, 0);
         }
@@ -89,9 +87,10 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        Fragment newFragment;
         if (id == R.id.nav_dashboard) {
 
-            Fragment newFragment = new MainFragment();
+            newFragment = new MainFragment();
             transaction.replace(R.id.fullscreen, newFragment);
             transaction.addToBackStack(null);
             transaction.commit();
@@ -99,15 +98,24 @@ public class MainActivity extends AppCompatActivity
             Intent i=new Intent(MainActivity.this,SettingsActivity.class);
             startActivity(i);
         } else if (id == R.id.nav_schedule) {
-
+            newFragment = new DailySchedule();
+            transaction.replace(R.id.fullscreen, newFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
         } else if (id == R.id.nav_academics) {
-            Fragment newFragment = new Academics();
+            newFragment = new Academics();
             transaction.replace(R.id.fullscreen, newFragment);
             transaction.addToBackStack(null);
             transaction.commit();
         } else if(id==R.id.nav_callManager)
         {
-            Fragment newFragment = new callManagerFragment();
+            newFragment = new callManagerFragment();
+            transaction.replace(R.id.fullscreen, newFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        }else if(id==R.id.nav_tsks)
+        {
+            newFragment = new DailyScheduleList();
             transaction.replace(R.id.fullscreen, newFragment);
             transaction.addToBackStack(null);
             transaction.commit();

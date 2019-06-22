@@ -1,4 +1,4 @@
-package com.nirmalhk7.nirmalhk7.dummy;
+package com.nirmalhk7.nirmalhk7.dailyscheduler.dummy;
 
 import java.util.ArrayList;
 import java.util.HashMap;
