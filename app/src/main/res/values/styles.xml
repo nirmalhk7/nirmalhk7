@@ -10,6 +10,8 @@
         <item name="android:textColorPrimary">@color/colorFontDark</item>
         <item name="android:actionMenuTextColor">@color/colorFontDark</item>
 
+        <item name="android:textColor">@color/colorFontDark</item>
+
     </style>
 
     <style name="AppTheme.NoActionBar">
