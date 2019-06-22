@@ -4,9 +4,15 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 
 /**
@@ -64,7 +70,26 @@ public class Academics extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_academics, container, false);
+        View view= inflater.inflate(R.layout.fragment_academics, container, false);
+        EditText[] sgpa=new EditText[8];
+        EditText[] credits=new EditText[8];
+        LinearLayout semPtr=view.findViewById(R.id.semPtr);
+        LinearLayout semCred=view.findViewById(R.id.semCred);
+        for(int i=1;i<=8;++i)
+        {
+
+
+            sgpa[(i-1)]=new EditText(getContext());
+            sgpa[(i-1)].setInputType(InputType.TYPE_CLASS_NUMBER);
+            semPtr.addView(sgpa[(i-1)]);
+
+            credits[(i-1)]=new EditText(getContext());
+            credits[(i-1)].setInputType(InputType.TYPE_CLASS_NUMBER);
+            semCred.addView(credits[(i-1)]);
+
+        }
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
