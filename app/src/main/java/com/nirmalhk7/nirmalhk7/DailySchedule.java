@@ -96,6 +96,7 @@ public class DailySchedule extends Fragment {
         viewPager.setAdapter(myPagerAdapter);
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tablayout);
         tabLayout.setupWithViewPager(viewPager);
+
         return view;
 
     }
