@@ -1,9 +1,11 @@
-package com.nirmalhk7.nirmalhk7;
+package com.nirmalhk7.nirmalhk7.widget;
 
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.widget.RemoteViews;
+
+import com.nirmalhk7.nirmalhk7.R;
 
 /**
  * Implementation of App Widget functionality.
