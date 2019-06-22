@@ -1,4 +1,4 @@
-package com.nirmalhk7.nirmalhk7;
+package com.nirmalhk7.nirmalhk7.settings;
 
 import android.content.res.Configuration;
 import android.os.Bundle;

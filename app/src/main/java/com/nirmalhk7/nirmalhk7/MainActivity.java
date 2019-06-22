@@ -1,15 +1,10 @@
 package com.nirmalhk7.nirmalhk7;
 
-import android.content.pm.PackageManager;
-import android.net.ConnectivityManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.util.Log;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -18,17 +13,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-
-import org.json.JSONObject;
-
-
-import android.widget.TextView;
+import com.nirmalhk7.nirmalhk7.academics.Academics;
+import com.nirmalhk7.nirmalhk7.callmanager.callManagerFragment;
+import com.nirmalhk7.nirmalhk7.settings.SettingsActivity;
 
 
 public class MainActivity extends AppCompatActivity
@@ -42,13 +31,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        fab.hide();
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -88,7 +71,7 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Intent i=new Intent(MainActivity.this,SettingsActivity.class);
+            Intent i=new Intent(MainActivity.this, SettingsActivity.class);
             startActivity(i);
             return true;
         }

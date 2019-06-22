@@ -1,4 +1,4 @@
-package com.nirmalhk7.nirmalhk7;
+package com.nirmalhk7.nirmalhk7.callmanager;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -6,7 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.nirmalhk7.nirmalhk7.callManagerFragment.OnListFragmentInteractionListener;
+import com.nirmalhk7.nirmalhk7.R;
+import com.nirmalhk7.nirmalhk7.callmanager.callManagerFragment.OnListFragmentInteractionListener;
 import com.nirmalhk7.nirmalhk7.dummy.DummyContent.DummyItem;
 
 import java.util.List;
