@@ -20,17 +20,26 @@ public class TabAdapter extends FragmentStatePagerAdapter {
         switch (position){
             case 0: return new DailyScheduleList();
             case 1: return new DailyScheduleList();
-            case 2: return new Academics();
+            case 2: return new DailyScheduleList();
+            case 3: return new DailyScheduleList();
+            case 4: return new DailyScheduleList();
+            case 5: return new DailyScheduleList();
+            case 6: return new DailyScheduleList();
         }
         return null;
     }
     @Override
     public int getCount() {
-        return 3;
+        return 7;
     }
     @Override    public CharSequence getPageTitle(int position) {switch (position){
-        case 0: return "Tab X";
-        case 1: return "Tab 2";
+        case 0: return "Sunday";
+        case 1: return "Monday";
+        case 2: return "Tuesday";
+        case 3: return "Wednesday";
+        case 4: return "Thursday";
+        case 5: return "Friday";
+        case 6: return "Saturday";
         default: return null;
     }
     }
