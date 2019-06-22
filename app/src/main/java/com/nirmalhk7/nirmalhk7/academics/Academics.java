@@ -1,26 +1,27 @@
-package com.nirmalhk7.nirmalhk7;
+package com.nirmalhk7.nirmalhk7.academics;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.TabItem;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TableLayout;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+
+import com.nirmalhk7.nirmalhk7.R;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link DailySchedule.OnFragmentInteractionListener} interface
+ * {@link Academics.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link DailySchedule#newInstance} factory method to
+ * Use the {@link Academics#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DailySchedule extends Fragment {
+public class Academics extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -32,7 +33,7 @@ public class DailySchedule extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public DailySchedule() {
+    public Academics() {
         // Required empty public constructor
     }
 
@@ -42,11 +43,11 @@ public class DailySchedule extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment DailySchedule.
+     * @return A new instance of fragment Academics.
      */
     // TODO: Rename and change types and number of parameters
-    public static DailySchedule newInstance(String param1, String param2) {
-        DailySchedule fragment = new DailySchedule();
+    public static Academics newInstance(String param1, String param2) {
+        Academics fragment = new Academics();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -67,7 +68,26 @@ public class DailySchedule extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_daily_schedule, container, false);
+        View view= inflater.inflate(R.layout.fragment_academics, container, false);
+        EditText[] sgpa=new EditText[8];
+        EditText[] credits=new EditText[8];
+        LinearLayout semPtr=view.findViewById(R.id.semPtr);
+        LinearLayout semCred=view.findViewById(R.id.semCred);
+        for(int i=1;i<=8;++i)
+        {
+
+
+            sgpa[(i-1)]=new EditText(getContext());
+            sgpa[(i-1)].setInputType(InputType.TYPE_CLASS_NUMBER);
+            semPtr.addView(sgpa[(i-1)]);
+
+            credits[(i-1)]=new EditText(getContext());
+            credits[(i-1)].setInputType(InputType.TYPE_CLASS_NUMBER);
+            semCred.addView(credits[(i-1)]);
+
+        }
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -75,19 +95,10 @@ public class DailySchedule extends Fragment {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
+        getUserVisibleHint();
     }
-/*
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-*/
+
+
     @Override
     public void onDetach() {
         super.onDetach();
@@ -109,4 +120,3 @@ public class DailySchedule extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 }
-

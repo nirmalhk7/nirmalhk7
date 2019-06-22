@@ -1,23 +1,28 @@
-package com.nirmalhk7.nirmalhk7;
+package com.nirmalhk7.nirmalhk7.dailyscheduler;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.nirmalhk7.nirmalhk7.R;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link Academics.OnFragmentInteractionListener} interface
+ * {@link DailySchedule.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link Academics#newInstance} factory method to
+ * Use the {@link DailySchedule#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Academics extends Fragment {
+public class DailySchedule extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -29,7 +34,7 @@ public class Academics extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public Academics() {
+    public DailySchedule() {
         // Required empty public constructor
     }
 
@@ -39,15 +44,17 @@ public class Academics extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment Academics.
+     * @return A new instance of fragment DailySchedule.
      */
     // TODO: Rename and change types and number of parameters
-    public static Academics newInstance(String param1, String param2) {
-        Academics fragment = new Academics();
+    public static DailySchedule newInstance(String param1, String param2) {
+        DailySchedule fragment = new DailySchedule();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
+
+
         return fragment;
     }
 
@@ -60,12 +67,33 @@ public class Academics extends Fragment {
         }
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_academics, container, false);
+        View view= inflater.inflate(R.layout.fragment_daily_schedule, container, false);
+
+        ViewPager viewPager = (ViewPager) view.findViewById(R.id.view_pager);
+        TabAdapter myPagerAdapter = new TabAdapter(getActivity().getSupportFragmentManager());
+        viewPager.setAdapter(myPagerAdapter);
+        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tablayout);
+        tabLayout.setupWithViewPager(viewPager);
+
+        FloatingActionButton fab = view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+        return view;
+
     }
+
+
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -73,8 +101,21 @@ public class Academics extends Fragment {
             mListener.onFragmentInteraction(uri);
         }
     }
+    // Instances of this class are fragments representing a single
+// object in our collection.
 
-
+/*
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+*/
     @Override
     public void onDetach() {
         super.onDetach();
@@ -96,3 +137,4 @@ public class Academics extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 }
+

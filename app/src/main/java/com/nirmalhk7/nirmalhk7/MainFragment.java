@@ -148,9 +148,20 @@ public class MainFragment extends Fragment {
                         weatherDesc.setOrientation(LinearLayout.VERTICAL);
                         TextView summaryText=new TextView(getContext());
                         summaryText.setText(summary+". Temperature "+temp+"C");
-
                         TextView dailyProbability=new TextView(getContext());
-                        dailyProbability.setText(rainWeek);
+                        if(Integer.parseInt(rainWeek)>0.5)
+                        {
+                            dailyProbability.setText(Integer.parseInt(rainWeek)*100+"% chance of rain!");
+                        }
+                        else if(Integer.parseInt(rainWeek)<0.5&&Integer.parseInt(rainWeek)>0.2)
+                        {
+                            dailyProbability.setText("Small probability of rain!");
+                        }
+                        else{
+                           dailyProbability.setText("Expect no rain!");
+                        }
+
+
 
 
                         weatherDesc.addView(summaryText);

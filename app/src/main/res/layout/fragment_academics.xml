@@ -3,12 +3,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Academics">
+    tools:context=".academics.Academics">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="15dp"
+            android:orientation="horizontal"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_weight="0.3"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/semPtr"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_weight="0.3"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/semCred"/>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+
 
 </FrameLayout>
