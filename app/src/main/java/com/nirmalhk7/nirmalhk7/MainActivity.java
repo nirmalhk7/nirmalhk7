@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         if (savedInstanceState == null) {
@@ -104,6 +104,7 @@ public class MainActivity extends AppCompatActivity
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         if (id == R.id.nav_dashboard) {
+
             Fragment newFragment = new MainFragment();
             transaction.replace(R.id.fullscreen, newFragment);
             transaction.addToBackStack(null);
@@ -118,6 +119,12 @@ public class MainActivity extends AppCompatActivity
             transaction.commit();
         } else if (id == R.id.nav_academics) {
             Fragment newFragment = new Academics();
+            transaction.replace(R.id.fullscreen, newFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        } else if(id==R.id.nav_callManager)
+        {
+            Fragment newFragment = new callManagerFragment();
             transaction.replace(R.id.fullscreen, newFragment);
             transaction.addToBackStack(null);
             transaction.commit();

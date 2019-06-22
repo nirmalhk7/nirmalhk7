@@ -8,6 +8,7 @@
             android:id="@+id/nav_dashboard"
             android:icon="@drawable/ic_home"
             android:title="Dashboard" />
+
         <item
             android:id="@+id/nav_tasks"
             android:icon="@drawable/ic_check_black"
@@ -30,16 +31,16 @@
                 android:title="Marks Manager" />
         </menu>
     </item>
-    <item android:title="DevWorld">
+    <item android:title="Life">
         <menu>
             <item
-                android:id="@+id/nav_chedule"
-                android:icon="@drawable/ic_schedule"
-                android:title="Daily Scheduler" />
+                android:id="@+id/nav_callManager"
+                android:icon="@drawable/ic_contact_phone_black"
+                android:title="Call Mananger" />
             <item
-                android:id="@+id/navacademics"
-                android:icon="@drawable/ic_marksmanager"
-                android:title="Marks Manager" />
+                android:id="@+id/nav_tsks"
+                android:icon="@drawable/ic_check_black"
+                android:title="Tasks Manager" />
         </menu>
     </item>
 
