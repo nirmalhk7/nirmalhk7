@@ -1,4 +1,4 @@
-package com.nirmalhk7.nirmalhk7;
+package com.nirmalhk7.nirmalhk7.dailyscheduler;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,10 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.nirmalhk7.nirmalhk7.dummy.DummyContent;
-import com.nirmalhk7.nirmalhk7.dummy.DummyContent.DummyItem;
-
-import java.util.List;
+import com.nirmalhk7.nirmalhk7.R;
+import com.nirmalhk7.nirmalhk7.dailyscheduler.dummy.DummyContent;
+import com.nirmalhk7.nirmalhk7.dailyscheduler.dummy.DummyContent.DummyItem;
 
 /**
  * A fragment representing a list of Items.

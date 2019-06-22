@@ -12,8 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.nirmalhk7.nirmalhk7.R;
-import com.nirmalhk7.nirmalhk7.dummy.DummyContent;
-import com.nirmalhk7.nirmalhk7.dummy.DummyContent.DummyItem;
+import com.nirmalhk7.nirmalhk7.dailyscheduler.dummy.DummyContent;
+import com.nirmalhk7.nirmalhk7.dailyscheduler.dummy.DummyContent.DummyItem;
 
 /**
  * A fragment representing a list of Items.

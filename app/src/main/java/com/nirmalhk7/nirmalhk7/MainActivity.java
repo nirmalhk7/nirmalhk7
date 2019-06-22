@@ -13,10 +13,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import com.nirmalhk7.nirmalhk7.academics.Academics;
 import com.nirmalhk7.nirmalhk7.callmanager.callManagerFragment;
+import com.nirmalhk7.nirmalhk7.dailyscheduler.DailySchedule;
+import com.nirmalhk7.nirmalhk7.dailyscheduler.DailyScheduleList;
 import com.nirmalhk7.nirmalhk7.settings.SettingsActivity;
 
 

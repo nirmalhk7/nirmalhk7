@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.callmanager.callManagerFragment.OnListFragmentInteractionListener;
-import com.nirmalhk7.nirmalhk7.dummy.DummyContent.DummyItem;
+import com.nirmalhk7.nirmalhk7.dailyscheduler.dummy.DummyContent.DummyItem;
 
 import java.util.List;
 

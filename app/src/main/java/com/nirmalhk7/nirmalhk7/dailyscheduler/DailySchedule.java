@@ -1,23 +1,17 @@
-package com.nirmalhk7.nirmalhk7;
+package com.nirmalhk7.nirmalhk7.dailyscheduler;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.TabItem;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TableLayout;
-import android.widget.TextView;
+
+import com.nirmalhk7.nirmalhk7.R;
 
 
 /**
@@ -71,17 +65,6 @@ public class DailySchedule extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-       /* ViewPager viewPager=new ViewPager(getContext());
-        do {
-            try{
-                viewPager = getActivity().findViewById(R.id.view_pager);
-            }
-            catch (Exception e){
-                Log.d("VIEWPAGER","Exception 1");
-            }
-        }while(viewPager==null);
-        viewPager.setAdapter(new ViewPagerAdapter(getActivity().getSupportFragmentManager()));*/
-
     }
 
 
@@ -97,6 +80,14 @@ public class DailySchedule extends Fragment {
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tablayout);
         tabLayout.setupWithViewPager(viewPager);
 
+        FloatingActionButton fab = view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
         return view;
 
     }
