@@ -1,9 +1,12 @@
 package com.nirmalhk7.nirmalhk7;
 
+import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
@@ -15,19 +18,37 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+
+import org.json.JSONObject;
+
+import cz.msebera.android.httpclient.Header;
+
+import android.widget.TextView;
+
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private String weather_base = "https://api.darksky.net/forecast/60569b87b5b2a6220c135e9b2e91646b/";
+    //12.9894,74.8006?units=si
+    private TextView weatherTextView;
+    public String apiRz;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -35,27 +56,21 @@ public class MainActivity extends AppCompatActivity
                         .setAction("Action", null).show();
             }
         });
-
-
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         if (savedInstanceState == null) {
             navigationView.getMenu().performIdentifierAction(R.id.nav_dashboard, 0);
         }
-
     }
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -79,6 +94,8 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent i=new Intent(MainActivity.this,SettingsActivity.class);
+            startActivity(i);
             return true;
         }
 
@@ -93,12 +110,14 @@ public class MainActivity extends AppCompatActivity
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         if (id == R.id.nav_dashboard) {
+
             Fragment newFragment = new MainFragment();
             transaction.replace(R.id.fullscreen, newFragment);
             transaction.addToBackStack(null);
             transaction.commit();
         } else if (id == R.id.nav_manage) {
-
+            Intent i=new Intent(MainActivity.this,SettingsActivity.class);
+            startActivity(i);
         } else if (id == R.id.nav_schedule) {
 
         } else if (id == R.id.nav_academics) {
@@ -106,10 +125,19 @@ public class MainActivity extends AppCompatActivity
             transaction.replace(R.id.fullscreen, newFragment);
             transaction.addToBackStack(null);
             transaction.commit();
+        } else if(id==R.id.nav_callManager)
+        {
+            Fragment newFragment = new callManagerFragment();
+            transaction.replace(R.id.fullscreen, newFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
+
 }

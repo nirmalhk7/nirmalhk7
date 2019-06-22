@@ -72,8 +72,8 @@ public class Academics extends Fragment {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
+        getUserVisibleHint();
     }
-
 
 
     @Override
