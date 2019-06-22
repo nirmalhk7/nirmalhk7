@@ -103,9 +103,10 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        Fragment newFragment;
         if (id == R.id.nav_dashboard) {
 
-            Fragment newFragment = new MainFragment();
+            newFragment = new MainFragment();
             transaction.replace(R.id.fullscreen, newFragment);
             transaction.addToBackStack(null);
             transaction.commit();
@@ -113,18 +114,24 @@ public class MainActivity extends AppCompatActivity
             Intent i=new Intent(MainActivity.this,SettingsActivity.class);
             startActivity(i);
         } else if (id == R.id.nav_schedule) {
-            Fragment newFragment = new DailySchedule();
+            newFragment = new DailySchedule();
             transaction.replace(R.id.fullscreen, newFragment);
             transaction.addToBackStack(null);
             transaction.commit();
         } else if (id == R.id.nav_academics) {
-            Fragment newFragment = new Academics();
+            newFragment = new Academics();
             transaction.replace(R.id.fullscreen, newFragment);
             transaction.addToBackStack(null);
             transaction.commit();
         } else if(id==R.id.nav_callManager)
         {
-            Fragment newFragment = new callManagerFragment();
+            newFragment = new callManagerFragment();
+            transaction.replace(R.id.fullscreen, newFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        }else if(id==R.id.nav_tsks)
+        {
+            newFragment = new DailyScheduleList();
             transaction.replace(R.id.fullscreen, newFragment);
             transaction.addToBackStack(null);
             transaction.commit();
