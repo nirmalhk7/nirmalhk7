@@ -8,6 +8,8 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@color/colorDark</item>
         <item name="android:textColorPrimary">@color/colorFontDark</item>
+        <item name="android:actionMenuTextColor">@color/colorFontDark</item>
+
     </style>
 
     <style name="AppTheme.NoActionBar">

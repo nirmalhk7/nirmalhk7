@@ -6,6 +6,7 @@
 
     <color name="colorPrimaryLight">#BBDEFB</color>
     <color name="colorDark">#33343B</color>
-    <color name="colorFontDark">#BBDEFB</color>
+    <color name="colorFontDark">#FFFF</color>
+    <color name="cardColorDark">#9B9B9B</color>
 
 </resources>
