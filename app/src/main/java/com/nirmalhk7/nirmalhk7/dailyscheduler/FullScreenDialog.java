@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,7 @@ import android.widget.Toolbar;
 
 import com.nirmalhk7.nirmalhk7.R;
 
-public class FullScreenDialog extends DialogFragment {
+public class FullScreenDialog extends DialogFragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.full_screen_layout, container, false);
@@ -24,7 +25,12 @@ public class FullScreenDialog extends DialogFragment {
             }
         });
         EditText label=rootView.findViewById(R.id.taskLabel);
-
+        (rootView.findViewById(R.id.button_save)).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Log.d("DailyScheduler","Saving data!");
+            }
+        });
         return rootView;
     }
 
