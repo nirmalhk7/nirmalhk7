@@ -6,6 +6,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -80,14 +82,23 @@ public class DailySchedule extends Fragment {
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tablayout);
         tabLayout.setupWithViewPager(viewPager);
 
-        FloatingActionButton fab = view.findViewById(R.id.fab);
+        FloatingActionButton fab = getActivity().findViewById(R.id.fab);
+        fab.show();
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                /*
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                        */
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FullScreenDialog newFragment = new FullScreenDialog();
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                transaction.add(android.R.id.content, newFragment).addToBackStack(null).commit();
             }
         });
+
         return view;
 
     }

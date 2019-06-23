@@ -1,6 +1,7 @@
 package com.nirmalhk7.nirmalhk7.dailyscheduler;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -13,6 +14,8 @@ import android.view.ViewGroup;
 import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.dailyscheduler.dummy.DummyContent;
 import com.nirmalhk7.nirmalhk7.dailyscheduler.dummy.DummyContent.DummyItem;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * A fragment representing a list of Items.
@@ -70,6 +73,8 @@ public class DailyScheduleList extends Fragment {
             }
             recyclerView.setAdapter(new MyItemRecyclerViewAdapter(DummyContent.ITEMS, mListener));
         }
+        SQLiteDatabase mydatabase = getActivity().openOrCreateDatabase("your database name",MODE_PRIVATE,null);
+ 
         return view;
     }
 
