@@ -70,25 +70,6 @@ public class DailyScheduleList extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_daily_schedule_list, container, false);
-        Schedule sch;
-        Schedule scha;
-        AppDatabase database = AppDatabase.getDatabase(getContext());
-        // cleanup for testing some initial data
-        database.scheduleDao().removeAllUsers();
-        List<Schedule> users = database.scheduleDao().getAll();
-        if (users.size()==0) {
-            database.scheduleDao().insert(new Schedule("Task 1","StartTime 1","Label 1"));
-            database.scheduleDao().insert(new Schedule("Task Z","StartTime Z","Label Z"));
-
-            sch = database.scheduleDao().getAll().get(0);
-            scha = database.scheduleDao().getAll().get(1);
-            Log.d("ROOM","Ans- "+sch.tasksDB);
-
-            Log.d("ROOM","Ans- "+scha.tasksDB);
-        }
-
-
-
 
 
         return view;
