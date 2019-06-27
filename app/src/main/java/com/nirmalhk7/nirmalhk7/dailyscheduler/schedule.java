@@ -8,62 +8,65 @@ import android.support.annotation.NonNull;
 @Entity
 public class schedule {
     @PrimaryKey(autoGenerate = true)
-    private Integer id;
+    private static Integer id;
 
-    private String day;
-    private String startTime;
-    private String tasks;
-    private String label;
-    private String location;
+    private static String day;
+    private static String startTime;
+    private static String tasks;
+    private static String label;
+    private static String location;
 
    /* private Integer credits;
 
     private Float pointer;*/
 
-    public Integer getId(){
+    public static Integer getId(){
         return id;
     }
-    public String getDay(){
+    public static String getDay(){
         return day;
     }
-    public String getStartTime(){
+    public static String getStartTime(){
         return startTime;
     }
-    public String getTasks(){
+    public static String getTasks(){
         return tasks;
     }
-    public String getLabel(){
+    public static String getLabel(){
         return label;
     }
-    public String getLocation(){
+    public static String getLocation(){
         return label;
     }
     /*
-    public Integer getCredits(){
+    public static Integer getCredits(){
         return credits;
     }
-    public Float getPointer(){
+    public static Float getPointer(){
         return pointer;
     }
     */
 
-    public void setId(int id){
-        this.id=id;
+    public static void setId(int Id){
+        id=id;
     }
-    public void setDay(String day){
-        this.day=day;
+    public static void setDay(String Day){
+        day=Day;
     }
-    public void setStartTime(String startTime)
+    public static void setTasks(String Tasks){
+        tasks=Tasks;
+    }
+    public static void setStartTime(String StartTime)
     {
-        this.startTime=startTime;
+        startTime=StartTime;
     }
-    public void setLabel(String label)
+    public static void setLabel(String Label)
     {
-        this.label=label;
+        label=Label;
     }
-    public void setLocation(String location)
+    public static void setLocation(String Location)
     {
-        this.location=location;
+        location=Location;
     }
 
 

@@ -4,8 +4,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.nirmalhk7.nirmalhk7.dailyscheduler.DailyScheduleList;
-
 public class TabAdapter extends FragmentStatePagerAdapter {
     public TabAdapter(FragmentManager fm){
         super(fm);
