@@ -12,7 +12,7 @@ import java.util.List;
 @Dao
 public interface scheduleDAO {
     @Insert
-    void insertAll(schedule... schedule);
+    void insertAll(schedule schedule);
 
     @Query("SELECT * FROM schedule")
     schedule[] getAll();

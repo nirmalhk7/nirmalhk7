@@ -75,7 +75,7 @@ public class DailyScheduleList extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_daily_schedule_list, container, false);
 
-        AppDatabase database = Room.databaseBuilder(getContext(), AppDatabase.class, "mydb").allowMainThreadQueries().build();
+        AppDatabase database = Room.databaseBuilder(getContext(), AppDatabase.class, "schedule").allowMainThreadQueries().build();
         scheduleDAO schDAO = database.getItemDAO();
         schedule item = new schedule();
         mday=TabAdapter.getPosition();
@@ -88,8 +88,6 @@ public class DailyScheduleList extends Fragment {
             item2.setStartTime("StartTime "+i*(mday+1));
             item2.setLabel("Label "+i*(mday+1));
             schDAO.insert(item2);
-
-
         }
         mschedule = schDAO.getAll();
 
@@ -97,7 +95,7 @@ public class DailyScheduleList extends Fragment {
         {
             Log.d("ROOM","mschedule length:"+mschedule.length);
             mschedule[i] = new schedule();
-            scheduleItem.add(new Schedule(mschedule[i].getTasks(), mschedule[i].getStartTime(), mschedule[i].getLabel()));
+            scheduleItem.add(new Schedule(mschedule[i].getTasks(), mschedule[i].getStartTime(), mschedule[i].getLabel(), mschedule[i].getId()));
 
         }
 

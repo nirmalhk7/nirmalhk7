@@ -16,11 +16,11 @@ public class Schedule {
      *                           (such as English)
      * @param miwokTranslation is the word in the Miwok language
      */
-    public Schedule(String defaultTranslation, String miwokTranslation, String Label) {
+    public Schedule(String defaultTranslation, String miwokTranslation, String Label,Integer Id) {
         mScheduleTitle = defaultTranslation;
         mTime = miwokTranslation;
         mLabel=Label;
-
+        mId=Id;
     }
     /**
      * Get the default translation of the word.
