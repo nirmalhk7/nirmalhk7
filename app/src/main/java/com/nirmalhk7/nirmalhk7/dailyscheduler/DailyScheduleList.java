@@ -2,9 +2,11 @@ package com.nirmalhk7.nirmalhk7.dailyscheduler;
 
 import android.arch.persistence.room.Room;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +34,7 @@ public class DailyScheduleList extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private Integer mday;
 
     private OnFragmentInteractionListener mListener;
 
@@ -70,25 +73,33 @@ public class DailyScheduleList extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_daily_schedule_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_daily_schedule_list, container, false);
 
         AppDatabase database = Room.databaseBuilder(getContext(), AppDatabase.class, "mydb").allowMainThreadQueries().build();
         scheduleDAO schDAO = database.getItemDAO();
         schedule item = new schedule();
-        item.setTasks("Item001");
-        item.setStartTime("Item 001");
-        item.setLabel("HEE");
-        schDAO.insert(item);
-
+        mday=TabAdapter.getPosition();
+        schedule[] mschedule;
         ArrayList<Schedule> scheduleItem = new ArrayList<Schedule>();
-        scheduleItem.add(new Schedule(item.getTasks(), "әpә","College"));
-        scheduleItem.add(new Schedule(schedule.getTasks(), "әṭa","College"));
-        scheduleItem.add(new Schedule("son", "angsi","College"));
-        scheduleItem.add(new Schedule("father", "әpә","College"));
-        scheduleItem.add(new Schedule("mother", "әṭa","College"));
-        scheduleItem.add(new Schedule("son", "angsi","College"));
-        scheduleItem.add(new Schedule("father", "әpә","College"));
-        scheduleItem.add(new Schedule("mother", "әṭa","College"));
+        for(int i=0;i<9;++i)
+        {
+            schedule item2=new schedule();
+            item2.setTasks("Task "+i*(mday+1));
+            item2.setStartTime("StartTime "+i*(mday+1));
+            item2.setLabel("Label "+i*(mday+1));
+            schDAO.insert(item2);
+
+
+        }
+        mschedule = schDAO.getAll();
+
+        for(int i=0;i<9;++i)
+        {
+            Log.d("ROOM","mschedule length:"+mschedule.length);
+            mschedule[i] = new schedule();
+            scheduleItem.add(new Schedule(mschedule[i].getTasks(), mschedule[i].getStartTime(), mschedule[i].getLabel()));
+
+        }
 
         // Create an {@link WordAdapter}, whose data source is a list of {@link Schedule}s. The
         // adapter knows how to create list items for each item in the list.

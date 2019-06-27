@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 
 @Entity
 public class schedule {
+
     @PrimaryKey(autoGenerate = true)
     private Integer id;
 

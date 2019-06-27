@@ -8,6 +8,7 @@ public class Schedule {
     /** Miwok translation for the word */
     private String mTime;
     private String mLabel;
+    private Integer mId;
     /**
      * Create a new Word object.
      *
@@ -19,6 +20,7 @@ public class Schedule {
         mScheduleTitle = defaultTranslation;
         mTime = miwokTranslation;
         mLabel=Label;
+
     }
     /**
      * Get the default translation of the word.
@@ -36,5 +38,6 @@ public class Schedule {
     public String getScheduleLabel() {
         return mLabel;
     }
+    public Integer getScheduleId(){ return mId;}
    
 }

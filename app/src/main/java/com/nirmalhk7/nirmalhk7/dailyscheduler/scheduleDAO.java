@@ -6,17 +6,17 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Dao
 public interface scheduleDAO {
     @Insert
     void insertAll(schedule... schedule);
-    @Query("SELECT * FROM schedule")
-    List<schedule> getAll();
 
     @Query("SELECT * FROM schedule")
-    public List<schedule> getSchedule();
+    schedule[] getAll();
+
 
     @Insert
     public void insert(schedule... schedules);
