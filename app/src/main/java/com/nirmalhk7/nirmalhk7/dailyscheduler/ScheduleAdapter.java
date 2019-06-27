@@ -1,25 +1,23 @@
 package com.nirmalhk7.nirmalhk7.dailyscheduler;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nirmalhk7.nirmalhk7.R;
 
 import java.util.ArrayList;
 
-public class ScheduleAdapter extends ArrayAdapter<Schedule> {
+public class ScheduleAdapter extends ArrayAdapter<scheduleItem> {
 
     /** Resource ID for the background color for this list of words */
     private int mColorResourceId;
 
 
-    public ScheduleAdapter(Context context, ArrayList<Schedule> words) {
+    public ScheduleAdapter(Context context, ArrayList<scheduleItem> words) {
         super(context, 0, words);
     }
 
@@ -32,8 +30,8 @@ public class ScheduleAdapter extends ArrayAdapter<Schedule> {
                     R.layout.list_item, parent, false);
         }
 
-        // Get the {@link Schedule} object located at this position in the list
-        Schedule currentWord = getItem(position);
+        // Get the {@link scheduleItem} object located at this position in the list
+        scheduleItem currentWord = getItem(position);
 
         // Find the TextView in the list_item.xml layout with the ID miwok_text_view.
         TextView miwokTextView = (TextView) listItemView.findViewById(R.id.miwok_text_view);

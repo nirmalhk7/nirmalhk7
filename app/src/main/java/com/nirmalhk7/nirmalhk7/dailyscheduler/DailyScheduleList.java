@@ -1,8 +1,5 @@
 package com.nirmalhk7.nirmalhk7.dailyscheduler;
 
-import android.arch.persistence.room.Room;
-import android.content.Context;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,11 +7,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 import com.nirmalhk7.nirmalhk7.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -69,48 +64,33 @@ public class DailyScheduleList extends Fragment {
         }
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_daily_schedule_list, container, false);
+        Schedule sch;
+        Schedule scha;
+        AppDatabase database = AppDatabase.getDatabase(getContext());
+        // cleanup for testing some initial data
+        database.scheduleDao().removeAllUsers();
+        List<Schedule> users = database.scheduleDao().getAll();
+        if (users.size()==0) {
+            database.scheduleDao().insert(new Schedule("Task 1","StartTime 1","Label 1"));
+            database.scheduleDao().insert(new Schedule("Task Z","StartTime Z","Label Z"));
 
-        AppDatabase database = Room.databaseBuilder(getContext(), AppDatabase.class, "schedule").allowMainThreadQueries().build();
-        scheduleDAO schDAO = database.getItemDAO();
-        schedule item = new schedule();
-        mday=TabAdapter.getPosition();
-        schedule[] mschedule;
-        ArrayList<Schedule> scheduleItem = new ArrayList<Schedule>();
-        for(int i=0;i<9;++i)
-        {
-            schedule item2=new schedule();
-            item2.setTasks("Task "+i*(mday+1));
-            item2.setStartTime("StartTime "+i*(mday+1));
-            item2.setLabel("Label "+i*(mday+1));
-            schDAO.insert(item2);
-        }
-        mschedule = schDAO.getAll();
+            sch = database.scheduleDao().getAll().get(0);
+            scha = database.scheduleDao().getAll().get(1);
+            Log.d("ROOM","Ans- "+sch.tasksDB);
 
-        for(int i=0;i<9;++i)
-        {
-            Log.d("ROOM","mschedule length:"+mschedule.length);
-            mschedule[i] = new schedule();
-            scheduleItem.add(new Schedule(mschedule[i].getTasks(), mschedule[i].getStartTime(), mschedule[i].getLabel(), mschedule[i].getId()));
-
+            Log.d("ROOM","Ans- "+scha.tasksDB);
         }
 
-        // Create an {@link WordAdapter}, whose data source is a list of {@link Schedule}s. The
-        // adapter knows how to create list items for each item in the list.
-        ScheduleAdapter adapter = new ScheduleAdapter(getContext(), scheduleItem);
 
-        // Find the {@link ListView} object in the view hierarchy of the {@link Activity}.
-        // There should be a {@link ListView} with the view ID called list, which is declared in the
-        // word_list.xml layout file.
-        ListView listView = (ListView) view.findViewById(R.id.list_item);
 
-        // Make the {@link ListView} use the {@link WordAdapter} we created above, so that the
-        // {@link ListView} will display list items for each {@link Schedule} in the list.
-        listView.setAdapter(adapter);
+
+
         return view;
     }
 

@@ -1,43 +1,97 @@
 package com.nirmalhk7.nirmalhk7.dailyscheduler;
 
-public class Schedule {
 
-    /** Default translation for the word */
-    private String mScheduleTitle;
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
-    /** Miwok translation for the word */
-    private String mTime;
-    private String mLabel;
-    private Integer mId;
-    /**
-     * Create a new Word object.
-     *
-     * @param defaultTranslation is the word in a language that the user is already familiar with
-     *                           (such as English)
-     * @param miwokTranslation is the word in the Miwok language
-     */
-    public Schedule(String defaultTranslation, String miwokTranslation, String Label,Integer Id) {
-        mScheduleTitle = defaultTranslation;
-        mTime = miwokTranslation;
-        mLabel=Label;
-        mId=Id;
-    }
-    /**
-     * Get the default translation of the word.
-     */
-    public String getScheduleTitle() {
-        return mScheduleTitle;
+import java.io.Serializable;
+
+@Entity
+public class Schedule implements Serializable{
+
+    @PrimaryKey(autoGenerate = true)
+    private Integer id;
+
+    @ColumnInfo(name="dayDB")
+    private String dayDB;
+
+    @ColumnInfo(name="startTimeDB")
+    private String startTimeDB;
+
+    @ColumnInfo(name="tasksDB")
+    private String tasksDB;
+
+    @ColumnInfo(name="labelDB")
+    private String labelDB;
+
+    @ColumnInfo(name="locationDB")
+    private String locationDB;
+
+    public Schedule(){
+
     }
 
-    /**
-     * Get the Miwok translation of the word.
-     */
-    public String getScheduleTime() {
-        return mTime;
+    public Schedule(String Tasks, String StartTime, String Label) {
+        tasksDB=Tasks;
+        startTimeDB=StartTime;
+        labelDB=Label;
     }
-    public String getScheduleLabel() {
-        return mLabel;
+   /* private Integer credits;
+
+    private Float pointer;*/
+
+    public Integer getId(){
+        return id;
     }
-    public Integer getScheduleId(){ return mId;}
-   
+    public  String getDay(){
+        return dayDB;
+    }
+    private String getStartTime(){
+        return startTimeDB;
+    }
+    private String getTasks(){
+        return tasksDB;
+    }
+    private String getLabel(){
+        return labelDB;
+    }
+    private String getLocation(){
+        return labelDB;
+    }
+    /*
+    public Integer getCredits(){
+        return credits;
+    }
+    public Float getPointer(){
+        return pointer;
+    }
+    */
+
+    public void setId(int Id){
+        id=Id;
+    }
+    public void setDay(String Day){
+        dayDB=Day;
+    }
+    public void setTasks(String Tasks){
+        tasksDB=Tasks;
+    }
+    public void setStartTime(String StartTime)
+    {
+        startTimeDB=StartTime;
+    }
+    public void setLabel(String Label)
+    {
+        labelDB=Label;
+    }
+    public void setLocation(String Location)
+    {
+        locationDB=Location;
+    }
+
+
+
+
 }
