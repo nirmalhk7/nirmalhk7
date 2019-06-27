@@ -13,6 +13,7 @@ import android.widget.ListView;
 import com.nirmalhk7.nirmalhk7.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -74,15 +75,14 @@ public class DailyScheduleList extends Fragment {
         AppDatabase database = Room.databaseBuilder(getContext(), AppDatabase.class, "mydb").allowMainThreadQueries().build();
         scheduleDAO schDAO = database.getItemDAO();
         schedule item = new schedule();
-        schedule.setTasks("Item001");
-        schedule.setStartTime("Item 001");
-        schedule.setLabel("HEE");
-
+        item.setTasks("Item001");
+        item.setStartTime("Item 001");
+        item.setLabel("HEE");
         schDAO.insert(item);
 
         ArrayList<Schedule> scheduleItem = new ArrayList<Schedule>();
-        scheduleItem.add(new Schedule("father", "әpә","College"));
-        scheduleItem.add(new Schedule("mother", "әṭa","College"));
+        scheduleItem.add(new Schedule(item.getTasks(), "әpә","College"));
+        scheduleItem.add(new Schedule(schedule.getTasks(), "әṭa","College"));
         scheduleItem.add(new Schedule("son", "angsi","College"));
         scheduleItem.add(new Schedule("father", "әpә","College"));
         scheduleItem.add(new Schedule("mother", "әṭa","College"));

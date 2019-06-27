@@ -8,7 +8,7 @@ import android.support.annotation.NonNull;
 @Entity
 public class schedule {
     @PrimaryKey(autoGenerate = true)
-    private static Integer id;
+    private Integer id;
 
     private static String day;
     private static String startTime;
@@ -20,7 +20,7 @@ public class schedule {
 
     private Float pointer;*/
 
-    public static Integer getId(){
+    public Integer getId(){
         return id;
     }
     public static String getDay(){
@@ -47,8 +47,8 @@ public class schedule {
     }
     */
 
-    public static void setId(int Id){
-        id=id;
+    public void setId(int Id){
+        id=Id;
     }
     public static void setDay(String Day){
         day=Day;

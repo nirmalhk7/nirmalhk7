@@ -15,8 +15,8 @@ public interface scheduleDAO {
     @Query("SELECT * FROM schedule")
     List<schedule> getAll();
 
-    @Query("SELECT * FROM schedule WHERE day LIKE:mday")
-    schedule findByDay(String mday);
+    @Query("SELECT * FROM schedule")
+    public List<schedule> getSchedule();
 
     @Insert
     public void insert(schedule... schedules);
