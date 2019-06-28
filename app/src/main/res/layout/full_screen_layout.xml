@@ -69,13 +69,15 @@
             <TimePicker
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/colorDark">
+                android:background="@color/colorDark"
+                android:id="@+id/timeset">
 
             </TimePicker>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingTop="10dp"
                 android:text="Task Name"/>
             <EditText
                 android:layout_width="match_parent"
@@ -92,12 +94,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Pointer"/>
+                android:text="Time"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/taskPointer"/>
-
+                android:id="@+id/taskTime"/>
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>

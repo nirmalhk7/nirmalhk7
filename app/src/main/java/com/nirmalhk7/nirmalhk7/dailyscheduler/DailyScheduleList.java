@@ -81,7 +81,7 @@ public class DailyScheduleList extends Fragment {
         db.addSchedule(new Schedule("Task 2","Label 2","Time 2"));
         db.addSchedule(new Schedule("Task 3","Label 3","Time 3"));
         db.addSchedule(new Schedule("Task 4","Label 4","Time 4"));
-*/c
+*/
         // Reading all contacts
         Log.d("Reading: ", "Reading all contacts..");
         List<Schedule> scheduleOP = db.getAllSchedules();

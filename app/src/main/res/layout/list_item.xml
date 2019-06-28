@@ -2,43 +2,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:padding="@dimen/standard_dimen">
 
-
+<!--text_container
+    miwok_text_view
+    default_text_view
+    default_time-->
     <LinearLayout
-        android:id="@+id/text_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingTop="15dp"
-        android:paddingBottom="15dp">
-
-        <TextView
-            android:id="@+id/miwok_text_view"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="bottom"
-            android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="@android:color/white"
-            android:textStyle="bold"
-            tools:text="lutti" />
-
-        <TextView
-            android:id="@+id/default_text_view"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="top"
-            android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="@android:color/white"
-            tools:text="one" />
+        android:layout_weight="1"
+        android:id="@+id/text_container">
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="top"
-            tools:text="Three"
-            android:id="@+id/default_time"/>
+            android:layout_height="wrap_content"
+            tools:text="Task X"
+            android:id="@+id/miwok_text_view"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Label X"
+            android:id="@+id/default_text_view"/>
     </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:textSize="20sp"
+        tools:text="Time X"
+        android:id="@+id/default_time"/>
 </LinearLayout>
