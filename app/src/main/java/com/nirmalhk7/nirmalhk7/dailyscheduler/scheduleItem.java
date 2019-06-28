@@ -10,18 +10,11 @@ public class scheduleItem {
     private String mLabel;
     private Integer mId;
 
-    /**
-     * Create a new Word object.
-     *
-     * @param defaultTranslation is the word in a language that the user is already familiar with
-     *                           (such as English)
-     * @param miwokTranslation is the word in the Miwok language
-     */
-    public scheduleItem(String defaultTranslation, String miwokTranslation, String Label, Integer Id) {
-        mScheduleTitle = defaultTranslation;
-        mTime = miwokTranslation;
-        mLabel=Label;
-        mId=Id;
+
+    public scheduleItem(String scheduleTitle, String time, String label) {
+        mScheduleTitle = scheduleTitle;
+        mTime = time;
+        mLabel=label;
     }
     /**
      * Get the default translation of the word.
