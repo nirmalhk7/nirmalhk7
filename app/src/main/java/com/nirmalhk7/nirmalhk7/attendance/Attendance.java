@@ -9,7 +9,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toolbar;
 
 import com.nirmalhk7.nirmalhk7.R;
 
@@ -92,7 +95,7 @@ public class Attendance extends Fragment {
         // Find the {@link ListView} object in the view hierarchy of the {@link Activity}.
         // There should be a {@link ListView} with the view ID called list, which is declared in the
         // word_list.xml layout file.
-        ListView listView = (ListView) getActivity().findViewById(R.id.list);
+        ListView listView = (ListView) rootView.findViewById(R.id.list_item_attendance);
 
         // Make the {@link ListView} use the {@link attendanceAdapter} we created above, so that the
         // {@link ListView} will display list items for each {@link attendanceItem} in the list.

@@ -23,27 +23,30 @@
             tools:text="Label X"
             android:id="@+id/subjDateTime"/>
     </LinearLayout>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:textColor="@android:color/holo_orange_dark"
-        android:background="@color/colorDark"
-        android:text="CANCELLED"
-        android:id="@+id/item_cancelled"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:textColor="@android:color/holo_red_dark"
-        android:background="@color/colorDark"
-        android:text="ABSENT"
-        android:id="@+id/item_absent"/>
-    <Button
+    <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:textColor="@android:color/holo_green_dark"
         android:background="@color/colorDark"
-        android:text="PRESENT"
-        android:id="@+id/item_present"/>
+        android:src="@drawable/ic_absent"
+        android:id="@+id/item_absent"
+        android:paddingLeft="10dp"/>
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:textColor="@android:color/holo_green_dark"
+        android:background="@color/colorDark"
+        android:src="@drawable/ic_cancelled"
+        android:id="@+id/item_cancelled"
+        android:paddingLeft="10dp" />
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:textColor="@android:color/holo_green_dark"
+        android:background="@color/colorDark"
+        android:src="@drawable/ic_present"
+        android:id="@+id/item_present"
+        android:paddingLeft="10dp" />
 
 </LinearLayout>

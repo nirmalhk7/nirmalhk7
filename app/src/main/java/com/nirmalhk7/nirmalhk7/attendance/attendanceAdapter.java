@@ -44,15 +44,8 @@ public class attendanceAdapter extends ArrayAdapter<attendanceItem> {
         TextView defaultTextView = (TextView) listItemView.findViewById(R.id.subjDateTime);
         // Get the default translation from the currentWord object and set this text on
         // the default TextView.
-        defaultTextView.setText(currentWord.getmSubjTime()+currentWord.getmSubjTime());
+        defaultTextView.setText(currentWord.getmSubjTime()+currentWord.getmSubjDate());
 
-
-        // Set the theme color for the list item
-        View textContainer = listItemView.findViewById(R.id.text_container);
-        // Find the color that the resource ID maps to
-        int color = ContextCompat.getColor(getContext(), mColorResourceId);
-        // Set the background color of the text container View
-        textContainer.setBackgroundColor(color);
 
         // Return the whole list item layout (containing 2 TextViews) so that it can be shown in
         // the ListView.
