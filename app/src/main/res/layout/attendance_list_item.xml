@@ -2,38 +2,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
-
-
+    android:orientation="horizontal"
+    android:padding="15dp"
+    android:id="@+id/listSingleItem">
 
     <LinearLayout
-        android:id="@+id/text_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingLeft="16dp">
-
+        android:layout_weight="1"
+        android:id="@+id/text_container">
         <TextView
-            android:id="@+id/miwok_text_view"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="bottom"
-            android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="@android:color/white"
-            android:textStyle="bold"
-            tools:text="lutti" />
-
-        <LinearLayout
-
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            layout></LinearLayout>
+            android:layout_height="wrap_content"
+            tools:text="Task X djdcnjcndjkcdjnc"
+            android:id="@+id/subjName"/>
         <TextView
-            android:id="@+id/default_text_view"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="top"
-            android:tex
+            android:layout_height="wrap_content"
+            tools:text="Label X"
+            android:id="@+id/subjDateTime"/>
+    </LinearLayout>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:textColor="@android:color/holo_orange_dark"
+        android:background="@color/colorDark"
+        android:text="CANCELLED"
+        android:id="@+id/item_cancelled"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:textColor="@android:color/holo_red_dark"
+        android:background="@color/colorDark"
+        android:text="ABSENT"
+        android:id="@+id/item_absent"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:textColor="@android:color/holo_green_dark"
+        android:background="@color/colorDark"
+        android:text="PRESENT"
+        android:id="@+id/item_present"/>
+
 </LinearLayout>
