@@ -4,28 +4,24 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.nirmalhk7.nirmalhk7.dailyscheduler.DailyScheduleList;
-
 public class TabAdapter extends FragmentStatePagerAdapter {
+    public static Integer mposition;
     public TabAdapter(FragmentManager fm){
         super(fm);
     }
     @Override    public Fragment getItem(int position) {
-        switch (position){
-            case 0: return new DailyScheduleList();
-            case 1: return new DailyScheduleList();
-            case 2: return new DailyScheduleList();
-            case 3: return new DailyScheduleList();
-            case 4: return new DailyScheduleList();
-            case 5: return new DailyScheduleList();
-            case 6: return new DailyScheduleList();
-        }
-        return null;
+        mposition=position;
+        return new DailyScheduleList();
     }
     @Override
     public int getCount() {
         return 7;
     }
+
+    public static int getPosition(){
+        return mposition;
+    }
+
     @Override    public CharSequence getPageTitle(int position) {switch (position){
         case 0: return "Sunday";
         case 1: return "Monday";
