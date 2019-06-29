@@ -62,17 +62,45 @@ public class Attendance extends Fragment {
         }
     }
 
+    private boolean isFABOpen;
+    public FloatingActionButton fab;
+
+    public FloatingActionButton fab1;
+    public FloatingActionButton fab2;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView= inflater.inflate(R.layout.fragment_attendance, container, false);
-        FloatingActionButton fab=rootView.findViewById(R.id.fab);
+        fab=getActivity().findViewById(R.id.fab);
+        fab1 = (FloatingActionButton) getActivity().findViewById(R.id.fab1);
+        fab2 = (FloatingActionButton) getActivity().findViewById(R.id.fab2);
         fab.show();
-
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!isFABOpen){
+                    showFABMenu();
+                }else{
+                    closeFABMenu();
+                }
+            }
+        });
         return rootView;
     }
 
+    private void showFABMenu(){
+        isFABOpen=true;
+        fab1.animate().translationY(-getResources().getDimension(R.dimen.standard_55));
+        fab2.animate().translationY(-getResources().getDimension(R.dimen.standard_105));
+
+    }
+
+    private void closeFABMenu(){
+        isFABOpen=false;
+        fab1.animate().translationY(0);
+        fab2.animate().translationY(0);
+    }
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
