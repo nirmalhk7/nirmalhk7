@@ -34,18 +34,23 @@
                 android:text="New Task"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
                 android:textColor="@android:color/white" />
-
-            <Button
-                android:id="@+id/button_save"
-                style="@style/Widget.AppCompat.Button.Borderless"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:paddingLeft="2dp"
-                android:paddingRight="2dp"
-                android:layout_marginRight="5dp"
-                android:text="Save"
-                android:textColor="@android:color/white" />
+                android:id="@+id/scheduleDialog">
+                <Button
+                    android:id="@+id/button_save"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="2dp"
+                    android:layout_marginRight="5dp"
+                    android:text="Save"
+                    android:textColor="@android:color/white" />
+            </LinearLayout>
+
 
         </LinearLayout>
 

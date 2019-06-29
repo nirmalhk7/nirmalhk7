@@ -3,10 +3,14 @@ package com.nirmalhk7.nirmalhk7.dailyscheduler;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.nirmalhk7.nirmalhk7.R;
@@ -107,6 +111,25 @@ public class DailyScheduleList extends Fragment {
         // Make the {@link ListView} use the {@link ScheduleAdapter} we created above, so that the
         // {@link ListView} will display list items for each {@link scheduleItem} in the list.
         listView.setAdapter(adapter);
+
+        final ListView singleItem=view.findViewById(R.id.list_item);
+        singleItem.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("DAILYSCHEDULE","LongClicked!");
+                FullScreenDialog newFragment = new FullScreenDialog();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+
+                Bundle args = new Bundle();
+                args.putInt("key", 10);
+                Log.d("DS","PSN:"+Integer.toString(position));
+                newFragment.setArguments(args);
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                transaction.add(android.R.id.content, newFragment).addToBackStack(null).commit();
+                return false;
+            }
+        });
         return view;
     }
 

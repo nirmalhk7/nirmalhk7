@@ -92,6 +92,7 @@ public class DailySchedule extends Fragment {
                         .setAction("Action", null).show();
                         */
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+
                 FullScreenDialog newFragment = new FullScreenDialog();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
