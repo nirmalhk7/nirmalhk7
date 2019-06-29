@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.nirmalhk7.nirmalhk7.academics.Academics;
+import com.nirmalhk7.nirmalhk7.attendance.Attendance;
 import com.nirmalhk7.nirmalhk7.callmanager.callManagerFragment;
 import com.nirmalhk7.nirmalhk7.dailyscheduler.DailySchedule;
 import com.nirmalhk7.nirmalhk7.dailyscheduler.DailyScheduleList;
@@ -113,9 +114,9 @@ public class MainActivity extends AppCompatActivity
             transaction.replace(R.id.fullscreen, newFragment);
             transaction.addToBackStack(null);
             transaction.commit();
-        }else if(id==R.id.nav_tsks)
+        }else if(id==R.id.nav_attendance)
         {
-            newFragment = new DailyScheduleList();
+            newFragment = new Attendance();
             transaction.replace(R.id.fullscreen, newFragment);
             transaction.addToBackStack(null);
             transaction.commit();
