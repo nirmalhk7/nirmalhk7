@@ -5,11 +5,16 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.nirmalhk7.nirmalhk7.R;
+
+import java.time.Instant;
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -72,6 +77,26 @@ public class Attendance extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView= inflater.inflate(R.layout.fragment_attendance, container, false);
+        ArrayList<attendanceItem> AttendanceItem = new ArrayList<attendanceItem>();
+        AttendanceItem.add(new attendanceItem("Subject 1","Date 1","Time 1"));
+
+        AttendanceItem.add(new attendanceItem("Subject 2","Date 2","Time 2"));
+
+        AttendanceItem.add(new attendanceItem("Subject 3","Date 3","Time 3"));
+        AttendanceItem.add(new attendanceItem("Subject 4","Date 4","Time 4"));
+
+        // Create an {@link attendanceAdapter}, whose data source is a list of {@link attendanceItem}s. The
+        // adapter knows how to create list items for each item in the list.
+        attendanceAdapter adapter = new attendanceAdapter(getContext(), AttendanceItem);
+
+        // Find the {@link ListView} object in the view hierarchy of the {@link Activity}.
+        // There should be a {@link ListView} with the view ID called list, which is declared in the
+        // word_list.xml layout file.
+        ListView listView = (ListView) getActivity().findViewById(R.id.list);
+
+        // Make the {@link ListView} use the {@link attendanceAdapter} we created above, so that the
+        // {@link ListView} will display list items for each {@link attendanceItem} in the list.
+        listView.setAdapter(adapter);
         fab=getActivity().findViewById(R.id.fab);
         fab1 = (FloatingActionButton) getActivity().findViewById(R.id.fab1);
         fab2 = (FloatingActionButton) getActivity().findViewById(R.id.fab2);
