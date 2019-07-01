@@ -9,6 +9,9 @@ public class attendanceItem {
     private String mSubjDate;
     private String  mSubjTime;
 
+    private int mPresent;
+    private int mAbsent;
+
 
     public attendanceItem(String subjName, String subjDate,String subjTime)
     {
@@ -16,7 +19,12 @@ public class attendanceItem {
         mSubjDate=subjDate;
         mSubjTime=subjTime;
     }
-
+    public attendanceItem(String subjName,int presentCt,int absentCt)
+    {
+        mSubjName=subjName;
+        mPresent=presentCt;
+        mAbsent=absentCt;
+    }
     /**
      * Get the default translation of the word.
      */
@@ -31,4 +39,10 @@ public class attendanceItem {
         return mSubjDate;
     }
     public String getmSubjTime(){   return mSubjTime;}
+    public int getmPresent(){
+        return mPresent;
+    }
+    public int getmAbsent(){
+        return mAbsent;
+    }
 }
