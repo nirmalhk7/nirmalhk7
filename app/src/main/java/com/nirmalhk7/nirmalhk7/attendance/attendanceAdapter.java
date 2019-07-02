@@ -1,6 +1,7 @@
 package com.nirmalhk7.nirmalhk7.attendance;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nirmalhk7.nirmalhk7.R;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -22,11 +25,12 @@ public class attendanceAdapter extends ArrayAdapter<attendanceItem> {
 
     public attendanceAdapter(Context context, ArrayList<attendanceItem> AttendanceItem) {
         super(context, 0, AttendanceItem);
+        kSubject=0;
     }
 
     public attendanceAdapter(Context context, ArrayList<attendanceItem> SubjectItem, int key) {
         super(context, 0, SubjectItem);
-        kSubject = 1;
+        kSubject = key;
     }
 
     @Override
@@ -63,6 +67,24 @@ public class attendanceAdapter extends ArrayAdapter<attendanceItem> {
             // Get the default translation from the currentWord object and set this text on
             // the default TextView.
             percent.setText("Percent: "+result+"%");
+
+        }
+        else if(kSubject==2){
+            if (listItemView == null) {
+                listItemView = LayoutInflater.from(getContext()).inflate(
+                        R.layout.attendance_subject_list_calendar, parent, false);
+            }
+            attendanceItem currentWord = getItem(position);
+            TextView date=listItemView.findViewById(R.id.subjName_calendar);
+            date.setText(currentWord.getmSubjDate());
+
+            TextView dt= listItemView.findViewById(R.id.dt_calendar);
+            dt.setText("Friday , "+currentWord.getmSubjTime());
+
+            TextView pacp= listItemView.findViewById(R.id.pacp_calendar);
+            pacp.setText("Present");
+            pacp.setBackgroundColor(Color.GREEN);
+
 
         }
         else{

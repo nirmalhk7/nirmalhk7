@@ -1,6 +1,7 @@
 package com.nirmalhk7.nirmalhk7.attendance;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -10,11 +11,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import com.nirmalhk7.nirmalhk7.MainActivity;
 import com.nirmalhk7.nirmalhk7.R;
+import com.nirmalhk7.nirmalhk7.settings.SettingsActivity;
 
 import java.util.ArrayList;
 
@@ -133,6 +137,16 @@ public class AllSubjects extends Fragment {
         // Make the {@link ListView} use the {@link attendanceAdapter} we created above, so that the
         // {@link ListView} will display list items for each {@link attendanceItem} in the list.
         listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent i=new Intent(getActivity(), SingleSubjectActivity.class);
+
+                i.putExtra("subj", "HELLO");
+                startActivity(i);
+            }
+        });
         fab=getActivity().findViewById(R.id.fab);
         fab1 = (FloatingActionButton) getActivity().findViewById(R.id.fab1);
         fab2 = (FloatingActionButton) getActivity().findViewById(R.id.fab2);

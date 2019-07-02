@@ -25,6 +25,10 @@ public class attendanceItem {
         mPresent=presentCt;
         mAbsent=absentCt;
     }
+    public attendanceItem(String SubjDate,String SubjTime,int AttendanceKey){
+        mSubjDate=SubjDate;
+        mSubjTime=SubjTime;
+    }
     /**
      * Get the default translation of the word.
      */
