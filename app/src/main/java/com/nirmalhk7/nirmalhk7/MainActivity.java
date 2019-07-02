@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity
 
         if (savedInstanceState == null) {
             navigationView.getMenu().performIdentifierAction(R.id.nav_dashboard, 0);
+
         }
     }
 
@@ -126,7 +127,6 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
 
 
 }

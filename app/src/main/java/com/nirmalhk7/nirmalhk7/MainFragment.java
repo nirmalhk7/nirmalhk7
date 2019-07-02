@@ -2,9 +2,13 @@ package com.nirmalhk7.nirmalhk7;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.Gravity;
@@ -18,10 +22,11 @@ import android.widget.TextView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
-
+import mumayank.com.airlocationlibrary.AirLocation;
 
 
 /**
@@ -42,6 +47,9 @@ public class MainFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private String api_link;
+    private AirLocation airLocation;
+    public double longitude;
+    public double latitude;
 
     private OnFragmentInteractionListener mListener;
 
@@ -74,23 +82,10 @@ public class MainFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        api_link = "https://api.darksky.net/forecast/60569b87b5b2a6220c135e9b2e91646b/";
-        weather=getActivity().findViewById(R.id.weather);
-        if (isOnline()) {
-            double longitude = 27.004;
-            double latitude = 49.627;
-            api_link = api_link.concat(Double.toString(longitude) + "," + Double.toString(latitude));
-            api_link = api_link.concat("?units=si");
-            Log.d("WeatherAPI",api_link);
-            requestData(api_link, "weather");
 
-
-        } else {
-            TextView error=new TextView(getContext());
-            error.setText("Phone not connected");
-            weather.addView(error);
-        }
     }
+
+
     public void requestData(String url, final String category) {
         //Everything below is part of the Android Asynchronous HTTP Client
 
@@ -217,7 +212,38 @@ public class MainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_main, container, false);
+        View v= inflater.inflate(R.layout.fragment_main, container, false);
+        api_link = "https://api.darksky.net/forecast/60569b87b5b2a6220c135e9b2e91646b/";
+        weather=getActivity().findViewById(R.id.weather);
+        if (isOnline()) {
+            airLocation = new AirLocation(getActivity(), true, true, new AirLocation.Callbacks() {
+                @Override
+                public void onSuccess(@NotNull Location location) {
+                    latitude=location.getLatitude();
+                    longitude=location.getLongitude();
+                    Log.d("AirLocation","Coordinates LA:"+latitude+" + LO:"+longitude);
+                }
+
+                @Override
+                public void onFailed(@NotNull AirLocation.LocationFailedEnum locationFailedEnum) {
+                    Log.e("AirLocation","Location untraceable");
+                }
+            });
+
+            api_link = api_link.concat(Double.toString(longitude) + "," + Double.toString(latitude));
+            api_link = api_link.concat("?units=si");
+            Log.d("WeatherAPI",api_link);
+            requestData(api_link, "weather");
+
+
+
+
+        } else {
+            TextView error=new TextView(getContext());
+            error.setText("Phone not connected");
+            weather.addView(error);
+        }
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

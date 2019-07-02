@@ -34,4 +34,5 @@ dependencies {
     implementation 'com.loopj.android:android-async-http:1.4.9'
     implementation "android.arch.persistence.room:runtime:1.1.1"
     annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
+    implementation 'com.github.mumayank:AirLocation:1.2'
 }
