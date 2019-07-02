@@ -3,6 +3,7 @@ package com.nirmalhk7.nirmalhk7;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.Uri;
@@ -74,7 +75,9 @@ public class MainFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+
     public LinearLayout weather;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,16 +102,15 @@ public class MainFragment extends Fragment {
                 Log.d("WeatherAPI", "JSON: " + response.toString());
 
                 try {
-                    if(category.equals("weather")) {
+                    if (category.equals("weather")) {
 
                         String icon = response.getJSONObject("currently").getString("icon");
                         String temp = response.getJSONObject("currently").getString("temperature");
                         String summary = response.getJSONObject("currently").getString("summary");
-                        String rainWeek=response.getJSONObject("currently").getString("precipProbability");
-                        Log.d("WeatherAPI",icon+"with"+temp);
-                        weather=getActivity().findViewById(R.id.weather);
-                        ImageView weatherIcon=new ImageView(getContext());
-
+                        String rainWeek = response.getJSONObject("currently").getString("precipProbability");
+                        Log.d("WeatherAPI", icon + "with" + temp);
+                        weather = getActivity().findViewById(R.id.weather);
+                        ImageView weatherIcon = new ImageView(getContext());
 
 
                         if (icon.equals("clear-day")) {
@@ -137,27 +139,22 @@ public class MainFragment extends Fragment {
                             weather.addView(weatherIcon);
                         }
                         Log.d("APIAnswer", icon + temp);
-                        weatherIcon.getLayoutParams().height=200;
-                        weatherIcon.getLayoutParams().width=200;
-                        LinearLayout weatherDesc=new LinearLayout(getContext());
+                        weatherIcon.getLayoutParams().height = 200;
+                        weatherIcon.getLayoutParams().width = 200;
+                        LinearLayout weatherDesc = new LinearLayout(getContext());
                         weatherDesc.setOrientation(LinearLayout.VERTICAL);
-                        TextView summaryText=new TextView(getContext());
-                        summaryText.setText(summary+". Temperature "+temp+"C");
-                        TextView dailyProbability=new TextView(getContext());
-                        if(Integer.parseInt(rainWeek)>0.5)
-                        {
-                            dailyProbability.setText(Integer.parseInt(rainWeek)*100+"% chance of rain!");
-                        }
-                        else if(Integer.parseInt(rainWeek)<0.5&&Integer.parseInt(rainWeek)>0.2)
-                        {
+                        TextView summaryText = new TextView(getContext());
+                        summaryText.setText(summary + ". Temperature " + temp + "C");
+                        summaryText.setTextColor(R.color.colorFontLight);
+                        TextView dailyProbability = new TextView(getContext());
+                        if (Integer.parseInt(rainWeek) > 0.5) {
+                            dailyProbability.setText(Integer.parseInt(rainWeek) * 100 + "% chance of rain!");
+                        } else if (Integer.parseInt(rainWeek) < 0.5 && Integer.parseInt(rainWeek) > 0.2) {
                             dailyProbability.setText("Small probability of rain!");
+                        } else {
+                            dailyProbability.setText("Expect no rain!");
                         }
-                        else{
-                           dailyProbability.setText("Expect no rain!");
-                        }
-
-
-
+                        dailyProbability.setTextColor(R.color.colorFontLight);
 
                         weatherDesc.addView(summaryText);
                         weatherDesc.addView(dailyProbability);
@@ -183,6 +180,7 @@ public class MainFragment extends Fragment {
             }
         });
     }
+
     private boolean isOnline() {
         // get Connectivity Manager object to check connection
         ConnectivityManager connec = (ConnectivityManager) getActivity().getSystemService(getActivity().getBaseContext().CONNECTIVITY_SERVICE);
@@ -212,34 +210,32 @@ public class MainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v= inflater.inflate(R.layout.fragment_main, container, false);
+        View v = inflater.inflate(R.layout.fragment_main, container, false);
         api_link = "https://api.darksky.net/forecast/60569b87b5b2a6220c135e9b2e91646b/";
-        weather=getActivity().findViewById(R.id.weather);
+        weather = getActivity().findViewById(R.id.weather);
         if (isOnline()) {
             airLocation = new AirLocation(getActivity(), true, true, new AirLocation.Callbacks() {
                 @Override
                 public void onSuccess(@NotNull Location location) {
-                    latitude=location.getLatitude();
-                    longitude=location.getLongitude();
-                    Log.d("AirLocation","Coordinates LA:"+latitude+" + LO:"+longitude);
+                    latitude = location.getLatitude();
+                    longitude = location.getLongitude();
+                    Log.d("AirLocation", "Coordinates LA:" + latitude + " + LO:" + longitude);
+                    api_link = api_link.concat(Double.toString(latitude) + "," + Double.toString(longitude));
+                    api_link = api_link.concat("?units=si");
+                    Log.d("WeatherAPI", api_link);
+                    requestData(api_link, "weather");
+
                 }
 
                 @Override
                 public void onFailed(@NotNull AirLocation.LocationFailedEnum locationFailedEnum) {
-                    Log.e("AirLocation","Location untraceable");
+                    Log.e("AirLocation", "Location untraceable");
                 }
             });
 
-            api_link = api_link.concat(Double.toString(longitude) + "," + Double.toString(latitude));
-            api_link = api_link.concat("?units=si");
-            Log.d("WeatherAPI",api_link);
-            requestData(api_link, "weather");
-
-
-
 
         } else {
-            TextView error=new TextView(getContext());
+            TextView error = new TextView(getContext());
             error.setText("Phone not connected");
             weather.addView(error);
         }
