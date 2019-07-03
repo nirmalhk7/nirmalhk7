@@ -1,10 +1,20 @@
 package com.nirmalhk7.nirmalhk7.dailyscheduler;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.content.res.Resources;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,10 +23,15 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import com.nirmalhk7.nirmalhk7.MainActivity;
 import com.nirmalhk7.nirmalhk7.R;
+import com.nirmalhk7.nirmalhk7.settings.SettingsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.app.Notification.VISIBILITY_PUBLIC;
+import static android.content.Context.NOTIFICATION_SERVICE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -76,6 +91,33 @@ public class DailyScheduleList extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_daily_schedule_list, container, false);
+        Intent intent = new Intent(getActivity(), SettingsActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(getContext(), 0, intent, 0);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), "0")
+                .setSmallIcon(R.drawable.ic_stat_daily_scheduler)
+                .setContentTitle("My notification")
+                .setContentText("Hello World!")
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                // Set the intent that will fire when the user taps the notification
+                .setAutoCancel(true)
+                .addAction(R.drawable.ic_attendance,"PRESENT",
+                        pendingIntent)
+        .addAction(R.drawable.ic_attendance,"ABSENT",
+                pendingIntent)
+                .addAction(R.drawable.ic_attendance,"CLASS CANCELLED",
+                        pendingIntent)
+                .setVisibility(VISIBILITY_PUBLIC);
+
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getContext());
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+
+// notificationId is a unique inthist for each notification that you must define
+        notificationManager.notify(0, builder.build());
+
+
         DatabaseHandler db = new DatabaseHandler(getContext());
 
         // Inserting Schedules
@@ -131,6 +173,22 @@ public class DailyScheduleList extends Fragment {
             }
         });
         return view;
+    }
+
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = getString(R.string.app_name);
+            String description = getString(R.string.appwidget_text);
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("0", name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getActivity().getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
