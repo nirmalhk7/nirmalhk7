@@ -55,6 +55,6 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-    </application>
+</application>
 
 </manifest>

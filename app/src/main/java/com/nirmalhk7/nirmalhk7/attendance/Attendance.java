@@ -1,30 +1,25 @@
-package com.nirmalhk7.nirmalhk7.dailyscheduler;
+package com.nirmalhk7.nirmalhk7.attendance;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.nirmalhk7.nirmalhk7.R;
 
-
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link DailySchedule.OnFragmentInteractionListener} interface
+ * {@link Attendance.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link DailySchedule#newInstance} factory method to
+ * Use the {@link Attendance#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DailySchedule extends Fragment {
+public class Attendance extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -36,7 +31,7 @@ public class DailySchedule extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public DailySchedule() {
+    public Attendance() {
         // Required empty public constructor
     }
 
@@ -46,17 +41,15 @@ public class DailySchedule extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment DailySchedule.
+     * @return A new instance of fragment Attendance.
      */
     // TODO: Rename and change types and number of parameters
-    public static DailySchedule newInstance(String param1, String param2) {
-        DailySchedule fragment = new DailySchedule();
+    public static Attendance newInstance(String param1, String param2) {
+        Attendance fragment = new Attendance();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
-
-
         return fragment;
     }
 
@@ -69,42 +62,16 @@ public class DailySchedule extends Fragment {
         }
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_daily_schedule, container, false);
-
-        ViewPager viewPager = (ViewPager) view.findViewById(R.id.view_pager);
-        TabAdapter myPagerAdapter = new TabAdapter(getActivity().getSupportFragmentManager());
-        viewPager.setAdapter(myPagerAdapter);
-        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tablayout);
-        tabLayout.setupWithViewPager(viewPager);
-        FloatingActionButton fab = getActivity().findViewById(R.id.fab);
+        View rootView= inflater.inflate(R.layout.fragment_attendance, container, false);
+        FloatingActionButton fab=rootView.findViewById(R.id.fab);
         fab.show();
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                /*
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                        */
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 
-                FullScreenDialog newFragment = new FullScreenDialog();
-                FragmentTransaction transaction = fragmentManager.beginTransaction();
-                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                transaction.add(android.R.id.content, newFragment).addToBackStack(null).commit();
-            }
-        });
-
-        return view;
-
+        return rootView;
     }
-
-
-
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -112,21 +79,7 @@ public class DailySchedule extends Fragment {
             mListener.onFragmentInteraction(uri);
         }
     }
-    // Instances of this class are fragments representing a single
-// object in our collection.
 
-/*
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-*/
     @Override
     public void onDetach() {
         super.onDetach();
@@ -148,4 +101,3 @@ public class DailySchedule extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 }
-

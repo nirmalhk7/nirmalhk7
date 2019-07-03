@@ -12,8 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.nirmalhk7.nirmalhk7.R;
-import com.nirmalhk7.nirmalhk7.dailyscheduler.dummy.DummyContent;
-import com.nirmalhk7.nirmalhk7.dailyscheduler.dummy.DummyContent.DummyItem;
 
 /**
  * A fragment representing a list of Items.
@@ -60,18 +58,6 @@ public class callManagerFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_callmanager_list, container, false);
 
-        // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            recyclerView.setAdapter(new MycallManagerRecyclerViewAdapter(DummyContent.ITEMS, mListener));
-        }
-        Toolbar x=getActivity().findViewById(R.id.toolbar);
 
         return view;
     }
@@ -96,6 +82,6 @@ public class callManagerFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+
     }
 }

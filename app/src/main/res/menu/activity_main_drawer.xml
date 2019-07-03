@@ -5,14 +5,11 @@
 
     <group android:checkableBehavior="single">
         <item
-  android:id="@+id/nav_dashboard"
+            android:id="@+id/nav_dashboard"
             android:icon="@drawable/ic_dashboard"
             android:title="Dashboard" />
 
-        <item
-            android:id="@+id/nav_tasks"
-            android:icon="@drawable/ic_check_black"
-            android:title="Tasks Manager" />
+
         <item
             android:id="@+id/nav_manage"
             android:icon="@drawable/ic_menu_manage"
@@ -29,6 +26,10 @@
                 android:id="@+id/nav_academics"
                 android:icon="@drawable/ic_marksmanager"
                 android:title="Marks Manager" />
+            <item
+                android:id="@+id/nav_attendance"
+                android:title="Attendance Manager"
+                android:icon="@drawable/ic_attendance"/>
         </menu>
     </item>
     <item android:title="Life">
@@ -38,7 +39,7 @@
                 android:icon="@drawable/ic_contact_phone_black"
                 android:title="Call Manager" />
             <item
-                android:id="@+id/nav_tsks"
+                android:id="@+id/nav_tasks"
                 android:icon="@drawable/ic_check_black"
                 android:title="Tasks Manager" />
         </menu>
