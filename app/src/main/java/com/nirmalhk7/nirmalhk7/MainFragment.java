@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -230,6 +231,14 @@ public class MainFragment extends Fragment {
                 @Override
                 public void onFailed(@NotNull AirLocation.LocationFailedEnum locationFailedEnum) {
                     Log.e("AirLocation", "Location untraceable");
+                }
+            });
+            LinearLayout weather=v.findViewById(R.id.weather);
+            weather.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getActivity(), "LA:"+latitude+" LO:"+longitude,
+                            Toast.LENGTH_SHORT).show();
                 }
             });
 
