@@ -13,6 +13,7 @@ Cosmetic upgrades will be defined by decimal feature numbers.
 In every version there should be 3 upgrades from major focus modules and 2 from minor focus modules.
 
 Module List for nirmalhk7 app:
+- [ ] Entry Display- **major**
 - [ ] Daily Schedule- **major**
 - [ ] Attendance- **major**
 - [ ] Exams and Holidays- **major**
@@ -24,6 +25,6 @@ Module List for nirmalhk7 app:
 v2 Checklist:
 - [ ] Daily Schedule- Create UI for editing, deleting
 - [ ] Exams and Holidays- Create UI for Exam and Holiday list.
-- [ ] Daily Schedule- Creating notification.
+- [x] Daily Schedule- Creating notification.
 - [ ] Task Manager- Create UI for List and searchbar.
-- [ ] Task Manager- Create UI for Adding and editing searchbar.
+- [x] Entry Display- AirLocations.
