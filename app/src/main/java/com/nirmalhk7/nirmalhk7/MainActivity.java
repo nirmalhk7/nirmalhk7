@@ -20,6 +20,7 @@ import com.nirmalhk7.nirmalhk7.callmanager.callManagerFragment;
 import com.nirmalhk7.nirmalhk7.dailyscheduler.DailySchedule;
 import com.nirmalhk7.nirmalhk7.dailyscheduler.DailyScheduleList;
 import com.nirmalhk7.nirmalhk7.examholidays.examHolidays;
+import com.nirmalhk7.nirmalhk7.playground.Playground;
 import com.nirmalhk7.nirmalhk7.settings.SettingsActivity;
 
 
@@ -126,6 +127,13 @@ public class MainActivity extends AppCompatActivity
         else if(id==R.id.nav_examholidays)
         {
             newFragment = new examHolidays();
+            transaction.replace(R.id.fullscreen, newFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        }
+        else if(id==R.id.nav_playground)
+        {
+            newFragment = new Playground();
             transaction.replace(R.id.fullscreen, newFragment);
             transaction.addToBackStack(null);
             transaction.commit();
