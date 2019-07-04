@@ -7,6 +7,8 @@ import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,7 +45,7 @@ public class FullScreenDialog extends DialogFragment{
             String title=bundle.getString("title");
             String label=bundle.getString("label");
             String time=bundle.getString("time");
-
+            int itemPos=bundle.getInt("itemPos");
 
             //Pass title,label and time value to EditText
             EditText taskNameEdit=rootView.findViewById(R.id.taskName);
@@ -63,7 +65,6 @@ public class FullScreenDialog extends DialogFragment{
                 @Override
                 public void onClick(View v) {
                     Log.d("DAS/FullDialog","Delete Button");
-
                 }
             });
 

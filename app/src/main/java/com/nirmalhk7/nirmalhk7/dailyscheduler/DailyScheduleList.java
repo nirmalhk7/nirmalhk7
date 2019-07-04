@@ -92,7 +92,7 @@ public class DailyScheduleList extends Fragment {
         }
     }
 
-
+    public DatabaseHandler db;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -101,7 +101,7 @@ public class DailyScheduleList extends Fragment {
 
 
 
-        DatabaseHandler db = new DatabaseHandler(getContext());
+        db = new DatabaseHandler(getContext());
 
         // Inserting Schedules
         Log.d("Insert: ", "Inserting ..");
@@ -146,6 +146,7 @@ public class DailyScheduleList extends Fragment {
 
                 Bundle args = new Bundle();
                 args.putInt("key", 10);
+                args.putInt("itemPos",position);
                 args.putString("title",title.getText().toString());
                 args.putString("label",label.getText().toString());
                 args.putString("time",time.getText().toString());
