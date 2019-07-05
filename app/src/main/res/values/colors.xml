@@ -9,4 +9,11 @@
     <color name="colorFontDark">#FFFF</color>
     <color name="cardColorDark">#9B9B9B</color>
 
+    <color name="colorFontLight">#000</color>
+    <color name="colorVermillion">#D03D33</color>
+    <color name="colorGreen">#77ab59</color>
+
+    <color name="colorWarning">#fdd835</color>
+    <color name="colorWarningText">#f57f17</color>
+
 </resources>

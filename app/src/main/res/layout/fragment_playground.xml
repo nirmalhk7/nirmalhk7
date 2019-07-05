@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".playground.Playground">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/playground_text"
+        android:padding="@dimen/standard_dimen"
+        android:background="@color/colorWarning"
+        android:textColor="@color/colorWarningText"
+        android:layout_margin="@dimen/standard_dimen"/>
+
+</FrameLayout>

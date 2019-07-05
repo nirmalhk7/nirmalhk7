@@ -35,7 +35,7 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".Main">
+        <receiver android:name=".widget.Main">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -45,14 +45,15 @@
         </receiver>
 
         <activity
-            android:name=".SettingsActivity"
+            android:name=".settings.SettingsActivity"
             android:screenOrientation="portrait"
             android:label="@string/title_activity_settings"/>
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize"/>
     </application>
 
 </manifest>

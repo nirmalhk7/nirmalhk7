@@ -6,7 +6,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_dashboard"
-            android:icon="@drawable/ic_home"
+            android:icon="@drawable/ic_dashboard"
             android:title="Dashboard" />
 
 
@@ -23,9 +23,18 @@
                 android:icon="@drawable/ic_schedule"
                 android:title="Daily Scheduler" />
             <item
+                android:id="@+id/nav_examholidays"
+                android:icon="@drawable/ic_examholidays"
+                android:title="Exams and Holidays"/>
+            <item
+                android:id="@+id/nav_attendance"
+                android:title="Attendance Manager"
+                android:icon="@drawable/ic_attendance"/>
+            <item
                 android:id="@+id/nav_academics"
                 android:icon="@drawable/ic_marksmanager"
                 android:title="Marks Manager" />
+
         </menu>
     </item>
     <item android:title="Life">
@@ -33,11 +42,19 @@
             <item
                 android:id="@+id/nav_callManager"
                 android:icon="@drawable/ic_contact_phone_black"
-                android:title="Call Mananger" />
+                android:title="Call Manager" />
             <item
                 android:id="@+id/nav_tasks"
                 android:icon="@drawable/ic_check_black"
                 android:title="Tasks Manager" />
+        </menu>
+    </item>
+    <item android:title="DevWorld">
+        <menu>
+            <item
+                android:id="@+id/nav_playground"
+                android:title="Playground"
+                android:icon="@drawable/ic_playground"/>
         </menu>
     </item>
 
