@@ -1,12 +1,12 @@
 package com.nirmalhk7.nirmalhk7.examholidays;
 
-public class hsItem {
+public class heItem {
 
     private int mholidayOrExam;
     private String mTitle;
     private String mDate;
 
-    public hsItem(int holiday1Exam0, String title, String date) {
+    public heItem(int holiday1Exam0, String title, String date) {
         mholidayOrExam = holiday1Exam0;
         mTitle = title;
         mDate=date;

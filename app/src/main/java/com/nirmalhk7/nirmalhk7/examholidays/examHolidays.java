@@ -1,19 +1,20 @@
 package com.nirmalhk7.nirmalhk7.examholidays;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.nirmalhk7.nirmalhk7.R;
-import com.nirmalhk7.nirmalhk7.dailyscheduler.ScheduleAdapter;
-import com.nirmalhk7.nirmalhk7.dailyscheduler.scheduleItem;
+import com.nirmalhk7.nirmalhk7.dailyscheduler.FullScreenDialog;
 
 import java.util.ArrayList;
 
@@ -73,9 +74,9 @@ public class examHolidays extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView= inflater.inflate(R.layout.fragment_exam_holidays, container, false);
-        ArrayList<hsItem> hs = new ArrayList<hsItem>();
-        hs.add(new hsItem(1,"Makar Sankrant","3 May"));
-        hs.add(new hsItem(0,"Mid Sem Exam","3 May"));
+        ArrayList<heItem> hs = new ArrayList<heItem>();
+        hs.add(new heItem(1,"Makar Sankrant","3 May"));
+        hs.add(new heItem(0,"Mid Sem Exam","3 May"));
         ExamHolidayAdapter adapter = new ExamHolidayAdapter(getContext(), hs);
 
         // Find the {@link ListView} object in the view hierarchy of the {@link Activity}.
@@ -86,12 +87,26 @@ public class examHolidays extends Fragment {
         // Make the {@link ListView} use the {@link ScheduleAdapter} we created above, so that the
         // {@link ListView} will display list items for each {@link scheduleItem} in the list.
         listView.setAdapter(adapter);
-        FloatingActionButton fab=getActivity().findViewById(R.id.fab);
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("EXH","Long Click!");
+                return false;
+            }
+        });
+        FloatingActionButton fab = getActivity().findViewById(R.id.fab);
         fab.show();
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Log.d("EAH","Clicked fab");
+            public void onClick(View view) {
+
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+
+                fsdExam newFragment = new fsdExam();
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                transaction.add(android.R.id.content, newFragment).addToBackStack(null).commit();
             }
         });
         return rootView;
@@ -103,8 +118,6 @@ public class examHolidays extends Fragment {
             mListener.onFragmentInteraction(uri);
         }
     }
-
-
 
     @Override
     public void onDetach() {
