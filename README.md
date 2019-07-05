@@ -29,3 +29,4 @@ v2 Checklist:
 - [x] Daily Schedule- Creating notification.
 - [ ] Task Manager- Create UI for List and searchbar.
 - [x] Entry Display- AirLocations.
+- [ ] Entry Display- Dummy Layout for Attendance, Holiday and classes.
