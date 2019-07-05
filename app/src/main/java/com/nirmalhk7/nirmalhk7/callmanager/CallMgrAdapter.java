@@ -1,6 +1,7 @@
 package com.nirmalhk7.nirmalhk7.callmanager;
 
 import android.content.Context;
+import android.support.v7.recyclerview.extensions.ListAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,21 +9,18 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.nirmalhk7.nirmalhk7.R;
-import com.nirmalhk7.nirmalhk7.dailyscheduler.scheduleItem;
 
 import java.util.ArrayList;
 
-public class CallMgrAdapter {
+public class CallMgrAdapter extends ArrayAdapter<CallMgrItem> {
 
 
     /**
      * Resource ID for the background color for this list of words
      */
-    private int mColorResourceId;
 
-
-    public CallMgrAdapter(Context context, ArrayList<scheduleItem> words) {
-        super(context, 0, words);
+    public CallMgrAdapter(Context context, ArrayList<CallMgrItem> callItem) {
+        super(context, 0, callItem);
     }
 
     @Override
@@ -31,28 +29,28 @@ public class CallMgrAdapter {
         View listItemView = convertView;
         if (listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(
-                    R.layout.list_item, parent, false);
+                    R.layout.list_item_callmgr, parent, false);
         }
 
         // Get the {@link scheduleItem} object located at this position in the list
-        scheduleItem currentWord = getItem(position);
+        CallMgrItem currentWord = getItem(position);
 
         // Find the TextView in the list_item.xml layout with the ID miwok_text_view.
-        TextView miwokTextView = (TextView) listItemView.findViewById(R.id.miwok_text_view);
+        TextView callerName = listItemView.findViewById(R.id.callMgr_callName);
         // Get the Miwok translation from the currentWord object and set this text on
         // the Miwok TextView.
-        miwokTextView.setText(currentWord.getScheduleTitle());
+        callerName.setText(currentWord.getName());
 
         // Find the TextView in the list_item.xml layout with the ID default_text_view.
-        TextView defaultTextView = (TextView) listItemView.findViewById(R.id.default_text_view);
+        TextView defaultTextView = listItemView.findViewById(R.id.callMgr_callNo);
         // Get the default translation from the currentWord object and set this text on
         // the default TextView.
-        defaultTextView.setText(currentWord.getScheduleLabel());
+        defaultTextView.setText(currentWord.getNo());
 
-        TextView defaultTime = (TextView) listItemView.findViewById(R.id.default_time);
+        TextView defaultTime = listItemView.findViewById(R.id.callMgr_callTime);
         // Get the default translation from the currentWord object and set this text on
         // the default TextView.
-        defaultTime.setText(currentWord.getScheduleTime());
+        defaultTime.setText(currentWord.getNo());
 
 
         // Return the whole list item layout (containing 2 TextViews) so that it can be shown in

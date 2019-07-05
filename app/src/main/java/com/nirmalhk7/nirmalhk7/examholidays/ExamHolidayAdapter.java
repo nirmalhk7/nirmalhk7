@@ -38,13 +38,13 @@ public class ExamHolidayAdapter extends ArrayAdapter<hsItem> {
         hsItem currentWord = getItem(position);
 
         // Find the TextView in the list_item.xml layout with the ID miwok_text_view.
-        TextView title = (TextView) listItemView.findViewById(R.id.holidayExam_name);
+        TextView title = listItemView.findViewById(R.id.holidayExam_name);
         // Get the Miwok translation from the currentWord object and set this text on
         // the Miwok TextView.
         title.setText(currentWord.getTitle());
 
         // Find the TextView in the list_item.xml layout with the ID default_text_view.
-        TextView hOrE = (TextView) listItemView.findViewById(R.id.holidayExam);
+        TextView hOrE = listItemView.findViewById(R.id.holidayExam);
         // Get the default translation from the currentWord object and set this text on
         // the default TextView.
         if(currentWord.getHolidayOrExam()==0)
@@ -59,7 +59,7 @@ public class ExamHolidayAdapter extends ArrayAdapter<hsItem> {
         }
 
 
-        TextView date = (TextView) listItemView.findViewById(R.id.holidayExam_date);
+        TextView date = listItemView.findViewById(R.id.holidayExam_date);
         // Get the default translation from the currentWord object and set this text on
         // the default TextView.
         date.setText(currentWord.getmDate());

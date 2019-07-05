@@ -3,12 +3,19 @@ package com.nirmalhk7.nirmalhk7.callmanager;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.nirmalhk7.nirmalhk7.R;
+import com.nirmalhk7.nirmalhk7.examholidays.ExamHolidayAdapter;
+import com.nirmalhk7.nirmalhk7.examholidays.hsItem;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -66,6 +73,27 @@ public class CallMgrFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView= inflater.inflate(R.layout.fragment_call_mgr, container, false);
+        ArrayList<CallMgrItem> call = new ArrayList<CallMgrItem>();
+        call.add(new CallMgrItem("Caller 1","9740603777",9));
+        call.add(new CallMgrItem("Caller 2","9740603778",7));
+        CallMgrAdapter adapter = new CallMgrAdapter(getContext(), call);
+
+        // Find the {@link ListView} object in the view hierarchy of the {@link Activity}.
+        // There should be a {@link ListView} with the view ID called list, which is declared in the
+        // word_list.xml layout file.
+        ListView listView = getActivity().findViewById(R.id.list_item_callmgr);
+
+        // Make the {@link ListView} use the {@link ScheduleAdapter} we created above, so that the
+        // {@link ListView} will display list items for each {@link scheduleItem} in the list.
+        listView.setAdapter(adapter);
+        FloatingActionButton fab=getActivity().findViewById(R.id.fab);
+        fab.show();
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("EAH","Clicked fab");
+            }
+        });
         return rootView;
     }
 

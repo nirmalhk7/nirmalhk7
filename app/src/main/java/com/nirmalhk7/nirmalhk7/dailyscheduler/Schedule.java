@@ -8,7 +8,7 @@ public class Schedule {
 
     public Schedule(){   }
     public Schedule(int id, String name, String _label){
-        this._id = id;
+        _id = id;
         this._task = name;
         this._label = _label;
     }
@@ -23,7 +23,7 @@ public class Schedule {
     }
 
     public void setID(int id){
-        this._id = id;
+        _id = id;
     }
 
     public String getTask(){

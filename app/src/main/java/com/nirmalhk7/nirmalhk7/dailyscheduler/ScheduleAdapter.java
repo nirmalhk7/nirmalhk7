@@ -34,18 +34,18 @@ public class ScheduleAdapter extends ArrayAdapter<scheduleItem> {
         scheduleItem currentWord = getItem(position);
 
         // Find the TextView in the list_item.xml layout with the ID miwok_text_view.
-        TextView miwokTextView = (TextView) listItemView.findViewById(R.id.miwok_text_view);
+        TextView miwokTextView = listItemView.findViewById(R.id.miwok_text_view);
         // Get the Miwok translation from the currentWord object and set this text on
         // the Miwok TextView.
         miwokTextView.setText(currentWord.getScheduleTitle());
 
         // Find the TextView in the list_item.xml layout with the ID default_text_view.
-        TextView defaultTextView = (TextView) listItemView.findViewById(R.id.default_text_view);
+        TextView defaultTextView = listItemView.findViewById(R.id.default_text_view);
         // Get the default translation from the currentWord object and set this text on
         // the default TextView.
         defaultTextView.setText(currentWord.getScheduleLabel());
 
-        TextView defaultTime = (TextView) listItemView.findViewById(R.id.default_time);
+        TextView defaultTime = listItemView.findViewById(R.id.default_time);
         // Get the default translation from the currentWord object and set this text on
         // the default TextView.
         defaultTime.setText(currentWord.getScheduleTime());

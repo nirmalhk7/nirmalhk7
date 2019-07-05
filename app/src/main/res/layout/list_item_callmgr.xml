@@ -1,6 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/listSingleItem"
+    android:id="@+id/list_item_callmgr"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
@@ -16,14 +16,14 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/CallMgr_callName"
+            android:id="@+id/callMgr_callName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20sp"
             tools:text="Caller 1" />
 
         <TextView
-            android:id="@+id/CallMgr_callNo"
+            android:id="@+id/callMgr_callNo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="2dp"

@@ -111,7 +111,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         // updating row
         return db.update(KEY_TABLENAME, values, KEY_ID + " = ?",
-                new String[] { String.valueOf(schedule.getID()) });
+                new String[] { String.valueOf(Schedule.getID()) });
     }
 
     // Deleting single schedule
