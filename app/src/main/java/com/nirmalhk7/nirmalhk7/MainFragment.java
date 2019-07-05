@@ -146,7 +146,8 @@ public class MainFragment extends Fragment {
                         weatherDesc.setOrientation(LinearLayout.VERTICAL);
                         TextView summaryText = new TextView(getContext());
                         summaryText.setText(summary + ". Temperature " + temp + "C");
-                        summaryText.setTextColor(R.color.colorFontLight);
+
+                        summaryText.setTextColor(getActivity().getResources().getColor(R.color.colorFontLight));
                         TextView dailyProbability = new TextView(getContext());
                         if (Integer.parseInt(rainWeek) > 0.5) {
                             dailyProbability.setText(Integer.parseInt(rainWeek) * 100 + "% chance of rain!");
@@ -155,7 +156,7 @@ public class MainFragment extends Fragment {
                         } else {
                             dailyProbability.setText("Expect no rain!");
                         }
-                        dailyProbability.setTextColor(R.color.colorFontLight);
+                        dailyProbability.setTextColor(getActivity().getResources().getColor(R.color.colorFontLight));
 
                         weatherDesc.addView(summaryText);
                         weatherDesc.addView(dailyProbability);
