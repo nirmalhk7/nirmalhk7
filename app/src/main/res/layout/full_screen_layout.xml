@@ -3,15 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="28dp"
     android:background="@android:color/white"
     android:fitsSystemWindows="true"
-    android:orientation="vertical"
-    android:layout_marginTop="28dp">
+    android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        >
+        android:layout_height="?attr/actionBarSize">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -34,19 +33,21 @@
                 android:text="New Task"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
                 android:textColor="@android:color/white" />
+
             <LinearLayout
+                android:id="@+id/scheduleDialog"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:id="@+id/scheduleDialog">
+                android:gravity="center">
+
                 <Button
                     android:id="@+id/button_save"
                     style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginRight="5dp"
                     android:paddingLeft="2dp"
                     android:paddingRight="2dp"
-                    android:layout_marginRight="5dp"
                     android:text="Save"
                     android:textColor="@android:color/white" />
             </LinearLayout>
@@ -57,53 +58,81 @@
     </android.support.design.widget.AppBarLayout>
 
 
-
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/nested_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/colorDark"
         android:scrollbars="none"
         android:scrollingCache="true">
 
         <LinearLayout
+            android:id="@+id/dailyscheduleForm"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/dailyscheduleForm"
             android:orientation="vertical"
             android:padding="15dp">
-            <TimePicker
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/colorDark"
-                android:id="@+id/timeset">
-
-            </TimePicker>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="10dp"
-                android:text="Task Name"/>
+                android:text="Task Name" />
+
             <EditText
+                android:id="@+id/taskName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/taskName"/>
+                android:hint="Task Name"
+                android:textColor="@color/colorFontDark"
+                android:textColorHint="@color/colorFontDark" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Task Label"/>
+                android:paddingTop="10dp"
+                android:text="Task Label" />
+
             <EditText
+                android:id="@+id/taskLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/taskLabel"/>
+                android:textColor="@color/colorFontDark"
+                android:textColorHint="@color/colorFontDark" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Time"/>
-            <EditText
+                android:paddingTop="10dp"
+                android:text="Time" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/taskTime"/>
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/taskStart"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:focusable="false"
+                    android:hint="Start Time"
+                    android:padding="10dp"
+                    android:textColor="@color/colorFontDark"
+                    android:textColorHint="@color/colorFontDark" />
+
+                <EditText
+                    android:id="@+id/taskEnd"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:focusable="false"
+                    android:hint="End Time"
+                    android:textColor="@color/colorFontDark"
+                    android:textColorHint="@color/colorFontDark" />
+            </LinearLayout>
+
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>

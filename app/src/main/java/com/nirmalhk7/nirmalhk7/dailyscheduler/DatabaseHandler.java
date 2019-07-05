@@ -10,13 +10,13 @@ import java.util.List;
 
 
 public class DatabaseHandler extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 3;
-    private static final String DATABASE_NAME = "scheduleDB";
-    private static final String KEY_TABLENAME = "contacts";
+    private static final int DATABASE_VERSION = 2;
+    private static final String DATABASE_NAME = "scheduleDatabase";
+    private static final String KEY_TABLENAME = "scheduletable";
     private static final String KEY_ID = "id";
     private static final String KEY_TASK = "task";
     private static final String KEY_LABEL = "label";
-    private static final String KEY_TIME = "label";
+    private static final String KEY_TIME = "time";
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -28,7 +28,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_CONTACTS_TABLE = "CREATE TABLE " + KEY_TABLENAME + "("
                 + KEY_ID + " INTEGER PRIMARY KEY," + KEY_TASK + " TEXT,"
-                + KEY_LABEL + " TEXT," +KEY_TIME+"TEXT" + ")";
+                + KEY_LABEL + " TEXT," +KEY_TIME+ " TEXT" + ")";
         db.execSQL(CREATE_CONTACTS_TABLE);
     }
 
@@ -44,6 +44,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // code to add the new schedule
     void addSchedule(Schedule schedule) {
+
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();

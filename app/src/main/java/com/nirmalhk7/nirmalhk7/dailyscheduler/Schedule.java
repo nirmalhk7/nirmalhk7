@@ -39,7 +39,7 @@ public class Schedule {
         this._label = label;
     }
     public String getTime(){
-        return this._label;
+        return this._time;
     }
     public void setTime(String time){
         this._time = time;

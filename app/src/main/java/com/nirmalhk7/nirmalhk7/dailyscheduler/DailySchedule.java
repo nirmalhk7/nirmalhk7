@@ -1,6 +1,10 @@
 package com.nirmalhk7.nirmalhk7.dailyscheduler;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -8,12 +12,16 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.nirmalhk7.nirmalhk7.R;
+
+import static android.content.Context.NOTIFICATION_SERVICE;
 
 
 /**
@@ -93,12 +101,15 @@ public class DailySchedule extends Fragment {
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 transaction.add(android.R.id.content, newFragment).addToBackStack(null).commit();
+
+
             }
         });
 
         return view;
 
     }
+
 
 
 

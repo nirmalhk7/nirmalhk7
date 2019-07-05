@@ -8,20 +8,41 @@
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:padding="15dp"
+            android:layout_margin="@dimen/standard_dimen"
+            android:padding="@dimen/standard_dimen"
             android:background="@color/colorDark">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/weather"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:layout_gravity="center_vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/error"
+                    android:padding="@dimen/standard_dimen"
+                    tools:text="@string/app_name"
+                    android:textColor="@android:color/black"/>
             </LinearLayout>
+        </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/standard_dimen"
+            android:layout_margin="@dimen/standard_dimen">
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/standard_dimen"
+            android:layout_margin="@dimen/standard_dimen">
         </android.support.v7.widget.CardView>
     </LinearLayout>
 </FrameLayout>
