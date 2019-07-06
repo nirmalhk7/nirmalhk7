@@ -49,5 +49,13 @@
                 android:title="Tasks Manager" />
         </menu>
     </item>
+    <item android:title="DevWorld">
+        <menu>
+            <item
+                android:id="@+id/nav_playground"
+                android:title="Playground"
+                android:icon="@drawable/ic_playground"/>
+        </menu>
+    </item>
 
 </menu>

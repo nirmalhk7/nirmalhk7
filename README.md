@@ -13,18 +13,20 @@ Cosmetic upgrades will be defined by decimal feature numbers.
 In every version there should be 3 upgrades from major focus modules and 2 from minor focus modules.
 
 Module List for nirmalhk7 app:
-- [ ] Entry Display- **major**
-- [ ] Daily Schedule- **major**
-- [ ] Attendance- **major**
-- [ ] Exams and Holidays- **major**
-- [ ] Marks Manager- **minor**
-- [ ] Call Manager- **minor**
-- [ ] Tasks Manager- **minor**
-- [ ] Financial Markets
+
+- [ ] Daily Schedule (DAS)- **major**
+- [ ] Attendance (ATT)- **major**
+- [ ] Exams and Holidays (EAH)- **major**
+- [ ] Marks Manager (MAM)- **minor**
+- [ ] Call Manager (CAM)- **minor**
+- [ ] Tasks Manager (TAM)- **minor**
+- [ ] Financial Markets (FIM)
+- [ ] Entry Display (END)- **minor**
 
 v2 Checklist:
 - [ ] Daily Schedule- Create UI for editing, deleting
-- [ ] Exams and Holidays- Create UI for Exam and Holiday list.
+- [x] Exams and Holidays- Create UI for Exam and Holiday list.
 - [x] Daily Schedule- Creating notification.
 - [ ] Task Manager- Create UI for List and searchbar.
 - [x] Entry Display- AirLocations.
+- [ ] Entry Display- Dummy Layout for Attendance, Holiday and classes.

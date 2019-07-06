@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -145,7 +146,8 @@ public class MainFragment extends Fragment {
                         weatherDesc.setOrientation(LinearLayout.VERTICAL);
                         TextView summaryText = new TextView(getContext());
                         summaryText.setText(summary + ". Temperature " + temp + "C");
-                        summaryText.setTextColor(R.color.colorFontLight);
+
+                        summaryText.setTextColor(getActivity().getResources().getColor(R.color.colorFontLight));
                         TextView dailyProbability = new TextView(getContext());
                         if (Integer.parseInt(rainWeek) > 0.5) {
                             dailyProbability.setText(Integer.parseInt(rainWeek) * 100 + "% chance of rain!");
@@ -154,7 +156,7 @@ public class MainFragment extends Fragment {
                         } else {
                             dailyProbability.setText("Expect no rain!");
                         }
-                        dailyProbability.setTextColor(R.color.colorFontLight);
+                        dailyProbability.setTextColor(getActivity().getResources().getColor(R.color.colorFontLight));
 
                         weatherDesc.addView(summaryText);
                         weatherDesc.addView(dailyProbability);
@@ -230,6 +232,14 @@ public class MainFragment extends Fragment {
                 @Override
                 public void onFailed(@NotNull AirLocation.LocationFailedEnum locationFailedEnum) {
                     Log.e("AirLocation", "Location untraceable");
+                }
+            });
+            LinearLayout weather=v.findViewById(R.id.weather);
+            weather.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getActivity(), "LA:"+latitude+" LO:"+longitude,
+                            Toast.LENGTH_SHORT).show();
                 }
             });
 
