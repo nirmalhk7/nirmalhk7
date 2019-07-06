@@ -7,26 +7,54 @@ import android.support.annotation.NonNull;
 @Entity
 public class Schedule {
     @NonNull
-    @PrimaryKey
-    private String movieId;
-    private String movieName;
+    @PrimaryKey(autoGenerate = true)
+    private int id;
+    private String mTask;
+    private String mTime;
+    private String mLabel;
+    private int mDay;
 
     public Schedule() {
     }
 
-    public String getMovieId() {
-        return movieId;
+
+    public String getTask(){
+        return mTask;
     }
 
-    public void setMovieId(String movieId) {
-        this.movieId = movieId;
+    public String getTime(){
+        return mTime;
     }
 
-    public String getMovieName() {
-        return movieName;
+    public String getLabel(){
+        return mLabel;
     }
 
-    public void setMovieName(String movieName) {
-        this.movieName = movieName;
+    public int getDay(){
+        return mDay;
+    }
+
+    public int getId(){
+        return id;
+    }
+
+    public void setId(int mId){
+        id=mId;
+    }
+
+    public void setTask(String task){
+        mTask=task;
+    }
+
+    public void setTime(String time){
+        mTime=time;
+    }
+
+    public void setLabel(String label){
+        mLabel=label;
+    }
+
+    public void setDay(int day){
+        mDay=day;
     }
 }

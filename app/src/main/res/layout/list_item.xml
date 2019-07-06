@@ -22,6 +22,11 @@
             android:layout_height="wrap_content"
             tools:text="Label X"
             android:id="@+id/default_text_view"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/itemid"
+            tools:text="2"/>
     </LinearLayout>
     <TextView
         android:layout_width="wrap_content"
@@ -37,5 +42,6 @@
         android:textSize="20sp"
         tools:text="Time X"
         android:id="@+id/dailyschedule_id"/>
+
 
 </LinearLayout>

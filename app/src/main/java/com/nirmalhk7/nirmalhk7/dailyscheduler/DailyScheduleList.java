@@ -99,7 +99,8 @@ public class DailyScheduleList extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_daily_schedule_list, container, false);
-        Log.d("DAS/DSL/Ta", "Tab " + DailySchedule.tabPosition);
+        Log.d("DAS/DS/Tabs", "Tab " + DailySchedule.tabPosition);
+
 
 
         // Inserting Schedules
@@ -111,34 +112,34 @@ public class DailyScheduleList extends Fragment {
         ArrayList<scheduleItem> sch = new ArrayList<scheduleItem>();
 
         scheduleDatabase database = Room.databaseBuilder(getContext(), scheduleDatabase.class, "mydb")
-                .allowMainThreadQueries()
+                .allowMainThreadQueries().fallbackToDestructiveMigration()
                 .build();
 
         scheduleDAO scheduleDAO = database.getScheduleDao();
-        Schedule schedule = new Schedule();
-        schedule.setName("Schedule001");
-        schedule.setDescription("Schedule 001");
-        schedule.setQuantity(1000);
+        Log.d("DAS/DS/Tabs","xx"+DailySchedule.viewPager.getCurrentItem());
+        List<Schedule> schedules = scheduleDAO.getScheduleByDay(DailySchedule.viewPager.getCurrentItem());
 
-        scheduleDAO.insertOnlySingleMovie(schedule);
-        List<Schedule> schedules = scheduleDAO.getSchedules();
-        System.out.println(schedules);
+        for (Schedule cn : schedules) {
+
+            Log.d("DAS/DSL", "Printing: Task "+cn.getTask()+" Time "+cn.getTime()+" Label "+cn.getLabel());
+            sch.add(new scheduleItem(cn.getTask(), cn.getTime(),cn.getLabel(),cn.getId(),cn.getDay()));
+        }
 
         ScheduleAdapter adapter = new ScheduleAdapter(getContext(), sch);
 
         // Find the {@link ListView} object in the view hierarchy of the {@link Activity}.
         // There should be a {@link ListView} with the view ID called list, which is declared in the
         // word_list.xml layout file.
-        ListView listView = view.findViewById(R.id.list_schedule);
+        ListView listView = view.findViewById(R.id.list_item);
 
         // Make the {@link ListView} use the {@link ScheduleAdapter} we created above, so that the
         // {@link ListView} will display list schedules for each {@link scheduleSchedule} in the list.
         listView.setAdapter(adapter);
 
-        final ListView singleSchedule = view.findViewById(R.id.list_schedule);
-        singleSchedule.setOnScheduleLongClickListener(new AdapterView.OnScheduleLongClickListener() {
+        final ListView singleSchedule = view.findViewById(R.id.list_item);
+        singleSchedule.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public boolean onScheduleLongClick(AdapterView<?> parent, View view, int position, long id) {
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.d("DAS/DSL", "LongClicked!");
 
                 TextView title = view.findViewById(R.id.miwok_text_view);

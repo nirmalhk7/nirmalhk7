@@ -22,10 +22,13 @@ public interface scheduleDAO {
     @Query("SELECT * FROM Schedule")
     public List<Schedule> getItems();
 
+    @Query("SELECT * FROM Schedule WHERE mDay =:Day")
+    public List<Schedule> getScheduleByDay(int Day);
+
     @Update
     void updateMovie(Schedule movies);
 
     @Delete
-    void deleteMovie(Schedule movies);
+    void deleteSchedule(Schedule schedule);
 }
 

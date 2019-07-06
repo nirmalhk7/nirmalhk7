@@ -3,6 +3,7 @@ package com.nirmalhk7.nirmalhk7.dailyscheduler;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.arch.persistence.room.Room;
 import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -33,62 +34,74 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class FullScreenDialog extends DialogFragment{
+public class FullScreenDialog extends DialogFragment {
     public int key;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
     }
-    private int stHr,stM,endH,endM;
-    private int day;
+
+    private int stHr, stM, endH, endM;
+    private int mday;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.full_screen_layout, container, false);
-        Bundle bundle=this.getArguments();
+        Bundle bundle = this.getArguments();
         //If editing
-        if(bundle!=null)
-        {
-            String title=bundle.getString("title");
-            String label=bundle.getString("label");
-            String time=bundle.getString("time");
-            int day=bundle.getInt("day");
-            int dbNo=bundle.getInt("key");
+        if (bundle != null) {
+            String title = bundle.getString("title");
+            String label = bundle.getString("label");
+            String time = bundle.getString("time");
+            int day = bundle.getInt("day");
+            int dbNo = bundle.getInt("key");
 
             //Pass title,label and time value to EditText
-            EditText taskNameEdit=rootView.findViewById(R.id.taskName);
+            EditText taskNameEdit = rootView.findViewById(R.id.taskName);
             taskNameEdit.setText(title);
-            EditText taskLabelEdit=rootView.findViewById(R.id.taskLabel);
+            EditText taskLabelEdit = rootView.findViewById(R.id.taskLabel);
             taskLabelEdit.setText(label);
 
 
-
-
             Spinner spinner = (Spinner) rootView.findViewById(R.id.spinner);
-            switch(day)
-            {
-                case 0:spinner.setSelection(6);break;
-                case 1:spinner.setSelection(1);break;
-                case 2:spinner.setSelection(2);break;
-                case 3:spinner.setSelection(3);break;
-                case 4:spinner.setSelection(4);break;
-                case 5:spinner.setSelection(5);break;
-                case 6:spinner.setSelection(6);break;
+            switch (day) {
+                case 0:
+                    spinner.setSelection(6);
+                    break;
+                case 1:
+                    spinner.setSelection(1);
+                    break;
+                case 2:
+                    spinner.setSelection(2);
+                    break;
+                case 3:
+                    spinner.setSelection(3);
+                    break;
+                case 4:
+                    spinner.setSelection(4);
+                    break;
+                case 5:
+                    spinner.setSelection(5);
+                    break;
+                case 6:
+                    spinner.setSelection(6);
+                    break;
             }
 
             //trash is the trashbox for deleting;
-            ImageView trash=new ImageView(getContext());
+            ImageView trash = new ImageView(getContext());
             trash.setImageResource(R.drawable.ic_trash);
             trash.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
-            int pxstd=getContext().getResources().getDimensionPixelSize(R.dimen.standard_dimen);
-            trash.setPadding(pxstd,0,pxstd,0);
-            LinearLayout topIcons=rootView.findViewById(R.id.scheduleDialog);
+            int pxstd = getContext().getResources().getDimensionPixelSize(R.dimen.standard_dimen);
+            trash.setPadding(pxstd, 0, pxstd, 0);
+            LinearLayout topIcons = rootView.findViewById(R.id.scheduleDialog);
             topIcons.addView(trash);
             trash.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d("DAS/FullDialog","Delete Button");
+                    Log.d("DAS/FullDialog", "Delete Button");
                 }
             });
 
@@ -102,8 +115,8 @@ public class FullScreenDialog extends DialogFragment{
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("DAS/FSD/Spn","L"+position);
-                day=position;
+                Log.d("DAS/FSD/Spn", "L" + position);
+                mday = position;
             }
 
             @Override
@@ -140,93 +153,92 @@ public class FullScreenDialog extends DialogFragment{
         });
 
         //Timepicker start dialog onclick
-        final EditText startTime=rootView.findViewById(R.id.taskStart);
+        final EditText startTime = rootView.findViewById(R.id.taskStart);
         startTime.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
-                Calendar mcurrentTime = Calendar.getInstance();
-                int Mhour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-                int Mminute = mcurrentTime.get(Calendar.MINUTE);
-                TimePickerDialog mTimePicker;
-                mTimePicker = new TimePickerDialog(getContext(), AlertDialog.THEME_DEVICE_DEFAULT_DARK, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        startTime.setText( selectedHour + ":" + selectedMinute);
-                        stHr=selectedHour;
-                        stM=selectedMinute;
-
-                    }
-                }, Mhour, Mminute, true);//No 12 hour time
-                mTimePicker.setTitle("Select Time");
-                mTimePicker.show();
+                dialogTimePicker(1, startTime);
 
             }
         });
 
+
         //Timepicker end time dialog
-        final EditText endTime=rootView.findViewById(R.id.taskEnd);
+        final EditText endTime = rootView.findViewById(R.id.taskEnd);
         endTime.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
-                Calendar mcurrentTime = Calendar.getInstance();
-                int Mhour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-                int Mminute = mcurrentTime.get(Calendar.MINUTE);
-                TimePickerDialog mTimePicker;
-                mTimePicker = new TimePickerDialog(getContext(),AlertDialog.THEME_DEVICE_DEFAULT_DARK, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        endTime.setText( selectedHour + ":" + selectedMinute);
-                    }
-                }, Mhour, Mminute, true);//yes 12 hour time
-                mTimePicker.setTitle("Select Time");
-                mTimePicker.show();
+                dialogTimePicker(2, endTime);
 
             }
         });
 
 
         //On Click SAVE
-        (rootView.findViewById(R.id.button_save)).setOnClickListener(new View.OnClickListener(){
+        (rootView.findViewById(R.id.button_save)).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
 
-                Log.d("DailyScheduler","Saving data!");
-                DatabaseHandler db = new DatabaseHandler(getContext());
-                EditText taskNameEdit=getActivity().findViewById(R.id.taskName);
-                EditText taskLabelEdit=getActivity().findViewById(R.id.taskLabel);
-                EditText taskTimeStartEdit=getActivity().findViewById(R.id.taskStart);
-                EditText taskTimeEndEdit=getActivity().findViewById(R.id.taskEnd);
+                Log.d("DailyScheduler", "Saving data!");
 
-                String task=taskNameEdit.getText().toString();
-                String label=taskLabelEdit.getText().toString();
-                String time=taskTimeStartEdit.getText().toString()+"-"+taskTimeEndEdit.getText().toString();
+                EditText taskNameEdit = getActivity().findViewById(R.id.taskName);
+                EditText taskLabelEdit = getActivity().findViewById(R.id.taskLabel);
+                EditText taskTimeStartEdit = getActivity().findViewById(R.id.taskStart);
+                EditText taskTimeEndEdit = getActivity().findViewById(R.id.taskEnd);
+
+
+                String task = taskNameEdit.getText().toString();
+                String label = taskLabelEdit.getText().toString();
+                String time = taskTimeStartEdit.getText().toString() + "-" + taskTimeEndEdit.getText().toString();
                 //Validation
-                boolean required=(task==null)||(label==null)||(time==null);
-                if(required==true)
-                {
-                    Log.i("DAS/FSD","Validation required");
+                boolean required = (task == null) || (label == null) || (time == null);
+                if (required == true) {
+                    Log.i("DAS/FSD", "Validation required");
                 }
-                Log.d("DIALOG","Time "+time);
-                Log.d("Name:","H "+taskNameEdit.getText().toString()+taskLabelEdit.getText().toString()+taskTimeEndEdit.getText().toString());
-                db.addSchedule(new Schedule(task,label,time,day));
-              //  db.addSchedule(new Schedule("Task 1","Label 1","Time 1"));
-                dismiss();
+                Log.d("DIALOG", "Time " + time);
+                Log.d("Name:", "H " + taskNameEdit.getText().toString() + taskLabelEdit.getText().toString() + taskTimeEndEdit.getText().toString());
 
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                Fragment newFragment;
-                newFragment = new DailySchedule();
-                transaction.replace(R.id.fullscreen, newFragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
+                //  db.addSchedule(new Schedule("Task 1","Label 1","Time 1"));
+
+                scheduleDatabase database = Room.databaseBuilder(getContext(), scheduleDatabase.class, "mydb")
+                        .allowMainThreadQueries().fallbackToDestructiveMigration()
+                        .build();
+                scheduleDAO scheduleDAO = database.getScheduleDao();
+                Schedule schedule = new Schedule();
+                schedule.setTask(task);
+                schedule.setLabel(label);
+                schedule.setTime(time);
+                schedule.setDay(mday);
+
+                scheduleDAO.insertOnlySingleMovie(schedule);
+
+                dismiss();
             }
         });
         return rootView;
     }
 
+    public void dialogTimePicker(int whatTimeSelected, final EditText Time) {
+        // TODO Auto-generated method stub
+        Calendar mcurrentTime = Calendar.getInstance();
+        int Mhour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+        int Mminute = mcurrentTime.get(Calendar.MINUTE);
+        TimePickerDialog mTimePicker;
+        mTimePicker = new TimePickerDialog(getContext(), AlertDialog.THEME_DEVICE_DEFAULT_DARK, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                Time.setText(selectedHour + ":" + selectedMinute);
+            }
+        }, Mhour, Mminute, true);//yes 12 hour time
+        if (whatTimeSelected == 2) {
+            mTimePicker.setTitle("End Time");
+        } else if (whatTimeSelected == 1) {
+            mTimePicker.setTitle("Start Time");
+        }
+        mTimePicker.show();
+    }
 
     @NonNull
     @Override
