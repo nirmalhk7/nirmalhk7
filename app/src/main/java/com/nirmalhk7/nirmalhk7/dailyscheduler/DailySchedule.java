@@ -15,6 +15,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,7 +78,7 @@ public class DailySchedule extends Fragment {
         }
     }
 
-
+    public static int tabPosition;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -85,10 +86,30 @@ public class DailySchedule extends Fragment {
         View view= inflater.inflate(R.layout.fragment_daily_schedule, container, false);
 
         ViewPager viewPager = (ViewPager) view.findViewById(R.id.view_pager);
+
         TabAdapter myPagerAdapter = new TabAdapter(getActivity().getSupportFragmentManager());
         viewPager.setAdapter(myPagerAdapter);
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tablayout);
         tabLayout.setupWithViewPager(viewPager);
+
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+                Log.d("DAS/DS/Tabs", "position = " + i);
+                tabPosition=i;
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });
         FloatingActionButton fab = getActivity().findViewById(R.id.fab);
         fab.show();
         fab.setOnClickListener(new View.OnClickListener() {

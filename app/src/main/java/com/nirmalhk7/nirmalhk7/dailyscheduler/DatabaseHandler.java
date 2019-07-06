@@ -10,13 +10,14 @@ import java.util.List;
 
 
 public class DatabaseHandler extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 4;
     private static final String DATABASE_NAME = "scheduleDatabase";
     private static final String KEY_TABLENAME = "scheduletable";
     private static final String KEY_ID = "id";
     private static final String KEY_TASK = "task";
     private static final String KEY_LABEL = "label";
     private static final String KEY_TIME = "time";
+    private static final String KEY_DAY= "day";
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -28,7 +29,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_CONTACTS_TABLE = "CREATE TABLE " + KEY_TABLENAME + "("
                 + KEY_ID + " INTEGER PRIMARY KEY," + KEY_TASK + " TEXT,"
-                + KEY_LABEL + " TEXT," +KEY_TIME+ " TEXT" + ")";
+                + KEY_LABEL + " TEXT,"+ KEY_DAY + " INTEGER," +KEY_TIME+ " TEXT" + ")";
         db.execSQL(CREATE_CONTACTS_TABLE);
     }
 
@@ -37,7 +38,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Drop older table if existed
         db.execSQL("DROP TABLE IF EXISTS " + KEY_TABLENAME);
-
         // Create tables again
         onCreate(db);
     }
@@ -46,11 +46,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     void addSchedule(Schedule schedule) {
 
         SQLiteDatabase db = this.getWritableDatabase();
-
         ContentValues values = new ContentValues();
         values.put(KEY_TASK, schedule.getTask()); // Schedule Name
         values.put(KEY_LABEL, schedule.getLabel());
-        values.put(KEY_TIME, schedule.getTime());// Schedule Phone
+        values.put(KEY_TIME, schedule.getTime());
+        values.put(KEY_DAY,schedule.getDay());// Schedule Phone
 
         // Inserting Row
         db.insert(KEY_TABLENAME, null, values);
@@ -90,7 +90,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 schedule.setID(Integer.parseInt(cursor.getString(0)));
                 schedule.setTask(cursor.getString(1));
                 schedule.setLabel(cursor.getString(2));
-                schedule.setTime(cursor.getString(3));
+                schedule.setDay(cursor.getInt(3));
+                schedule.setTime(cursor.getString(4));
                 // Adding schedule to list
                 contactList.add(schedule);
             } while (cursor.moveToNext());
@@ -108,7 +109,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_TASK, schedule.getTask());
         values.put(KEY_LABEL, schedule.getLabel());
 
-        values.put(KEY_TIME, schedule.getLabel());
+
+        values.put(KEY_DAY,schedule.getDay());
+        values.put(KEY_TIME, schedule.getTime());
 
         // updating row
         return db.update(KEY_TABLENAME, values, KEY_ID + " = ?",

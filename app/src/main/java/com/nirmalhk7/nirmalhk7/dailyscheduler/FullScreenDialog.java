@@ -14,9 +14,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toolbar;
@@ -24,7 +27,9 @@ import android.widget.Toolbar;
 import com.nirmalhk7.nirmalhk7.R;
 
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class FullScreenDialog extends DialogFragment{
     public int key;
@@ -34,6 +39,7 @@ public class FullScreenDialog extends DialogFragment{
 
     }
     private int stHr,stM,endH,endM;
+    private int day;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -45,13 +51,26 @@ public class FullScreenDialog extends DialogFragment{
             String title=bundle.getString("title");
             String label=bundle.getString("label");
             String time=bundle.getString("time");
-            int itemPos=bundle.getInt("itemPos");
+            int day=bundle.getInt("day");
+            int dbNo=bundle.getInt("key");
 
             //Pass title,label and time value to EditText
             EditText taskNameEdit=rootView.findViewById(R.id.taskName);
             taskNameEdit.setText(title);
             EditText taskLabelEdit=rootView.findViewById(R.id.taskLabel);
             taskLabelEdit.setText(label);
+
+            Spinner spinner = (Spinner) rootView.findViewById(R.id.spinner);
+            switch(day)
+            {
+                case 0:spinner.setSelection(6);break;
+                case 1:spinner.setSelection(1);break;
+                case 2:spinner.setSelection(2);break;
+                case 3:spinner.setSelection(3);break;
+                case 4:spinner.setSelection(4);break;
+                case 5:spinner.setSelection(5);break;
+                case 6:spinner.setSelection(6);break;
+            }
 
             //trash is the trashbox for deleting;
             ImageView trash=new ImageView(getContext());
@@ -69,6 +88,43 @@ public class FullScreenDialog extends DialogFragment{
             });
 
         }
+
+
+        // Spinner element
+        Spinner spinner = (Spinner) rootView.findViewById(R.id.spinner);
+
+        // Spinner click listener
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("DAS/FSD/Spn","L"+position);
+                day=position;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        // Spinner Drop down elements
+        List<String> categories = new ArrayList<String>();
+        categories.add("Monday");
+        categories.add("Tuesday");
+        categories.add("Wednesday");
+        categories.add("Thursday");
+        categories.add("Friday");
+        categories.add("Saturday");
+        categories.add("Sunday");
+
+        // Creating adapter for spinner
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, categories);
+
+        // Drop down layout style - list view with radio button
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // attaching data adapter to spinner
+        spinner.setAdapter(dataAdapter);
 
         //Close button action
         (rootView.findViewById(R.id.button_close)).setOnClickListener(new View.OnClickListener() {
@@ -151,25 +207,15 @@ public class FullScreenDialog extends DialogFragment{
                 }
                 Log.d("DIALOG","Time "+time);
                 Log.d("Name:","H "+taskNameEdit.getText().toString()+taskLabelEdit.getText().toString()+taskTimeEndEdit.getText().toString());
-                db.addSchedule(new Schedule(task,label,time));
+                db.addSchedule(new Schedule(task,label,time,day));
               //  db.addSchedule(new Schedule("Task 1","Label 1","Time 1"));
                 dismiss();
             }
         });
         return rootView;
     }
-    private void incrementEnd(int incrby){
-        stHr=endH;
-        stM=endM;
-        endM+=incrby;
-        while (endM>60){
-            endM-=60;
-            endH++;
-        }
-        if(endH>12){
-            endH-=12;
-        }
-    }
+
+
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {

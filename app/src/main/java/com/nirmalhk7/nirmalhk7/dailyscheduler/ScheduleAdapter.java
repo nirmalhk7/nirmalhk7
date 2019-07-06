@@ -50,8 +50,6 @@ public class ScheduleAdapter extends ArrayAdapter<scheduleItem> {
         // the default TextView.
         defaultTime.setText(currentWord.getScheduleTime());
 
-
-
         // Return the whole list item layout (containing 2 TextViews) so that it can be shown in
         // the ListView.
         return listItemView;

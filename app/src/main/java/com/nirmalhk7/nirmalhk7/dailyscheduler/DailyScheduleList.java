@@ -93,14 +93,13 @@ public class DailyScheduleList extends Fragment {
     }
 
     public DatabaseHandler db;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_daily_schedule_list, container, false);
-
-
-
+        Log.d("DAS/DSL/Ta", "Tab " + DailySchedule.tabPosition);
         db = new DatabaseHandler(getContext());
 
         // Inserting Schedules
@@ -112,13 +111,11 @@ public class DailyScheduleList extends Fragment {
 
         ArrayList<scheduleItem> sch = new ArrayList<scheduleItem>();
         for (Schedule cn : scheduleOP) {
-
-            Log.d("DAS/DSL", "Printing: Task "+cn.getTask()+" Time "+cn.getTime()+" Label "+cn.getLabel());
-            sch.add(new scheduleItem(cn.getTask(), cn.getTime(),cn.getLabel()));
+            Log.d("DAS/DSL/Pr", "Printing: Task " + cn.getTask() + " Time " + cn.getTime() + " Label " + cn.getLabel() + " Day " + cn.getDay());
+            if (cn.getDay() == DailySchedule.tabPosition) {
+                sch.add(new scheduleItem(cn.getTask(), cn.getTime(), cn.getLabel(), cn.getID(), cn.getDay()));
+            }
         }
-        sch.add(new scheduleItem("Task Z","","College"));
-        // Create an {@link ScheduleAdapter}, whose data source is a list of {@link scheduleItem}s. The
-        // adapter knows how to create list items for each item in the list.
         ScheduleAdapter adapter = new ScheduleAdapter(getContext(), sch);
 
         // Find the {@link ListView} object in the view hierarchy of the {@link Activity}.
@@ -130,27 +127,29 @@ public class DailyScheduleList extends Fragment {
         // {@link ListView} will display list items for each {@link scheduleItem} in the list.
         listView.setAdapter(adapter);
 
-        final ListView singleItem=view.findViewById(R.id.list_item);
+        final ListView singleItem = view.findViewById(R.id.list_item);
         singleItem.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("DAS/DSL","LongClicked!");
+                Log.d("DAS/DSL", "LongClicked!");
 
-                TextView title=view.findViewById(R.id.miwok_text_view);
-                TextView label=view.findViewById(R.id.default_text_view);
-                TextView time=view.findViewById(R.id.default_time);
+                TextView title = view.findViewById(R.id.miwok_text_view);
+                TextView label = view.findViewById(R.id.default_text_view);
+                TextView time = view.findViewById(R.id.default_time);
+
+
                 FullScreenDialog newFragment = new FullScreenDialog();
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 
-                callNotification(title.getText().toString(),time.getText().toString());
+                callNotification(title.getText().toString(), time.getText().toString());
 
                 Bundle args = new Bundle();
                 args.putInt("key", 10);
-                args.putInt("itemPos",position);
-                args.putString("title",title.getText().toString());
-                args.putString("label",label.getText().toString());
-                args.putString("time",time.getText().toString());
-                Log.d("DS","PSN:"+Integer.toString(position));
+                args.putString("title", title.getText().toString());
+                args.putString("label", label.getText().toString());
+                args.putString("time", time.getText().toString());
+                args.putInt("day",DailySchedule.tabPosition);
+                Log.d("DS", "PSN:" + Integer.toString(position));
                 newFragment.setArguments(args);
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
@@ -160,7 +159,8 @@ public class DailyScheduleList extends Fragment {
         });
         return view;
     }
-    private void callNotification(String heading,String title){
+
+    private void callNotification(String heading, String title) {
         Intent intent = new Intent(getActivity(), SettingsActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(getContext(), 0, intent, 0);
@@ -171,11 +171,11 @@ public class DailyScheduleList extends Fragment {
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 // Set the intent that will fire when the user taps the notification
                 .setAutoCancel(true)
-                .addAction(R.drawable.ic_attendance,"PRESENT",
+                .addAction(R.drawable.ic_attendance, "PRESENT",
                         pendingIntent)
-                .addAction(R.drawable.ic_attendance,"ABSENT",
+                .addAction(R.drawable.ic_attendance, "ABSENT",
                         pendingIntent)
-                .addAction(R.drawable.ic_attendance,"CLASS CANCELLED",
+                .addAction(R.drawable.ic_attendance, "CLASS CANCELLED",
                         pendingIntent)
                 .setVisibility(VISIBILITY_PUBLIC);
 
@@ -187,6 +187,7 @@ public class DailyScheduleList extends Fragment {
 // notificationId is a unique inthist for each notification that you must define
         notificationManager.notify(0, builder.build());
     }
+
     private void createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library

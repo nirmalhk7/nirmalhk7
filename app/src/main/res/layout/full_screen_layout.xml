@@ -73,6 +73,11 @@
             android:orientation="vertical"
             android:padding="15dp">
 
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/standard_dimen"
+                android:id="@+id/spinner"></Spinner>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

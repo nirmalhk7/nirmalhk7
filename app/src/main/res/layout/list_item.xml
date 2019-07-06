@@ -30,4 +30,12 @@
         android:textSize="20sp"
         tools:text="Time X"
         android:id="@+id/default_time"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:textSize="20sp"
+        tools:text="Time X"
+        android:id="@+id/dailyschedule_id"/>
+
 </LinearLayout>

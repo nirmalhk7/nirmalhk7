@@ -5,6 +5,7 @@ public class Schedule {
     String _task;
     String _label;
     String _time;
+    int _day;
 
     public Schedule(){   }
     public Schedule(int id, String name, String _label){
@@ -13,10 +14,11 @@ public class Schedule {
         this._label = _label;
     }
 
-    public Schedule(String task, String _label,String time){
+    public Schedule(String task, String _label,String time,int day){
         this._task = task;
         this._label = _label;
         this._time=time;
+        this._day=day;
     }
     public static int getID(){
         return _id;
@@ -44,4 +46,7 @@ public class Schedule {
     public void setTime(String time){
         this._time = time;
     }
+
+    public int getDay(){return this._day;}
+    public void setDay(int day){this._day=day;}
 }
