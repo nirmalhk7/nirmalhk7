@@ -30,5 +30,9 @@ public interface scheduleDAO {
 
     @Delete
     void deleteSchedule(Schedule schedule);
+
+    @Query("SELECT DISTINCT mTask FROM Schedule WHERE mLabel=:Label")
+    public List<Schedule> getSubjects(String Label);
+
 }
 
