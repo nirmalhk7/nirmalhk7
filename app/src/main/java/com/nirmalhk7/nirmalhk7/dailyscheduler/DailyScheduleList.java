@@ -4,6 +4,7 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -92,7 +93,6 @@ public class DailyScheduleList extends Fragment {
         }
     }
 
-    public DatabaseHandler db;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -100,37 +100,45 @@ public class DailyScheduleList extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_daily_schedule_list, container, false);
         Log.d("DAS/DSL/Ta", "Tab " + DailySchedule.tabPosition);
-        db = new DatabaseHandler(getContext());
+
 
         // Inserting Schedules
         Log.d("Insert: ", "Inserting ..");
 
         // Reading all contacts
         Log.d("Reading: ", "Reading all contacts..");
-        List<Schedule> scheduleOP = db.getAllSchedules();
 
         ArrayList<scheduleItem> sch = new ArrayList<scheduleItem>();
-        for (Schedule cn : scheduleOP) {
-            Log.d("DAS/DSL/Pr", "Printing: Task " + cn.getTask() + " Time " + cn.getTime() + " Label " + cn.getLabel() + " Day " + cn.getDay());
-            if (cn.getDay() == DailySchedule.tabPosition) {
-                sch.add(new scheduleItem(cn.getTask(), cn.getTime(), cn.getLabel(), cn.getID(), cn.getDay()));
-            }
-        }
+
+        scheduleDatabase database = Room.databaseBuilder(getContext(), scheduleDatabase.class, "mydb")
+                .allowMainThreadQueries()
+                .build();
+
+        scheduleDAO scheduleDAO = database.getScheduleDao();
+        Schedule schedule = new Schedule();
+        schedule.setName("Schedule001");
+        schedule.setDescription("Schedule 001");
+        schedule.setQuantity(1000);
+
+        scheduleDAO.insertOnlySingleMovie(schedule);
+        List<Schedule> schedules = scheduleDAO.getSchedules();
+        System.out.println(schedules);
+
         ScheduleAdapter adapter = new ScheduleAdapter(getContext(), sch);
 
         // Find the {@link ListView} object in the view hierarchy of the {@link Activity}.
         // There should be a {@link ListView} with the view ID called list, which is declared in the
         // word_list.xml layout file.
-        ListView listView = view.findViewById(R.id.list_item);
+        ListView listView = view.findViewById(R.id.list_schedule);
 
         // Make the {@link ListView} use the {@link ScheduleAdapter} we created above, so that the
-        // {@link ListView} will display list items for each {@link scheduleItem} in the list.
+        // {@link ListView} will display list schedules for each {@link scheduleSchedule} in the list.
         listView.setAdapter(adapter);
 
-        final ListView singleItem = view.findViewById(R.id.list_item);
-        singleItem.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        final ListView singleSchedule = view.findViewById(R.id.list_schedule);
+        singleSchedule.setOnScheduleLongClickListener(new AdapterView.OnScheduleLongClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+            public boolean onScheduleLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.d("DAS/DSL", "LongClicked!");
 
                 TextView title = view.findViewById(R.id.miwok_text_view);

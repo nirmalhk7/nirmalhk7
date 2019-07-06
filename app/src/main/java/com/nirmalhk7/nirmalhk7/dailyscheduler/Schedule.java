@@ -1,52 +1,32 @@
 package com.nirmalhk7.nirmalhk7.dailyscheduler;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
+@Entity
 public class Schedule {
-    static int _id;
-    String _task;
-    String _label;
-    String _time;
-    int _day;
+    @NonNull
+    @PrimaryKey
+    private String movieId;
+    private String movieName;
 
-    public Schedule(){   }
-    public Schedule(int id, String name, String _label){
-        this._id = id;
-        this._task = name;
-        this._label = _label;
+    public Schedule() {
     }
 
-    public Schedule(String task, String _label,String time,int day){
-        this._task = task;
-        this._label = _label;
-        this._time=time;
-        this._day=day;
-    }
-    public static int getID(){
-        return _id;
+    public String getMovieId() {
+        return movieId;
     }
 
-    public void setID(int id){
-        this._id = id;
+    public void setMovieId(String movieId) {
+        this.movieId = movieId;
     }
 
-    public String getTask(){
-        return this._task;
-    }
-    public void setTask(String name){
-        this._task = name;
-    }
-    public String getLabel(){
-        return this._label;
-    }
-    public void setLabel(String label){
-        this._label = label;
-    }
-    public String getTime(){
-        return this._time;
-    }
-    public void setTime(String time){
-        this._time = time;
+    public String getMovieName() {
+        return movieName;
     }
 
-    public int getDay(){return this._day;}
-    public void setDay(int day){this._day=day;}
+    public void setMovieName(String movieName) {
+        this.movieName = movieName;
+    }
 }

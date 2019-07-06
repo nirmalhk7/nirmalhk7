@@ -7,6 +7,8 @@ import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -59,6 +61,9 @@ public class FullScreenDialog extends DialogFragment{
             taskNameEdit.setText(title);
             EditText taskLabelEdit=rootView.findViewById(R.id.taskLabel);
             taskLabelEdit.setText(label);
+
+
+
 
             Spinner spinner = (Spinner) rootView.findViewById(R.id.spinner);
             switch(day)
@@ -210,6 +215,13 @@ public class FullScreenDialog extends DialogFragment{
                 db.addSchedule(new Schedule(task,label,time,day));
               //  db.addSchedule(new Schedule("Task 1","Label 1","Time 1"));
                 dismiss();
+
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                Fragment newFragment;
+                newFragment = new DailySchedule();
+                transaction.replace(R.id.fullscreen, newFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
         return rootView;
