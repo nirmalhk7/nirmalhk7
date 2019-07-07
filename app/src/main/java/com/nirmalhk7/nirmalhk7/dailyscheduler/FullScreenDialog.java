@@ -55,8 +55,8 @@ public class FullScreenDialog extends DialogFragment {
             String title = bundle.getString("title");
             String label = bundle.getString("label");
             String time = bundle.getString("time");
-            int day = bundle.getInt("day");
-            int dbNo = bundle.getInt("key");
+            int day = bundle.getInt("key");
+            final int dbNo = bundle.getInt("key");
 
             //Pass title,label and time value to EditText
             EditText taskNameEdit = rootView.findViewById(R.id.taskName);
@@ -65,30 +65,7 @@ public class FullScreenDialog extends DialogFragment {
             taskLabelEdit.setText(label);
 
 
-            Spinner spinner = (Spinner) rootView.findViewById(R.id.spinner);
-            switch (day) {
-                case 0:
-                    spinner.setSelection(6);
-                    break;
-                case 1:
-                    spinner.setSelection(1);
-                    break;
-                case 2:
-                    spinner.setSelection(2);
-                    break;
-                case 3:
-                    spinner.setSelection(3);
-                    break;
-                case 4:
-                    spinner.setSelection(4);
-                    break;
-                case 5:
-                    spinner.setSelection(5);
-                    break;
-                case 6:
-                    spinner.setSelection(6);
-                    break;
-            }
+
 
             //trash is the trashbox for deleting;
             ImageView trash = new ImageView(getContext());
@@ -102,6 +79,14 @@ public class FullScreenDialog extends DialogFragment {
                 @Override
                 public void onClick(View v) {
                     Log.d("DAS/FullDialog", "Delete Button");
+                    scheduleDatabase database = Room.databaseBuilder(getContext(), scheduleDatabase.class, "mydb")
+                            .allowMainThreadQueries().fallbackToDestructiveMigration()
+                            .build();
+
+                    scheduleDAO scheduleDAO = database.getScheduleDao();
+                    Log.d("DAS/FSD/ID",Integer.toString(dbNo));
+                    scheduleDAO.deleteSchedule(scheduleDAO.getScheduleById(dbNo));
+                    dismiss();
                 }
             });
 

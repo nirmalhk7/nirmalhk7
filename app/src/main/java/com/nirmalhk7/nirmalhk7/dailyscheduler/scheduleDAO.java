@@ -28,7 +28,11 @@ public interface scheduleDAO {
     @Update
     void updateMovie(Schedule movies);
 
+
     @Delete
     void deleteSchedule(Schedule schedule);
+
+    @Query("SELECT * FROM Schedule WHERE id=:Id")
+    public Schedule getScheduleById(int Id);
 }
 
