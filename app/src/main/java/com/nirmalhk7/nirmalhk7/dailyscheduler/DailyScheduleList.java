@@ -62,9 +62,11 @@ public class DailyScheduleList extends Fragment {
     public String scheduleTime;
     private OnFragmentInteractionListener mListener;
 
+
     public DailyScheduleList() {
         // Required empty public constructor
     }
+
 
     /**
      * Use this factory method to create a new instance of
@@ -99,8 +101,13 @@ public class DailyScheduleList extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_daily_schedule_list, container, false);
-        Log.d("DAS/DS/Tabs", "Tab " + DailySchedule.tabPosition);
-
+        Bundle bundle=this.getArguments();
+        if(bundle!=null)
+        {
+            mday=bundle.getInt("day");
+            Log.d("DAS/DSL/","Bundle!:"+mday);
+        }
+        Log.d("DAS/DSL/Ta", "Tab " + DailySchedule.tabPosition);
 
 
         // Inserting Schedules
