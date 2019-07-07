@@ -165,7 +165,7 @@ public class DailyScheduleList extends Fragment {
                 args.putString("title", title.getText().toString());
                 args.putString("label", label.getText().toString());
                 args.putString("time", time.getText().toString());
-                args.putInt("day",DailySchedule.tabPosition);
+                args.putInt("day",mday);
 
                 Log.d("DS", "PSN:" + Integer.toString(position));
                 newFragment.setArguments(args);

@@ -55,7 +55,7 @@ public class FullScreenDialog extends DialogFragment {
             String title = bundle.getString("title");
             String label = bundle.getString("label");
             String time = bundle.getString("time");
-            int day = bundle.getInt("key");
+            int day = bundle.getInt("day");
             final int dbNo = bundle.getInt("key");
 
             //Pass title,label and time value to EditText
@@ -65,7 +65,8 @@ public class FullScreenDialog extends DialogFragment {
             taskLabelEdit.setText(label);
 
 
-
+            Spinner spinner=rootView.findViewById(R.id.spinner);
+            spinner.setSelection(day);
 
             //trash is the trashbox for deleting;
             ImageView trash = new ImageView(getContext());
@@ -205,7 +206,7 @@ public class FullScreenDialog extends DialogFragment {
         return rootView;
     }
 
-    public void dialogTimePicker(int whatTimeSelected, final EditText Time) {
+    public void dialogTimePicker(final int whatTimeSelected, final EditText Time) {
         // TODO Auto-generated method stub
         Calendar mcurrentTime = Calendar.getInstance();
         int Mhour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
@@ -215,8 +216,11 @@ public class FullScreenDialog extends DialogFragment {
             @Override
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                 Time.setText(selectedHour + ":" + selectedMinute);
+
             }
         }, Mhour, Mminute, true);//yes 12 hour time
+
+
         if (whatTimeSelected == 2) {
             mTimePicker.setTitle("End Time");
         } else if (whatTimeSelected == 1) {
