@@ -1,17 +1,14 @@
 package com.nirmalhk7.nirmalhk7.dailyscheduler;
 
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.arch.persistence.room.Room;
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -22,21 +19,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.nirmalhk7.nirmalhk7.MainActivity;
 import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.settings.SettingsActivity;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static android.app.Notification.VISIBILITY_PUBLIC;
-import static android.content.Context.NOTIFICATION_SERVICE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -118,7 +110,9 @@ public class DailyScheduleList extends Fragment {
         scheduleDAO scheduleDAO = database.getScheduleDao();
         Log.d("DAS/DS/Tabs","xx"+DailySchedule.viewPager.getCurrentItem());
         List<Schedule> schedules = scheduleDAO.getScheduleByDay(DailySchedule.viewPager.getCurrentItem());
-
+        Snackbar.make(view, DailySchedule.viewPager.getCurrentItem()+" Tab", Snackbar.LENGTH_SHORT)
+                .setAction("Action", null).show();
+        Log.d("POSITION/DAS",String.valueOf(DailySchedule.viewPager.getCurrentItem()));
         for (Schedule cn : schedules) {
 
             Log.d("DAS/DSL", "Printing: Task "+cn.getTask()+" Time "+cn.getTime()+" Label "+cn.getLabel());

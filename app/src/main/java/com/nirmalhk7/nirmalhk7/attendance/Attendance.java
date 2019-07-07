@@ -124,9 +124,6 @@ public class Attendance extends Fragment {
         // {@link ListView} will display list items for each {@link attendanceItem} in the list.
         listView.setAdapter(adapter);
         fab=getActivity().findViewById(R.id.fab);
-        fab1 = (FloatingActionButton) getActivity().findViewById(R.id.fab1);
-        fab2 = (FloatingActionButton) getActivity().findViewById(R.id.fab2);
-        fab.show();
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -136,14 +133,6 @@ public class Attendance extends Fragment {
                     closeFABMenu();
                 }
 
-            }
-        });
-        fab1.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                if(isFABOpen){
-
-                }
             }
         });
         return rootView;

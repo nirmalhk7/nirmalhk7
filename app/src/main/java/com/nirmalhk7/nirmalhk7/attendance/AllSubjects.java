@@ -1,11 +1,12 @@
 package com.nirmalhk7.nirmalhk7.attendance;
 
-import android.content.Context;
+import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,9 +17,10 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
-import com.nirmalhk7.nirmalhk7.MainActivity;
 import com.nirmalhk7.nirmalhk7.R;
-import com.nirmalhk7.nirmalhk7.settings.SettingsActivity;
+import com.nirmalhk7.nirmalhk7.dailyscheduler.FullScreenDialog;
+import com.nirmalhk7.nirmalhk7.dailyscheduler.scheduleDAO;
+import com.nirmalhk7.nirmalhk7.dailyscheduler.scheduleDatabase;
 
 import java.util.ArrayList;
 
@@ -113,6 +115,14 @@ public class AllSubjects extends Fragment {
                 transaction.commit();
             }
         });
+
+
+        scheduleDatabase database = Room.databaseBuilder(getContext(), scheduleDatabase.class, "mydb")
+                .allowMainThreadQueries().fallbackToDestructiveMigration()
+                .build();
+
+        scheduleDAO scheduleDAO = database.getScheduleDao();
+
         ArrayList<attendanceItem> SubjectItem = new ArrayList<attendanceItem>();
         SubjectItem.add(new attendanceItem("Subject 1",2,1));
 
@@ -148,26 +158,25 @@ public class AllSubjects extends Fragment {
             }
         });
         fab=getActivity().findViewById(R.id.fab);
-        fab1 = (FloatingActionButton) getActivity().findViewById(R.id.fab1);
-        fab2 = (FloatingActionButton) getActivity().findViewById(R.id.fab2);
         fab.show();
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(!isFABOpen){
                     showFABMenu();
-                }else{
+
+                    Log.d("fab Clicked","Add Subject");
+                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+
+                    Att_FullScreenDialog newFragment = new Att_FullScreenDialog();
+                    FragmentTransaction transaction = fragmentManager.beginTransaction();
+                    transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                    transaction.add(android.R.id.content, newFragment).addToBackStack(null).commit();
+                }
+                else{
                     closeFABMenu();
                 }
 
-            }
-        });
-        fab1.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                if(isFABOpen){
-
-                }
             }
         });
 
@@ -175,15 +184,11 @@ public class AllSubjects extends Fragment {
     }
     private void showFABMenu(){
         isFABOpen=true;
-        fab1.animate().translationY(-getResources().getDimension(R.dimen.standard_55));
-        fab2.animate().translationY(-getResources().getDimension(R.dimen.standard_105));
 
     }
 
     private void closeFABMenu(){
         isFABOpen=false;
-        fab1.animate().translationY(0);
-        fab2.animate().translationY(0);
     }
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
