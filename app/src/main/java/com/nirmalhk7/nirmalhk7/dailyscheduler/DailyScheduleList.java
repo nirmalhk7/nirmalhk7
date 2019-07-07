@@ -1,10 +1,22 @@
 package com.nirmalhk7.nirmalhk7.dailyscheduler;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.arch.persistence.room.Room;
+import android.content.Context;
+import android.content.Intent;
+import android.content.res.Resources;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,11 +24,19 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import com.nirmalhk7.nirmalhk7.MainActivity;
 import com.nirmalhk7.nirmalhk7.R;
+import com.nirmalhk7.nirmalhk7.settings.SettingsActivity;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.app.Notification.VISIBILITY_PUBLIC;
+import static android.content.Context.NOTIFICATION_SERVICE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,11 +57,17 @@ public class DailyScheduleList extends Fragment {
     private String mParam2;
     private Integer mday;
 
+    public String scheduleTitle;
+    public String scheduleLabel;
+    public String scheduleTime;
     private OnFragmentInteractionListener mListener;
+
+
 
     public DailyScheduleList() {
         // Required empty public constructor
     }
+
 
     /**
      * Use this factory method to create a new instance of
@@ -76,31 +102,36 @@ public class DailyScheduleList extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_daily_schedule_list, container, false);
-        DatabaseHandler db = new DatabaseHandler(getContext());
+        Bundle bundle=this.getArguments();
+        if(bundle!=null)
+        {
+            mday=bundle.getInt("day");
+            Log.d("DAS/DSL/","Bundle!:"+mday);
+        }
+        Log.d("DAS/DSL/Ta", "Tab " + DailySchedule.tabPosition);
+
 
         // Inserting Schedules
         Log.d("Insert: ", "Inserting ..");
-     /*
-        db.addSchedule(new Schedule("Task 1","Label 1","Time 1"));
-        db.addSchedule(new Schedule("Task 2","Label 2","Time 2"));
-        db.addSchedule(new Schedule("Task 3","Label 3","Time 3"));
-        db.addSchedule(new Schedule("Task 4","Label 4","Time 4"));
-*/
+
         // Reading all contacts
         Log.d("Reading: ", "Reading all contacts..");
-        List<Schedule> scheduleOP = db.getAllSchedules();
 
         ArrayList<scheduleItem> sch = new ArrayList<scheduleItem>();
-        for (Schedule cn : scheduleOP) {
-            String log = "Task: " + cn.getTask() + " ,Time: " + cn.getTime() + " ,Label: " +
-                    cn.getLabel();
-            // Writing Contacts to log
-            Log.d("Name: ", log);
-            sch.add(new scheduleItem(cn.getTask(), cn.getTime(),cn.getLabel()));
+
+        scheduleDatabase database = Room.databaseBuilder(getContext(), scheduleDatabase.class, "mydb")
+                .allowMainThreadQueries().fallbackToDestructiveMigration()
+                .build();
+
+        scheduleDAO scheduleDAO = database.getScheduleDao();
+        Log.d("DAS/DS/Tabs","xx"+mday);
+        List<Schedule> schedules = scheduleDAO.getScheduleByDay(mday);
+        for (Schedule cn : schedules) {
+
+            Log.d("DAS/DSL", "Printing: Task "+cn.getTask()+" Time "+cn.getTime()+" Label "+cn.getLabel());
+            sch.add(new scheduleItem(cn.getTask(), cn.getTime(),cn.getLabel(),cn.getId(),cn.getDay()));
         }
 
-        // Create an {@link ScheduleAdapter}, whose data source is a list of {@link scheduleItem}s. The
-        // adapter knows how to create list items for each item in the list.
         ScheduleAdapter adapter = new ScheduleAdapter(getContext(), sch);
 
         // Find the {@link ListView} object in the view hierarchy of the {@link Activity}.
@@ -109,20 +140,34 @@ public class DailyScheduleList extends Fragment {
         ListView listView = view.findViewById(R.id.list_item);
 
         // Make the {@link ListView} use the {@link ScheduleAdapter} we created above, so that the
-        // {@link ListView} will display list items for each {@link scheduleItem} in the list.
+        // {@link ListView} will display list schedules for each {@link scheduleSchedule} in the list.
         listView.setAdapter(adapter);
 
-        final ListView singleItem=view.findViewById(R.id.list_item);
-        singleItem.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        final ListView singleSchedule = view.findViewById(R.id.list_item);
+        singleSchedule.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("DAILYSCHEDULE","LongClicked!");
+                Log.d("DAS/DSL", "LongClicked!");
+
+                TextView title = view.findViewById(R.id.miwok_text_view);
+                TextView label = view.findViewById(R.id.default_text_view);
+                TextView time = view.findViewById(R.id.default_time);
+                TextView idx=view.findViewById(R.id.itemid);
+
+
                 FullScreenDialog newFragment = new FullScreenDialog();
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 
+                callNotification(title.getText().toString(), time.getText().toString());
+
                 Bundle args = new Bundle();
-                args.putInt("key", 10);
-                Log.d("DS","PSN:"+Integer.toString(position));
+                args.putInt("key", Integer.parseInt(idx.getText().toString()));
+                args.putString("title", title.getText().toString());
+                args.putString("label", label.getText().toString());
+                args.putString("time", time.getText().toString());
+                args.putInt("day",mday);
+
+                Log.d("DS", "PSN:" + Integer.toString(position));
                 newFragment.setArguments(args);
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
@@ -131,6 +176,50 @@ public class DailyScheduleList extends Fragment {
             }
         });
         return view;
+    }
+
+    private void callNotification(String heading, String title) {
+        Intent intent = new Intent(getActivity(), SettingsActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(getContext(), 0, intent, 0);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), "0")
+                .setSmallIcon(R.drawable.ic_stat_daily_scheduler)
+                .setContentTitle(heading)
+                .setContentText(title)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                // Set the intent that will fire when the user taps the notification
+                .setAutoCancel(true)
+                .addAction(R.drawable.ic_attendance, "PRESENT",
+                        pendingIntent)
+                .addAction(R.drawable.ic_attendance, "ABSENT",
+                        pendingIntent)
+                .addAction(R.drawable.ic_attendance, "CLASS CANCELLED",
+                        pendingIntent)
+                .setVisibility(VISIBILITY_PUBLIC);
+
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getContext());
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+
+// notificationId is a unique inthist for each notification that you must define
+        notificationManager.notify(0, builder.build());
+    }
+
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = getString(R.string.app_name);
+            String description = getString(R.string.appwidget_text);
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("0", name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getActivity().getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event

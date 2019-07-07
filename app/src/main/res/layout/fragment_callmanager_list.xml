@@ -10,4 +10,5 @@
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
     tools:context=".callmanager.callManagerFragment"
-    tools:listitem="@layout/fragment_callmanager" />
+    tools:listitem="@layout/fragment_callmanager" >
+</android.support.v7.widget.RecyclerView>

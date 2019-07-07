@@ -1,6 +1,10 @@
 package com.nirmalhk7.nirmalhk7.dailyscheduler;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -8,12 +12,17 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.nirmalhk7.nirmalhk7.R;
+
+import static android.content.Context.NOTIFICATION_SERVICE;
 
 
 /**
@@ -68,19 +77,23 @@ public class DailySchedule extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
-
+    public static ViewPager viewPager;
+    public static int tabPosition;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_daily_schedule, container, false);
 
-        ViewPager viewPager = (ViewPager) view.findViewById(R.id.view_pager);
-        TabAdapter myPagerAdapter = new TabAdapter(getActivity().getSupportFragmentManager());
-        viewPager.setAdapter(myPagerAdapter);
-        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tablayout);
+        ViewPager viewPager = view.findViewById(R.id.view_pager);
+        viewPager.setAdapter(new ViewPagerAdapter(getActivity().getSupportFragmentManager()));
+
+        TabLayout tabLayout = view.findViewById(R.id.tablayout);
         tabLayout.setupWithViewPager(viewPager);
+
+        viewPager= (ViewPager) view.findViewById(R.id.view_pager);
+
+
         FloatingActionButton fab = getActivity().findViewById(R.id.fab);
         fab.show();
         fab.setOnClickListener(new View.OnClickListener() {
@@ -96,12 +109,15 @@ public class DailySchedule extends Fragment {
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 transaction.add(android.R.id.content, newFragment).addToBackStack(null).commit();
+
+
             }
         });
 
         return view;
 
     }
+
 
 
 

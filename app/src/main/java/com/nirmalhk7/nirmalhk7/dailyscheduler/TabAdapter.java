@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 public class TabAdapter extends FragmentStatePagerAdapter {
-    public static Integer mposition;
+    private static Integer mposition;
     public TabAdapter(FragmentManager fm){
         super(fm);
     }
