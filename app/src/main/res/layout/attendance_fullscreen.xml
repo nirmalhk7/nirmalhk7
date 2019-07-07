@@ -80,6 +80,45 @@
                 android:id="@+id/attendance_autocomplete"
                 android:textColor="@android:color/white"
                 android:textColorHint="@android:color/white"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Attendance if any"
+                android:paddingTop="30dp"
+                android:paddingBottom="@dimen/standard_dimen"
+                android:textSize="20sp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Present"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Absent"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"
+                />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Cancelled"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:layout_marginTop="@dimen/standard_dimen">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Total Class"
+                    android:padding="@dimen/standard_dimen"
+                    android:textSize="20sp"/>
+            </LinearLayout>
+
 
         </LinearLayout>
 
