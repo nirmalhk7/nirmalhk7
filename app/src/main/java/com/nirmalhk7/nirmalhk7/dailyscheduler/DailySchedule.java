@@ -92,13 +92,14 @@ public class DailySchedule extends Fragment {
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
+                tabPosition=i;
+                Log.d("DAS/DS/Tabs", "psition = " + i);
             }
 
             @Override
             public void onPageSelected(int i) {
 
-                tabPosition=i;
-                Log.d("DAS/DS/Tabs", "psition = " + i);
+
 
             }
 

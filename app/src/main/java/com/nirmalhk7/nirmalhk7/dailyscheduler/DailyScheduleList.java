@@ -118,7 +118,7 @@ public class DailyScheduleList extends Fragment {
         scheduleDAO scheduleDAO = database.getScheduleDao();
         Log.d("DAS/DS/Tabs","xx"+DailySchedule.viewPager.getCurrentItem());
         List<Schedule> schedules = scheduleDAO.getScheduleByDay(DailySchedule.viewPager.getCurrentItem());
-
+        sch.add(new scheduleItem("Task","Task","Tak Number",DailySchedule.viewPager.getCurrentItem(),10));
         for (Schedule cn : schedules) {
 
             Log.d("DAS/DSL", "Printing: Task "+cn.getTask()+" Time "+cn.getTime()+" Label "+cn.getLabel());
