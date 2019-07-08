@@ -11,23 +11,16 @@ public class attendanceItem {
 
     private int mPresent;
     private int mAbsent;
+    private int mCancelled;
 
 
-    public attendanceItem(String subjName, String subjDate,String subjTime)
-    {
-        mSubjName=subjName;
-        mSubjDate=subjDate;
-        mSubjTime=subjTime;
-    }
-    public attendanceItem(String subjName,int presentCt,int absentCt)
+
+    public attendanceItem(String subjName,int presentCt,int absentCt,int cancelledCt)
     {
         mSubjName=subjName;
         mPresent=presentCt;
         mAbsent=absentCt;
-    }
-    public attendanceItem(String SubjDate,String SubjTime,int AttendanceKey){
-        mSubjDate=SubjDate;
-        mSubjTime=SubjTime;
+        mCancelled=cancelledCt;
     }
     /**
      * Get the default translation of the word.
@@ -49,4 +42,5 @@ public class attendanceItem {
     public int getmAbsent(){
         return mAbsent;
     }
+
 }

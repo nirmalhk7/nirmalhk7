@@ -101,13 +101,6 @@ public class Attendance extends Fragment {
             }
         });
         ArrayList<attendanceItem> AttendanceItem = new ArrayList<attendanceItem>();
-        AttendanceItem.add(new attendanceItem("Subject 1","Date 1","Time 1"));
-
-        AttendanceItem.add(new attendanceItem("Subject 2","Date 2","Time 2"));
-
-        AttendanceItem.add(new attendanceItem("Subject 3","Date 3","Time 3"));
-        AttendanceItem.add(new attendanceItem("Subject 4","Date 4","Time 4"));
-
 
 
 

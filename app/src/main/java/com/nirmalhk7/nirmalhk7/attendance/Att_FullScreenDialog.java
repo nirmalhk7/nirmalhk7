@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.nirmalhk7.nirmalhk7.R;
@@ -52,11 +55,18 @@ public class Att_FullScreenDialog extends DialogFragment {
 
         }
 
-        scheduleDatabase database = Room.databaseBuilder(getContext(), scheduleDatabase.class, "mydb")
+
+        scheduleDatabase database1 = Room.databaseBuilder(getContext(), scheduleDatabase.class, "mydb")
                 .allowMainThreadQueries().fallbackToDestructiveMigration()
                 .build();
 
-        scheduleDAO scheduleDAO = database.getScheduleDao();
+        scheduleDAO scheduleDAO = database1.getScheduleDao();
+
+        attendanceDatabase database2 = Room.databaseBuilder(getContext(), attendanceDatabase.class, "attdb")
+                .allowMainThreadQueries().fallbackToDestructiveMigration()
+                .build();
+
+        final attendanceDAO attendanceDAO = database2.getAttendanceDAO();
 
 
         List<Schedule> schedules=scheduleDAO.getSubjects("College");
@@ -70,12 +80,17 @@ public class Att_FullScreenDialog extends DialogFragment {
         }
 
 
-        AppCompatAutoCompleteTextView autoTextView;
-        autoTextView = (AppCompatAutoCompleteTextView) rootView.findViewById(R.id.attendance_autocomplete);
+        final AppCompatAutoCompleteTextView autoTextView;
+        autoTextView = (AppCompatAutoCompleteTextView) rootView.findViewById(R.id.attendance_task);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>
                 (getContext(), android.R.layout.select_dialog_item, subject);
         autoTextView.setThreshold(1); //will start working from first character
         autoTextView.setAdapter(adapter);
+
+        final EditText Present=rootView.findViewById(R.id.present_fsd);
+        final EditText Absent=rootView.findViewById(R.id.absent_fsd);
+        final EditText Cancelled=rootView.findViewById(R.id.cancelled_fsd);
+
 
 
 
@@ -83,6 +98,7 @@ public class Att_FullScreenDialog extends DialogFragment {
         (rootView.findViewById(R.id.button_close)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 dismiss();
             }
         });
@@ -95,6 +111,18 @@ public class Att_FullScreenDialog extends DialogFragment {
             public void onClick(View v) {
 
                 Log.d("DailyScheduler", "Saving data!");
+                final String subj=autoTextView.toString();
+                final int present=Integer.valueOf(Present.getText().toString());
+                final int absent=Integer.valueOf(Absent.getText().toString());
+                final int cancelled=Integer.valueOf(Cancelled.getText().toString());
+                attendanceEntity x=new attendanceEntity();
+                x.setSubject(subj);
+                x.setPresent(present);
+                x.setAbsent(absent);
+                x.setCancelled(cancelled);
+                attendanceDAO.insertOnlySingleSubject(x);
+                dismiss();
+
 
             }
         });

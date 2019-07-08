@@ -8,7 +8,7 @@ import android.support.annotation.NonNull;
 public class Schedule {
     @NonNull
     @PrimaryKey(autoGenerate = true)
-    private int id;
+    protected int id;
     private String mTask;
     private String mTime;
     private String mLabel;

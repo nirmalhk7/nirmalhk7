@@ -19,10 +19,13 @@ import android.widget.ListView;
 
 import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.dailyscheduler.FullScreenDialog;
+import com.nirmalhk7.nirmalhk7.dailyscheduler.Schedule;
 import com.nirmalhk7.nirmalhk7.dailyscheduler.scheduleDAO;
 import com.nirmalhk7.nirmalhk7.dailyscheduler.scheduleDatabase;
+import com.nirmalhk7.nirmalhk7.dailyscheduler.scheduleItem;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -117,21 +120,22 @@ public class AllSubjects extends Fragment {
         });
 
 
-        scheduleDatabase database = Room.databaseBuilder(getContext(), scheduleDatabase.class, "mydb")
+        attendanceDatabase database = Room.databaseBuilder(getContext(), attendanceDatabase.class, "mydb")
                 .allowMainThreadQueries().fallbackToDestructiveMigration()
                 .build();
 
-        scheduleDAO scheduleDAO = database.getScheduleDao();
+        attendanceDAO AttendanceDAO = database.getAttendanceDAO();
 
+
+        List<attendanceEntity> attendance=AttendanceDAO.getAllSubject();
         ArrayList<attendanceItem> SubjectItem = new ArrayList<attendanceItem>();
-        SubjectItem.add(new attendanceItem("Subject 1",2,1));
+        Log.d("ATT/ALS","Count"+attendance.size());
+        for (attendanceEntity cn : attendance) {
 
-        SubjectItem.add(new attendanceItem("Subject 2",4,2));
-
-        SubjectItem.add(new attendanceItem("Subject 3",6,3));
-
-        SubjectItem.add(new attendanceItem("Subject 4",8,4));
-
+            Log.d("ATT/ALS", "Printing: Task "+cn.getSubject()+" Time "+cn.getPresent()+" Label "+cn.getAbsent());
+            SubjectItem.add(new attendanceItem(cn.getSubject(), cn.getPresent(),cn.getAbsent(),cn.getCancelled()));
+        }
+        SubjectItem.add(new attendanceItem("DEMO 1",12,23,23));
 
 
 
