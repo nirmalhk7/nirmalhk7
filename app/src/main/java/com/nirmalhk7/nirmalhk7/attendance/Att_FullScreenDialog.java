@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -62,7 +63,7 @@ public class Att_FullScreenDialog extends DialogFragment {
 
         scheduleDAO scheduleDAO = database1.getScheduleDao();
 
-        attendanceDatabase database2 = Room.databaseBuilder(getContext(), attendanceDatabase.class, "attdb")
+        attendanceDatabase database2 = Room.databaseBuilder(getContext(), attendanceDatabase.class, "mydbx")
                 .allowMainThreadQueries().fallbackToDestructiveMigration()
                 .build();
 
@@ -89,7 +90,6 @@ public class Att_FullScreenDialog extends DialogFragment {
 
         final EditText Present=rootView.findViewById(R.id.present_fsd);
         final EditText Absent=rootView.findViewById(R.id.absent_fsd);
-        final EditText Cancelled=rootView.findViewById(R.id.cancelled_fsd);
 
 
 
@@ -106,22 +106,30 @@ public class Att_FullScreenDialog extends DialogFragment {
 
 
         //On Click SAVE
-        (rootView.findViewById(R.id.button_save)).setOnClickListener(new View.OnClickListener() {
+        Button b=rootView.findViewById(R.id.ATT_button_save);
+        b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Log.d("DailyScheduler", "Saving data!");
-                final String subj=autoTextView.toString();
-                final int present=Integer.valueOf(Present.getText().toString());
-                final int absent=Integer.valueOf(Absent.getText().toString());
-                final int cancelled=Integer.valueOf(Cancelled.getText().toString());
-                attendanceEntity x=new attendanceEntity();
-                x.setSubject(subj);
-                x.setPresent(present);
-                x.setAbsent(absent);
-                x.setCancelled(cancelled);
-                attendanceDAO.insertOnlySingleSubject(x);
-                dismiss();
+
+                String subj=autoTextView.getText().toString();
+                try{
+                    int present=Integer.valueOf(Present.getText().toString());
+                    int absent=Integer.valueOf(Absent.getText().toString());
+                    attendanceEntity x=new attendanceEntity();
+                    x.setSubject(subj);
+                    x.setPresent(present);
+                    x.setAbsent(absent);
+                    attendanceDAO.insertOnlySingleSubject(x);
+                    Log.d("ATT/FSD", "Saving data!"+x.getSubject()+x.getPresent()+x.getAbsent());
+                    dismiss();
+                }
+                catch(NumberFormatException ex){ // handle your exception
+                    Log.d("ATT/FSD","java.lang.NumberFormatException");
+                }
+
+
+
 
 
             }

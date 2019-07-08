@@ -8,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -119,39 +120,11 @@ public class AllSubjects extends Fragment {
             }
         });
 
+        swiperefresh(rootView);
 
-        attendanceDatabase database = Room.databaseBuilder(getContext(), attendanceDatabase.class, "mydb")
-                .allowMainThreadQueries().fallbackToDestructiveMigration()
-                .build();
+        ALSfetchDB(rootView);
 
-        attendanceDAO AttendanceDAO = database.getAttendanceDAO();
-
-
-        List<attendanceEntity> attendance=AttendanceDAO.getAllSubject();
-        ArrayList<attendanceItem> SubjectItem = new ArrayList<attendanceItem>();
-        Log.d("ATT/ALS","Count"+attendance.size());
-        for (attendanceEntity cn : attendance) {
-
-            Log.d("ATT/ALS", "Printing: Task "+cn.getSubject()+" Time "+cn.getPresent()+" Label "+cn.getAbsent());
-            SubjectItem.add(new attendanceItem(cn.getSubject(), cn.getPresent(),cn.getAbsent(),cn.getCancelled()));
-        }
-        SubjectItem.add(new attendanceItem("DEMO 1",12,23,23));
-
-
-
-        // Create an {@link attendanceAdapter}, whose data source is a list of {@link attendanceItem}s. The
-        // adapter knows how to create list items for each item in the list.
-        attendanceAdapter adapter = new attendanceAdapter(getContext(), SubjectItem,1);
-
-        // Find the {@link ListView} object in the view hierarchy of the {@link Activity}.
-        // There should be a {@link ListView} with the view ID called list, which is declared in the
-        // word_list.xml layout file.
         ListView listView = (ListView) rootView.findViewById(R.id.list_item_allsubjects);
-
-        // Make the {@link ListView} use the {@link attendanceAdapter} we created above, so that the
-        // {@link ListView} will display list items for each {@link attendanceItem} in the list.
-        listView.setAdapter(adapter);
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -220,5 +193,56 @@ public class AllSubjects extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    private SwipeRefreshLayout pullToRefresh;
+    void swiperefresh(final View rootview){
+        pullToRefresh = rootview.findViewById(R.id.pullToRefresh);
+        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            int Refreshcounter = 1; //Counting how many times user have refreshed the layout
+
+            @Override
+            public void onRefresh() {
+                //Here you can update your data from internet or from local SQLite data
+                Log.d("ATT/ALS","Refreshing");
+                ALSfetchDB(rootview);
+                pullToRefresh.setRefreshing(false);
+            }
+        });
+    }
+
+    void ALSfetchDB(View rootView){
+        attendanceDatabase database2 = Room.databaseBuilder(getContext(), attendanceDatabase.class, "mydbx")
+                .allowMainThreadQueries().fallbackToDestructiveMigration()
+                .build();
+
+        attendanceDAO AttendanceDAO = database2.getAttendanceDAO();
+
+        List<attendanceEntity> attendance=AttendanceDAO.getAllSubject();
+        ArrayList<attendanceItem> SubjectItem = new ArrayList<>();
+
+
+        Log.d("ATT/ALS","Count"+attendance.size());
+        
+        for (attendanceEntity cn : attendance) {
+            Log.d("ATT/ALS", "Printing: Task "+cn.getSubject()+" Time "+cn.getPresent()+" Label "+cn.getAbsent());
+            SubjectItem.add(new attendanceItem(cn.getSubject(), cn.getPresent(),cn.getAbsent()));
+        }
+
+
+
+        // Create an {@link attendanceAdapter}, whose data source is a list of {@link attendanceItem}s. The
+        // adapter knows how to create list items for each item in the list.
+        attendanceAdapter adapter = new attendanceAdapter(getContext(), SubjectItem,1);
+
+
+        // Find the {@link ListView} object in the view hierarchy of the {@link Activity}.
+        // There should be a {@link ListView} with the view ID called list, which is declared in the
+        // word_list.xml layout file.
+        ListView listView = (ListView) rootView.findViewById(R.id.list_item_allsubjects);
+
+        // Make the {@link ListView} use the {@link attendanceAdapter} we created above, so that the
+        // {@link ListView} will display list items for each {@link attendanceItem} in the list.
+        listView.setAdapter(adapter);
     }
 }

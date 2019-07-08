@@ -15,12 +15,11 @@ public class attendanceItem {
 
 
 
-    public attendanceItem(String subjName,int presentCt,int absentCt,int cancelledCt)
+    public attendanceItem(String subjName,int presentCt,int absentCt)
     {
         mSubjName=subjName;
         mPresent=presentCt;
         mAbsent=absentCt;
-        mCancelled=cancelledCt;
     }
     /**
      * Get the default translation of the word.

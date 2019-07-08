@@ -41,7 +41,7 @@
                 android:gravity="center">
 
                 <Button
-                    android:id="@+id/button_save"
+                    android:id="@+id/ATT_button_save"
                     style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -104,14 +104,6 @@
                 android:textColor="@android:color/white"
                 android:textColorHint="@android:color/white"
                 />
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Cancelled"
-                android:id="@+id/cancelled_fsd"
-                android:inputType="number"
-                android:textColor="@android:color/white"
-                android:textColorHint="@android:color/white"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

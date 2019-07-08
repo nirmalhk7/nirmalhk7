@@ -11,7 +11,7 @@ import java.util.List;
 @Dao
 public interface attendanceDAO {
     @Insert
-    void insertOnlySingleSubject(attendanceEntity movies);
+    void insertOnlySingleSubject(attendanceEntity attendance);
 
     @Insert
     void insertMultipleSchedule(List<attendanceEntity> moviesList);
@@ -21,7 +21,6 @@ public interface attendanceDAO {
 
     @Query("SELECT * FROM attendanceEntity")
     List<attendanceEntity> getAllSubject();
-
 
     @Update
     void updateMovie(attendanceEntity movies);

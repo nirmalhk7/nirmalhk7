@@ -13,7 +13,6 @@ public class attendanceEntity {
     private String mSubject;
     private int mPresent;
     private int mAbsent;
-    private int mCancelled;
 
     public int getId() { return id; }
 
@@ -23,7 +22,6 @@ public class attendanceEntity {
 
     public int getAbsent() { return mAbsent; }
 
-    public int getCancelled() { return mCancelled; }
 
     public void setId(int id) {this.id = id;}
 
@@ -32,6 +30,4 @@ public class attendanceEntity {
     public void setPresent(int mPresent) { this.mPresent = mPresent; }
 
     public void setAbsent(int mAbsent) { this.mAbsent = mAbsent; }
-
-    public void setCancelled(int mCancelled) { this.mCancelled = mCancelled; }
 }
