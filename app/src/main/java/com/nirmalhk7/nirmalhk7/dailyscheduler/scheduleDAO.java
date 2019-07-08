@@ -28,13 +28,17 @@ public interface scheduleDAO {
     @Update
     void updateMovie(Schedule movies);
 
+
     @Delete
     void deleteSchedule(Schedule schedule);
-
+    
     @Query("SELECT DISTINCT * FROM Schedule WHERE mLabel=:Label")
     public List<Schedule> getSubjects(String Label);
 
     @Query("SELECT COUNT(DISTINCT mTask) FROM Schedule WHERE mLabel=:Label")
     public int getSubjectCount(String Label);
+
+    @Query("SELECT * FROM Schedule WHERE id=:Id")
+    public Schedule getScheduleById(int Id);
 }
 

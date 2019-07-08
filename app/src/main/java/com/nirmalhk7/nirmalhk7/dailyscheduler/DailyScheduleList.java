@@ -54,9 +54,12 @@ public class DailyScheduleList extends Fragment {
     public String scheduleTime;
     private OnFragmentInteractionListener mListener;
 
+
+
     public DailyScheduleList() {
         // Required empty public constructor
     }
+
 
     /**
      * Use this factory method to create a new instance of
@@ -91,8 +94,13 @@ public class DailyScheduleList extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_daily_schedule_list, container, false);
-        Log.d("DAS/DS/Tabs", "Tab " + DailySchedule.tabPosition);
-
+        Bundle bundle=this.getArguments();
+        if(bundle!=null)
+        {
+            mday=bundle.getInt("day");
+            Log.d("DAS/DSL/","Bundle!:"+mday);
+        }
+        Log.d("DAS/DSL/Ta", "Tab " + DailySchedule.tabPosition);
 
 
         // Inserting Schedules
@@ -108,11 +116,9 @@ public class DailyScheduleList extends Fragment {
                 .build();
 
         scheduleDAO scheduleDAO = database.getScheduleDao();
-        Log.d("DAS/DS/Tabs","xx"+DailySchedule.viewPager.getCurrentItem());
-        List<Schedule> schedules = scheduleDAO.getScheduleByDay(DailySchedule.viewPager.getCurrentItem());
-        Snackbar.make(view, DailySchedule.viewPager.getCurrentItem()+" Tab", Snackbar.LENGTH_SHORT)
-                .setAction("Action", null).show();
-        Log.d("POSITION/DAS",String.valueOf(DailySchedule.viewPager.getCurrentItem()));
+
+        Log.d("DAS/DS/Tabs","xx"+mday);
+        List<Schedule> schedules = scheduleDAO.getScheduleByDay(mday);
         for (Schedule cn : schedules) {
 
             Log.d("DAS/DSL", "Printing: Task "+cn.getTask()+" Time "+cn.getTime()+" Label "+cn.getLabel());
@@ -139,6 +145,7 @@ public class DailyScheduleList extends Fragment {
                 TextView title = view.findViewById(R.id.miwok_text_view);
                 TextView label = view.findViewById(R.id.default_text_view);
                 TextView time = view.findViewById(R.id.default_time);
+                TextView idx=view.findViewById(R.id.itemid);
 
 
                 FullScreenDialog newFragment = new FullScreenDialog();
@@ -147,11 +154,12 @@ public class DailyScheduleList extends Fragment {
                 callNotification(title.getText().toString(), time.getText().toString());
 
                 Bundle args = new Bundle();
-                args.putInt("key", 10);
+                args.putInt("key", Integer.parseInt(idx.getText().toString()));
                 args.putString("title", title.getText().toString());
                 args.putString("label", label.getText().toString());
                 args.putString("time", time.getText().toString());
-                args.putInt("day",DailySchedule.tabPosition);
+                args.putInt("day",mday);
+
                 Log.d("DS", "PSN:" + Integer.toString(position));
                 newFragment.setArguments(args);
                 FragmentTransaction transaction = fragmentManager.beginTransaction();

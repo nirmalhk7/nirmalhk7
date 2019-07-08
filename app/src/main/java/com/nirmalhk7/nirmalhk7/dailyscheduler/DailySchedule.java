@@ -85,33 +85,13 @@ public class DailySchedule extends Fragment {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_daily_schedule, container, false);
 
+        ViewPager viewPager = view.findViewById(R.id.view_pager);
+        viewPager.setAdapter(new ViewPagerAdapter(getActivity().getSupportFragmentManager()));
+
+        TabLayout tabLayout = view.findViewById(R.id.tablayout);
+        tabLayout.setupWithViewPager(viewPager);
 
         viewPager= (ViewPager) view.findViewById(R.id.view_pager);
-
-        tabPosition=0;
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int i, float v, int i1) {
-            }
-
-            @Override
-            public void onPageSelected(int i) {
-
-                tabPosition=i;
-                Log.d("DAS/DS/Tabs", "psition = " + i);
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int i) {
-
-            }
-        });
-
-        TabAdapter myPagerAdapter = new TabAdapter(getActivity().getSupportFragmentManager());
-        viewPager.setAdapter(myPagerAdapter);
-        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tablayout);
-        tabLayout.setupWithViewPager(viewPager);
 
 
         FloatingActionButton fab = getActivity().findViewById(R.id.fab);

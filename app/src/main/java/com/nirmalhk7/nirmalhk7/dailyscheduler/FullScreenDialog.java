@@ -48,7 +48,7 @@ public class FullScreenDialog extends DialogFragment {
             String label = bundle.getString("label");
             String time = bundle.getString("time");
             int day = bundle.getInt("day");
-            int dbNo = bundle.getInt("key");
+            final int dbNo = bundle.getInt("key");
 
             //Pass title,label and time value to EditText
             EditText taskNameEdit = rootView.findViewById(R.id.taskName);
@@ -57,30 +57,8 @@ public class FullScreenDialog extends DialogFragment {
             taskLabelEdit.setText(label);
 
 
-            Spinner spinner = (Spinner) rootView.findViewById(R.id.spinner);
-            switch (day) {
-                case 0:
-                    spinner.setSelection(6);
-                    break;
-                case 1:
-                    spinner.setSelection(1);
-                    break;
-                case 2:
-                    spinner.setSelection(2);
-                    break;
-                case 3:
-                    spinner.setSelection(3);
-                    break;
-                case 4:
-                    spinner.setSelection(4);
-                    break;
-                case 5:
-                    spinner.setSelection(5);
-                    break;
-                case 6:
-                    spinner.setSelection(6);
-                    break;
-            }
+            Spinner spinner=rootView.findViewById(R.id.spinner);
+            spinner.setSelection(day);
 
             //trash is the trashbox for deleting;
             ImageView trash = new ImageView(getContext());
@@ -94,6 +72,14 @@ public class FullScreenDialog extends DialogFragment {
                 @Override
                 public void onClick(View v) {
                     Log.d("DAS/FullDialog", "Delete Button");
+                    scheduleDatabase database = Room.databaseBuilder(getContext(), scheduleDatabase.class, "mydb")
+                            .allowMainThreadQueries().fallbackToDestructiveMigration()
+                            .build();
+
+                    scheduleDAO scheduleDAO = database.getScheduleDao();
+                    Log.d("DAS/FSD/ID",Integer.toString(dbNo));
+                    scheduleDAO.deleteSchedule(scheduleDAO.getScheduleById(dbNo));
+                    dismiss();
                 }
             });
 
@@ -212,7 +198,7 @@ public class FullScreenDialog extends DialogFragment {
         return rootView;
     }
 
-    public void dialogTimePicker(int whatTimeSelected, final EditText Time) {
+    public void dialogTimePicker(final int whatTimeSelected, final EditText Time) {
         // TODO Auto-generated method stub
         Calendar mcurrentTime = Calendar.getInstance();
         int Mhour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
@@ -222,8 +208,11 @@ public class FullScreenDialog extends DialogFragment {
             @Override
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                 Time.setText(selectedHour + ":" + selectedMinute);
+
             }
         }, Mhour, Mminute, true);//yes 12 hour time
+
+
         if (whatTimeSelected == 2) {
             mTimePicker.setTitle("End Time");
         } else if (whatTimeSelected == 1) {
