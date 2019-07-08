@@ -1,5 +1,6 @@
 package com.nirmalhk7.nirmalhk7.attendance;
 
+import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
@@ -11,11 +12,15 @@ import android.widget.Toolbar;
 
 import com.nirmalhk7.nirmalhk7.R;
 
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import sun.bob.mcalendarview.MCalendarView;
 import sun.bob.mcalendarview.MarkStyle;
 import sun.bob.mcalendarview.listeners.OnDateClickListener;
+import sun.bob.mcalendarview.listeners.OnMonthChangeListener;
 import sun.bob.mcalendarview.vo.DateData;
 
 public class SingleSubjectActivity extends AppCompatActivity {
@@ -31,10 +36,51 @@ public class SingleSubjectActivity extends AppCompatActivity {
         Intent mIntent = getIntent();
         subjName= mIntent.getStringExtra("subj");
         Log.d("SSA/ATT",subjName);
+        final MCalendarView calendarView = (findViewById(R.id.calendar_subject));
 
-        MCalendarView calendarView = (findViewById(R.id.calendar_subject));
-        calendarView.markDate(
-                new DateData(2019, 7, 1).setMarkStyle(new MarkStyle(MarkStyle.DOT, Color.GREEN)));
+        calendarView.setOnMonthChangeListener(new OnMonthChangeListener() {
+            @Override
+            public void onMonthChange(int year, int month) {
+                Log.d("ATT/SSA",month+".");
+                calendarView.markDate(
+                        new DateData(2019, month, 1).setMarkStyle(new MarkStyle(MarkStyle.DOT, Color.GREEN)));
+
+                calendarDatabase database2 = Room.databaseBuilder(getBaseContext(), calendarDatabase.class, "mydby")
+                        .allowMainThreadQueries().fallbackToDestructiveMigration()
+                        .build();
+
+                calendarDAO CalendarDAO = database2.getCalendarDAO();
+
+                List<attendanceEntity> attendance=CalendarDAO.getAllAttendance(int a);
+                ArrayList<attendanceItem> SubjectItem = new ArrayList<>();
+
+
+                Log.d("ATT/ALS","Count"+attendance.size());
+
+                for (attendanceEntity cn : attendance) {
+                    Log.d("ATT/ALS", "Printing: Task "+cn.getSubject()+" Time "+cn.getPresent()+" Label "+cn.getAbsent());
+                    SubjectItem.add(new attendanceItem(cn.getSubject(), cn.getPresent(),cn.getAbsent()));
+                }
+
+
+
+                // Create an {@link attendanceAdapter}, whose data source is a list of {@link attendanceItem}s. The
+                // adapter knows how to create list items for each item in the list.
+                attendanceAdapter adapter = new attendanceAdapter(getBaseContext(), SubjectItem,1);
+
+
+                // Find the {@link ListView} object in the view hierarchy of the {@link Activity}.
+                // There should be a {@link ListView} with the view ID called list, which is declared in the
+                // word_list.xml layout file.
+                ListView listView = (ListView) findViewById(R.id.list_single_subject_calendar);
+
+                // Make the {@link ListView} use the {@link attendanceAdapter} we created above, so that the
+                // {@link ListView} will display list items for each {@link attendanceItem} in the list.
+                listView.setAdapter(adapter);
+
+            }
+        });
+
         calendarView.markDate(
                 new DateData(2019, 7, 2).setMarkStyle(new MarkStyle(MarkStyle.DOT, Color.RED)));
         calendarView.markDate(
@@ -57,4 +103,5 @@ public class SingleSubjectActivity extends AppCompatActivity {
             }
         });
     }
+
 }

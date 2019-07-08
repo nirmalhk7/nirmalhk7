@@ -6,6 +6,6 @@ import android.arch.persistence.room.RoomDatabase;
 
 @Database(entities = {attendanceEntity.class}, version = 5, exportSchema = false)
 public abstract class calendarDatabase extends RoomDatabase {
-    public abstract attendanceDAO getAttendanceDAO();
+    public abstract calendarDAO getCalendarDAO();
 }
 
