@@ -261,21 +261,17 @@ public class DailyScheduleList extends Fragment {
     }
     SwipeRefreshLayout pullToRefresh;
     ArrayAdapter adapter;
-    public void DSLonRefresh(View view){
-        pullToRefresh = (SwipeRefreshLayout) findViewById(R.id.pullToRefresh);
-        addContent();
-        adapter = new ArrayAdapter(this, R.layout.activity_listview, menu);
-
-        ListView listView = (ListView) findViewById(R.id.mobile_lis);
-        listView.setAdapter(adapter);
-
-        //setting an setOnRefreshListener on the SwipeDownLayout
+    public void DSLonRefresh(View rootview){
+        pullToRefresh = rootview.findViewById(R.id.pullToRefresh);
+        final View v=rootview;
         pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             int Refreshcounter = 1; //Counting how many times user have refreshed the layout
 
             @Override
             public void onRefresh() {
-
+                //Here you can update your data from internet or from local SQLite data
+                Log.d("ATT/ALS","Refreshing");
+                DSLfetchDB(v);
                 pullToRefresh.setRefreshing(false);
             }
         });
