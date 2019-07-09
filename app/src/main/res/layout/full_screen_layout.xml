@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:local="http://schemas.android.com/tools"
     android:layout_marginTop="28dp"
     android:background="@android:color/white"
     android:fitsSystemWindows="true"
@@ -73,6 +74,13 @@
             android:orientation="vertical"
             android:padding="15dp">
 
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/standard_dimen"
+                local:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                local:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                android:id="@+id/spinner"></Spinner>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -84,6 +92,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Task Name"
+                android:inputType="textCapSentences"
                 android:textColor="@color/colorFontDark"
                 android:textColorHint="@color/colorFontDark" />
 
@@ -97,6 +106,8 @@
                 android:id="@+id/taskLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="College"
+                android:inputType="textCapSentences"
                 android:textColor="@color/colorFontDark"
                 android:textColorHint="@color/colorFontDark" />
 
