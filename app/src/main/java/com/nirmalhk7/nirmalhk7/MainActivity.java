@@ -1,11 +1,13 @@
 package com.nirmalhk7.nirmalhk7;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.design.widget.NavigationView;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -13,7 +15,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
+import com.leinardi.android.speeddial.SpeedDialActionItem;
+import com.leinardi.android.speeddial.SpeedDialView;
 import com.nirmalhk7.nirmalhk7.academics.Academics;
 import com.nirmalhk7.nirmalhk7.attendance.Attendance;
 import com.nirmalhk7.nirmalhk7.callmanager.callManagerFragment;
@@ -34,8 +39,16 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.hide();
+        SpeedDialView speedDialView = findViewById(R.id.speedDial);
+        speedDialView.setVisibility(View.INVISIBLE);
+        /*speedDialView.addActionItem(
+                new SpeedDialActionItem.Builder(R.id.nav_attendance, R.drawable.ic_attendance)
+                        .setLabelColor(Color.WHITE)
+                        .setLabelBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.colorLightDark, getTheme()))
+                        .create()
+
+        );*/
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);

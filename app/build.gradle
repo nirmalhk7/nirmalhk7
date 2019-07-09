@@ -35,4 +35,6 @@ dependencies {
     implementation "android.arch.persistence.room:runtime:1.1.1"
     annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
     implementation 'com.github.mumayank:AirLocation:1.2'
+    implementation "com.leinardi.android:speed-dial:2.0.1"
+
 }

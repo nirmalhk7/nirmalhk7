@@ -246,9 +246,10 @@ public class MainFragment extends Fragment {
 
         } else {
             Log.d("END/Main","No Internet connection");
-            TextView error = v.findViewById(R.id.error);
+            TextView error = new TextView(getContext());
             error.setText("Phone not connected");
             error.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            LinearLayout x=v.findViewById(R.id.weather);
         }
         return v;
     }
