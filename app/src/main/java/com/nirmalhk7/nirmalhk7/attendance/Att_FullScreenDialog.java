@@ -71,14 +71,9 @@ public class Att_FullScreenDialog extends DialogFragment {
 
 
         List<Schedule> schedules=scheduleDAO.getSubjects("College");
-        String[] subject=new String[schedules.size()];
-        int i=0;
-        for (Schedule cn : schedules) {
-            subject[0]=cn.getTask();
-            ++i;
-            Log.d("ATT/FSD/ScheduleScan","Printing: Task "+subject[i]);
 
-        }
+        String[] subject=new String[schedules.size()-1];
+        Log.d("ATT/FSD","."+schedules.size());
 
 
         final AppCompatAutoCompleteTextView autoTextView;
@@ -90,7 +85,8 @@ public class Att_FullScreenDialog extends DialogFragment {
 
         final EditText Present=rootView.findViewById(R.id.present_fsd);
         final EditText Absent=rootView.findViewById(R.id.absent_fsd);
-
+        final TextView Cancelled=rootView.findViewById(R.id.total_fsd);
+        
 
 
 

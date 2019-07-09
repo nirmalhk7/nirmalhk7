@@ -51,16 +51,7 @@ public class SingleSubjectActivity extends AppCompatActivity {
 
                 calendarDAO CalendarDAO = database2.getCalendarDAO();
 
-                List<attendanceEntity> attendance=CalendarDAO.getAllAttendance(int a);
                 ArrayList<attendanceItem> SubjectItem = new ArrayList<>();
-
-
-                Log.d("ATT/ALS","Count"+attendance.size());
-
-                for (attendanceEntity cn : attendance) {
-                    Log.d("ATT/ALS", "Printing: Task "+cn.getSubject()+" Time "+cn.getPresent()+" Label "+cn.getAbsent());
-                    SubjectItem.add(new attendanceItem(cn.getSubject(), cn.getPresent(),cn.getAbsent()));
-                }
 
 
 

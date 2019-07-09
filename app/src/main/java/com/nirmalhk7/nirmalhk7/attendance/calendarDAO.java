@@ -22,9 +22,6 @@ public interface calendarDAO {
     @Query("SELECT * FROM attendanceEntity")
     List<attendanceEntity> getAllSubject();
 
-    @Query("SELECT * FROM attendanceEntity WHERE Month")
-    List<attendanceEntity> getAllSubject();
-
     @Update
     void updateMovie(attendanceEntity movies);
 
