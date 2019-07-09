@@ -91,7 +91,7 @@ public class DailySchedule extends Fragment {
         TabLayout tabLayout = view.findViewById(R.id.tablayout);
         tabLayout.setupWithViewPager(viewPager);
 
-        viewPager= (ViewPager) view.findViewById(R.id.view_pager);
+        viewPager= view.findViewById(R.id.view_pager);
 
 
         FloatingActionButton fab = getActivity().findViewById(R.id.fab);

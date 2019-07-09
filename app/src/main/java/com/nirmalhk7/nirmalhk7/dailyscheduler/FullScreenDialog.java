@@ -95,7 +95,7 @@ public class FullScreenDialog extends DialogFragment {
 
 
         // Spinner element
-        Spinner spinner = (Spinner) rootView.findViewById(R.id.spinner);
+        Spinner spinner = rootView.findViewById(R.id.spinner);
 
         // Spinner click listener
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

@@ -20,10 +20,10 @@ public interface scheduleDAO {
     Schedule fetchOneSchedulebyMovieId(int movieId);*/
 
     @Query("SELECT * FROM Schedule")
-    public List<Schedule> getItems();
+    List<Schedule> getItems();
 
     @Query("SELECT * FROM Schedule WHERE mDay =:Day")
-    public List<Schedule> getScheduleByDay(int Day);
+    List<Schedule> getScheduleByDay(int Day);
 
     @Update
     void updateMovie(Schedule movies);
@@ -33,6 +33,6 @@ public interface scheduleDAO {
     void deleteSchedule(Schedule schedule);
 
     @Query("SELECT * FROM Schedule WHERE id=:Id")
-    public Schedule getScheduleById(int Id);
+    Schedule getScheduleById(int Id);
 }
 

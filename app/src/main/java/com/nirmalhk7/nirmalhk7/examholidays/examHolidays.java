@@ -1,11 +1,13 @@
 package com.nirmalhk7.nirmalhk7.examholidays;
 
+import android.arch.persistence.room.Room;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,9 +16,9 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.nirmalhk7.nirmalhk7.R;
-import com.nirmalhk7.nirmalhk7.dailyscheduler.FullScreenDialog;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -74,20 +76,14 @@ public class examHolidays extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView= inflater.inflate(R.layout.fragment_exam_holidays, container, false);
-        ArrayList<heItem> hs = new ArrayList<heItem>();
-        hs.add(new heItem(1,"Makar Sankrant","3 May"));
-        hs.add(new heItem(0,"Mid Sem Exam","3 May"));
-        ExamHolidayAdapter adapter = new ExamHolidayAdapter(getContext(), hs);
 
-        // Find the {@link ListView} object in the view hierarchy of the {@link Activity}.
-        // There should be a {@link ListView} with the view ID called list, which is declared in the
-        // word_list.xml layout file.
-        ListView listView = rootView.findViewById(R.id.list_item_examholiday);
+        EAHfetchDB(rootView);
+        DSLonRefresh(rootView);
 
         // Make the {@link ListView} use the {@link ScheduleAdapter} we created above, so that the
         // {@link ListView} will display list items for each {@link scheduleItem} in the list.
-        listView.setAdapter(adapter);
 
+        ListView listView = rootView.findViewById(R.id.list_item_examholiday);
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -109,6 +105,8 @@ public class examHolidays extends Fragment {
                 transaction.add(android.R.id.content, newFragment).addToBackStack(null).commit();
             }
         });
+
+
         return rootView;
     }
 
@@ -138,5 +136,47 @@ public class examHolidays extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    public void EAHfetchDB(View rootView)
+    {
+        ehDatabase database = Room.databaseBuilder(getContext(), ehDatabase.class, "mydbz")
+                .allowMainThreadQueries().fallbackToDestructiveMigration()
+                .build();
+
+        ehDAO ehDAO=database.getEHDAO();
+        ArrayList<heItem> hs = new ArrayList<heItem>();
+        List<ehEntity> list=ehDAO.getItems();
+
+        for (ehEntity cn : list) {
+
+            hs.add(new heItem(cn.getHolexa(),cn.getmName(),cn.getmDateStart()+" - "+cn.getmDateEnd()));
+        }
+
+
+
+        ExamHolidayAdapter adapter = new ExamHolidayAdapter(getContext(), hs);
+
+        // Find the {@link ListView} object in the view hierarchy of the {@link Activity}.
+        // There should be a {@link ListView} with the view ID called list, which is declared in the
+        // word_list.xml layout file.
+        ListView listView = rootView.findViewById(R.id.list_item_examholiday);
+        listView.setAdapter(adapter);
+    }
+    SwipeRefreshLayout pullToRefresh;
+    public void DSLonRefresh(final View rootview){
+        pullToRefresh = rootview.findViewById(R.id.pullToRefresh);
+
+        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            int Refreshcounter = 1; //Counting how many times user have refreshed the layout
+
+            @Override
+            public void onRefresh() {
+                //Here you can update your data from internet or from local SQLite data
+                Log.d("ATT/ALS","Refreshing");
+                EAHfetchDB(rootview);
+                pullToRefresh.setRefreshing(false);
+            }
+        });
     }
 }
