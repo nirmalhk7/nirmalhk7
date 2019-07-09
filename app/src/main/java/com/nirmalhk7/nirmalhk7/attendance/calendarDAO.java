@@ -22,7 +22,7 @@ public interface calendarDAO {
     @Query("SELECT * FROM attendanceEntity")
     List<attendanceEntity> getAllSubject();
 
-    @Query("SELECT * FROM attendanceEntity WHERE ")
+    @Query("SELECT * FROM attendanceEntity WHERE Month")
     List<attendanceEntity> getAllSubject();
 
     @Update
