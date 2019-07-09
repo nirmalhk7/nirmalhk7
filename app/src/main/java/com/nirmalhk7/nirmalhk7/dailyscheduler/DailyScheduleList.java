@@ -17,11 +17,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -113,35 +115,9 @@ public class DailyScheduleList extends Fragment {
 
         // Inserting Schedules
         Log.d("Insert: ", "Inserting ..");
+        DSLfetchDB(view);
 
-        // Reading all contacts
-        Log.d("Reading: ", "Reading all contacts..");
-
-        ArrayList<scheduleItem> sch = new ArrayList<scheduleItem>();
-
-        scheduleDatabase database = Room.databaseBuilder(getContext(), scheduleDatabase.class, "mydb")
-                .allowMainThreadQueries().fallbackToDestructiveMigration()
-                .build();
-
-        scheduleDAO scheduleDAO = database.getScheduleDao();
-        Log.d("DAS/DS/Tabs","xx"+mday);
-        List<Schedule> schedules = scheduleDAO.getScheduleByDay(mday);
-        for (Schedule cn : schedules) {
-
-            Log.d("DAS/DSL", "Printing: Task "+cn.getTask()+" Time "+cn.getTime()+" Label "+cn.getLabel());
-            sch.add(new scheduleItem(cn.getTask(), cn.getTime(),cn.getLabel(),cn.getId(),cn.getDay()));
-        }
-
-        ScheduleAdapter adapter = new ScheduleAdapter(getContext(), sch);
-
-        // Find the {@link ListView} object in the view hierarchy of the {@link Activity}.
-        // There should be a {@link ListView} with the view ID called list, which is declared in the
-        // word_list.xml layout file.
-        ListView listView = view.findViewById(R.id.list_item);
-
-        // Make the {@link ListView} use the {@link ScheduleAdapter} we created above, so that the
-        // {@link ListView} will display list schedules for each {@link scheduleSchedule} in the list.
-        listView.setAdapter(adapter);
+        DSLonRefresh(view);
 
         final ListView singleSchedule = view.findViewById(R.id.list_item);
         singleSchedule.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -248,5 +224,56 @@ public class DailyScheduleList extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    public void DSLfetchDB(View view)
+    {
+
+        // Reading all contacts
+        Log.d("Reading: ", "Reading all contacts..");
+
+        ArrayList<scheduleItem> sch = new ArrayList<scheduleItem>();
+
+        scheduleDatabase database = Room.databaseBuilder(getContext(), scheduleDatabase.class, "mydb")
+                .allowMainThreadQueries().fallbackToDestructiveMigration()
+                .build();
+
+        scheduleDAO scheduleDAO = database.getScheduleDao();
+        Log.d("DAS/DS/Tabs","xx"+mday);
+        List<Schedule> schedules = scheduleDAO.getScheduleByDay(mday);
+        for (Schedule cn : schedules) {
+
+            Log.d("DAS/DSL", "Printing: Task "+cn.getTask()+" Time "+cn.getTime()+" Label "+cn.getLabel());
+            sch.add(new scheduleItem(cn.getTask(), cn.getTime(),cn.getLabel(),cn.getId(),cn.getDay()));
+        }
+
+        ScheduleAdapter adapter = new ScheduleAdapter(getContext(), sch);
+
+        // Find the {@link ListView} object in the view hierarchy of the {@link Activity}.
+        // There should be a {@link ListView} with the view ID called list, which is declared in the
+        // word_list.xml layout file.
+        ListView listView = view.findViewById(R.id.list_item);
+
+        // Make the {@link ListView} use the {@link ScheduleAdapter} we created above, so that the
+        // {@link ListView} will display list schedules for each {@link scheduleSchedule} in the list.
+        listView.setAdapter(adapter);
+
+    }
+    SwipeRefreshLayout pullToRefresh;
+    ArrayAdapter adapter;
+    public void DSLonRefresh(View rootview){
+        pullToRefresh = rootview.findViewById(R.id.pullToRefresh);
+        final View v=rootview;
+        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            int Refreshcounter = 1; //Counting how many times user have refreshed the layout
+
+            @Override
+            public void onRefresh() {
+                //Here you can update your data from internet or from local SQLite data
+                Log.d("ATT/ALS","Refreshing");
+                DSLfetchDB(v);
+                pullToRefresh.setRefreshing(false);
+            }
+        });
     }
 }
