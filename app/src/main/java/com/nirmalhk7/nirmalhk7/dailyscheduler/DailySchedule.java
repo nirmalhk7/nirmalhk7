@@ -94,7 +94,7 @@ public class DailySchedule extends Fragment {
         tabLayout.setupWithViewPager(viewPager);
 
         viewPager= (ViewPager) view.findViewById(R.id.view_pager);
-        
+
         SpeedDialView speedDialView = getActivity().findViewById(R.id.speedDial);
         speedDialView.setVisibility(View.VISIBLE);
         speedDialView.setOnChangeListener(new SpeedDialView.OnChangeListener() {
