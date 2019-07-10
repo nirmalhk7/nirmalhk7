@@ -7,6 +7,7 @@
 
     <color name="colorPrimaryLight">#BBDEFB</color>
     <color name="colorDark">#33343B</color>
+    <color name="colorLightDark">#6C6D81</color>
     <color name="colorFontDark">#BBDEFB</color>
 
     <color name="colorFontLight">#000</color>

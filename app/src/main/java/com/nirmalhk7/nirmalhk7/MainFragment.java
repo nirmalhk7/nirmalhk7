@@ -214,6 +214,7 @@ public class MainFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_main, container, false);
         api_link = "https://api.darksky.net/forecast/60569b87b5b2a6220c135e9b2e91646b/";
+
         weather = getActivity().findViewById(R.id.weather);
         if (isOnline()) {
             airLocation = new AirLocation(getActivity(), true, true, new AirLocation.Callbacks() {
@@ -246,9 +247,10 @@ public class MainFragment extends Fragment {
 
         } else {
             Log.d("END/Main","No Internet connection");
-            TextView error = v.findViewById(R.id.error);
+            TextView error = new TextView(getContext());
             error.setText("Phone not connected");
             error.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            LinearLayout x=v.findViewById(R.id.weather);
         }
         return v;
     }

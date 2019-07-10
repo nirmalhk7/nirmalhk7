@@ -20,6 +20,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.leinardi.android.speeddial.SpeedDialActionItem;
+import com.leinardi.android.speeddial.SpeedDialView;
 import com.nirmalhk7.nirmalhk7.R;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
@@ -93,24 +95,24 @@ public class DailySchedule extends Fragment {
 
         viewPager= (ViewPager) view.findViewById(R.id.view_pager);
 
-
-        FloatingActionButton fab = getActivity().findViewById(R.id.fab);
-        fab.show();
-        fab.setOnClickListener(new View.OnClickListener() {
+        SpeedDialView speedDialView = getActivity().findViewById(R.id.speedDial);
+        speedDialView.setVisibility(View.VISIBLE);
+        speedDialView.setOnChangeListener(new SpeedDialView.OnChangeListener() {
             @Override
-            public void onClick(View view) {
-                /*
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                        */
+            public boolean onMainActionSelected() {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 
                 FullScreenDialog newFragment = new FullScreenDialog();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 transaction.add(android.R.id.content, newFragment).addToBackStack(null).commit();
+                return false;
 
+            }
 
+            @Override
+            public void onToggleChanged(boolean isOpen) {
+                Log.d("xxx","yyy");
             }
         });
 

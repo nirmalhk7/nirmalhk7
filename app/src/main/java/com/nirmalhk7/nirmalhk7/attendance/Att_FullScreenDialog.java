@@ -72,8 +72,15 @@ public class Att_FullScreenDialog extends DialogFragment {
 
         List<Schedule> schedules=scheduleDAO.getSubjects("College");
 
-        String[] subject=new String[schedules.size()-1];
+        String[] subject=new String[schedules.size()];
         Log.d("ATT/FSD","."+schedules.size());
+        int i=0;
+        for(Schedule cn: schedules)
+        {
+            subject[i]=cn.getTask();
+            Log.d("ATT/FSD/",subject[i]);
+            ++i;
+        }
 
 
         final AppCompatAutoCompleteTextView autoTextView;

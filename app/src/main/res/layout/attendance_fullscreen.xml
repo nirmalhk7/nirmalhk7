@@ -76,7 +76,7 @@
             <android.support.v7.widget.AppCompatAutoCompleteTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Task Name"
+                android:hint="Subject Name"
                 android:id="@+id/attendance_task"
                 android:textColor="@android:color/white"
                 android:textColorHint="@android:color/white"/>

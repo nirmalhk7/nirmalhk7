@@ -2,12 +2,15 @@ package com.nirmalhk7.nirmalhk7.attendance;
 
 import android.arch.persistence.room.Room;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,7 +20,10 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import com.leinardi.android.speeddial.SpeedDialActionItem;
+import com.leinardi.android.speeddial.SpeedDialView;
 import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.dailyscheduler.FullScreenDialog;
 import com.nirmalhk7.nirmalhk7.dailyscheduler.Schedule;
@@ -78,34 +84,13 @@ public class AllSubjects extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-    private boolean isFABOpen;
-    public FloatingActionButton fab;
-
-    public FloatingActionButton fab1;
-    public FloatingActionButton fab2;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView= inflater.inflate(R.layout.fragment_attendance_all_subjects, container, false);
+        final View rootView= inflater.inflate(R.layout.fragment_attendance_all_subjects, container, false);
         View tbV= getLayoutInflater().inflate(R.layout.app_bar_main, null);
 
-        ImageButton c= getActivity().findViewById(R.id.toolbarButton1);
-        if(c==null){
-            Log.d("ATT","NULL");
-        }
-        c.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i("ATT","Subject List clicked");
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                Fragment newFragment;
-                newFragment = new AllSubjects();
-                transaction.replace(R.id.fullscreen, newFragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
-            }
-        });
         LinearLayout pending= rootView.findViewById(R.id.pendingSubjects_subject);
         pending.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,44 +114,64 @@ public class AllSubjects extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i=new Intent(getActivity(), SingleSubjectActivity.class);
-
+                Log.d("ATT/FSD","HLO");
                 i.putExtra("subj", "HELLO");
                 startActivity(i);
             }
         });
-        fab=getActivity().findViewById(R.id.fab);
-        fab.show();
-        fab.setOnClickListener(new View.OnClickListener() {
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public void onClick(View view) {
-                if(!isFABOpen){
-                    showFABMenu();
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-                    Log.d("fab Clicked","Add Subject");
-                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                Att_FullScreenDialog newFragment = new Att_FullScreenDialog();
 
-                    Att_FullScreenDialog newFragment = new Att_FullScreenDialog();
-                    FragmentTransaction transaction = fragmentManager.beginTransaction();
-                    transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                    transaction.add(android.R.id.content, newFragment).addToBackStack(null).commit();
-                }
-                else{
-                    closeFABMenu();
-                }
+                TextView subject=(rootView.findViewById(R.id.subjName_subject));
+                TextView present=rootView.findViewById(R.id.presentabsent_subject);
+                String prab=present.getText().toString();
 
+                Bundle b=new Bundle();
+
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                transaction.add(android.R.id.content, newFragment).addToBackStack(null).commit();
+                return false;
             }
         });
 
+        SpeedDialView speedDialView = getActivity().findViewById(R.id.speedDial);
+        speedDialView.setVisibility(View.VISIBLE);
+        speedDialView.addActionItem(
+                new SpeedDialActionItem.Builder(R.id.content, R.drawable.ic_examholidays)
+                        .setLabel("Add Subject")
+                        .setLabelColor(Color.WHITE)
+                        .setLabelBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.colorLightDark, getActivity().getTheme()))
+                        .create()
+        );
+        speedDialView.setOnActionSelectedListener( new SpeedDialView.OnActionSelectedListener() {
+            @Override
+            public boolean onActionSelected(SpeedDialActionItem speedDialActionItem) {
+                switch (speedDialActionItem.getId()) {
+                    case R.id.content:
+                        Log.d("ATT/ALS","Selct");
+                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+
+                        Att_FullScreenDialog newFragment = new Att_FullScreenDialog();
+                        FragmentTransaction transaction = fragmentManager.beginTransaction();
+                        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                        transaction.add(android.R.id.content, newFragment).addToBackStack(null).commit();
+                        return false; // true to keep the Speed Dial open
+                    default:
+                        return false;
+                }
+            }
+        });
+
+
         return rootView;
     }
-    private void showFABMenu(){
-        isFABOpen=true;
 
-    }
-
-    private void closeFABMenu(){
-        isFABOpen=false;
-    }
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {

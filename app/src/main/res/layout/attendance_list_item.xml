@@ -24,29 +24,6 @@
             android:id="@+id/subjDateTime"/>
     </LinearLayout>
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:textColor="@android:color/holo_green_dark"
-        android:background="@color/colorDark"
-        android:src="@drawable/ic_absent"
-        android:id="@+id/item_absent"
-        android:paddingLeft="10dp"/>
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:textColor="@android:color/holo_green_dark"
-        android:background="@color/colorDark"
-        android:src="@drawable/ic_cancelled"
-        android:id="@+id/item_cancelled"
-        android:paddingLeft="10dp" />
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:textColor="@android:color/holo_green_dark"
-        android:background="@color/colorDark"
-        android:src="@drawable/ic_present"
-        android:id="@+id/item_present"
-        android:paddingLeft="10dp" />
+
 
 </LinearLayout>

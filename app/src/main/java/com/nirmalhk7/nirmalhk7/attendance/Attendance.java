@@ -3,6 +3,7 @@ package com.nirmalhk7.nirmalhk7.attendance;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -72,11 +73,6 @@ public class Attendance extends Fragment {
         }
     }
 
-    private boolean isFABOpen;
-    public FloatingActionButton fab;
-
-    public FloatingActionButton fab1;
-    public FloatingActionButton fab2;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -84,22 +80,7 @@ public class Attendance extends Fragment {
         View rootView= inflater.inflate(R.layout.fragment_attendance, container, false);
         View tbV= getLayoutInflater().inflate(R.layout.app_bar_main, null);
 
-        ImageButton c= getActivity().findViewById(R.id.toolbarButton1);
-        if(c==null){
-            Log.d("ATT","NULL");
-        }
-        c.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i("ATT","Subject List clicked");
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                Fragment newFragment;
-                newFragment = new AllSubjects();
-                transaction.replace(R.id.fullscreen, newFragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
-            }
-        });
+
         ArrayList<attendanceItem> AttendanceItem = new ArrayList<attendanceItem>();
 
 
@@ -116,33 +97,11 @@ public class Attendance extends Fragment {
         // Make the {@link ListView} use the {@link attendanceAdapter} we created above, so that the
         // {@link ListView} will display list items for each {@link attendanceItem} in the list.
         listView.setAdapter(adapter);
-        fab=getActivity().findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(!isFABOpen){
-                    showFABMenu();
-                }else{
-                    closeFABMenu();
-                }
 
-            }
-        });
         return rootView;
     }
 
-    private void showFABMenu(){
-        isFABOpen=true;
-        fab1.animate().translationY(-getResources().getDimension(R.dimen.standard_55));
-        fab2.animate().translationY(-getResources().getDimension(R.dimen.standard_105));
 
-    }
-
-    private void closeFABMenu(){
-        isFABOpen=false;
-        fab1.animate().translationY(0);
-        fab2.animate().translationY(0);
-    }
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
