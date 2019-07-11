@@ -87,7 +87,7 @@
                 android:paddingTop="10dp"
                 android:text="Task Name" />
 
-            <EditText
+            <AutoCompleteTextView
                 android:id="@+id/taskName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

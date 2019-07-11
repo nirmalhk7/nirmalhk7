@@ -13,6 +13,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,7 +40,8 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        String res="HELLO";
+        Log.d("moneymoney",convert.railtonormal("1420"));
         SpeedDialView speedDialView = findViewById(R.id.speedDial);
         speedDialView.setVisibility(View.INVISIBLE);
         /*speedDialView.addActionItem(

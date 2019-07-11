@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -51,7 +52,7 @@ public class FullScreenDialog extends DialogFragment {
             final int dbNo = bundle.getInt("key");
 
             //Pass title,label and time value to EditText
-            EditText taskNameEdit = rootView.findViewById(R.id.taskName);
+            AutoCompleteTextView taskNameEdit = rootView.findViewById(R.id.taskName);
             taskNameEdit.setText(title);
             EditText taskLabelEdit = rootView.findViewById(R.id.taskLabel);
             taskLabelEdit.setText(label);
@@ -161,7 +162,7 @@ public class FullScreenDialog extends DialogFragment {
 
                 Log.d("DailyScheduler", "Saving data!");
 
-                EditText taskNameEdit = getActivity().findViewById(R.id.taskName);
+                AutoCompleteTextView taskNameEdit = getActivity().findViewById(R.id.taskName);
                 EditText taskLabelEdit = getActivity().findViewById(R.id.taskLabel);
                 EditText taskTimeStartEdit = getActivity().findViewById(R.id.taskStart);
                 EditText taskTimeEndEdit = getActivity().findViewById(R.id.taskEnd);
@@ -187,7 +188,8 @@ public class FullScreenDialog extends DialogFragment {
                 Schedule schedule = new Schedule();
                 schedule.setTask(task);
                 schedule.setLabel(label);
-                schedule.setTime(time);
+                schedule.setStartTime(taskTimeStartEdit.getText().toString());
+                schedule.setEndTime(taskTimeEndEdit.getText().toString());
                 schedule.setDay(mday);
 
                 scheduleDAO.insertOnlySingleMovie(schedule);
@@ -207,8 +209,14 @@ public class FullScreenDialog extends DialogFragment {
         mTimePicker = new TimePickerDialog(getContext(), AlertDialog.THEME_DEVICE_DEFAULT_DARK, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                Time.setText(selectedHour + ":" + selectedMinute);
+                if(selectedHour<10)
+                {
+                    Time.setText("0"+selectedHour + ":" + selectedMinute);
+                }
 
+                else{
+                    Time.setText(selectedHour + ":" + selectedMinute);
+                }
             }
         }, Mhour, Mminute, true);//yes 12 hour time
 

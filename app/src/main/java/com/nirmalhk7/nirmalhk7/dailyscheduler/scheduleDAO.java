@@ -22,7 +22,7 @@ public interface scheduleDAO {
     @Query("SELECT * FROM Schedule")
     List<Schedule> getItems();
 
-    @Query("SELECT * FROM Schedule WHERE mDay =:Day")
+    @Query("SELECT * FROM Schedule WHERE mDay =:Day ORDER BY mStartTime")
     List<Schedule> getScheduleByDay(int Day);
 
     @Update

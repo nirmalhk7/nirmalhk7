@@ -243,8 +243,8 @@ public class DailyScheduleList extends Fragment {
         List<Schedule> schedules = scheduleDAO.getScheduleByDay(mday);
         for (Schedule cn : schedules) {
 
-            Log.d("DAS/DSL", "Printing: Task "+cn.getTask()+" Time "+cn.getTime()+" Label "+cn.getLabel());
-            sch.add(new scheduleItem(cn.getTask(), cn.getTime(),cn.getLabel(),cn.getId(),cn.getDay()));
+            Log.d("DAS/DSL", "Printing: Task "+cn.getTask()+" Time "+cn.getStartTime()+cn.getEndTime()+" Label "+cn.getLabel());
+            sch.add(new scheduleItem(cn.getTask(), cn.getStartTime(),cn.getEndTime(),cn.getLabel(),cn.getId(),cn.getDay()));
         }
 
         ScheduleAdapter adapter = new ScheduleAdapter(getContext(), sch);
