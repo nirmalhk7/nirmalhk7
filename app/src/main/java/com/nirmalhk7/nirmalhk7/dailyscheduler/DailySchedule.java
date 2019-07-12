@@ -17,6 +17,8 @@ import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -95,30 +97,12 @@ public class DailySchedule extends Fragment {
 
         viewPager= (ViewPager) view.findViewById(R.id.view_pager);
 
-        SpeedDialView speedDialView = getActivity().findViewById(R.id.speedDial);
-        speedDialView.setVisibility(View.VISIBLE);
-        speedDialView.setOnChangeListener(new SpeedDialView.OnChangeListener() {
-            @Override
-            public boolean onMainActionSelected() {
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 
-                FullScreenDialog newFragment = new FullScreenDialog();
-                FragmentTransaction transaction = fragmentManager.beginTransaction();
-                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                transaction.add(android.R.id.content, newFragment).addToBackStack(null).commit();
-                return false;
-
-            }
-
-            @Override
-            public void onToggleChanged(boolean isOpen) {
-                Log.d("xxx","yyy");
-            }
-        });
 
         return view;
 
     }
+    
 
 
 

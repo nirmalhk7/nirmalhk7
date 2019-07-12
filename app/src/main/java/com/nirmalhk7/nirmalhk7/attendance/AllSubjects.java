@@ -14,6 +14,8 @@ import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -140,7 +142,7 @@ public class AllSubjects extends Fragment {
             }
         });
 
-        SpeedDialView speedDialView = getActivity().findViewById(R.id.speedDial);
+        SpeedDialView speedDialView =getActivity().findViewById(R.id.speedDial);
         speedDialView.setVisibility(View.VISIBLE);
         speedDialView.addActionItem(
                 new SpeedDialActionItem.Builder(R.id.content, R.drawable.ic_examholidays)
@@ -250,4 +252,8 @@ public class AllSubjects extends Fragment {
         // {@link ListView} will display list items for each {@link attendanceItem} in the list.
         listView.setAdapter(adapter);
     }
+
+
+
+
 }

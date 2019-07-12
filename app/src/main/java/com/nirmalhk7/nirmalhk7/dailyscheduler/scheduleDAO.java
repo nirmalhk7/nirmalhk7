@@ -11,7 +11,7 @@ import java.util.List;
 @Dao
 public interface scheduleDAO {
     @Insert
-    void insertOnlySingleMovie(Schedule movies);
+    void insertOnlySingleSchedule(Schedule movies);
 
     @Insert
     void insertMultipleSchedule(List<Schedule> moviesList);
@@ -26,7 +26,9 @@ public interface scheduleDAO {
     List<Schedule> getScheduleByDay(int Day);
 
     @Update
-    void updateMovie(Schedule movies);
+    void updateSchedule(Schedule schedule);
+
+
 
 
     @Delete

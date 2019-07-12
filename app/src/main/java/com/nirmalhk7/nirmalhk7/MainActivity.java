@@ -41,9 +41,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         String res="HELLO";
-        Log.d("moneymoney",convert.railtonormal("1420"));
-        SpeedDialView speedDialView = findViewById(R.id.speedDial);
-        speedDialView.setVisibility(View.INVISIBLE);
+        Log.d("CONVERT",convert.railtonormal("1145"));
         /*speedDialView.addActionItem(
                 new SpeedDialActionItem.Builder(R.id.nav_attendance, R.drawable.ic_attendance)
                         .setLabelColor(Color.WHITE)

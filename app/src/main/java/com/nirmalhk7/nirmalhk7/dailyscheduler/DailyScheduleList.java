@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,8 +30,11 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.leinardi.android.speeddial.SpeedDialActionItem;
+import com.leinardi.android.speeddial.SpeedDialView;
 import com.nirmalhk7.nirmalhk7.MainActivity;
 import com.nirmalhk7.nirmalhk7.R;
+import com.nirmalhk7.nirmalhk7.convert;
 import com.nirmalhk7.nirmalhk7.settings.SettingsActivity;
 
 import org.w3c.dom.Text;
@@ -110,6 +115,28 @@ public class DailyScheduleList extends Fragment {
             mday=bundle.getInt("day");
             Log.d("DAS/DSL/","Bundle!:"+mday);
         }
+        SpeedDialView speedDialView = getActivity().findViewById(R.id.speedDial);
+        speedDialView.setVisibility(View.VISIBLE);
+
+
+        speedDialView.setOnChangeListener(new SpeedDialView.OnChangeListener() {
+            @Override
+            public boolean onMainActionSelected() {
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+
+                FullScreenDialog newFragment = new FullScreenDialog();
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                transaction.add(android.R.id.content, newFragment).addToBackStack(null).commit();
+                return false;
+
+            }
+
+            @Override
+            public void onToggleChanged(boolean isOpen) {
+                Log.d("xxx","yyy");
+            }
+        });
         Log.d("DAS/DSL/Ta", "Tab " + DailySchedule.tabPosition);
 
 
@@ -129,6 +156,10 @@ public class DailyScheduleList extends Fragment {
                 TextView label = view.findViewById(R.id.default_text_view);
                 TextView time = view.findViewById(R.id.default_time);
                 TextView idx=view.findViewById(R.id.itemid);
+                String starttime=time.getText().toString().substring(0,time.getText().toString().indexOf('-')-1);
+                String endtime=time.getText().toString().substring(time.getText().toString().indexOf('-')+2,time.getText().toString().length());
+                Log.d("CONVERTX",endtime+"-"+starttime);
+
 
 
                 FullScreenDialog newFragment = new FullScreenDialog();
@@ -140,7 +171,8 @@ public class DailyScheduleList extends Fragment {
                 args.putInt("key", Integer.parseInt(idx.getText().toString()));
                 args.putString("title", title.getText().toString());
                 args.putString("label", label.getText().toString());
-                args.putString("time", time.getText().toString());
+                args.putString("starttime", starttime);
+                args.putString("endtime",endtime);
                 args.putInt("day",mday);
 
                 Log.d("DS", "PSN:" + Integer.toString(position));
@@ -153,6 +185,7 @@ public class DailyScheduleList extends Fragment {
         });
         return view;
     }
+
 
     private void callNotification(String heading, String title) {
         Intent intent = new Intent(getActivity(), SettingsActivity.class);
@@ -244,7 +277,7 @@ public class DailyScheduleList extends Fragment {
         for (Schedule cn : schedules) {
 
             Log.d("DAS/DSL", "Printing: Task "+cn.getTask()+" Time "+cn.getStartTime()+cn.getEndTime()+" Label "+cn.getLabel());
-            sch.add(new scheduleItem(cn.getTask(), cn.getStartTime(),cn.getEndTime(),cn.getLabel(),cn.getId(),cn.getDay()));
+            sch.add(new scheduleItem(cn.getTask(), convert.railtonormal(cn.getStartTime()),convert.railtonormal(cn.getEndTime()),cn.getLabel(),cn.getId(),cn.getDay()));
         }
 
         ScheduleAdapter adapter = new ScheduleAdapter(getContext(), sch);
