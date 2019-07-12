@@ -17,7 +17,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="Task X djdcnjcndjkcdjnc"
+            tools:text="Subject Name"
             android:id="@+id/subjName_subject"/>
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,14 +29,44 @@
                 android:layout_height="wrap_content"
                 tools:text="Present Count"
                 android:id="@+id/presentabsent_subject"/>
-            <TextView
+            <LinearLayout
                 android:layout_weight="1"
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
-                tools:text="Percent"
-                android:id="@+id/percent_subject"
-                android:textAlignment="textEnd"/>
+                android:orientation="vertical">
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="Percent"
+                    android:id="@+id/percent_subject"
+                    android:textAlignment="textEnd"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:textAlignment="textEnd">
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_present"
+                        android:background="@color/colorDark"/>
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_absent"
+                        android:background="@color/colorDark"/>
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_cancelled"
+                        android:background="@color/colorDark"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
         </LinearLayout>
     </LinearLayout>
+
 
 </LinearLayout>
