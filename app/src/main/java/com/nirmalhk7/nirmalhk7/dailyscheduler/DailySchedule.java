@@ -26,6 +26,8 @@ import com.leinardi.android.speeddial.SpeedDialActionItem;
 import com.leinardi.android.speeddial.SpeedDialView;
 import com.nirmalhk7.nirmalhk7.R;
 
+import java.util.Calendar;
+
 import static android.content.Context.NOTIFICATION_SERVICE;
 
 
@@ -97,6 +99,37 @@ public class DailySchedule extends Fragment {
 
         viewPager= (ViewPager) view.findViewById(R.id.view_pager);
 
+
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_WEEK);
+
+        switch (day) {
+            case Calendar.SUNDAY:
+                viewPager.setCurrentItem(6);
+                break;
+            case Calendar.MONDAY:
+                viewPager.setCurrentItem(0);
+                break;
+            case Calendar.TUESDAY:
+                viewPager.setCurrentItem(1);
+                break;
+
+            case Calendar.WEDNESDAY:
+                viewPager.setCurrentItem(2);
+                break;
+
+            case Calendar.THURSDAY:
+                viewPager.setCurrentItem(3);
+                break;
+
+            case Calendar.FRIDAY:
+                viewPager.setCurrentItem(4);
+                break;
+
+            case Calendar.SATURDAY:
+                viewPager.setCurrentItem(5);
+                break;
+        }
 
 
         return view;
