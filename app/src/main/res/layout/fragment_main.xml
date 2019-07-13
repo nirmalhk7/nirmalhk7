@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MainFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -20,7 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/weather"
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 android:layout_gravity="center_vertical">
             </LinearLayout>
         </android.support.v7.widget.CardView>
@@ -38,4 +39,5 @@
             android:layout_margin="@dimen/standard_dimen">
         </android.support.v7.widget.CardView>
     </LinearLayout>
+
 </FrameLayout>

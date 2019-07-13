@@ -48,7 +48,7 @@ public class ScheduleAdapter extends ArrayAdapter<scheduleItem> {
         TextView defaultTime = (TextView) listItemView.findViewById(R.id.default_time);
         // Get the default translation from the currentWord object and set this text on
         // the default TextView.
-        defaultTime.setText(currentWord.getScheduleTime());
+        defaultTime.setText(currentWord.getmStartTime()+" - "+currentWord.getmEndTime());
 
         TextView id=listItemView.findViewById(R.id.itemid);
         id.setText(String.valueOf(currentWord.getScheduleId()));
