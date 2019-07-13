@@ -131,11 +131,27 @@ public class DailySchedule extends Fragment {
                 break;
         }
 
+        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+                Log.d("XXD",i+","+v+","+i1);
 
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+                Log.d("XXDX",i+"");
+            }
+        });
         return view;
 
     }
-    
+
 
 
 

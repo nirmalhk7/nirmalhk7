@@ -103,12 +103,15 @@ public class DailyScheduleList extends Fragment {
         }
     }
 
+    private View v;
+    private Context x;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_daily_schedule_list, container, false);
+        v=view;
         Bundle bundle=this.getArguments();
         if(bundle!=null)
         {
@@ -272,7 +275,7 @@ public class DailyScheduleList extends Fragment {
                 .build();
 
         scheduleDAO scheduleDAO = database.getScheduleDao();
-        Log.d("DAS/DS/Tabs","xx"+mday);
+        Log.d("DAS/DSL/Tabs","xx"+mday);
         List<Schedule> schedules = scheduleDAO.getScheduleByDay(mday);
         for (Schedule cn : schedules) {
 
@@ -303,10 +306,12 @@ public class DailyScheduleList extends Fragment {
             @Override
             public void onRefresh() {
                 //Here you can update your data from internet or from local SQLite data
-                Log.d("ATT/ALS","Refreshing");
+                Log.d("DAS/DSL","Refreshing");
                 DSLfetchDB(v);
                 pullToRefresh.setRefreshing(false);
             }
         });
     }
+
+
 }
