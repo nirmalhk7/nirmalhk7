@@ -6,15 +6,17 @@ public class scheduleItem {
     private String mScheduleTitle;
 
     /** Miwok translation for the word */
-    private String mTime;
+    private String mStartTime;
+    private String mEndTime;
     private String mLabel;
     private int mId;
     private int mDay;
 
 
-    public scheduleItem(String scheduleTitle, String time, String label,int Id,int Day) {
+    public scheduleItem(String scheduleTitle, String starttime,String endtime, String label,int Id,int Day) {
         mScheduleTitle = scheduleTitle;
-        mTime = time;
+        mStartTime=starttime;
+        mEndTime=endtime;
         mLabel=label;
         mId=Id;
         mDay=Day;
@@ -24,9 +26,14 @@ public class scheduleItem {
         return mScheduleTitle;
     }
 
-    public String getScheduleTime() {
-        return mTime;
+    public String getmStartTime() {
+        return mStartTime;
     }
+
+    public String getmEndTime() {
+        return mEndTime;
+    }
+
     public String getScheduleLabel() {
         return mLabel;
     }

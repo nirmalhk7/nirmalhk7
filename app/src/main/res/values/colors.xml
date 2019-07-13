@@ -3,11 +3,13 @@
     <color name="colorPrimary">#2196F3</color>
     <color name="colorPrimaryDark">#1976D2</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="colorAccentLight">#eb8daf</color>
 
     <color name="colorPrimaryLight">#BBDEFB</color>
     <color name="colorDark">#33343B</color>
     <color name="colorLightDark">#6C6D81</color>
     <color name="colorFontDark">#BBDEFB</color>
+    <color name="colorFontHintDark">#768B9B</color>
 
     <color name="colorFontLight">#000</color>
     <color name="colorVermillion">#D03D33</color>

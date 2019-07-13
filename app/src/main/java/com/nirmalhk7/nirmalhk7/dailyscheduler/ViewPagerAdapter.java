@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.view.ViewGroup;
 
 public class ViewPagerAdapter extends FragmentPagerAdapter {
     public ViewPagerAdapter(FragmentManager fm) {
@@ -17,6 +18,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         {
             Bundle bundle=new Bundle();
             bundle.putInt("day",position);
+
             DailyScheduleList dsl=new DailyScheduleList();
             dsl.setArguments(bundle);
             return dsl;
@@ -27,7 +29,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 7; //three fragments
+        return 100;
     }
 
 
@@ -44,4 +46,6 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         }
         return null;
     }
+
+
 }

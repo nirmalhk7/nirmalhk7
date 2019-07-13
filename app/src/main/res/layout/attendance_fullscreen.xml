@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -42,7 +41,7 @@
                 android:gravity="center">
 
                 <Button
-                    android:id="@+id/button_save"
+                    android:id="@+id/ATT_button_save"
                     style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -74,75 +73,51 @@
             android:orientation="vertical"
             android:padding="15dp">
 
-            <Spinner
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="@dimen/standard_dimen"
-                local:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                local:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                android:id="@+id/spinner"></Spinner>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:text="Task Name" />
-
             <android.support.v7.widget.AppCompatAutoCompleteTextView
-                android:id="@+id/taskName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Task Name"
-                android:inputType="textCapSentences"
-                android:textColor="@color/colorFontDark"
-                android:textColorHint="@color/colorFontHintDark" />
-
+                android:hint="Subject Name"
+                android:id="@+id/attendance_task"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:text="Task Label" />
-
+                android:text="Attendance if any"
+                android:paddingTop="30dp"
+                android:paddingBottom="@dimen/standard_dimen"
+                android:textSize="20sp"/>
             <EditText
-                android:id="@+id/taskLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="College"
-                android:inputType="textCapSentences"
-                android:textColor="@color/colorFontDark"
-                android:textColorHint="@color/colorFontHintDark" />
-
-            <TextView
+                android:hint="Present"
+                android:inputType="number"
+                android:id="@+id/present_fsd"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"/>
+            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:text="Time" />
-
+                android:hint="Absent"
+                android:inputType="number"
+                android:id="@+id/absent_fsd"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"
+                />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <EditText
-                    android:id="@+id/taskStart"
+                android:background="@color/colorPrimary"
+                android:layout_marginTop="@dimen/standard_dimen">
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:focusable="false"
-                    android:hint="Start Time"
-                    android:padding="10dp"
-                    android:textColor="@color/colorFontDark"
-                    android:textColorHint="@color/colorFontHintDark" />
 
-                <EditText
-                    android:id="@+id/taskEnd"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:focusable="false"
-                    android:hint="End Time"
-                    android:textColor="@color/colorFontDark"
-                    android:textColorHint="@color/colorFontHintDark" />
+                    android:id="@+id/total_fsd"
+                    android:padding="@dimen/standard_dimen"
+                    android:textSize="20sp"/>
             </LinearLayout>
+
 
         </LinearLayout>
 

@@ -13,6 +13,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +21,7 @@ import android.view.View;
 import com.leinardi.android.speeddial.SpeedDialActionItem;
 import com.leinardi.android.speeddial.SpeedDialView;
 import com.nirmalhk7.nirmalhk7.academics.Academics;
+import com.nirmalhk7.nirmalhk7.attendance.AllSubjects;
 import com.nirmalhk7.nirmalhk7.attendance.Attendance;
 import com.nirmalhk7.nirmalhk7.callmanager.callManagerFragment;
 import com.nirmalhk7.nirmalhk7.dailyscheduler.DailySchedule;
@@ -38,9 +40,8 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        SpeedDialView speedDialView = findViewById(R.id.speedDial);
-        speedDialView.setVisibility(View.INVISIBLE);
+        String res="HELLO";
+        Log.d("CONVERT",convert.railtonormal("1145"));
         /*speedDialView.addActionItem(
                 new SpeedDialActionItem.Builder(R.id.nav_attendance, R.drawable.ic_attendance)
                         .setLabelColor(Color.WHITE)
@@ -132,7 +133,7 @@ public class MainActivity extends AppCompatActivity
             transaction.commit();
         }else if(id==R.id.nav_attendance)
         {
-            newFragment = new Attendance();
+            newFragment = new AllSubjects();
             transaction.replace(R.id.fullscreen, newFragment);
             transaction.addToBackStack(null);
             transaction.commit();

@@ -8,9 +8,10 @@ import android.support.annotation.NonNull;
 public class Schedule {
     @NonNull
     @PrimaryKey(autoGenerate = true)
-    private int id;
+    protected int id;
     private String mTask;
-    private String mTime;
+    private String mStartTime;
+    private String mEndTime;
     private String mLabel;
     private int mDay;
 
@@ -22,8 +23,12 @@ public class Schedule {
         return mTask;
     }
 
-    public String getTime(){
-        return mTime;
+    public String getStartTime() {
+        return mStartTime;
+    }
+
+    public String getEndTime() {
+        return mEndTime;
     }
 
     public String getLabel(){
@@ -46,8 +51,12 @@ public class Schedule {
         mTask=task;
     }
 
-    public void setTime(String time){
-        mTime=time;
+    public void setStartTime(String mStartTime) {
+        this.mStartTime = mStartTime;
+    }
+
+    public void setEndTime(String mEndTime) {
+        this.mEndTime = mEndTime;
     }
 
     public void setLabel(String label){
