@@ -19,6 +19,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 
@@ -70,8 +71,7 @@ public class FullScreenDialog extends DialogFragment {
             taskTimeStartEdit.setText(convert.normaltorail(startTime));
             taskTimeEndEdit.setText(convert.normaltorail(endtime));
 
-            Spinner spinner = rootView.findViewById(R.id.spinner);
-            spinner.setSelection(day);
+
 
             //trash is the trashbox for deleting;
             ImageView trash = new ImageView(getContext());
@@ -100,40 +100,47 @@ public class FullScreenDialog extends DialogFragment {
 
 
         // Spinner element
-        Spinner spinner = (Spinner) rootView.findViewById(R.id.spinner);
 
-        // Spinner click listener
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        RadioGroup day=rootView.findViewById(R.id.rgDay);
+        day.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("DAS/FSD/Spn", "L" + position);
-                mday = position;
-            }
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch(checkedId)
+                {
+                    case R.id.rbMon:
+                        Log.d("DAS/FSD","Day Selected: Monday");
+                        mday=0;
+                        break;
+                    case R.id.rbTue:
+                        Log.d("DAS/FSD","Day Selected: Tuesday");
+                        mday=1;
+                        break;
+                    case R.id.rbWed:
+                        Log.d("DAS/FSD","Day Selected: Wednesday");
+                        mday=2;
+                        break;
+                    case R.id.rbThu:
+                        Log.d("DAS/FSD","Day Selected: Thursday");
+                        mday=3;
+                        break;
+                    case R.id.rbFriday:
+                        Log.d("DAS/FSD","Day Selected: Friday");
+                        mday=4;
+                        break;
+                    case R.id.rbSaturday:
+                        Log.d("DAS/FSD","Day Selected: Saturday");
+                        mday=5;
+                        break;
+                    case R.id.rbSunday:
+                        Log.d("DAS/FSD","Day Selected: Sunday");
+                        mday=6;
+                        break;
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
 
+                }
             }
         });
 
-        // Spinner Drop down elements
-        List<String> categories = new ArrayList<String>();
-        categories.add("Monday");
-        categories.add("Tuesday");
-        categories.add("Wednesday");
-        categories.add("Thursday");
-        categories.add("Friday");
-        categories.add("Saturday");
-        categories.add("Sunday");
-
-        // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, categories);
-
-        // Drop down layout style - list view with radio button
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        // attaching data adapter to spinner
-        spinner.setAdapter(dataAdapter);
 
 
         DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "mydb")
