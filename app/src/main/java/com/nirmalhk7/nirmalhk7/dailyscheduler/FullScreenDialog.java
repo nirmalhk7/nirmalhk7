@@ -22,6 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 
+import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.convert;
 
@@ -84,7 +85,7 @@ public class FullScreenDialog extends DialogFragment {
                 @Override
                 public void onClick(View v) {
                     Log.d("DAS/FullDialog", "Delete Button");
-                    scheduleDatabase database = Room.databaseBuilder(getContext(), scheduleDatabase.class, "mydb")
+                    DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "mydb")
                             .allowMainThreadQueries().fallbackToDestructiveMigration()
                             .build();
 
@@ -135,7 +136,7 @@ public class FullScreenDialog extends DialogFragment {
         spinner.setAdapter(dataAdapter);
 
 
-        scheduleDatabase database = Room.databaseBuilder(getContext(), scheduleDatabase.class, "mydb")
+        DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "mydb")
                 .allowMainThreadQueries().fallbackToDestructiveMigration()
                 .build();
 
@@ -216,7 +217,7 @@ public class FullScreenDialog extends DialogFragment {
 
                 //  db.addSchedule(new Schedule("Task 1","Label 1","Time 1"));
 
-                scheduleDatabase database = Room.databaseBuilder(getContext(), scheduleDatabase.class, "mydb")
+                DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "mydb")
                         .allowMainThreadQueries().fallbackToDestructiveMigration()
                         .build();
                 scheduleDAO scheduleDAO = database.getScheduleDao();
