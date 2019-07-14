@@ -50,8 +50,7 @@ public class CallMgrAdapter extends ArrayAdapter<CallMgrItem> {
         TextView defaultTime = listItemView.findViewById(R.id.callMgr_callTime);
         // Get the default translation from the currentWord object and set this text on
         // the default TextView.
-        defaultTime.setText(currentWord.getNo());
-
+        defaultTime.setText(currentWord.getCallNo()+" Time");
 
         // Return the whole list item layout (containing 2 TextViews) so that it can be shown in
         // the ListView.

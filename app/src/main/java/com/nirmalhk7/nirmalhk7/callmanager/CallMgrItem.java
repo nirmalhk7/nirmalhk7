@@ -2,12 +2,12 @@ package com.nirmalhk7.nirmalhk7.callmanager;
 
 public class CallMgrItem {
     private String mgrNameX;
-    private String mgrNoX;
+    private String callNo;
     private int callTimeX;
 
-    public CallMgrItem(String mgrName, String mgrNo,int callTime) {
+    public CallMgrItem(String mgrName, String mCallNo,int callTime) {
         mgrNameX =mgrName;
-        mgrNoX = mgrNo;
+        callNo = mCallNo;
         callTimeX=callTime;
     }
     /**
@@ -17,7 +17,7 @@ public class CallMgrItem {
         return mgrNameX;
     }
     public String getNo(){
-        return mgrNoX;
+        return callNo;
     }
     public int getCallNo() {
         return callTimeX;

@@ -81,7 +81,7 @@ public class CallMgrFragment extends Fragment {
         // Find the {@link ListView} object in the view hierarchy of the {@link Activity}.
         // There should be a {@link ListView} with the view ID called list, which is declared in the
         // word_list.xml layout file.
-        ListView listView = getActivity().findViewById(R.id.list_item_callmgr);
+        ListView listView = rootView.findViewById(R.id.list_item_callmgr);
 
         // Make the {@link ListView} use the {@link ScheduleAdapter} we created above, so that the
         // {@link ListView} will display list items for each {@link scheduleItem} in the list.
