@@ -23,6 +23,7 @@ import com.leinardi.android.speeddial.SpeedDialView;
 import com.nirmalhk7.nirmalhk7.academics.Academics;
 import com.nirmalhk7.nirmalhk7.attendance.AllSubjects;
 import com.nirmalhk7.nirmalhk7.attendance.Attendance;
+import com.nirmalhk7.nirmalhk7.backuprestore.BackupRestore;
 import com.nirmalhk7.nirmalhk7.callmanager.callManagerFragment;
 import com.nirmalhk7.nirmalhk7.dailyscheduler.DailySchedule;
 import com.nirmalhk7.nirmalhk7.dailyscheduler.DailyScheduleList;
@@ -148,6 +149,13 @@ public class MainActivity extends AppCompatActivity
         else if(id==R.id.nav_playground)
         {
             newFragment = new Playground();
+            transaction.replace(R.id.fullscreen, newFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        }
+        else if(id==R.id.nav_backup)
+        {
+            newFragment=new BackupRestore();
             transaction.replace(R.id.fullscreen, newFragment);
             transaction.addToBackStack(null);
             transaction.commit();
