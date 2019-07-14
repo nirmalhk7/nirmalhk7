@@ -26,7 +26,6 @@ import com.nirmalhk7.nirmalhk7.attendance.Attendance;
 import com.nirmalhk7.nirmalhk7.backuprestore.BackupRestore;
 import com.nirmalhk7.nirmalhk7.callmanager.callManagerFragment;
 import com.nirmalhk7.nirmalhk7.dailyscheduler.DailySchedule;
-import com.nirmalhk7.nirmalhk7.dailyscheduler.DailyScheduleList;
 import com.nirmalhk7.nirmalhk7.examholidays.examHolidays;
 import com.nirmalhk7.nirmalhk7.playground.Playground;
 import com.nirmalhk7.nirmalhk7.settings.SettingsActivity;
@@ -128,7 +127,7 @@ public class MainActivity extends AppCompatActivity
             transaction.commit();
         } else if(id==R.id.nav_callManager)
         {
-            newFragment = new callManagerFragment();
+            newFragment = new CallMgrFragment();
             transaction.replace(R.id.fullscreen, newFragment);
             transaction.addToBackStack(null);
             transaction.commit();
