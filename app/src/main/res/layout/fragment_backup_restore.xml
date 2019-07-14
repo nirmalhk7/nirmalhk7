@@ -6,9 +6,15 @@
     tools:context=".backuprestore.BackupRestore">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/standard_dimen"
+    android:orientation="vertical">
+    <Button
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
-
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:text="Backup"/>
+</LinearLayout>
 </FrameLayout>
