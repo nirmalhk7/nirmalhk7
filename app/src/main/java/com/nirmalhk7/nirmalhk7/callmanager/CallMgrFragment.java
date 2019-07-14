@@ -86,14 +86,7 @@ public class CallMgrFragment extends Fragment {
         // Make the {@link ListView} use the {@link ScheduleAdapter} we created above, so that the
         // {@link ListView} will display list items for each {@link scheduleItem} in the list.
         listView.setAdapter(adapter);
-        FloatingActionButton fab=getActivity().findViewById(R.id.fab);
-        fab.show();
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("EAH","Clicked fab");
-            }
-        });
+
         return rootView;
     }
 
