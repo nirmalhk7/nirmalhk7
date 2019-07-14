@@ -40,7 +40,8 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         String res="HELLO";
-        Log.d("CONVERT",convert.railtonormal("1145"));
+        Log.d("CONVERT",convert.addrailtime("0105",55));
+
         /*speedDialView.addActionItem(
                 new SpeedDialActionItem.Builder(R.id.nav_attendance, R.drawable.ic_attendance)
                         .setLabelColor(Color.WHITE)
