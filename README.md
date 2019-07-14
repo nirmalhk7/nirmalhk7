@@ -1,6 +1,6 @@
 # nirmalhk7
 
-> Current Code Version: v2
+> Current Code Version: v3
 
 Project Status: **active**
 <sub><sup>(active, passive)</sup></sub>
@@ -21,11 +21,12 @@ Module List for nirmalhk7 app:
 - [ ] Call Manager (CAM)- **minor**
 - [ ] Tasks Manager (TAM)- **minor**
 - [ ] Financial Markets (FIM)
+- [ ] Money Manager (MOM)
 - [ ] Entry Display (END)- **minor**
 
-v2 Checklist:
-- [ ] Daily Schedule- Create UI for editing, deleting
-- [x] Exams and Holidays- Create UI for Exam and Holiday list.
-- [x] Daily Schedule- Creating notification.
+v3 Checklist:
 - [ ] Task Manager- Create UI for List and searchbar.
-- [x] Entry Display- AirLocations.
+- [ ] EAH Connect to DB
+- [ ] ATT Connect to Calendar
+- [ ] MAM- Make MAM UI
+- [ ] 

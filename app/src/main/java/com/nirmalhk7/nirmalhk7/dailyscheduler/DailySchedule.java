@@ -1,6 +1,10 @@
 package com.nirmalhk7.nirmalhk7.dailyscheduler;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -8,12 +12,23 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.leinardi.android.speeddial.SpeedDialActionItem;
+import com.leinardi.android.speeddial.SpeedDialView;
 import com.nirmalhk7.nirmalhk7.R;
+
+import java.util.Calendar;
+
+import static android.content.Context.NOTIFICATION_SERVICE;
 
 
 /**
@@ -68,8 +83,8 @@ public class DailySchedule extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
-
+    public static ViewPager viewPager;
+    public static int tabPosition;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -77,31 +92,67 @@ public class DailySchedule extends Fragment {
         View view= inflater.inflate(R.layout.fragment_daily_schedule, container, false);
 
         ViewPager viewPager = view.findViewById(R.id.view_pager);
-        TabAdapter myPagerAdapter = new TabAdapter(getActivity().getSupportFragmentManager());
-        viewPager.setAdapter(myPagerAdapter);
+        viewPager.setAdapter(new ViewPagerAdapter(getActivity().getSupportFragmentManager()));
+
         TabLayout tabLayout = view.findViewById(R.id.tablayout);
         tabLayout.setupWithViewPager(viewPager);
-        FloatingActionButton fab = getActivity().findViewById(R.id.fab);
-        fab.show();
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                /*
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                        */
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 
-                FullScreenDialog newFragment = new FullScreenDialog();
-                FragmentTransaction transaction = fragmentManager.beginTransaction();
-                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                transaction.add(android.R.id.content, newFragment).addToBackStack(null).commit();
+        viewPager= (ViewPager) view.findViewById(R.id.view_pager);
+
+
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_WEEK);
+
+        switch (day) {
+            case Calendar.SUNDAY:
+                viewPager.setCurrentItem(6);
+                break;
+            case Calendar.MONDAY:
+                viewPager.setCurrentItem(0);
+                break;
+            case Calendar.TUESDAY:
+                viewPager.setCurrentItem(1);
+                break;
+
+            case Calendar.WEDNESDAY:
+                viewPager.setCurrentItem(2);
+                break;
+
+            case Calendar.THURSDAY:
+                viewPager.setCurrentItem(3);
+                break;
+
+            case Calendar.FRIDAY:
+                viewPager.setCurrentItem(4);
+                break;
+
+            case Calendar.SATURDAY:
+                viewPager.setCurrentItem(5);
+                break;
+        }
+
+        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+                Log.d("XXD",i+","+v+","+i1);
+
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+                Log.d("XXDX",i+"");
             }
         });
-
         return view;
 
     }
+
+
 
 
 

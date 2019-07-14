@@ -6,32 +6,38 @@ public class scheduleItem {
     private String mScheduleTitle;
 
     /** Miwok translation for the word */
-    private String mTime;
+    private String mStartTime;
+    private String mEndTime;
     private String mLabel;
-    private Integer mId;
+    private int mId;
+    private int mDay;
 
 
-    public scheduleItem(String scheduleTitle, String time, String label) {
+    public scheduleItem(String scheduleTitle, String starttime,String endtime, String label,int Id,int Day) {
         mScheduleTitle = scheduleTitle;
-        mTime = time;
+        mStartTime=starttime;
+        mEndTime=endtime;
         mLabel=label;
+        mId=Id;
+        mDay=Day;
     }
-    /**
-     * Get the default translation of the word.
-     */
+
     public String getScheduleTitle() {
         return mScheduleTitle;
     }
 
-    /**
-     * Get the Miwok translation of the word.
-     */
-    public String getScheduleTime() {
-        return mTime;
+    public String getmStartTime() {
+        return mStartTime;
     }
+
+    public String getmEndTime() {
+        return mEndTime;
+    }
+
     public String getScheduleLabel() {
         return mLabel;
     }
-    public Integer getScheduleId(){ return mId;}
+    public int getScheduleId(){ return mId;}
+    public int getDay(){return mDay;}
    
 }

@@ -3,13 +3,24 @@ package com.nirmalhk7.nirmalhk7.attendance;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.Toolbar;
 
+import com.nirmalhk7.nirmalhk7.MainFragment;
 import com.nirmalhk7.nirmalhk7.R;
+
+import java.time.Instant;
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -67,11 +78,29 @@ public class Attendance extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView= inflater.inflate(R.layout.fragment_attendance, container, false);
-        FloatingActionButton fab=rootView.findViewById(R.id.fab);
-        fab.show();
+        View tbV= getLayoutInflater().inflate(R.layout.app_bar_main, null);
+
+
+        ArrayList<attendanceItem> AttendanceItem = new ArrayList<attendanceItem>();
+
+
+
+        // Create an {@link attendanceAdapter}, whose data source is a list of {@link attendanceItem}s. The
+        // adapter knows how to create list items for each item in the list.
+        attendanceAdapter adapter = new attendanceAdapter(getContext(), AttendanceItem);
+
+        // Find the {@link ListView} object in the view hierarchy of the {@link Activity}.
+        // There should be a {@link ListView} with the view ID called list, which is declared in the
+        // word_list.xml layout file.
+        ListView listView = (ListView) rootView.findViewById(R.id.list_item_attendance);
+
+        // Make the {@link ListView} use the {@link attendanceAdapter} we created above, so that the
+        // {@link ListView} will display list items for each {@link attendanceItem} in the list.
+        listView.setAdapter(adapter);
 
         return rootView;
     }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
