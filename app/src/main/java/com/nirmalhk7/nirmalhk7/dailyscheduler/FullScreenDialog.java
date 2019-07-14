@@ -19,6 +19,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TimePicker;
@@ -55,7 +56,8 @@ public class FullScreenDialog extends DialogFragment {
             String label = bundle.getString("label");
             String startTime = bundle.getString("starttime");
             String endtime = bundle.getString("endtime");
-            int day = bundle.getInt("day");
+            int rday = bundle.getInt("day");
+            Log.d("ddd",rday+"");
             dbNo = bundle.getInt("key");
 
             //Pass title,label and time value to EditText
@@ -71,7 +73,8 @@ public class FullScreenDialog extends DialogFragment {
             taskTimeStartEdit.setText(convert.normaltorail(startTime));
             taskTimeEndEdit.setText(convert.normaltorail(endtime));
 
-
+            RadioGroup dayrg=rootView.findViewById(R.id.rgDay);
+            ((RadioButton)dayrg.getChildAt(rday)).setChecked(true);
 
             //trash is the trashbox for deleting;
             ImageView trash = new ImageView(getContext());

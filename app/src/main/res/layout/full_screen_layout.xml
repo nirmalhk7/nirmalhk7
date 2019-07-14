@@ -96,14 +96,7 @@
                     android:text="Mon"
                     android:textSize="15sp" />
 
-                <View
-                    android:id="@+id/vSep1"
-                    android:textColor="@android:color/white"
-                    android:textAllCaps="true"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:background="#0000FF"
-                    android:visibility="visible" />
+
 
                 <RadioButton
                     android:id="@+id/rbTue"
@@ -121,12 +114,6 @@
                     android:text="Tue"
                     android:textSize="15sp" />
 
-                <View
-                    android:id="@+id/vSep2"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:background="#0000FF"
-                    android:visibility="visible" />
 
                 <RadioButton
                     android:id="@+id/rbWed"
@@ -143,12 +130,7 @@
                     android:singleLine="true"
                     android:text="Wed"
                     android:textSize="15sp" />
-                <View
-                    android:id="@+id/vSep29"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:background="#0000FF"
-                    android:visibility="visible" />
+
 
                 <RadioButton
                     android:id="@+id/rbThu"
@@ -165,12 +147,7 @@
                     android:singleLine="true"
                     android:text="Thu"
                     android:textSize="15sp" />
-                <View
-                    android:id="@+id/vSep22"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:background="#0000FF"
-                    android:visibility="visible" />
+
 
                 <RadioButton
                     android:id="@+id/rbFriday"
@@ -187,12 +164,7 @@
                     android:singleLine="true"
                     android:text="Fri"
                     android:textSize="15sp" />
-                <View
-                    android:id="@+id/vSep24"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:background="#0000FF"
-                    android:visibility="visible" />
+
 
                 <RadioButton
                     android:id="@+id/rbSaturday"
@@ -209,12 +181,6 @@
                     android:singleLine="true"
                     android:text="Sat"
                     android:textSize="15sp" />
-                <View
-                    android:id="@+id/vSep20"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:background="#0000FF"
-                    android:visibility="visible" />
 
                 <RadioButton
                     android:id="@+id/rbSunday"
