@@ -74,6 +74,164 @@
             android:orientation="vertical"
             android:padding="15dp">
 
+            <RadioGroup
+                android:id="@+id/rgTask"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <RadioButton
+                    android:id="@+id/rbBlue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_rdb"
+                    android:button="@android:color/transparent"
+                    android:gravity="center"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp"
+                    android:singleLine="true"
+                    android:textColor="@android:color/white"
+                    android:textAllCaps="true"
+                    android:text="Mon"
+                    android:textSize="15sp" />
+
+                <View
+                    android:id="@+id/vSep1"
+                    android:textColor="@android:color/white"
+                    android:textAllCaps="true"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#0000FF"
+                    android:visibility="visible" />
+
+                <RadioButton
+                    android:id="@+id/rbGreen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@android:color/white"
+                    android:textAllCaps="true"
+                    android:background="@drawable/bg_rdb"
+                    android:button="@android:color/transparent"
+                    android:gravity="center"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp"
+                    android:singleLine="true"
+                    android:text="Tue"
+                    android:textSize="15sp" />
+
+                <View
+                    android:id="@+id/vSep2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#0000FF"
+                    android:visibility="visible" />
+
+                <RadioButton
+                    android:id="@+id/rbWed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_rdb"
+                    android:button="@android:color/transparent"
+                    android:gravity="center"
+                    android:paddingBottom="5dp"
+                    android:textColor="@android:color/white"
+                    android:textAllCaps="true"
+                    android:paddingTop="5dp"
+                    android:singleLine="true"
+                    android:text="Wed"
+                    android:textSize="15sp" />
+                <View
+                    android:id="@+id/vSep29"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#0000FF"
+                    android:visibility="visible" />
+
+                <RadioButton
+                    android:id="@+id/rbThu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_rdb"
+                    android:button="@android:color/transparent"
+                    android:gravity="center"
+                    android:paddingBottom="5dp"
+                    android:textColor="@android:color/white"
+                    android:textAllCaps="true"
+                    android:paddingTop="5dp"
+                    android:singleLine="true"
+                    android:text="Thu"
+                    android:textSize="15sp" />
+                <View
+                    android:id="@+id/vSep22"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#0000FF"
+                    android:visibility="visible" />
+
+                <RadioButton
+                    android:id="@+id/rbFriday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_rdb"
+                    android:button="@android:color/transparent"
+                    android:gravity="center"
+                    android:paddingBottom="5dp"
+                    android:textColor="@android:color/white"
+                    android:textAllCaps="true"
+                    android:paddingTop="5dp"
+                    android:singleLine="true"
+                    android:text="Fri"
+                    android:textSize="15sp" />
+                <View
+                    android:id="@+id/vSep24"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#0000FF"
+                    android:visibility="visible" />
+
+                <RadioButton
+                    android:id="@+id/rbSaturday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_rdb"
+                    android:button="@android:color/transparent"
+                    android:gravity="center"
+                    android:paddingBottom="5dp"
+                    android:textColor="@android:color/white"
+                    android:textAllCaps="true"
+                    android:paddingTop="5dp"
+                    android:singleLine="true"
+                    android:text="Sat"
+                    android:textSize="15sp" />
+                <View
+                    android:id="@+id/vSep20"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#0000FF"
+                    android:visibility="visible" />
+
+                <RadioButton
+                    android:id="@+id/rbSunday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_rdb"
+                    android:button="@android:color/transparent"
+                    android:gravity="center"
+                    android:paddingBottom="5dp"
+                    android:textColor="@android:color/white"
+                    android:textAllCaps="true"
+                    android:paddingTop="5dp"
+                    android:singleLine="true"
+                    android:text="Sun"
+                    android:textSize="15sp" />
+            </RadioGroup>
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
