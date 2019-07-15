@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
 
 import java.util.Calendar;
@@ -95,7 +96,7 @@ public class fsdExam extends DialogFragment {
                 EditText desc=rootView.findViewById(R.id.examHoliday_description);
                 RadioButton exam=rootView.findViewById(R.id.examRadio);
                 
-                ehDatabase database = Room.databaseBuilder(getContext(), ehDatabase.class, "mydbz")
+                DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "mydbz")
                         .allowMainThreadQueries().fallbackToDestructiveMigration()
                         .build();
 

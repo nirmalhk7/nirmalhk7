@@ -1,12 +1,14 @@
 package com.nirmalhk7.nirmalhk7.examholidays;
 
 import android.arch.persistence.room.Room;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,7 +17,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.leinardi.android.speeddial.SpeedDialActionItem;
 import com.leinardi.android.speeddial.SpeedDialView;
+import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
 
 import java.util.ArrayList;
@@ -94,16 +98,29 @@ public class examHolidays extends Fragment {
         });
         SpeedDialView speed=getActivity().findViewById(R.id.speedDial);
         speed.show();
-        speed.setOnClickListener(new View.OnClickListener() {
+        speed.addActionItem(
+                new SpeedDialActionItem.Builder(R.id.content, R.drawable.ic_examholidays)
+                        .setLabel("Add Subject")
+                        .setLabelColor(Color.WHITE)
+                        .setLabelBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.colorLightDark, getActivity().getTheme()))
+                        .create()
+        );
+        speed.setOnActionSelectedListener( new SpeedDialView.OnActionSelectedListener() {
             @Override
-            public void onClick(View view) {
+            public boolean onActionSelected(SpeedDialActionItem speedDialActionItem) {
+                switch (speedDialActionItem.getId()) {
+                    case R.id.content:
+                        Log.d("ATT/ALS","Selct");
+                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-
-                fsdExam newFragment = new fsdExam();
-                FragmentTransaction transaction = fragmentManager.beginTransaction();
-                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                transaction.add(android.R.id.content, newFragment).addToBackStack(null).commit();
+                        fsdExam newFragment = new fsdExam();
+                        FragmentTransaction transaction = fragmentManager.beginTransaction();
+                        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                        transaction.add(android.R.id.content, newFragment).addToBackStack(null).commit();
+                        return false; // true to keep the Speed Dial open
+                    default:
+                        return false;
+                }
             }
         });
 
@@ -141,7 +158,7 @@ public class examHolidays extends Fragment {
 
     public void EAHfetchDB(View rootView)
     {
-        ehDatabase database = Room.databaseBuilder(getContext(), ehDatabase.class, "mydbz")
+        DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "mydbz")
                 .allowMainThreadQueries().fallbackToDestructiveMigration()
                 .build();
 
