@@ -93,15 +93,13 @@ public class DailyScheduleList extends Fragment {
         }
     }
 
-    private View v;
-    private Context x;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_daily_schedule_list, container, false);
-        v=view;
+
         Bundle bundle=this.getArguments();
         if(bundle!=null)
         {
@@ -118,9 +116,6 @@ public class DailyScheduleList extends Fragment {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 
                 FullScreenDialog newFragment = new FullScreenDialog();
-                Bundle bundle=new Bundle();
-                bundle.putInt("day",mday);
-                newFragment.setArguments(bundle);
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 transaction.add(android.R.id.content, newFragment).addToBackStack(null).commit();

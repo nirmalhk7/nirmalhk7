@@ -71,7 +71,6 @@ public class FullScreenDialog extends DialogFragment {
 
             EditText taskTimeStartEdit = rootView.findViewById(R.id.taskStart);
             EditText taskTimeEndEdit = rootView.findViewById(R.id.taskEnd);
-            Log.d("CONVERTXX", convert.normaltorail(startTime) + ".." + convert.normaltorail(endtime));
             taskTimeStartEdit.setText(convert.normaltorail(startTime));
             taskTimeEndEdit.setText(convert.normaltorail(endtime));
 
