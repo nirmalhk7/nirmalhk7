@@ -8,33 +8,24 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.dailyscheduler.Schedule;
 import com.nirmalhk7.nirmalhk7.dailyscheduler.scheduleDAO;
-import com.nirmalhk7.nirmalhk7.dailyscheduler.scheduleDatabase;
-import com.nirmalhk7.nirmalhk7.dailyscheduler.scheduleItem;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Vector;
 
 public class Att_FullScreenDialog extends DialogFragment {
     public int key;
@@ -57,17 +48,17 @@ public class Att_FullScreenDialog extends DialogFragment {
         }
 
 
-        scheduleDatabase database1 = Room.databaseBuilder(getContext(), scheduleDatabase.class, "mydb")
+        DBGateway database1 = Room.databaseBuilder(getContext(), DBGateway.class, "mydb")
                 .allowMainThreadQueries().fallbackToDestructiveMigration()
                 .build();
 
         scheduleDAO scheduleDAO = database1.getScheduleDao();
 
-        attendanceDatabase database2 = Room.databaseBuilder(getContext(), attendanceDatabase.class, "mydbx")
+        DBGateway database2 = Room.databaseBuilder(getContext(), DBGateway.class, "mydbx")
                 .allowMainThreadQueries().fallbackToDestructiveMigration()
                 .build();
 
-        final attendanceDAO attendanceDAO = database2.getAttendanceDAO();
+        final attendanceDAO attendanceDAO = database2.getAttendanceDao();
 
 
         List<Schedule> schedules=scheduleDAO.getSubjects("College");

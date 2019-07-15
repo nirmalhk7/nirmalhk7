@@ -23,6 +23,7 @@ import com.leinardi.android.speeddial.SpeedDialView;
 import com.nirmalhk7.nirmalhk7.academics.Academics;
 import com.nirmalhk7.nirmalhk7.attendance.AllSubjects;
 import com.nirmalhk7.nirmalhk7.attendance.Attendance;
+import com.nirmalhk7.nirmalhk7.backuprestore.BackupRestore;
 import com.nirmalhk7.nirmalhk7.callmanager.CallMgrFragment;
 import com.nirmalhk7.nirmalhk7.dailyscheduler.DailySchedule;
 import com.nirmalhk7.nirmalhk7.examholidays.examHolidays;
@@ -40,7 +41,8 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         String res="HELLO";
-        Log.d("CONVERT",convert.railtonormal("1145"));
+        Log.d("CONVERT",convert.addrailtime("0105",55));
+
         /*speedDialView.addActionItem(
                 new SpeedDialActionItem.Builder(R.id.nav_attendance, R.drawable.ic_attendance)
                         .setLabelColor(Color.WHITE)
@@ -147,6 +149,13 @@ public class MainActivity extends AppCompatActivity
         else if(id==R.id.nav_playground)
         {
             newFragment = new Playground();
+            transaction.replace(R.id.fullscreen, newFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        }
+        else if(id==R.id.nav_backup)
+        {
+            newFragment=new BackupRestore();
             transaction.replace(R.id.fullscreen, newFragment);
             transaction.addToBackStack(null);
             transaction.commit();

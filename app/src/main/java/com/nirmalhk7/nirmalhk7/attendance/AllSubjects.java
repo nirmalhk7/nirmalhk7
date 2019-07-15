@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -14,24 +12,17 @@ import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.leinardi.android.speeddial.SpeedDialActionItem;
 import com.leinardi.android.speeddial.SpeedDialView;
+import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
-import com.nirmalhk7.nirmalhk7.dailyscheduler.FullScreenDialog;
-import com.nirmalhk7.nirmalhk7.dailyscheduler.Schedule;
-import com.nirmalhk7.nirmalhk7.dailyscheduler.scheduleDAO;
-import com.nirmalhk7.nirmalhk7.dailyscheduler.scheduleDatabase;
-import com.nirmalhk7.nirmalhk7.dailyscheduler.scheduleItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -219,11 +210,11 @@ public class AllSubjects extends Fragment {
     }
 
     void ALSfetchDB(View rootView){
-        attendanceDatabase database2 = Room.databaseBuilder(getContext(), attendanceDatabase.class, "mydbx")
+        DBGateway database2 = Room.databaseBuilder(getContext(), DBGateway.class, "mydbx")
                 .allowMainThreadQueries().fallbackToDestructiveMigration()
                 .build();
 
-        attendanceDAO AttendanceDAO = database2.getAttendanceDAO();
+        attendanceDAO AttendanceDAO = database2.getAttendanceDao();
 
         List<attendanceEntity> attendance=AttendanceDAO.getAllSubject();
         ArrayList<attendanceItem> SubjectItem = new ArrayList<>();

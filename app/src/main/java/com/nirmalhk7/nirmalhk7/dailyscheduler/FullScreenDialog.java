@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,9 +21,12 @@ import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 
+import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.convert;
 
@@ -44,7 +49,7 @@ public class FullScreenDialog extends DialogFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.full_screen_layout, container, false);
+        final View rootView = inflater.inflate(R.layout.full_screen_layout, container, false);
         final Bundle bundle = this.getArguments();
         //If editing
 
@@ -53,7 +58,8 @@ public class FullScreenDialog extends DialogFragment {
             String label = bundle.getString("label");
             String startTime = bundle.getString("starttime");
             String endtime = bundle.getString("endtime");
-            int day = bundle.getInt("day");
+            int rday = bundle.getInt("day");
+            Log.d("ddd",rday+"");
             dbNo = bundle.getInt("key");
 
             //Pass title,label and time value to EditText
@@ -69,8 +75,8 @@ public class FullScreenDialog extends DialogFragment {
             taskTimeStartEdit.setText(convert.normaltorail(startTime));
             taskTimeEndEdit.setText(convert.normaltorail(endtime));
 
-            Spinner spinner = rootView.findViewById(R.id.spinner);
-            spinner.setSelection(day);
+            RadioGroup dayrg=rootView.findViewById(R.id.rgDay);
+            ((RadioButton)dayrg.getChildAt(rday)).setChecked(true);
 
             //trash is the trashbox for deleting;
             ImageView trash = new ImageView(getContext());
@@ -84,7 +90,7 @@ public class FullScreenDialog extends DialogFragment {
                 @Override
                 public void onClick(View v) {
                     Log.d("DAS/FullDialog", "Delete Button");
-                    scheduleDatabase database = Room.databaseBuilder(getContext(), scheduleDatabase.class, "mydb")
+                    DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "mydb")
                             .allowMainThreadQueries().fallbackToDestructiveMigration()
                             .build();
 
@@ -99,43 +105,50 @@ public class FullScreenDialog extends DialogFragment {
 
 
         // Spinner element
-        Spinner spinner = (Spinner) rootView.findViewById(R.id.spinner);
 
-        // Spinner click listener
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        RadioGroup day=rootView.findViewById(R.id.rgDay);
+        day.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("DAS/FSD/Spn", "L" + position);
-                mday = position;
-            }
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch(checkedId)
+                {
+                    case R.id.rbMon:
+                        Log.d("DAS/FSD","Day Selected: Monday");
+                        mday=0;
+                        break;
+                    case R.id.rbTue:
+                        Log.d("DAS/FSD","Day Selected: Tuesday");
+                        mday=1;
+                        break;
+                    case R.id.rbWed:
+                        Log.d("DAS/FSD","Day Selected: Wednesday");
+                        mday=2;
+                        break;
+                    case R.id.rbThu:
+                        Log.d("DAS/FSD","Day Selected: Thursday");
+                        mday=3;
+                        break;
+                    case R.id.rbFriday:
+                        Log.d("DAS/FSD","Day Selected: Friday");
+                        mday=4;
+                        break;
+                    case R.id.rbSaturday:
+                        Log.d("DAS/FSD","Day Selected: Saturday");
+                        mday=5;
+                        break;
+                    case R.id.rbSunday:
+                        Log.d("DAS/FSD","Day Selected: Sunday");
+                        mday=6;
+                        break;
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
 
+                }
             }
         });
 
-        // Spinner Drop down elements
-        List<String> categories = new ArrayList<String>();
-        categories.add("Monday");
-        categories.add("Tuesday");
-        categories.add("Wednesday");
-        categories.add("Thursday");
-        categories.add("Friday");
-        categories.add("Saturday");
-        categories.add("Sunday");
-
-        // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, categories);
-
-        // Drop down layout style - list view with radio button
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        // attaching data adapter to spinner
-        spinner.setAdapter(dataAdapter);
 
 
-        scheduleDatabase database = Room.databaseBuilder(getContext(), scheduleDatabase.class, "mydb")
+        DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "mydb")
                 .allowMainThreadQueries().fallbackToDestructiveMigration()
                 .build();
 
@@ -178,6 +191,7 @@ public class FullScreenDialog extends DialogFragment {
         });
 
 
+
         //Timepicker end time dialog
         final EditText endTime = rootView.findViewById(R.id.taskEnd);
         endTime.setOnClickListener(new View.OnClickListener() {
@@ -216,7 +230,7 @@ public class FullScreenDialog extends DialogFragment {
 
                 //  db.addSchedule(new Schedule("Task 1","Label 1","Time 1"));
 
-                scheduleDatabase database = Room.databaseBuilder(getContext(), scheduleDatabase.class, "mydb")
+                DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "mydb")
                         .allowMainThreadQueries().fallbackToDestructiveMigration()
                         .build();
                 scheduleDAO scheduleDAO = database.getScheduleDao();
@@ -247,7 +261,7 @@ public class FullScreenDialog extends DialogFragment {
         });
         return rootView;
     }
-
+    private EditText endtime;
     public void dialogTimePicker(final int whatTimeSelected, final EditText Time) {
         // TODO Auto-generated method stub
         Calendar mcurrentTime = Calendar.getInstance();
@@ -272,11 +286,11 @@ public class FullScreenDialog extends DialogFragment {
                     }
                     else {
                         Time.setText(selectedHour + "" + selectedMinute);
-
                     }
                 }
+
             }
-        }, Mhour, Mminute, true);//yes 12 hour time
+        }, Mhour, Mminute, false);//yes 12 hour time
 
 
         if (whatTimeSelected == 2) {
