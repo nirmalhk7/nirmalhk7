@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,7 +47,7 @@ public class FullScreenDialog extends DialogFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.full_screen_layout, container, false);
+        final View rootView = inflater.inflate(R.layout.full_screen_layout, container, false);
         final Bundle bundle = this.getArguments();
         //If editing
 
@@ -179,6 +181,7 @@ public class FullScreenDialog extends DialogFragment {
         });
 
 
+
         //Timepicker end time dialog
         final EditText endTime = rootView.findViewById(R.id.taskEnd);
         endTime.setOnClickListener(new View.OnClickListener() {
@@ -248,7 +251,7 @@ public class FullScreenDialog extends DialogFragment {
         });
         return rootView;
     }
-
+    private EditText endtime;
     public void dialogTimePicker(final int whatTimeSelected, final EditText Time) {
         // TODO Auto-generated method stub
         Calendar mcurrentTime = Calendar.getInstance();
@@ -273,11 +276,11 @@ public class FullScreenDialog extends DialogFragment {
                     }
                     else {
                         Time.setText(selectedHour + "" + selectedMinute);
-
                     }
                 }
+
             }
-        }, Mhour, Mminute, true);//yes 12 hour time
+        }, Mhour, Mminute, false);//yes 12 hour time
 
 
         if (whatTimeSelected == 2) {
