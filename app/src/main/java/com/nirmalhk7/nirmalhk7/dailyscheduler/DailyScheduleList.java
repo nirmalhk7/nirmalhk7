@@ -116,9 +116,6 @@ public class DailyScheduleList extends Fragment {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 
                 FullScreenDialog newFragment = new FullScreenDialog();
-                Bundle bundle=new Bundle();
-                bundle.putInt("day",mday);
-                newFragment.setArguments(bundle);
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 transaction.add(android.R.id.content, newFragment).addToBackStack(null).commit();
