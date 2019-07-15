@@ -21,8 +21,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.nirmalhk7.nirmalhk7.R;
-import com.nirmalhk7.nirmalhk7.dailyscheduler.scheduleDAO;
-import com.nirmalhk7.nirmalhk7.dailyscheduler.scheduleDatabase;
 
 import java.util.Calendar;
 

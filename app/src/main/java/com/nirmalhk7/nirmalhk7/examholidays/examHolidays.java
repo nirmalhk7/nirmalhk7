@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.leinardi.android.speeddial.SpeedDialView;
 import com.nirmalhk7.nirmalhk7.R;
 
 import java.util.ArrayList;
@@ -91,9 +92,9 @@ public class examHolidays extends Fragment {
                 return false;
             }
         });
-        FloatingActionButton fab = getActivity().findViewById(R.id.fab);
-        fab.show();
-        fab.setOnClickListener(new View.OnClickListener() {
+        SpeedDialView speed=getActivity().findViewById(R.id.speedDial);
+        speed.show();
+        speed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 

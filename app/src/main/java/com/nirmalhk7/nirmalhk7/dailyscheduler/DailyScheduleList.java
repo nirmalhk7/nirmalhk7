@@ -1,14 +1,11 @@
 package com.nirmalhk7.nirmalhk7.dailyscheduler;
 
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -24,21 +21,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.nirmalhk7.nirmalhk7.MainActivity;
+import com.leinardi.android.speeddial.SpeedDialView;
 import com.nirmalhk7.nirmalhk7.R;
+import com.nirmalhk7.nirmalhk7.convert;
+import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.settings.SettingsActivity;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static android.app.Notification.VISIBILITY_PUBLIC;
-import static android.content.Context.NOTIFICATION_SERVICE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -98,18 +93,46 @@ public class DailyScheduleList extends Fragment {
         }
     }
 
+    private View v;
+    private Context x;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_daily_schedule_list, container, false);
+        v=view;
         Bundle bundle=this.getArguments();
         if(bundle!=null)
         {
             mday=bundle.getInt("day");
             Log.d("DAS/DSL/","Bundle!:"+mday);
         }
+        SpeedDialView speedDialView = getActivity().findViewById(R.id.speedDial);
+        speedDialView.setVisibility(View.VISIBLE);
+
+
+        speedDialView.setOnChangeListener(new SpeedDialView.OnChangeListener() {
+            @Override
+            public boolean onMainActionSelected() {
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+
+                FullScreenDialog newFragment = new FullScreenDialog();
+                Bundle bundle=new Bundle();
+                bundle.putInt("day",mday);
+                newFragment.setArguments(bundle);
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                transaction.add(android.R.id.content, newFragment).addToBackStack(null).commit();
+                return false;
+
+            }
+
+            @Override
+            public void onToggleChanged(boolean isOpen) {
+                Log.d("xxx","yyy");
+            }
+        });
         Log.d("DAS/DSL/Ta", "Tab " + DailySchedule.tabPosition);
 
 
@@ -129,6 +152,10 @@ public class DailyScheduleList extends Fragment {
                 TextView label = view.findViewById(R.id.default_text_view);
                 TextView time = view.findViewById(R.id.default_time);
                 TextView idx=view.findViewById(R.id.itemid);
+                String starttime=time.getText().toString().substring(0,time.getText().toString().indexOf('-')-1);
+                String endtime=time.getText().toString().substring(time.getText().toString().indexOf('-')+2,time.getText().toString().length());
+                Log.d("CONVERTX",endtime+"-"+starttime);
+
 
 
                 FullScreenDialog newFragment = new FullScreenDialog();
@@ -140,7 +167,8 @@ public class DailyScheduleList extends Fragment {
                 args.putInt("key", Integer.parseInt(idx.getText().toString()));
                 args.putString("title", title.getText().toString());
                 args.putString("label", label.getText().toString());
-                args.putString("time", time.getText().toString());
+                args.putString("starttime", starttime);
+                args.putString("endtime",endtime);
                 args.putInt("day",mday);
 
                 Log.d("DS", "PSN:" + Integer.toString(position));
@@ -153,6 +181,7 @@ public class DailyScheduleList extends Fragment {
         });
         return view;
     }
+
 
     private void callNotification(String heading, String title) {
         Intent intent = new Intent(getActivity(), SettingsActivity.class);
@@ -234,17 +263,17 @@ public class DailyScheduleList extends Fragment {
 
         ArrayList<scheduleItem> sch = new ArrayList<scheduleItem>();
 
-        scheduleDatabase database = Room.databaseBuilder(getContext(), scheduleDatabase.class, "mydb")
+        DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "mydb")
                 .allowMainThreadQueries().fallbackToDestructiveMigration()
                 .build();
 
         scheduleDAO scheduleDAO = database.getScheduleDao();
-        Log.d("DAS/DS/Tabs","xx"+mday);
+        Log.d("DAS/DSL/Tabs","xx"+mday);
         List<Schedule> schedules = scheduleDAO.getScheduleByDay(mday);
         for (Schedule cn : schedules) {
 
-            Log.d("DAS/DSL", "Printing: Task "+cn.getTask()+" Time "+cn.getTime()+" Label "+cn.getLabel());
-            sch.add(new scheduleItem(cn.getTask(), cn.getTime(),cn.getLabel(),cn.getId(),cn.getDay()));
+            Log.d("DAS/DSL", "Printing: Task "+cn.getTask()+" Time "+cn.getStartTime()+cn.getEndTime()+" Label "+cn.getLabel());
+            sch.add(new scheduleItem(cn.getTask(), convert.railtonormal(cn.getStartTime()),convert.railtonormal(cn.getEndTime()),cn.getLabel(),cn.getId(),cn.getDay()));
         }
 
         ScheduleAdapter adapter = new ScheduleAdapter(getContext(), sch);
@@ -270,10 +299,12 @@ public class DailyScheduleList extends Fragment {
             @Override
             public void onRefresh() {
                 //Here you can update your data from internet or from local SQLite data
-                Log.d("ATT/ALS","Refreshing");
+                Log.d("DAS/DSL","Refreshing");
                 DSLfetchDB(v);
                 pullToRefresh.setRefreshing(false);
             }
         });
     }
+
+
 }
