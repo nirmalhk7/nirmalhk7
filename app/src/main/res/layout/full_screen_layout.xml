@@ -211,7 +211,8 @@
                 android:hint="Task Name"
                 android:inputType="textCapSentences"
                 android:textColor="@color/colorFontDark"
-                android:textColorHint="@color/colorFontHintDark" />
+               android:textColorHint="@color/colorFontHintDark" />
+
 
             <TextView
                 android:layout_width="match_parent"
@@ -226,7 +227,8 @@
                 android:text="College"
                 android:inputType="textCapSentences"
                 android:textColor="@color/colorFontDark"
-                android:textColorHint="@color/colorFontHintDark" />
+               android:textColorHint="@color/colorFontHintDark" />
+
 
             <TextView
                 android:layout_width="match_parent"
@@ -248,7 +250,8 @@
                     android:hint="Start Time"
                     android:padding="10dp"
                     android:textColor="@color/colorFontDark"
-                    android:textColorHint="@color/colorFontHintDark" />
+                   android:textColorHint="@color/colorFontHintDark" />
+
 
                 <EditText
                     android:id="@+id/taskEnd"
@@ -258,7 +261,8 @@
                     android:focusable="false"
                     android:hint="End Time"
                     android:textColor="@color/colorFontDark"
-                    android:textColorHint="@color/colorFontHintDark" />
+                   android:textColorHint="@color/colorFontHintDark" />
+
             </LinearLayout>
 
         </LinearLayout>

@@ -103,8 +103,6 @@ public class FullScreenDialog extends DialogFragment {
         }
 
 
-        // Spinner element
-
         RadioGroup day=rootView.findViewById(R.id.rgDay);
         day.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
