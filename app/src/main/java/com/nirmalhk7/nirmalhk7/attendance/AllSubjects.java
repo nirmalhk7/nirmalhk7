@@ -84,7 +84,7 @@ public class AllSubjects extends Fragment {
         final View rootView= inflater.inflate(R.layout.fragment_attendance_all_subjects, container, false);
         View tbV= getLayoutInflater().inflate(R.layout.app_bar_main, null);
 
-        LinearLayout pending= rootView.findViewById(R.id.pendingSubjects_subject);
+     /*   LinearLayout pending= rootView.findViewById(R.id.pendingSubjects_subject);
         pending.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,7 +97,7 @@ public class AllSubjects extends Fragment {
                 transaction.commit();
             }
         });
-
+*/
         swiperefresh(rootView);
 
         ALSfetchDB(rootView);
