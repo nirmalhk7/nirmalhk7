@@ -34,6 +34,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import static com.nirmalhk7.nirmalhk7.dailyscheduler.DailyScheduleList.GTD;
+
 public class FullScreenDialog extends DialogFragment {
     public int key;
 
@@ -52,7 +54,6 @@ public class FullScreenDialog extends DialogFragment {
         final View rootView = inflater.inflate(R.layout.full_screen_layout, container, false);
         final Bundle bundle = this.getArguments();
         //If editing
-
         if (bundle != null) {
             String title = bundle.getString("title");
             String label = bundle.getString("label");
@@ -103,8 +104,8 @@ public class FullScreenDialog extends DialogFragment {
 
         }
 
-
-        // Spinner element
+        RadioGroup dayrg=rootView.findViewById(R.id.rgDay);
+        ((RadioButton)dayrg.getChildAt(GTD()-1)).setChecked(true);
 
         RadioGroup day=rootView.findViewById(R.id.rgDay);
         day.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {

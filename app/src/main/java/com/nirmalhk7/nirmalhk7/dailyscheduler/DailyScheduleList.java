@@ -52,7 +52,10 @@ public class DailyScheduleList extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private Integer mday;
+    private static int mday;
+    public static int GTD(){
+        return mday;
+    }
 
     public String scheduleTitle;
     public String scheduleLabel;
@@ -118,9 +121,6 @@ public class DailyScheduleList extends Fragment {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 
                 FullScreenDialog newFragment = new FullScreenDialog();
-                Bundle bundle=new Bundle();
-                bundle.putInt("day",mday);
-                newFragment.setArguments(bundle);
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 transaction.add(android.R.id.content, newFragment).addToBackStack(null).commit();
