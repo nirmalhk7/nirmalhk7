@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -17,19 +15,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.leinardi.android.speeddial.SpeedDialActionItem;
 import com.leinardi.android.speeddial.SpeedDialView;
+import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
-import com.nirmalhk7.nirmalhk7.dailyscheduler.FullScreenDialog;
-import com.nirmalhk7.nirmalhk7.dailyscheduler.Schedule;
-import com.nirmalhk7.nirmalhk7.dailyscheduler.scheduleDAO;
-import com.nirmalhk7.nirmalhk7.dailyscheduler.scheduleDatabase;
-import com.nirmalhk7.nirmalhk7.dailyscheduler.scheduleItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,7 +84,7 @@ public class AllSubjects extends Fragment {
         final View rootView= inflater.inflate(R.layout.fragment_attendance_all_subjects, container, false);
         View tbV= getLayoutInflater().inflate(R.layout.app_bar_main, null);
 
-        LinearLayout pending= rootView.findViewById(R.id.pendingSubjects_subject);
+     /*   LinearLayout pending= rootView.findViewById(R.id.pendingSubjects_subject);
         pending.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,7 +97,7 @@ public class AllSubjects extends Fragment {
                 transaction.commit();
             }
         });
-
+*/
         swiperefresh(rootView);
 
         ALSfetchDB(rootView);
@@ -140,7 +133,7 @@ public class AllSubjects extends Fragment {
             }
         });
 
-        SpeedDialView speedDialView = getActivity().findViewById(R.id.speedDial);
+        SpeedDialView speedDialView =getActivity().findViewById(R.id.speedDial);
         speedDialView.setVisibility(View.VISIBLE);
         speedDialView.addActionItem(
                 new SpeedDialActionItem.Builder(R.id.content, R.drawable.ic_examholidays)
@@ -217,11 +210,11 @@ public class AllSubjects extends Fragment {
     }
 
     void ALSfetchDB(View rootView){
-        attendanceDatabase database2 = Room.databaseBuilder(getContext(), attendanceDatabase.class, "mydbx")
+        DBGateway database2 = Room.databaseBuilder(getContext(), DBGateway.class, "mydbx")
                 .allowMainThreadQueries().fallbackToDestructiveMigration()
                 .build();
 
-        attendanceDAO AttendanceDAO = database2.getAttendanceDAO();
+        attendanceDAO AttendanceDAO = database2.getAttendanceDao();
 
         List<attendanceEntity> attendance=AttendanceDAO.getAllSubject();
         ArrayList<attendanceItem> SubjectItem = new ArrayList<>();
@@ -250,4 +243,8 @@ public class AllSubjects extends Fragment {
         // {@link ListView} will display list items for each {@link attendanceItem} in the list.
         listView.setAdapter(adapter);
     }
+
+
+
+
 }

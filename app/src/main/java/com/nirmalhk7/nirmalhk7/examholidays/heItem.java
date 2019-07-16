@@ -1,13 +1,13 @@
 package com.nirmalhk7.nirmalhk7.examholidays;
 
-public class hsItem {
+public class heItem {
 
-    private int mholidayOrExam;
+    private int holexa;
     private String mTitle;
     private String mDate;
 
-    public hsItem(int holiday1Exam0, String title, String date) {
-        mholidayOrExam = holiday1Exam0;
+    public heItem(int holiday1Exam0, String title, String date) {
+        holexa = holiday1Exam0;
         mTitle = title;
         mDate=date;
     }
@@ -15,7 +15,7 @@ public class hsItem {
      * Get the default translation of the word.
      */
     public int getHolidayOrExam(){
-        return mholidayOrExam;
+        return holexa;
     }
     public String getTitle(){
         return mTitle;

@@ -1,26 +1,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/listSingleItem"
+    android:id="@+id/list_item_callmgr"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="@dimen/standard_dimen">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:id="@+id/holidayExam"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:padding="5dp"
-            android:textAllCaps="true"
-            android:textAlignment="center"
-            android:textSize="10sp"
-            tools:text="Holiday" />
-    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/text_container"
@@ -31,20 +16,37 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/holidayExam_name"
+            android:id="@+id/callMgr_callName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20sp"
-            tools:text="Holiday Name" />
+            tools:text="Caller 1" />
 
         <TextView
-            android:id="@+id/holidayExam_date"
+            android:id="@+id/callMgr_callNo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="2dp"
             android:textSize="15sp"
-            tools:text="Date" />
+            tools:text="9740603777" />
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/callMgr_callTime"
+
+            android:background="@android:color/holo_red_dark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="5dp"
+            android:textAllCaps="true"
+            android:textSize="10sp"
+            tools:text="1 Time" />
+    </LinearLayout>
+
 
 
 </LinearLayout>

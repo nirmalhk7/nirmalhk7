@@ -17,12 +17,16 @@ import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.leinardi.android.speeddial.SpeedDialActionItem;
 import com.leinardi.android.speeddial.SpeedDialView;
 import com.nirmalhk7.nirmalhk7.R;
+
+import java.util.Calendar;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 
@@ -40,6 +44,8 @@ public class DailySchedule extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    public static String MODULE_TAG="DAS/";
+    private String FILE_TAG="DAS";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -93,32 +99,61 @@ public class DailySchedule extends Fragment {
         TabLayout tabLayout = view.findViewById(R.id.tablayout);
         tabLayout.setupWithViewPager(viewPager);
 
-        viewPager= (ViewPager) view.findViewById(R.id.view_pager);
+        viewPager= view.findViewById(R.id.view_pager);
 
-        SpeedDialView speedDialView = getActivity().findViewById(R.id.speedDial);
-        speedDialView.setVisibility(View.VISIBLE);
-        speedDialView.setOnChangeListener(new SpeedDialView.OnChangeListener() {
+
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_WEEK);
+
+        switch (day) {
+            case Calendar.SUNDAY:
+                viewPager.setCurrentItem(6);
+                break;
+            case Calendar.MONDAY:
+                viewPager.setCurrentItem(0);
+                break;
+            case Calendar.TUESDAY:
+                viewPager.setCurrentItem(1);
+                break;
+
+            case Calendar.WEDNESDAY:
+                viewPager.setCurrentItem(2);
+                break;
+
+            case Calendar.THURSDAY:
+                viewPager.setCurrentItem(3);
+                break;
+
+            case Calendar.FRIDAY:
+                viewPager.setCurrentItem(4);
+                break;
+
+            case Calendar.SATURDAY:
+                viewPager.setCurrentItem(5);
+                break;
+        }
+
+        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public boolean onMainActionSelected() {
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-
-                FullScreenDialog newFragment = new FullScreenDialog();
-                FragmentTransaction transaction = fragmentManager.beginTransaction();
-                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                transaction.add(android.R.id.content, newFragment).addToBackStack(null).commit();
-                return false;
+            public void onPageScrolled(int i, float v, int i1) {
+                Log.d(MODULE_TAG+FILE_TAG,"Page "+i+","+v+","+i1);
 
             }
 
             @Override
-            public void onToggleChanged(boolean isOpen) {
-                Log.d("xxx","yyy");
+            public void onPageSelected(int i) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+                Log.d("XXDX",i+"");
             }
         });
-
         return view;
 
     }
+
 
 
 
