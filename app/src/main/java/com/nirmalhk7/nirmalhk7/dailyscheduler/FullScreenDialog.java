@@ -310,4 +310,8 @@ public class FullScreenDialog extends DialogFragment {
         return dialog;
     }
 
+    public boolean Validation(){
+        EditText
+    }
+
 }

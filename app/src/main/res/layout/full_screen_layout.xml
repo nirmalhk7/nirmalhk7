@@ -226,7 +226,8 @@
                 android:text="College"
                 android:inputType="textCapSentences"
                 android:textColor="@color/colorFontDark"
-                android:textColorHint="@color/colorFontHintDark" />
+                android:textColorHint="@color/colorFontHintDark"
+                android:backgroundTint="@android:color/holo_red_dark"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -246,6 +247,7 @@
                     android:layout_weight="1"
                     android:focusable="false"
                     android:hint="Start Time"
+
                     android:padding="10dp"
                     android:textColor="@color/colorFontDark"
                     android:textColorHint="@color/colorFontHintDark" />
