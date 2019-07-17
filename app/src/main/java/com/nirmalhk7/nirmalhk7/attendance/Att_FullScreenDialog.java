@@ -48,7 +48,7 @@ public class Att_FullScreenDialog extends DialogFragment {
         }
 
 
-        DBGateway database1 = Room.databaseBuilder(getContext(), DBGateway.class, "mydb")
+        DBGateway database1 = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
                 .allowMainThreadQueries().fallbackToDestructiveMigration()
                 .build();
 

@@ -40,5 +40,4 @@ dependencies {
     implementation 'com.github.mumayank:AirLocation:1.2'
     implementation "com.leinardi.android:speed-dial:2.0.1"
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
-
 }
