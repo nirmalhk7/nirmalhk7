@@ -41,7 +41,12 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         String res="HELLO";
-        Log.d("CONVERT",convert.addrailtime("0105",55));
+        Log.d("CONVERTU","-----------------------");
+        Log.d("CONVERTU",convert.normaltorail("01:10 AM"));
+
+        Log.d("CONVERTU",convert.normaltorail("01:10 PM"));
+        Log.d("CONVERTU",convert.normaltorail("01:00 AM"));
+        Log.d("CONVERTU",convert.addrailtime("0105",55));
 
         /*speedDialView.addActionItem(
                 new SpeedDialActionItem.Builder(R.id.nav_attendance, R.drawable.ic_attendance)

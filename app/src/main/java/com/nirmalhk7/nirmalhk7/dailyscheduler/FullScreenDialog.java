@@ -90,7 +90,7 @@ public class FullScreenDialog extends DialogFragment {
                 @Override
                 public void onClick(View v) {
                     Log.d("DAS/FullDialog", "Delete Button");
-                    DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "mydb")
+                    DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
                             .allowMainThreadQueries().fallbackToDestructiveMigration()
                             .build();
 
@@ -103,8 +103,6 @@ public class FullScreenDialog extends DialogFragment {
 
         }
 
-        RadioGroup dayrg=rootView.findViewById(R.id.rgDay);
-        ((RadioButton)dayrg.getChildAt(GTD()-1)).setChecked(true);
 
         RadioGroup day=rootView.findViewById(R.id.rgDay);
         day.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -148,7 +146,7 @@ public class FullScreenDialog extends DialogFragment {
 
 
 
-        DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "mydb")
+        DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
                 .allowMainThreadQueries().fallbackToDestructiveMigration()
                 .build();
 
@@ -226,17 +224,9 @@ public class FullScreenDialog extends DialogFragment {
                 Log.d("Name:", "H " + taskNameEdit.getText().toString() + taskLabelEdit.getText().toString() + taskTimeEndEdit.getText().toString());
 
                 //  db.addSchedule(new Schedule("Task 1","Label 1","Time 1"));
-                if(!Validation(rootView))
+                if(Validation(rootView))
                 {
-                    Log.d("DAS/FSD","Validation Entered");
-                    taskNameEdit.setError("Required");
-                    taskLabelEdit.setError("Required");
-                    taskTimeStartEdit.setError("Required");
-                    taskTimeEndEdit.setError("Required");
-                }
-                else
-                {
-                    DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "mydb")
+                    DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
                             .allowMainThreadQueries().fallbackToDestructiveMigration()
                             .build();
                     scheduleDAO scheduleDAO = database.getScheduleDao();
@@ -319,19 +309,44 @@ public class FullScreenDialog extends DialogFragment {
     }
 
     public boolean Validation(View rootview){
-        EditText EtaskName=rootview.findViewById(R.id.taskName);
+        AppCompatAutoCompleteTextView EtaskName=rootview.findViewById(R.id.taskName);
         EditText EtaskStartTime=rootview.findViewById(R.id.taskStart);
         EditText EtaskEndTime=rootview.findViewById(R.id.taskEnd);
+        EditText EtaskLabel=rootview.findViewById(R.id.taskLabel);
         String taskName=EtaskName.getText().toString();
+        String taskLabel=EtaskLabel.getText().toString();
         String taskStartTime=EtaskStartTime.getText().toString();
         String taskEndTime=EtaskEndTime.getText().toString();
-        if(taskName.equals("")||taskEndTime.equals("")||taskStartTime.equals(""))
+        if(taskName.isEmpty()||taskEndTime.isEmpty()||taskLabel.isEmpty()||taskStartTime.isEmpty())
         {
+            if(taskName.isEmpty())
+            {
+                Log.d("DAS/FSD","Validation taskName");
+                EtaskName.setError("Required");
+            }
+            if(taskStartTime.isEmpty())
+            {
+                Log.d("DAS/FSD","Validation taskName");
+                EtaskStartTime.setError("Required");
+
+            }
+            if(taskEndTime.isEmpty())
+            {
+                Log.d("DAS/FSD","Validation taskName");
+                EtaskEndTime.setError("Required");
+
+            }
+            if(taskLabel.isEmpty())
+            {
+                Log.d("DAS/FSD","Validation taskName");
+                EtaskLabel.setError("Required");
+
+            }
             return false;
         }
-        else{
-            return true;
-        }
+
+        return true;
+
     }
 
 }

@@ -261,7 +261,7 @@ public class DailyScheduleList extends Fragment {
 
         ArrayList<scheduleItem> sch = new ArrayList<scheduleItem>();
 
-        DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "mydb")
+        DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
                 .allowMainThreadQueries().fallbackToDestructiveMigration()
                 .build();
 
