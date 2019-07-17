@@ -15,5 +15,4 @@ public abstract class DBGateway extends RoomDatabase {
     public abstract scheduleDAO getScheduleDao();
     public abstract attendanceDAO getAttendanceDao();
     public abstract ehDAO getEHDAO();
-
 }
