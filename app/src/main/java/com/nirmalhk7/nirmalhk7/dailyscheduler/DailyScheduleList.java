@@ -96,15 +96,13 @@ public class DailyScheduleList extends Fragment {
         }
     }
 
-    private View v;
-    private Context x;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_daily_schedule_list, container, false);
-        v=view;
+
         Bundle bundle=this.getArguments();
         if(bundle!=null)
         {

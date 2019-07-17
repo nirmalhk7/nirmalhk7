@@ -72,7 +72,6 @@ public class FullScreenDialog extends DialogFragment {
 
             EditText taskTimeStartEdit = rootView.findViewById(R.id.taskStart);
             EditText taskTimeEndEdit = rootView.findViewById(R.id.taskEnd);
-            Log.d("CONVERTXX", convert.normaltorail(startTime) + ".." + convert.normaltorail(endtime));
             taskTimeStartEdit.setText(convert.normaltorail(startTime));
             taskTimeEndEdit.setText(convert.normaltorail(endtime));
 
@@ -222,42 +221,51 @@ public class FullScreenDialog extends DialogFragment {
                 String label = taskLabelEdit.getText().toString();
                 String time = taskTimeStartEdit.getText().toString() + "-" + taskTimeEndEdit.getText().toString();
                 //Validation
-                boolean required = (task == null) || (label == null) || (time == null);
-                if (required == true) {
-                    Log.i("DAS/FSD", "Validation required");
-                }
+
                 Log.d("DIALOG", "Time " + time);
                 Log.d("Name:", "H " + taskNameEdit.getText().toString() + taskLabelEdit.getText().toString() + taskTimeEndEdit.getText().toString());
 
                 //  db.addSchedule(new Schedule("Task 1","Label 1","Time 1"));
+                if(!Validation(rootView))
+                {
+                    Log.d("DAS/FSD","Validation Entered");
+                    taskNameEdit.setError("Required");
+                    taskLabelEdit.setError("Required");
+                    taskTimeStartEdit.setError("Required");
+                    taskTimeEndEdit.setError("Required");
+                }
+                else
+                {
+                    DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "mydb")
+                            .allowMainThreadQueries().fallbackToDestructiveMigration()
+                            .build();
+                    scheduleDAO scheduleDAO = database.getScheduleDao();
 
-                DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "mydb")
-                        .allowMainThreadQueries().fallbackToDestructiveMigration()
-                        .build();
-                scheduleDAO scheduleDAO = database.getScheduleDao();
+                    if (bundle != null) {
+                        Schedule schedule = scheduleDAO.getScheduleById(dbNo);
 
-                if (bundle != null) {
-                    Schedule schedule = scheduleDAO.getScheduleById(dbNo);
+                        schedule.setTask(task);
+                        schedule.setLabel(label);
+                        schedule.setStartTime(taskTimeStartEdit.getText().toString());
+                        schedule.setEndTime(taskTimeEndEdit.getText().toString());
+                        schedule.setDay(mday);
+                        scheduleDAO.updateSchedule(schedule);
 
-                    schedule.setTask(task);
-                    schedule.setLabel(label);
-                    schedule.setStartTime(taskTimeStartEdit.getText().toString());
-                    schedule.setEndTime(taskTimeEndEdit.getText().toString());
-                    schedule.setDay(mday);
-                    scheduleDAO.updateSchedule(schedule);
+                    } else {
+                        Schedule schedule = new Schedule();
+                        schedule.setTask(task);
+                        schedule.setLabel(label);
+                        schedule.setStartTime(taskTimeStartEdit.getText().toString());
+                        schedule.setEndTime(taskTimeEndEdit.getText().toString());
+                        schedule.setDay(mday);
+                        scheduleDAO.insertOnlySingleSchedule(schedule);
+                    }
 
-                } else {
-                    Schedule schedule = new Schedule();
-                    schedule.setTask(task);
-                    schedule.setLabel(label);
-                    schedule.setStartTime(taskTimeStartEdit.getText().toString());
-                    schedule.setEndTime(taskTimeEndEdit.getText().toString());
-                    schedule.setDay(mday);
-                    scheduleDAO.insertOnlySingleSchedule(schedule);
+
+
+                    dismiss();
                 }
 
-
-                dismiss();
             }
         });
         return rootView;
@@ -310,8 +318,20 @@ public class FullScreenDialog extends DialogFragment {
         return dialog;
     }
 
-    public boolean Validation(){
-        EditText
+    public boolean Validation(View rootview){
+        EditText EtaskName=rootview.findViewById(R.id.taskName);
+        EditText EtaskStartTime=rootview.findViewById(R.id.taskStart);
+        EditText EtaskEndTime=rootview.findViewById(R.id.taskEnd);
+        String taskName=EtaskName.getText().toString();
+        String taskStartTime=EtaskStartTime.getText().toString();
+        String taskEndTime=EtaskEndTime.getText().toString();
+        if(taskName.equals("")||taskEndTime.equals("")||taskStartTime.equals(""))
+        {
+            return false;
+        }
+        else{
+            return true;
+        }
     }
 
 }

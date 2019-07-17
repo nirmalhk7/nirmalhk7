@@ -11,11 +11,13 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -45,6 +47,7 @@ public class MainFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private final String MODULE_TAG="END/";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -91,7 +94,7 @@ public class MainFragment extends Fragment {
     }
 
 
-    public void requestData(String url, final String category) {
+    public void requestData(String url, final String category, final View rootview) {
         //Everything below is part of the Android Asynchronous HTTP Client
 
         AsyncHttpClient client = new AsyncHttpClient();
@@ -101,7 +104,7 @@ public class MainFragment extends Fragment {
             public void onSuccess(int statusCode, Header[] headers,
                                   JSONObject response) {
                 // called when response HTTP status is "200 OK"
-                Log.d("WeatherAPI", "JSON: " + response.toString());
+                Log.d(MODULE_TAG+"WeatherAPI", "JSON: " + response.toString());
 
                 try {
                     if (category.equals("weather")) {
@@ -110,17 +113,16 @@ public class MainFragment extends Fragment {
                         String temp = response.getJSONObject("currently").getString("temperature");
                         String summary = response.getJSONObject("currently").getString("summary");
                         String rainWeek = response.getJSONObject("currently").getString("precipProbability");
-                        Log.d("WeatherAPI", icon + "with" + temp);
-                        weather = getActivity().findViewById(R.id.weather);
-                        ImageView weatherIcon = new ImageView(getContext());
+                        Log.d(MODULE_TAG+"WeatherAPI", icon + "with" + temp);
+                        weather = rootview.findViewById(R.id.weather);
+                        ImageView weatherIcon = rootview.findViewById(R.id.weatherIcon);
 
 
                         if (icon.equals("clear-day")) {
                             weatherIcon.setImageResource(R.drawable.ic_iconfinder_sunny);
-                            weather.addView(weatherIcon);
                         } else if (icon.equals("clear-night")) {
                             weatherIcon.setImageResource(R.drawable.ic_iconfinder_moony);
-                            weather.addView(weatherIcon);
+                             
                         } else if (icon.equals("rain")) {
                             weatherIcon.setImageResource(R.drawable.ic_iconfinder_rainy);
                             weather.addView(weatherIcon);
@@ -140,15 +142,13 @@ public class MainFragment extends Fragment {
                             weatherIcon.setImageResource(R.drawable.ic_iconfinder_moony);
                             weather.addView(weatherIcon);
                         }
-                        Log.d("APIAnswer", icon + temp);
-                        weatherIcon.getLayoutParams().height = 200;
-                        weatherIcon.getLayoutParams().width = 200;
-                        LinearLayout weatherDesc = new LinearLayout(getContext());
-                        weatherDesc.setOrientation(LinearLayout.VERTICAL);
+                        Log.d(MODULE_TAG+"WeatherAPI", icon + temp);
+
+                        LinearLayout weatherDesc = rootview.findViewById(R.id.weatherDesc);
+
                         TextView summaryText = new TextView(getContext());
                         summaryText.setText(summary + ". Temperature " + temp + "C");
 
-                        summaryText.setTextColor(getActivity().getResources().getColor(R.color.colorFontLight));
                         TextView dailyProbability = new TextView(getContext());
                         if (Integer.parseInt(rainWeek) > 0.5) {
                             dailyProbability.setText(Integer.parseInt(rainWeek) * 100 + "% chance of rain!");
@@ -157,16 +157,19 @@ public class MainFragment extends Fragment {
                         } else {
                             dailyProbability.setText("Expect no rain!");
                         }
-                        dailyProbability.setTextColor(getActivity().getResources().getColor(R.color.colorFontLight));
+
 
                         weatherDesc.addView(summaryText);
                         weatherDesc.addView(dailyProbability);
-                        weatherDesc.setVerticalGravity(Gravity.CENTER);
-                        weather.addView(weatherDesc);
+                        summaryText.setTextColor(getActivity().getResources().getColor(R.color.colorFontLight));
+                        summaryText.setTextSize(18);
+                        dailyProbability.setTextSize(13);
+                        dailyProbability.setTextColor(getActivity().getResources().getColor(R.color.colorFontLight));
+                        Log.d(MODULE_TAG+"END",weatherDesc.getChildCount()+" Count");
                     }
 
                 } catch (Exception e) {
-                    Log.e("DarkSky :", e.toString());
+                    Log.e(MODULE_TAG+"DarkSky :", e.toString());
                 }
 
             }
@@ -213,7 +216,7 @@ public class MainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_main, container, false);
+        final View v = inflater.inflate(R.layout.fragment_main, container, false);
         api_link = "https://api.darksky.net/forecast/60569b87b5b2a6220c135e9b2e91646b/";
         SpeedDialView dial=getActivity().findViewById(R.id.speedDial);
         dial.setVisibility(View.INVISIBLE);
@@ -228,7 +231,7 @@ public class MainFragment extends Fragment {
                     api_link = api_link.concat(Double.toString(latitude) + "," + Double.toString(longitude));
                     api_link = api_link.concat("?units=si");
                     Log.d("WeatherAPI", api_link);
-                    requestData(api_link, "weather");
+                    requestData(api_link, "weather",v);
 
                 }
 
@@ -248,11 +251,15 @@ public class MainFragment extends Fragment {
 
 
         } else {
-            Log.d("END/Main","No Internet connection");
-            TextView error = new TextView(getContext());
-            error.setText("Phone not connected");
-            error.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            LinearLayout x=v.findViewById(R.id.weather);
+            Log.d(MODULE_TAG+"API","No Internet connection");
+            TextView display=new TextView(getContext());
+            ImageView i=v.findViewById(R.id.weatherIcon);
+            i.setImageResource(R.drawable.ic_signal_wifi_off);
+            display.setText("Phone is not connected");
+            display.setTextColor(getActivity().getResources().getColor(R.color.colorFontLight));
+            LinearLayout l=v.findViewById(R.id.weatherDesc);
+            l.addView(display);
+
         }
         return v;
     }
@@ -286,5 +293,22 @@ public class MainFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
+    SwipeRefreshLayout pullToRefresh;
+    ArrayAdapter adapter;
+    public void DSLonRefresh(final View rootview){
+        pullToRefresh = rootview.findViewById(R.id.pullToRefresh);
+        final View v=rootview;
+        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            int Refreshcounter = 1; //Counting how many times user have refreshed the layout
+
+            @Override
+            public void onRefresh() {
+                //Here you can update your data from internet or from local SQLite data
+                Log.d("DAS/DSL","Refreshing");
+                requestData(api_link, "weather",rootview);
+                pullToRefresh.setRefreshing(false);
+            }
+        });
+    }
 
 }

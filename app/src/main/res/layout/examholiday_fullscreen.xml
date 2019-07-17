@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="28dp"
+    android:background="@android:color/white"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/button_close"
+                android:layout_width="?attr/actionBarSize"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:tint="@android:color/white"
+                app:srcCompat="@drawable/ic_close" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="New Task"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+                android:textColor="@android:color/white" />
+
+            <LinearLayout
+                android:id="@+id/examHolidayDialog"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/button_save"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="5dp"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="2dp"
+                    android:text="Save"
+                    android:textColor="@android:color/white" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nested_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorDark"
+        android:scrollbars="none"
+        android:scrollingCache="true">
+
+        <LinearLayout
+            android:id="@+id/dailyscheduleForm"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/radioGrp"
+                >
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Exam"
+                    android:textColor="@android:color/white"
+                    android:buttonTint="@android:color/white"
+                    android:id="@+id/examRadio"
+
+                    android:layout_weight="1"/>
+
+                <RadioButton
+                    android:textColor="@android:color/white"
+                    android:buttonTint="@android:color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Holiday"
+                    android:id="@+id/holidayRadio"
+                    android:layout_weight="1"/>
+            </RadioGroup>
+
+
+
+            <EditText
+                android:id="@+id/examHoliday_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Name"
+                android:textColor="@color/colorFontDark"
+               android:textColorHint="@color/colorFontHintDark" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/examHoliday_startDate"
+                android:focusable="false"
+                android:hint="Start Date"
+                android:paddingTop="@dimen/standard_dimen"
+                android:textColor="@color/colorFontDark"
+               android:textColorHint="@color/colorFontHintDark"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/examHoliday_endDate"
+                android:focusable="false"
+                android:hint="End Date"
+                android:paddingTop="@dimen/standard_dimen"
+                android:textColor="@color/colorFontDark"
+               android:textColorHint="@color/colorFontHintDark"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/examHoliday_type"
+                android:hint="Type"
+                android:paddingTop="@dimen/standard_dimen"
+                android:textColor="@color/colorFontDark"
+               android:textColorHint="@color/colorFontHintDark"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:id="@+id/examHoliday_description"
+                android:hint="Description"
+                android:gravity="top"
+                android:paddingTop="@dimen/standard_dimen"
+                android:textColor="@color/colorFontDark"
+               android:textColorHint="@color/colorFontHintDark"/>
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</LinearLayout>

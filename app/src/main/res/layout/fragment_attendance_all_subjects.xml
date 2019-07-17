@@ -6,48 +6,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".attendance.AllSubjects">
 
-    <!-- TODO: Update blank fragment layout -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:background="@android:color/holo_red_dark"
-            android:layout_margin="@dimen/standard_dimen"
-            android:textColor="@android:color/white"
-            android:orientation="vertical"
-            android:textSize="15sp"
-            android:id="@+id/pendingSubjects_subject"
-            android:visibility="invisible">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="You have X Pending subjects!"
-                android:padding="10dp"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@android:color/white"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Click here to update them."
-                android:padding="10dp"/>
-        </LinearLayout>
 
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="All Subjects"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="15dp"
+            android:padding="@dimen/standard_dimen"
+            android:textColor="@color/colorPrimary"
+            android:textAllCaps="true"
+            android:textStyle="bold"
             android:textSize="15sp"/>
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/pullToRefresh"

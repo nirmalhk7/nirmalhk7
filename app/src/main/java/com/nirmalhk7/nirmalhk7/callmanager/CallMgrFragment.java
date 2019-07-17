@@ -12,8 +12,6 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.nirmalhk7.nirmalhk7.R;
-import com.nirmalhk7.nirmalhk7.examholidays.ExamHolidayAdapter;
-import com.nirmalhk7.nirmalhk7.examholidays.hsItem;
 
 import java.util.ArrayList;
 
