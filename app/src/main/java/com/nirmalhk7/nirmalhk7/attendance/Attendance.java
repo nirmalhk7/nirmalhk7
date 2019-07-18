@@ -78,8 +78,6 @@ public class Attendance extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView= inflater.inflate(R.layout.fragment_attendance, container, false);
-        View tbV= getLayoutInflater().inflate(R.layout.app_bar_main, null);
-
 
         ArrayList<attendanceItem> AttendanceItem = new ArrayList<attendanceItem>();
 

@@ -23,7 +23,10 @@ public interface attendanceDAO {
     List<attendanceEntity> getAllSubject();
 
     @Update
-    void updateMovie(attendanceEntity movies);
+    void updateSubject(attendanceEntity subject);
+
+    @Query("SELECT * FROM attendanceEntity WHERE id=:mId")
+    attendanceEntity getSubjectbyId(int mId);
 
     @Delete
     void deleteSchedule(attendanceEntity schedule);

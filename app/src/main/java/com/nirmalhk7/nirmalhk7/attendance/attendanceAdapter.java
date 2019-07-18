@@ -1,15 +1,21 @@
 package com.nirmalhk7.nirmalhk7.attendance;
 
+import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.graphics.Color;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
 
 import org.w3c.dom.Text;
@@ -37,6 +43,7 @@ public class attendanceAdapter extends ArrayAdapter<attendanceItem> {
     public View getView(int position, View convertView, ViewGroup parent) {
         // Check if an existing view is being reused, otherwise inflate the view
         View listItemView = convertView;
+
         if(kSubject==1)
         {
             if (listItemView == null) {
@@ -61,13 +68,18 @@ public class attendanceAdapter extends ArrayAdapter<attendanceItem> {
             float present=currentWord.getmPresent();
             float absent=currentWord.getmAbsent();
             float result=present/(present+absent);
-            result = (float) Math.round(result * 100) / 100;
+            result = (float) Math.round(result * 100);
 
             TextView percent = (TextView) listItemView.findViewById(R.id.percent_subject);
             // Get the default translation from the currentWord object and set this text on
             // the default TextView.
             percent.setText("Percent: "+result+"%");
 
+            TextView id=listItemView.findViewById(R.id.attendance_id);
+            Log.d("XXXC",""+currentWord.getmId());
+            id.setText(currentWord.getmId()+"");
+
+            btnlistener(listItemView,Integer.parseInt(id.getText().toString()));
         }
         else if(kSubject==2){
             if (listItemView == null) {
@@ -111,5 +123,39 @@ public class attendanceAdapter extends ArrayAdapter<attendanceItem> {
         // Return the whole list item layout (containing 2 TextViews) so that it can be shown in
         // the ListView.
         return listItemView;
+    }
+
+    void btnlistener(View listitemview,int id)
+    {
+        ImageButton p=listitemview.findViewById(R.id.present_btn);
+        ImageButton a=listitemview.findViewById(R.id.absent_btn);
+        DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
+                .allowMainThreadQueries().fallbackToDestructiveMigration()
+                .build();
+
+        attendanceDAO attendanceDAO = database.getAttendanceDao();
+        Log.d("ATT/ALS","ID "+id);
+        //final attendanceEntity att=attendanceDAO.getSubjectbyId(id);
+        final attendanceEntity att=new attendanceEntity();
+        att.setSubject(att.getId()+" ELEMENT");
+        Log.d("ATT/ALS","Recieved "+att.getSubject()+" "+att.getPresent()+" "+att.getAbsent());
+        p.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int pr=att.getPresent();
+                att.setPresent(++pr);
+                Log.d("ATT/ALS","Subject Incremented P "+att.getPresent());
+            }
+        });
+        a.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int ab=att.getAbsent();
+                att.setAbsent(++ab);
+                Log.d("ATT/ALS","Subject Incremented A "+att.getAbsent());
+            }
+        });
+        //attendanceDAO.updateSubject(att);
+        attendanceDAO.insertOnlySingleSubject(att);
     }
 }

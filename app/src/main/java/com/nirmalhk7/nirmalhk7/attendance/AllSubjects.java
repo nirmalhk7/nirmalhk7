@@ -113,26 +113,6 @@ public class AllSubjects extends Fragment {
             }
         });
 
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                Att_FullScreenDialog newFragment = new Att_FullScreenDialog();
-
-                TextView subject=(rootView.findViewById(R.id.subjName_subject));
-                TextView present=rootView.findViewById(R.id.presentabsent_subject);
-                String prab=present.getText().toString();
-
-                Bundle b=new Bundle();
-
-                FragmentTransaction transaction = fragmentManager.beginTransaction();
-                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                transaction.add(android.R.id.content, newFragment).addToBackStack(null).commit();
-                return false;
-            }
-        });
-
         SpeedDialView speedDialView =getActivity().findViewById(R.id.speedDial);
         speedDialView.setVisibility(View.VISIBLE);
         speedDialView.addActionItem(
@@ -210,7 +190,7 @@ public class AllSubjects extends Fragment {
     }
 
     void ALSfetchDB(View rootView){
-        DBGateway database2 = Room.databaseBuilder(getContext(), DBGateway.class, "mydbx")
+        DBGateway database2 = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
                 .allowMainThreadQueries().fallbackToDestructiveMigration()
                 .build();
 
@@ -223,8 +203,8 @@ public class AllSubjects extends Fragment {
         Log.d("ATT/ALS","Count"+attendance.size());
         
         for (attendanceEntity cn : attendance) {
-            Log.d("ATT/ALS", "Printing: Task "+cn.getSubject()+" Time "+cn.getPresent()+" Label "+cn.getAbsent());
-            SubjectItem.add(new attendanceItem(cn.getSubject(), cn.getPresent(),cn.getAbsent()));
+            Log.d("ATT/ALS", "Printing: Task "+cn.getSubject()+" P "+cn.getPresent()+" A "+cn.getAbsent());
+            SubjectItem.add(new attendanceItem(cn.getSubject(), cn.getPresent(),cn.getAbsent(),cn.getId()));
         }
 
 
