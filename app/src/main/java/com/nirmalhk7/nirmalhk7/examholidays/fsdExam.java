@@ -154,8 +154,6 @@ public class fsdExam extends DialogFragment {
                 mMonth = c.get(Calendar.MONTH);
                 mDay = c.get(Calendar.DAY_OF_MONTH);
                 final Calendar date=Calendar.getInstance();
-
-
                 DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), AlertDialog.THEME_DEVICE_DEFAULT_DARK,
                         new DatePickerDialog.OnDateSetListener() {
 
