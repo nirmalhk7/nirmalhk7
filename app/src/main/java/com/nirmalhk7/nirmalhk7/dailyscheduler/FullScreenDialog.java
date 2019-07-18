@@ -8,14 +8,11 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
@@ -23,18 +20,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Spinner;
 import android.widget.TimePicker;
 
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.convert;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
-import static com.nirmalhk7.nirmalhk7.dailyscheduler.DailyScheduleList.GTD;
 
 public class FullScreenDialog extends DialogFragment {
     public int key;
@@ -51,7 +44,7 @@ public class FullScreenDialog extends DialogFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        final View rootView = inflater.inflate(R.layout.full_screen_layout, container, false);
+        final View rootView = inflater.inflate(R.layout.dailyschedule_fullscreenlayout, container, false);
         final Bundle bundle = this.getArguments();
         //If editing
         if (bundle != null) {
