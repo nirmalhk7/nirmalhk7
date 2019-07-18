@@ -198,11 +198,6 @@
                     android:text="Sun"
                     android:textSize="15sp" />
             </RadioGroup>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:text="Task Name" />
 
             <android.support.v7.widget.AppCompatAutoCompleteTextView
                 android:id="@+id/taskName"
@@ -214,12 +209,6 @@
                android:textColorHint="@color/colorFontHintDark" />
 
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:text="Task Label" />
-
             <EditText
                 android:id="@+id/taskLabel"
                 android:layout_width="match_parent"
@@ -230,11 +219,6 @@
                android:textColorHint="@color/colorFontHintDark" />
 
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:text="Time" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -248,6 +232,7 @@
                     android:layout_weight="1"
                     android:focusable="false"
                     android:hint="Start Time"
+
                     android:padding="10dp"
                     android:textColor="@color/colorFontDark"
                    android:textColorHint="@color/colorFontHintDark" />

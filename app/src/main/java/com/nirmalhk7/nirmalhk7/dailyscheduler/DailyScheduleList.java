@@ -52,7 +52,10 @@ public class DailyScheduleList extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private Integer mday;
+    private static int mday;
+    public static int GTD(){
+        return mday;
+    }
 
     public String scheduleTitle;
     public String scheduleLabel;
@@ -258,7 +261,7 @@ public class DailyScheduleList extends Fragment {
 
         ArrayList<scheduleItem> sch = new ArrayList<scheduleItem>();
 
-        DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "mydb")
+        DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
                 .allowMainThreadQueries().fallbackToDestructiveMigration()
                 .build();
 

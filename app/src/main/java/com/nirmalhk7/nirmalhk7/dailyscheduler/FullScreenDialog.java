@@ -34,6 +34,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import static com.nirmalhk7.nirmalhk7.dailyscheduler.DailyScheduleList.GTD;
+
 public class FullScreenDialog extends DialogFragment {
     public int key;
 
@@ -52,7 +54,6 @@ public class FullScreenDialog extends DialogFragment {
         final View rootView = inflater.inflate(R.layout.full_screen_layout, container, false);
         final Bundle bundle = this.getArguments();
         //If editing
-
         if (bundle != null) {
             String title = bundle.getString("title");
             String label = bundle.getString("label");
@@ -89,7 +90,7 @@ public class FullScreenDialog extends DialogFragment {
                 @Override
                 public void onClick(View v) {
                     Log.d("DAS/FullDialog", "Delete Button");
-                    DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "mydb")
+                    DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
                             .allowMainThreadQueries().fallbackToDestructiveMigration()
                             .build();
 
@@ -145,7 +146,7 @@ public class FullScreenDialog extends DialogFragment {
 
 
 
-        DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "mydb")
+        DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
                 .allowMainThreadQueries().fallbackToDestructiveMigration()
                 .build();
 
@@ -218,42 +219,43 @@ public class FullScreenDialog extends DialogFragment {
                 String label = taskLabelEdit.getText().toString();
                 String time = taskTimeStartEdit.getText().toString() + "-" + taskTimeEndEdit.getText().toString();
                 //Validation
-                boolean required = (task == null) || (label == null) || (time == null);
-                if (required == true) {
-                    Log.i("DAS/FSD", "Validation required");
-                }
+
                 Log.d("DIALOG", "Time " + time);
                 Log.d("Name:", "H " + taskNameEdit.getText().toString() + taskLabelEdit.getText().toString() + taskTimeEndEdit.getText().toString());
 
                 //  db.addSchedule(new Schedule("Task 1","Label 1","Time 1"));
+                if(Validation(rootView))
+                {
+                    DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
+                            .allowMainThreadQueries().fallbackToDestructiveMigration()
+                            .build();
+                    scheduleDAO scheduleDAO = database.getScheduleDao();
 
-                DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "mydb")
-                        .allowMainThreadQueries().fallbackToDestructiveMigration()
-                        .build();
-                scheduleDAO scheduleDAO = database.getScheduleDao();
+                    if (bundle != null) {
+                        Schedule schedule = scheduleDAO.getScheduleById(dbNo);
 
-                if (bundle != null) {
-                    Schedule schedule = scheduleDAO.getScheduleById(dbNo);
+                        schedule.setTask(task);
+                        schedule.setLabel(label);
+                        schedule.setStartTime(taskTimeStartEdit.getText().toString());
+                        schedule.setEndTime(taskTimeEndEdit.getText().toString());
+                        schedule.setDay(mday);
+                        scheduleDAO.updateSchedule(schedule);
 
-                    schedule.setTask(task);
-                    schedule.setLabel(label);
-                    schedule.setStartTime(taskTimeStartEdit.getText().toString());
-                    schedule.setEndTime(taskTimeEndEdit.getText().toString());
-                    schedule.setDay(mday);
-                    scheduleDAO.updateSchedule(schedule);
+                    } else {
+                        Schedule schedule = new Schedule();
+                        schedule.setTask(task);
+                        schedule.setLabel(label);
+                        schedule.setStartTime(taskTimeStartEdit.getText().toString());
+                        schedule.setEndTime(taskTimeEndEdit.getText().toString());
+                        schedule.setDay(mday);
+                        scheduleDAO.insertOnlySingleSchedule(schedule);
+                    }
 
-                } else {
-                    Schedule schedule = new Schedule();
-                    schedule.setTask(task);
-                    schedule.setLabel(label);
-                    schedule.setStartTime(taskTimeStartEdit.getText().toString());
-                    schedule.setEndTime(taskTimeEndEdit.getText().toString());
-                    schedule.setDay(mday);
-                    scheduleDAO.insertOnlySingleSchedule(schedule);
+
+
+                    dismiss();
                 }
 
-
-                dismiss();
             }
         });
         return rootView;
@@ -304,6 +306,47 @@ public class FullScreenDialog extends DialogFragment {
         Dialog dialog = super.onCreateDialog(savedInstanceState);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         return dialog;
+    }
+
+    public boolean Validation(View rootview){
+        AppCompatAutoCompleteTextView EtaskName=rootview.findViewById(R.id.taskName);
+        EditText EtaskStartTime=rootview.findViewById(R.id.taskStart);
+        EditText EtaskEndTime=rootview.findViewById(R.id.taskEnd);
+        EditText EtaskLabel=rootview.findViewById(R.id.taskLabel);
+        String taskName=EtaskName.getText().toString();
+        String taskLabel=EtaskLabel.getText().toString();
+        String taskStartTime=EtaskStartTime.getText().toString();
+        String taskEndTime=EtaskEndTime.getText().toString();
+        if(taskName.isEmpty()||taskEndTime.isEmpty()||taskLabel.isEmpty()||taskStartTime.isEmpty())
+        {
+            if(taskName.isEmpty())
+            {
+                Log.d("DAS/FSD","Validation taskName");
+                EtaskName.setError("Required");
+            }
+            if(taskStartTime.isEmpty())
+            {
+                Log.d("DAS/FSD","Validation taskName");
+                EtaskStartTime.setError("Required");
+
+            }
+            if(taskEndTime.isEmpty())
+            {
+                Log.d("DAS/FSD","Validation taskName");
+                EtaskEndTime.setError("Required");
+
+            }
+            if(taskLabel.isEmpty())
+            {
+                Log.d("DAS/FSD","Validation taskName");
+                EtaskLabel.setError("Required");
+
+            }
+            return false;
+        }
+
+        return true;
+
     }
 
 }
