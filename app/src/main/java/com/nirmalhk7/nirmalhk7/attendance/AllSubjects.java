@@ -116,6 +116,17 @@ public class AllSubjects extends Fragment {
         });
         SpeedDialView speedDialView =getActivity().findViewById(R.id.speedDial);
         speedDialView.setVisibility(View.VISIBLE);
+        speedDialView.setOnChangeListener(new SpeedDialView.OnChangeListener() {
+            @Override
+            public boolean onMainActionSelected() {
+                return false;
+            }
+
+            @Override
+            public void onToggleChanged(boolean isOpen) {
+
+            }
+        });
         speedDialView.addActionItem(
                 new SpeedDialActionItem.Builder(R.id.content, R.drawable.ic_examholidays)
                         .setLabel("Add Subject")
