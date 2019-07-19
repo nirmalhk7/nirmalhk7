@@ -111,7 +111,7 @@ public class DailyScheduleList extends Fragment {
         }
         SpeedDialView speedDialView = getActivity().findViewById(R.id.speedDial);
         speedDialView.setVisibility(View.VISIBLE);
-
+        speedDialView.clearActionItems();
 
         speedDialView.setOnChangeListener(new SpeedDialView.OnChangeListener() {
             @Override
@@ -148,25 +148,25 @@ public class DailyScheduleList extends Fragment {
 
                 TextView title = view.findViewById(R.id.miwok_text_view);
                 TextView label = view.findViewById(R.id.default_text_view);
-                TextView time = view.findViewById(R.id.default_time);
+                TextView starttime = view.findViewById(R.id.start_time);
+                TextView endTime = view.findViewById(R.id.end_time);
                 TextView idx=view.findViewById(R.id.itemid);
-                String starttime=time.getText().toString().substring(0,time.getText().toString().indexOf('-')-1);
-                String endtime=time.getText().toString().substring(time.getText().toString().indexOf('-')+2,time.getText().toString().length());
-                Log.d("CONVERTX",endtime+"-"+starttime);
+
+                Log.d("CONVERTX",endTime+"-"+starttime);
 
 
 
                 FullScreenDialog newFragment = new FullScreenDialog();
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 
-                callNotification(title.getText().toString(), time.getText().toString());
+                callNotification(title.getText().toString(), starttime.getText().toString());
 
                 Bundle args = new Bundle();
                 args.putInt("key", Integer.parseInt(idx.getText().toString()));
                 args.putString("title", title.getText().toString());
                 args.putString("label", label.getText().toString());
-                args.putString("starttime", starttime);
-                args.putString("endtime",endtime);
+                args.putString("starttime", starttime.getText().toString());
+                args.putString("endtime",endTime.getText().toString());
                 args.putInt("day",mday);
 
                 Log.d("DS", "PSN:" + Integer.toString(position));
@@ -271,7 +271,7 @@ public class DailyScheduleList extends Fragment {
         for (Schedule cn : schedules) {
 
             Log.d("DAS/DSL", "Printing: Task "+cn.getTask()+" Time "+cn.getStartTime()+cn.getEndTime()+" Label "+cn.getLabel());
-            sch.add(new scheduleItem(cn.getTask(), convert.railtonormal(cn.getStartTime()),convert.railtonormal(cn.getEndTime()),cn.getLabel(),cn.getId(),cn.getDay()));
+            sch.add(new scheduleItem(cn.getTask(), convert.railtonormal(cn.getStartTime()),convert.railtonormal(cn.getEndTime()),cn.getSubjCode(),cn.getLabel(),cn.getId(),cn.getDay()));
         }
 
         ScheduleAdapter adapter = new ScheduleAdapter(getContext(), sch);

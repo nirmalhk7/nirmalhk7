@@ -61,13 +61,13 @@ public class attendanceAdapter extends ArrayAdapter<attendanceItem> {
             final attendanceItem currentWord = getItem(position);
 
             // Find the TextView in the list_item.xml layout with the ID miwok_text_view.
-            TextView subjName_subj = (TextView) listItemView.findViewById(R.id.subjName_subject);
+            TextView subjName_subj = listItemView.findViewById(R.id.subjName_subject);
             // Get the Miwok translation from the currentWord object and set this text on
             // the Miwok TextView.
             subjName_subj.setText(currentWord.getSubjName());
 
             // Find the TextView in the list_item.xml layout with the ID default_text_view.
-            TextView presentCount = (TextView) listItemView.findViewById(R.id.presentabsent_subject);
+            TextView presentCount = listItemView.findViewById(R.id.presentabsent_subject);
             // Get the default translation from the currentWord object and set this text on
             // the default TextView.
             presentCount.setText("Present "+currentWord.getmPresent()+" / Absent "+currentWord.getmAbsent());
@@ -76,7 +76,7 @@ public class attendanceAdapter extends ArrayAdapter<attendanceItem> {
             float result=present/(present+absent);
             result = (float) Math.round(result * 100);
 
-            TextView percent = (TextView) listItemView.findViewById(R.id.percent_subject);
+            TextView percent = listItemView.findViewById(R.id.percent_subject);
             // Get the default translation from the currentWord object and set this text on
             // the default TextView.
             percent.setText("Percent: "+result+"%");
@@ -138,13 +138,13 @@ public class attendanceAdapter extends ArrayAdapter<attendanceItem> {
             attendanceItem currentWord = getItem(position);
 
             // Find the TextView in the list_item.xml layout with the ID miwok_text_view.
-            TextView miwokTextView = (TextView) listItemView.findViewById(R.id.subjName);
+            TextView miwokTextView = listItemView.findViewById(R.id.subjName);
             // Get the Miwok translation from the currentWord object and set this text on
             // the Miwok TextView.
             miwokTextView.setText(currentWord.getSubjName());
 
             // Find the TextView in the list_item.xml layout with the ID default_text_view.
-            TextView defaultTextView = (TextView) listItemView.findViewById(R.id.subjDateTime);
+            TextView defaultTextView = listItemView.findViewById(R.id.subjDateTime);
             // Get the default translation from the currentWord object and set this text on
             // the default TextView.
             defaultTextView.setText(currentWord.getmSubjTime() + currentWord.getmSubjDate());

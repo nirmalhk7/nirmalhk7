@@ -30,7 +30,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:text="New Task"
+                android:text="New Subject"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
                 android:textColor="@android:color/white" />
 
@@ -78,31 +78,35 @@
                 android:layout_height="wrap_content"
                 android:hint="Subject Name"
                 android:id="@+id/attendance_task"
-                android:textColor="@android:color/white"
-                android:textColorHint="@android:color/white"/>
+                android:textColor="@color/colorFontDark"
+                android:textColorHint="@color/colorFontHintDark"/>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Attendance if any"
                 android:paddingTop="30dp"
                 android:paddingBottom="@dimen/standard_dimen"
-                android:textSize="20sp"/>
+                android:textColor="@color/colorPrimary"
+                android:textAllCaps="true"
+                android:textStyle="bold"
+                android:textSize="15sp"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Present"
                 android:inputType="number"
                 android:id="@+id/present_fsd"
-                android:textColor="@android:color/white"
-                android:textColorHint="@android:color/white"/>
+                android:textColor="@color/colorFontDark"
+                android:textColorHint="@color/colorFontHintDark"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Absent"
                 android:inputType="number"
                 android:id="@+id/absent_fsd"
-                android:textColor="@android:color/white"
-                android:textColorHint="@android:color/white"
+                android:textColor="@color/colorFontDark"
+                android:textColorHint="@color/colorFontHintDark"
                 />
             <LinearLayout
                 android:layout_width="match_parent"

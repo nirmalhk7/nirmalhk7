@@ -9,17 +9,22 @@ public class scheduleItem {
     private String mStartTime;
     private String mEndTime;
     private String mLabel;
+    private String mSubjCode;
     private int mId;
     private int mDay;
 
 
-    public scheduleItem(String scheduleTitle, String starttime,String endtime, String label,int Id,int Day) {
+    public scheduleItem(String scheduleTitle, String starttime,String endtime,String SubjCode, String label,int Id,int Day) {
         mScheduleTitle = scheduleTitle;
         mStartTime=starttime;
         mEndTime=endtime;
         mLabel=label;
         mId=Id;
+        mSubjCode=SubjCode;
         mDay=Day;
+    }
+    public String getmSubjCode(){
+        return mSubjCode;
     }
 
     public String getScheduleTitle() {

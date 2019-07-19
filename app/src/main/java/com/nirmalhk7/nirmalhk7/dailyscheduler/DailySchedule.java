@@ -136,7 +136,6 @@ public class DailySchedule extends Fragment {
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
-                Log.d(MODULE_TAG+FILE_TAG,"Page "+i+","+v+","+i1);
 
             }
 
