@@ -28,6 +28,8 @@ public interface scheduleDAO {
     @Update
     void updateSchedule(Schedule schedule);
 
+    @Query("SELECT * FROM Schedule WHERE mTask=:Task")
+    Schedule getScheduleDetails(String Task);
 
 
 

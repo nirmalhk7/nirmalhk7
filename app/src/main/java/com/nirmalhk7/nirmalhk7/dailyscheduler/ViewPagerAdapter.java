@@ -5,25 +5,22 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.util.Log;
 import android.view.ViewGroup;
 
-public class ViewPagerAdapter extends FragmentPagerAdapter {
+public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     public ViewPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 
     @Override
     public Fragment getItem(int position) {
-        if(position<7)
-        {
-            Bundle bundle=new Bundle();
-            bundle.putInt("day",position);
-
             DailyScheduleList dsl=new DailyScheduleList();
-            dsl.setArguments(bundle);
+            Bundle b=new Bundle();
+            b.putInt("key",position);
+            Log.d("DAS/DS","Swipe Registered: "+position);
+            dsl.setArguments(b);
             return dsl;
-        }
-        return null;
 
     }
 

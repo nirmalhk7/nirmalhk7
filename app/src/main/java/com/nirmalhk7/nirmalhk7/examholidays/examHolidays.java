@@ -110,9 +110,10 @@ public class examHolidays extends Fragment {
         });
         SpeedDialView speed=getActivity().findViewById(R.id.speedDial);
         speed.show();
+        speed.clearActionItems();
         speed.addActionItem(
                 new SpeedDialActionItem.Builder(R.id.content, R.drawable.ic_examholidays)
-                        .setLabel("Add Subject")
+                        .setLabel("Add Exam/Holiday")
                         .setLabelColor(Color.WHITE)
                         .setLabelBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.colorLightDark, getActivity().getTheme()))
                         .create()

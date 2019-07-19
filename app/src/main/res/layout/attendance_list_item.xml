@@ -15,7 +15,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="Task X djdcnjcndjkcdjnc"
+            tools:text="DSA 1"
             android:id="@+id/subjName"/>
         <TextView
             android:layout_width="match_parent"

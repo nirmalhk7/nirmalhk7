@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +26,9 @@ import android.widget.TimePicker;
 
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
+import com.nirmalhk7.nirmalhk7.attendance.attendanceDAO;
+import com.nirmalhk7.nirmalhk7.attendance.attendanceEntity;
+import com.nirmalhk7.nirmalhk7.attendance.attendanceItem;
 import com.nirmalhk7.nirmalhk7.convert;
 
 import java.util.Calendar;
@@ -143,24 +148,58 @@ public class FullScreenDialog extends DialogFragment {
                 .allowMainThreadQueries().fallbackToDestructiveMigration()
                 .build();
 
-        scheduleDAO scheduleDAO = database.getScheduleDao();
+        final scheduleDAO scheduleDAO = database.getScheduleDao();
+        attendanceDAO attendanceDAO=database.getAttendanceDao();
 
         List<Schedule> x = scheduleDAO.getSubjects("College");
-        String[] subject = new String[x.size()];
+
+        List<attendanceEntity> z = attendanceDAO.getSubjectNames();
+        String[] subject = new String[x.size()+z.size()];
         int i = 0;
 
         for (Schedule cn : x) {
             subject[i] = cn.getTask();
-            Log.d("ATT/FSD/", subject[i]);
+            Log.d("ATT/FSD/", "Local "+subject[i]);
+            ++i;
+        }
+        for (attendanceEntity cn: z)
+        {
+            subject[i]=cn.getSubject();
+            Log.d("ATT/FSD/","From Attendance: "+subject[i]);
             ++i;
         }
         final AppCompatAutoCompleteTextView autoTextView;
-        autoTextView = (AppCompatAutoCompleteTextView) rootView.findViewById(R.id.taskName);
+        autoTextView = rootView.findViewById(R.id.taskName);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>
                 (getContext(), android.R.layout.select_dialog_item, subject);
         autoTextView.setThreshold(1); //will start working from first character
         autoTextView.setAdapter(adapter);
 
+        if(x.size()==100)
+        {
+
+            autoTextView.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    Schedule sc=scheduleDAO.getScheduleDetails(s.toString());
+                    EditText taskLabelEdit = rootView.findViewById(R.id.taskLabel);
+                    taskLabelEdit.setText(sc.getLabel());
+                    AutoCompleteTextView SubjCode=rootView.findViewById(R.id.subjCode);
+
+                    SubjCode.setText(sc.getSubjCode());
+                }
+            });
+        }
 
         //Close button action
         (rootView.findViewById(R.id.button_close)).setOnClickListener(new View.OnClickListener() {
@@ -180,8 +219,6 @@ public class FullScreenDialog extends DialogFragment {
 
             }
         });
-
-
 
         //Timepicker end time dialog
         final EditText endTime = rootView.findViewById(R.id.taskEnd);
@@ -204,16 +241,13 @@ public class FullScreenDialog extends DialogFragment {
 
                 AutoCompleteTextView taskNameEdit = getActivity().findViewById(R.id.taskName);
                 EditText taskLabelEdit = getActivity().findViewById(R.id.taskLabel);
+                AutoCompleteTextView SubjCode=getActivity().findViewById(R.id.subjCode);
                 EditText taskTimeStartEdit = getActivity().findViewById(R.id.taskStart);
                 EditText taskTimeEndEdit = getActivity().findViewById(R.id.taskEnd);
 
 
-                String task = taskNameEdit.getText().toString();
-                String label = taskLabelEdit.getText().toString();
-                String time = taskTimeStartEdit.getText().toString() + "-" + taskTimeEndEdit.getText().toString();
                 //Validation
 
-                Log.d("DIALOG", "Time " + time);
                 Log.d("Name:", "H " + taskNameEdit.getText().toString() + taskLabelEdit.getText().toString() + taskTimeEndEdit.getText().toString());
 
                 //  db.addSchedule(new Schedule("Task 1","Label 1","Time 1"));
@@ -227,8 +261,9 @@ public class FullScreenDialog extends DialogFragment {
                     if (bundle != null) {
                         Schedule schedule = scheduleDAO.getScheduleById(dbNo);
 
-                        schedule.setTask(task);
-                        schedule.setLabel(label);
+                        schedule.setTask(taskNameEdit.getText().toString());
+                        schedule.setLabel(taskLabelEdit.getText().toString());
+                        schedule.setSubjCode(SubjCode.getText().toString());
                         schedule.setStartTime(taskTimeStartEdit.getText().toString());
                         schedule.setEndTime(taskTimeEndEdit.getText().toString());
                         schedule.setDay(mday);
@@ -236,8 +271,9 @@ public class FullScreenDialog extends DialogFragment {
 
                     } else {
                         Schedule schedule = new Schedule();
-                        schedule.setTask(task);
-                        schedule.setLabel(label);
+                        schedule.setTask(taskNameEdit.getText().toString());
+                        schedule.setLabel(taskLabelEdit.getText().toString());
+                        schedule.setSubjCode(SubjCode.getText().toString());
                         schedule.setStartTime(taskTimeStartEdit.getText().toString());
                         schedule.setEndTime(taskTimeEndEdit.getText().toString());
                         schedule.setDay(mday);

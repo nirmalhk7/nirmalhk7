@@ -92,9 +92,10 @@ public class fsdExam extends DialogFragment {
 
                 if(Validation(rootView))
                 {
+                   Log.d("EAH/FSD","Validation Successful");
                     saveDialog(rootView);
                 }
-
+                Log.d("EAH/FSD","Validation Unsuccessful");
             }
         });
 
@@ -211,7 +212,16 @@ public class fsdExam extends DialogFragment {
                 RstartDate=startDate.getText().toString();
         
         rootview.findViewById(R.id.examHoliday_startDate);
-        if(Rname.isEmpty()||RendDate.isEmpty()||RstartDate.isEmpty()||Rtype.isEmpty())
+        if(((RadioButton)rootview.findViewById(R.id.examRadio)).isChecked())
+        {
+            if(Rtype.isEmpty())
+            {
+                Log.d("EAH/FSD","Validation startDate");
+                endDate.setError("Required");
+                return false;
+            }
+        }
+        if(Rname.isEmpty()||RendDate.isEmpty()||RstartDate.isEmpty())
         {
             if(Rname.isEmpty())
             {
@@ -229,15 +239,6 @@ public class fsdExam extends DialogFragment {
                 Log.d("EAH/FSD","Validation startDate");
                 endDate.setError("Required");
 
-            }
-            if(((RadioButton)rootview.findViewById(R.id.examRadio)).isChecked())
-            {
-                if(Rtype.isEmpty())
-                {
-                    Log.d("EAH/FSD","Validation startDate");
-                    endDate.setError("Required");
-
-                }
             }
             return false;
         }

@@ -14,11 +14,12 @@ public class Schedule {
     private String mEndTime;
     private String mLabel;
     private int mDay;
+    private String mSubjCode;
 
     public Schedule() {
     }
 
-
+    public String getSubjCode(){ return  mSubjCode;}
     public String getTask(){
         return mTask;
     }
@@ -65,5 +66,9 @@ public class Schedule {
 
     public void setDay(int day){
         mDay=day;
+    }
+    public void setSubjCode(String mSubjCode)
+    {
+        this.mSubjCode=mSubjCode;
     }
 }

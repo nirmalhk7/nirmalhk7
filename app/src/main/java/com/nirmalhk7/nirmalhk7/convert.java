@@ -65,7 +65,7 @@ public class convert {
         String result;
         String hh = normaltime.substring(0, normaltime.indexOf(':'));
         String mm = normaltime.substring(normaltime.indexOf(':') + 1, normaltime.indexOf(' '));
-        String day = normaltime.substring(normaltime.indexOf(' ') + 1, normaltime.length());
+        String day = normaltime.substring(normaltime.indexOf(' ') + 1);
 
         if (day.equals("PM")) {
             int h = Integer.parseInt(hh);

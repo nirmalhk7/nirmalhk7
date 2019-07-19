@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.nirmalhk7.nirmalhk7.R;
@@ -40,15 +41,23 @@ public class ScheduleAdapter extends ArrayAdapter<scheduleItem> {
         miwokTextView.setText(currentWord.getScheduleTitle());
 
         // Find the TextView in the list_item.xml layout with the ID default_text_view.
-        TextView defaultTextView = listItemView.findViewById(R.id.default_text_view);
+        if(!currentWord.getScheduleLabel().equals("College")){    TextView defaultTextView = listItemView.findViewById(R.id.default_text_view);
         // Get the default translation from the currentWord object and set this text on
         // the default TextView.
         defaultTextView.setText(currentWord.getScheduleLabel());
+    }
 
-        TextView defaultTime = listItemView.findViewById(R.id.default_time);
+        TextView startTime = listItemView.findViewById(R.id.start_time);
         // Get the default translation from the currentWord object and set this text on
         // the default TextView.
-        defaultTime.setText(currentWord.getmStartTime()+" - "+currentWord.getmEndTime());
+        startTime.setText(currentWord.getmStartTime());
+
+        TextView endTime= listItemView.findViewById(R.id.end_time);
+        endTime.setText(currentWord.getmEndTime());
+
+        TextView subjcode=listItemView.findViewById(R.id.fsd_subjabbr);
+        subjcode.setText(currentWord.getmSubjCode());
+
 
         TextView id=listItemView.findViewById(R.id.itemid);
         id.setText(String.valueOf(currentWord.getScheduleId()));

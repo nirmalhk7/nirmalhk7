@@ -78,8 +78,6 @@ public class Attendance extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView= inflater.inflate(R.layout.fragment_attendance, container, false);
-        View tbV= getLayoutInflater().inflate(R.layout.app_bar_main, null);
-
 
         ArrayList<attendanceItem> AttendanceItem = new ArrayList<attendanceItem>();
 
@@ -92,7 +90,7 @@ public class Attendance extends Fragment {
         // Find the {@link ListView} object in the view hierarchy of the {@link Activity}.
         // There should be a {@link ListView} with the view ID called list, which is declared in the
         // word_list.xml layout file.
-        ListView listView = (ListView) rootView.findViewById(R.id.list_item_attendance);
+        ListView listView = rootView.findViewById(R.id.list_item_attendance);
 
         // Make the {@link ListView} use the {@link attendanceAdapter} we created above, so that the
         // {@link ListView} will display list items for each {@link attendanceItem} in the list.
