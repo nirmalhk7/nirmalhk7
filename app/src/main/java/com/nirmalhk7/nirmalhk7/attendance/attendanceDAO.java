@@ -22,6 +22,9 @@ public interface attendanceDAO {
     @Query("SELECT * FROM attendanceEntity")
     List<attendanceEntity> getAllSubject();
 
+    @Query("SELECT * FROM attendanceEntity")
+    List<attendanceEntity> getSubjectNames();
+
     @Update
     void updateSubject(attendanceEntity subject);
 
