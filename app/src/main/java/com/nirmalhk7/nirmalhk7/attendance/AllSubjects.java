@@ -22,7 +22,9 @@ import android.widget.TextView;
 import com.leinardi.android.speeddial.SpeedDialActionItem;
 import com.leinardi.android.speeddial.SpeedDialView;
 import com.nirmalhk7.nirmalhk7.DBGateway;
+import com.nirmalhk7.nirmalhk7.MainActivity;
 import com.nirmalhk7.nirmalhk7.R;
+import com.nirmalhk7.nirmalhk7.academics.Academics;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -103,36 +105,15 @@ public class AllSubjects extends Fragment {
         ALSfetchDB(rootView);
 
         ListView listView = (ListView) rootView.findViewById(R.id.list_item_allsubjects);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent i=new Intent(getActivity(), SingleSubjectActivity.class);
-                Log.d("ATT/FSD","HLO");
-                i.putExtra("subj", "HELLO");
-                startActivity(i);
-            }
-        });
-
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                Att_FullScreenDialog newFragment = new Att_FullScreenDialog();
-
-                TextView subject=(rootView.findViewById(R.id.subjName_subject));
-                TextView present=rootView.findViewById(R.id.presentabsent_subject);
-                String prab=present.getText().toString();
-
-                Bundle b=new Bundle();
-
-                FragmentTransaction transaction = fragmentManager.beginTransaction();
-                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                transaction.add(android.R.id.content, newFragment).addToBackStack(null).commit();
+                Log.d("ATT/ALS","LongClick!");
+                Intent i=new Intent(getContext(),SingleSubjectActivity.class);
+                startActivity(i);
                 return false;
             }
         });
-
         SpeedDialView speedDialView =getActivity().findViewById(R.id.speedDial);
         speedDialView.setVisibility(View.VISIBLE);
         speedDialView.addActionItem(
@@ -210,7 +191,7 @@ public class AllSubjects extends Fragment {
     }
 
     void ALSfetchDB(View rootView){
-        DBGateway database2 = Room.databaseBuilder(getContext(), DBGateway.class, "mydbx")
+        DBGateway database2 = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
                 .allowMainThreadQueries().fallbackToDestructiveMigration()
                 .build();
 
@@ -223,8 +204,8 @@ public class AllSubjects extends Fragment {
         Log.d("ATT/ALS","Count"+attendance.size());
         
         for (attendanceEntity cn : attendance) {
-            Log.d("ATT/ALS", "Printing: Task "+cn.getSubject()+" Time "+cn.getPresent()+" Label "+cn.getAbsent());
-            SubjectItem.add(new attendanceItem(cn.getSubject(), cn.getPresent(),cn.getAbsent()));
+            Log.d("ATT/ALS", "Printing: Task "+cn.getSubject()+" P "+cn.getPresent()+" A "+cn.getAbsent());
+            SubjectItem.add(new attendanceItem(cn.getSubject(), cn.getPresent(),cn.getAbsent(),cn.getId()));
         }
 
 
