@@ -35,7 +35,7 @@
                 android:textColor="@android:color/white" />
 
             <LinearLayout
-                android:id="@+id/scheduleDialog"
+                android:id="@+id/attendanceDialog"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center">

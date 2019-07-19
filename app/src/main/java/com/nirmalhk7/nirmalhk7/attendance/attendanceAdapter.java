@@ -3,9 +3,12 @@ package com.nirmalhk7.nirmalhk7.attendance;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.nirmalhk7.nirmalhk7.DBGateway;
@@ -28,15 +32,17 @@ public class attendanceAdapter extends ArrayAdapter<attendanceItem> {
      * Resource ID for the background color for this list of words
      */
     private int kSubject;
-
+    private Context context;
     public attendanceAdapter(Context context, ArrayList<attendanceItem> AttendanceItem) {
         super(context, 0, AttendanceItem);
         kSubject=0;
+        this.context=context;
     }
 
     public attendanceAdapter(Context context, ArrayList<attendanceItem> SubjectItem, int key) {
         super(context, 0, SubjectItem);
         kSubject = key;
+        this.context=context;
     }
 
     @Override
@@ -52,7 +58,7 @@ public class attendanceAdapter extends ArrayAdapter<attendanceItem> {
             }
 
             // Get the {@link attendanceItem} object located at this position in the list
-            attendanceItem currentWord = getItem(position);
+            final attendanceItem currentWord = getItem(position);
 
             // Find the TextView in the list_item.xml layout with the ID miwok_text_view.
             TextView subjName_subj = (TextView) listItemView.findViewById(R.id.subjName_subject);
@@ -75,11 +81,34 @@ public class attendanceAdapter extends ArrayAdapter<attendanceItem> {
             // the default TextView.
             percent.setText("Percent: "+result+"%");
 
-            TextView id=listItemView.findViewById(R.id.attendance_id);
+            final TextView id=listItemView.findViewById(R.id.attendance_id);
             Log.d("XXXC",""+currentWord.getmId());
             id.setText(currentWord.getmId()+"");
 
             btnlistener(listItemView,Integer.parseInt(id.getText().toString()));
+            LinearLayout edit=listItemView.findViewById(R.id.editAttendance);
+            edit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Log.d("ATT/ATA","Clicked");
+                    AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                  /*  Att_FullScreenDialog newFragment = new Att_FullScreenDialog();
+                    FragmentTransaction transaction = fragmentManager.beginTransaction();
+                    transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                    transaction.add(android.R.id.content, newFragment).addToBackStack(null).commit();*/
+
+                    Att_FullScreenDialog newFragment = new Att_FullScreenDialog();
+                    Bundle bundle=new Bundle();
+                    bundle.putInt("key",currentWord.getmId());
+                    bundle.putInt("present",currentWord.getmPresent());
+                    bundle.putInt("absent",currentWord.getmAbsent());
+                    bundle.putString("subject",currentWord.getSubjName());
+                    newFragment.setArguments(bundle);
+                    activity.getSupportFragmentManager().beginTransaction().add(android.R.id.content, newFragment).addToBackStack(null).addToBackStack(null).commit();
+
+                }
+            });
         }
         else if(kSubject==2){
             if (listItemView == null) {
@@ -125,26 +154,27 @@ public class attendanceAdapter extends ArrayAdapter<attendanceItem> {
         return listItemView;
     }
 
-    void btnlistener(View listitemview,int id)
+    void btnlistener(View listitemview,final int id)
     {
         ImageButton p=listitemview.findViewById(R.id.present_btn);
         ImageButton a=listitemview.findViewById(R.id.absent_btn);
-        DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
-                .allowMainThreadQueries().fallbackToDestructiveMigration()
+        DBGateway database = Room.databaseBuilder(context, DBGateway.class, "finalDB")
+                .allowMainThreadQueries()
+                .fallbackToDestructiveMigration()
                 .build();
 
-        attendanceDAO attendanceDAO = database.getAttendanceDao();
+        final attendanceDAO attendanceDAO = database.getAttendanceDao();
         Log.d("ATT/ALS","ID "+id);
         //final attendanceEntity att=attendanceDAO.getSubjectbyId(id);
-        final attendanceEntity att=new attendanceEntity();
-        att.setSubject(att.getId()+" ELEMENT");
+        final attendanceEntity att=attendanceDAO.getSubjectbyId(id);
+
         Log.d("ATT/ALS","Recieved "+att.getSubject()+" "+att.getPresent()+" "+att.getAbsent());
         p.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int pr=att.getPresent();
                 att.setPresent(++pr);
-                Log.d("ATT/ALS","Subject Incremented P "+att.getPresent());
+                attendanceDAO.updateSubject(att);
             }
         });
         a.setOnClickListener(new View.OnClickListener() {
@@ -152,10 +182,11 @@ public class attendanceAdapter extends ArrayAdapter<attendanceItem> {
             public void onClick(View v) {
                 int ab=att.getAbsent();
                 att.setAbsent(++ab);
-                Log.d("ATT/ALS","Subject Incremented A "+att.getAbsent());
+                attendanceDAO.updateSubject(att);
             }
         });
-        //attendanceDAO.updateSubject(att);
-        attendanceDAO.insertOnlySingleSubject(att);
+
+
+
     }
 }

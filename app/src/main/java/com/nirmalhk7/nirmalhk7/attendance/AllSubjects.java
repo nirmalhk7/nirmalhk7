@@ -22,7 +22,9 @@ import android.widget.TextView;
 import com.leinardi.android.speeddial.SpeedDialActionItem;
 import com.leinardi.android.speeddial.SpeedDialView;
 import com.nirmalhk7.nirmalhk7.DBGateway;
+import com.nirmalhk7.nirmalhk7.MainActivity;
 import com.nirmalhk7.nirmalhk7.R;
+import com.nirmalhk7.nirmalhk7.academics.Academics;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -103,16 +105,15 @@ public class AllSubjects extends Fragment {
         ALSfetchDB(rootView);
 
         ListView listView = (ListView) rootView.findViewById(R.id.list_item_allsubjects);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent i=new Intent(getActivity(), SingleSubjectActivity.class);
-                Log.d("ATT/FSD","HLO");
-                i.putExtra("subj", "HELLO");
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("ATT/ALS","LongClick!");
+                Intent i=new Intent(getContext(),SingleSubjectActivity.class);
                 startActivity(i);
+                return false;
             }
         });
-
         SpeedDialView speedDialView =getActivity().findViewById(R.id.speedDial);
         speedDialView.setVisibility(View.VISIBLE);
         speedDialView.addActionItem(

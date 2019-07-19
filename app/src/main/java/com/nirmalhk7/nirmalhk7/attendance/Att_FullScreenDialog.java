@@ -6,6 +6,7 @@ import android.app.TimePickerDialog;
 import android.arch.persistence.room.Room;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.text.Editable;
@@ -18,8 +19,11 @@ import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
@@ -42,14 +46,8 @@ public class Att_FullScreenDialog extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.attendance_fullscreen, container, false);
-        Bundle bundle = this.getArguments();
+
         //If editing
-        if (bundle != null) {
-
-
-        }
-
-
         DBGateway database1 = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
                 .allowMainThreadQueries().fallbackToDestructiveMigration()
                 .build();
@@ -61,6 +59,41 @@ public class Att_FullScreenDialog extends DialogFragment {
                 .build();
 
         final attendanceDAO attendanceDAO = database2.getAttendanceDao();
+        final Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            final int dbNo=bundle.getInt("key");
+            Log.d("ATT/FSD","Bundle Passed: "+dbNo);
+            EditText Present = rootView.findViewById(R.id.present_fsd);
+            Present.setText(bundle.getInt("present")+"");
+            EditText Absent = rootView.findViewById(R.id.absent_fsd);
+            Absent.setText(bundle.getInt("absent")+"");
+            AppCompatAutoCompleteTextView autoTextView=
+                    rootView.findViewById(R.id.attendance_task);
+            autoTextView.setText(bundle.getString("subject")+"");
+            ImageView trash = new ImageView(getContext());
+            trash.setImageResource(R.drawable.ic_trash);
+            trash.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            int pxstd = getContext().getResources().getDimensionPixelSize(R.dimen.standard_dimen);
+            trash.setPadding(pxstd, 0, pxstd, 0);
+            LinearLayout topIcons = rootView.findViewById(R.id.attendanceDialog);
+            topIcons.addView(trash);
+            trash.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.d("DAS/FullDialog", "Delete Button");
+                    DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
+                            .allowMainThreadQueries().fallbackToDestructiveMigration()
+                            .build();
+                    attendanceDAO attDAO=database.getAttendanceDao();
+                    attDAO.deleteSchedule(attDAO.getSubjectbyId(dbNo));
+                    dismiss();
+                }
+            });
+
+        }
+
+
+
 
 
         List<Schedule> schedules = scheduleDAO.getSubjects("College");
@@ -91,7 +124,6 @@ public class Att_FullScreenDialog extends DialogFragment {
         (rootView.findViewById(R.id.button_close)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 dismiss();
             }
         });
@@ -104,22 +136,44 @@ public class Att_FullScreenDialog extends DialogFragment {
             public void onClick(View v) {
                 if (Validation(rootView)) {
 
-                    String subj = autoTextView.getText().toString();
-                    try {
-                        int present = Integer.valueOf(Present.getText().toString());
-                        int absent = Integer.valueOf(Absent.getText().toString());
-                        attendanceEntity x = new attendanceEntity();
-                        x.setSubject(subj);
-                        x.setPresent(present);
-                        x.setAbsent(absent);
-                        attendanceDAO.insertOnlySingleSubject(x);
-                        Log.d("ATT/FSD", "Saving data!" + x.getSubject() + x.getPresent() + x.getAbsent());
-                        dismiss();
-                    } catch (NumberFormatException ex) { // handle your exception
-                        Log.d("ATT/FSD", "java.lang.NumberFormatException");
+                    if(bundle==null)
+                    {
+                        String subj = autoTextView.getText().toString();
+                        try {
+                            int present = Integer.valueOf(Present.getText().toString());
+                            int absent = Integer.valueOf(Absent.getText().toString());
+                            attendanceEntity x = new attendanceEntity();
+                            x.setSubject(subj);
+                            x.setPresent(present);
+                            x.setAbsent(absent);
+                            attendanceDAO.insertOnlySingleSubject(x);
+                            Log.d("ATT/FSD", "Saving data!" + x.getSubject() + x.getPresent() + x.getAbsent());
+                            dismiss();
+                        } catch (NumberFormatException ex) { // handle your exception
+                            Log.d("ATT/FSD", "java.lang.NumberFormatException");
+                        }
+                    }
+                    //Editing Attendance Entry
+                    else
+                    {
+                        String subj = autoTextView.getText().toString();
+                        try {
+                            int present = Integer.valueOf(Present.getText().toString());
+                            int absent = Integer.valueOf(Absent.getText().toString());
+                            attendanceEntity x = attendanceDAO.getSubjectbyId(bundle.getInt("key"));
+                            x.setSubject(subj);
+                            x.setPresent(present);
+                            x.setAbsent(absent);
+                            attendanceDAO.updateSubject(x);
+                            Toast.makeText(getActivity(), "Refresh to Update",
+                                    Toast.LENGTH_LONG).show();
+                            Log.d("ATT/FSD", "Editing data!" + x.getSubject() + x.getPresent() + x.getAbsent());
+                            dismiss();
+                        } catch (NumberFormatException ex) { // handle your exception
+                            Log.d("ATT/FSD", "java.lang.NumberFormatException");
+                        }
                     }
                 }
-
             }
         });
         return rootView;
@@ -172,7 +226,7 @@ public class Att_FullScreenDialog extends DialogFragment {
                 try {
                     int p = Integer.parseInt(s.toString());
                     int a = Integer.parseInt(ab.getText().toString());
-                    Total.setText("Count: " + Integer.toString(p + a));
+                    Total.setText("Total Classes: " + Integer.toString(p + a));
                     Log.d("ATT/FSD", "TotalTV " + Total.getText());
 
                 } catch (NumberFormatException e) {
@@ -197,7 +251,7 @@ public class Att_FullScreenDialog extends DialogFragment {
                 try {
                     int a = Integer.parseInt(s.toString());
                     int p = Integer.parseInt(pr.getText().toString());
-                    Total.setText("Count: " + Integer.toString(p + a));
+                    Total.setText("Total Classes: " + Integer.toString(p + a));
                     Log.d("ATT/FSD", "TotalTV " + Total.getText());
 
                 } catch (NumberFormatException e) {
