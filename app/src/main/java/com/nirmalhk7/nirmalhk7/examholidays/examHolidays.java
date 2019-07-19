@@ -15,12 +15,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.leinardi.android.speeddial.SpeedDialActionItem;
 import com.leinardi.android.speeddial.SpeedDialView;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
+import com.nirmalhk7.nirmalhk7.convert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,7 +83,7 @@ public class examHolidays extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView= inflater.inflate(R.layout.fragment_exam_holidays, container, false);
+        final View rootView= inflater.inflate(R.layout.fragment_exam_holidays, container, false);
 
         EAHfetchDB(rootView);
         DSLonRefresh(rootView);
@@ -92,15 +95,25 @@ public class examHolidays extends Fragment {
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("EXH","Long Click!");
+                Log.d("EAH/EAH","Long Click!");
+                Bundle bundle=new Bundle();
+                bundle.putInt("key",1);
+
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fsdExam newFragment = new fsdExam();
+                newFragment.setArguments(bundle);
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                transaction.add(android.R.id.content, newFragment).addToBackStack(null).commit();
                 return false;
             }
         });
         SpeedDialView speed=getActivity().findViewById(R.id.speedDial);
         speed.show();
+        speed.clearActionItems();
         speed.addActionItem(
                 new SpeedDialActionItem.Builder(R.id.content, R.drawable.ic_examholidays)
-                        .setLabel("Add Subject")
+                        .setLabel("Add Exam/Holiday")
                         .setLabelColor(Color.WHITE)
                         .setLabelBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.colorLightDark, getActivity().getTheme()))
                         .create()
@@ -180,6 +193,8 @@ public class examHolidays extends Fragment {
         // word_list.xml layout file.
         ListView listView = rootView.findViewById(R.id.list_item_examholiday);
         listView.setAdapter(adapter);
+
+
     }
     SwipeRefreshLayout pullToRefresh;
     public void DSLonRefresh(final View rootview){
@@ -197,4 +212,5 @@ public class examHolidays extends Fragment {
             }
         });
     }
+
 }

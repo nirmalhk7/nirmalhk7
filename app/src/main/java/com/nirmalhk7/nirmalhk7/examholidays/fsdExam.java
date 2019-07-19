@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -89,33 +90,12 @@ public class fsdExam extends DialogFragment {
             @Override
             public void onClick(View v) {
 
-                EditText name=rootView.findViewById(R.id.examHoliday_name);
-                EditText startdate=rootView.findViewById(R.id.examHoliday_startDate);
-                EditText enddate=rootView.findViewById(R.id.examHoliday_endDate);
-                EditText type=rootView.findViewById(R.id.examHoliday_type);
-                EditText desc=rootView.findViewById(R.id.examHoliday_description);
-                RadioButton exam=rootView.findViewById(R.id.examRadio);
-                
-                DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "mydbz")
-                        .allowMainThreadQueries().fallbackToDestructiveMigration()
-                        .build();
-
-                ehDAO EHDAO = database.getEHDAO();
-                
-                ehEntity entity=new ehEntity();
-                entity.setmName(name.getText().toString());
-                entity.setmDateStart(startdate.getText().toString());
-                entity.setmDateEnd(enddate.getText().toString());
-                entity.setmType(type.getText().toString());
-                entity.setmDescription(desc.getText().toString());
-                if(exam.isChecked()){
-                    entity.setHolexa(1);
+                if(Validation(rootView))
+                {
+                   Log.d("EAH/FSD","Validation Successful");
+                    saveDialog(rootView);
                 }
-                else{
-                    entity.setHolexa(2);
-                }
-                EHDAO.insertOnlySingleMovie(entity);
-                dismiss();
+                Log.d("EAH/FSD","Validation Unsuccessful");
             }
         });
 
@@ -127,6 +107,36 @@ public class fsdExam extends DialogFragment {
         return rootView;
     }
 
+    void saveDialog(View view)
+    {
+        EditText name=rootView.findViewById(R.id.examHoliday_name);
+        EditText startdate=rootView.findViewById(R.id.examHoliday_startDate);
+        EditText enddate=rootView.findViewById(R.id.examHoliday_endDate);
+        EditText type=rootView.findViewById(R.id.examHoliday_type);
+        EditText desc=rootView.findViewById(R.id.examHoliday_description);
+        RadioButton exam=rootView.findViewById(R.id.examRadio);
+
+        DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "mydbz")
+                .allowMainThreadQueries().fallbackToDestructiveMigration()
+                .build();
+
+        ehDAO EHDAO = database.getEHDAO();
+
+        ehEntity entity=new ehEntity();
+        entity.setmName(name.getText().toString());
+        entity.setmDateStart(startdate.getText().toString());
+        entity.setmDateEnd(enddate.getText().toString());
+        entity.setmType(type.getText().toString());
+        entity.setmDescription(desc.getText().toString());
+        if(exam.isChecked()){
+            entity.setHolexa(1);
+        }
+        else{
+            entity.setHolexa(2);
+        }
+        EHDAO.insertOnlySingleMovie(entity);
+        dismiss();
+    }
     void datelistener(final EditText startdate,final EditText enddate,final int i){
         EditText date=new EditText(getContext());
         if(i==1)
@@ -144,8 +154,7 @@ public class fsdExam extends DialogFragment {
                 mYear = c.get(Calendar.YEAR);
                 mMonth = c.get(Calendar.MONTH);
                 mDay = c.get(Calendar.DAY_OF_MONTH);
-
-
+                final Calendar date=Calendar.getInstance();
                 DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), AlertDialog.THEME_DEVICE_DEFAULT_DARK,
                         new DatePickerDialog.OnDateSetListener() {
 
@@ -162,18 +171,23 @@ public class fsdExam extends DialogFragment {
                                 {
                                     enddate.setText(dayOfMonth + "." + (monthOfYear + 1) + "." + year);
                                 }
+                                date.set(dayOfMonth,(monthOfYear + 1), year);
 
                             }
                         }, mYear, mMonth, mDay);
 
                 datePickerDialog.show();
-                datePickerDialog.getDatePicker().setMinDate(Calendar.getInstance().getTimeInMillis());
+
+
                 if(i==1)
                 {
                     datePickerDialog.setTitle("Start Date");
+                    datePickerDialog.getDatePicker().setMinDate(Calendar.getInstance().getTimeInMillis());
                 }
                 else{
                     datePickerDialog.setTitle("End Date");
+
+                    datePickerDialog.getDatePicker().setMinDate(Calendar.getInstance().getTimeInMillis());
                 }
 
             }
@@ -185,6 +199,52 @@ public class fsdExam extends DialogFragment {
         Dialog dialog = super.onCreateDialog(savedInstanceState);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         return dialog;
+    }
+
+    public boolean Validation(View rootview){
+        EditText name=rootview.findViewById(R.id.examHoliday_name);
+        EditText type=rootview.findViewById(R.id.examHoliday_type);
+        EditText endDate=rootview.findViewById(R.id.examHoliday_endDate);
+        EditText startDate=rootview.findViewById(R.id.examHoliday_startDate);
+        String Rname=name.getText().toString(),
+                Rtype=type.getText().toString(),
+                RendDate=endDate.getText().toString(),
+                RstartDate=startDate.getText().toString();
+        
+        rootview.findViewById(R.id.examHoliday_startDate);
+        if(((RadioButton)rootview.findViewById(R.id.examRadio)).isChecked())
+        {
+            if(Rtype.isEmpty())
+            {
+                Log.d("EAH/FSD","Validation startDate");
+                endDate.setError("Required");
+                return false;
+            }
+        }
+        if(Rname.isEmpty()||RendDate.isEmpty()||RstartDate.isEmpty())
+        {
+            if(Rname.isEmpty())
+            {
+                Log.d("EAH/FSD","Validation Name");
+                name.setError("Required");
+            }
+            if(RendDate.isEmpty())
+            {
+                Log.d("EAH/FSD","Validation endDate");
+                endDate.setError("Required");
+
+            }
+            if(RstartDate.isEmpty())
+            {
+                Log.d("EAH/FSD","Validation startDate");
+                endDate.setError("Required");
+
+            }
+            return false;
+        }
+
+        return true;
+
     }
 
 }
