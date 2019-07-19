@@ -37,7 +37,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import static com.nirmalhk7.nirmalhk7.dailyscheduler.DailyScheduleList.GTD;
 
 public class FullScreenDialog extends DialogFragment {
     public int key;

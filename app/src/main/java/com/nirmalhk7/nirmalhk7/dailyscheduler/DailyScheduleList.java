@@ -54,17 +54,14 @@ public class DailyScheduleList extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private static int mday;
 
-    public static int GTD() {
-        return mday;
-    }
-
+   
+    
+    private Bundle bundle;
     public String scheduleTitle;
     public String scheduleLabel;
     public String scheduleTime;
     private OnFragmentInteractionListener mListener;
-
 
     public DailyScheduleList() {
         // Required empty public constructor
@@ -80,6 +77,7 @@ public class DailyScheduleList extends Fragment {
      * @return A new instance of fragment DailyScheduleList.
      */
     // TODO: Rename and change types and number of parameters
+    
     public static DailyScheduleList newInstance(String param1, String param2) {
         DailyScheduleList fragment = new DailyScheduleList();
         Bundle args = new Bundle();
@@ -98,16 +96,14 @@ public class DailyScheduleList extends Fragment {
         }
     }
 
-    private Bundle bundle;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_daily_schedule_list, container, false);
-
-        bundle = this.getArguments();
-        Log.d("DAS/DS/XT",bundle.get("day")+"");
+        bundle=this.getArguments();
+        Log.d("DAS/DSL/","Position "+bundle.getInt("key"));
         SpeedDialView speedDialView = getActivity().findViewById(R.id.speedDial);
         speedDialView.setVisibility(View.VISIBLE);
         speedDialView.clearActionItems();
@@ -130,19 +126,18 @@ public class DailyScheduleList extends Fragment {
                 Log.d("xxx", "yyy");
             }
         });
-
-        DSLfetchDB(view,mday);
+        DSLfetchDB(view,bundle.getInt("key"));
 
         DSLonRefresh(view);
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
-                DSLfetchDB(view,i);
+
             }
 
             @Override
             public void onPageSelected(int i) {
-                DSLfetchDB(view,i);
+
             }
 
             @Override
@@ -176,7 +171,7 @@ public class DailyScheduleList extends Fragment {
                 args.putString("label", label.getText().toString());
                 args.putString("starttime", starttime.getText().toString());
                 args.putString("endtime", endTime.getText().toString());
-                args.putInt("day", mday);
+                args.putInt("day", bundle.getInt("key"));
 
                 Log.d("DS", "PSN:" + Integer.toString(position));
                 newFragment.setArguments(args);
@@ -275,8 +270,8 @@ public class DailyScheduleList extends Fragment {
                     .build();
 
             scheduleDAO scheduleDAO = database.getScheduleDao();
-            Log.d("DAS/DS/X", "xx" + mday);
-            List<Schedule> schedules = scheduleDAO.getScheduleByDay(r);
+            Log.d("DAS/DS/X", "xx" + bundle.getInt("key"));
+            List<Schedule> schedules = scheduleDAO.getScheduleByDay(bundle.getInt("key"));
             for (Schedule cn : schedules) {
 
                 Log.d("DAS/DSL", "Printing: Task " + cn.getTask() + " Time " + cn.getStartTime() + cn.getEndTime() + " Label " + cn.getLabel());
@@ -308,8 +303,9 @@ public class DailyScheduleList extends Fragment {
             @Override
             public void onRefresh() {
                 //Here you can update your data from internet or from local SQLite data
-                Log.d("DAS/DSL", "Refreshing");
-                DSLfetchDB(v,mday);
+                Log.d("DAS/DSL", "Refreshing for page "+bundle.getInt("key"));
+                DSLfetchDB(v,bundle.getInt("key"));
+                DSLfetchDB(v,bundle.getInt("key"));
                 pullToRefresh.setRefreshing(false);
             }
         });

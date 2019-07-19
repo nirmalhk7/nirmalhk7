@@ -15,13 +15,11 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-
-            Bundle bundle=new Bundle();
-            Log.d("DAS/VPA",position+" ");
-            bundle.putInt("day",position);
-
             DailyScheduleList dsl=new DailyScheduleList();
-            dsl.setArguments(bundle);
+            Bundle b=new Bundle();
+            b.putInt("key",position);
+            Log.d("DAS/DS","Swipe Registered: "+position);
+            dsl.setArguments(b);
             return dsl;
 
     }

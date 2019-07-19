@@ -12,9 +12,6 @@ public class TabAdapter extends FragmentStatePagerAdapter {
     }
     @Override    public Fragment getItem(int position) {
         DailyScheduleList x=new DailyScheduleList();
-        Bundle b=new Bundle();
-        b.putInt("dayofWeek",position);
-        x.setArguments(b);
         return x;
     }
 

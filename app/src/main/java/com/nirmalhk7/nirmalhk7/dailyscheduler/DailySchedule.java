@@ -86,7 +86,6 @@ public class DailySchedule extends Fragment {
         }
     }
     public static ViewPager viewPager;
-    public static int tabPosition;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -95,7 +94,7 @@ public class DailySchedule extends Fragment {
 
         viewPager = view.findViewById(R.id.view_pager);
         viewPager.setAdapter(new ViewPagerAdapter(getActivity().getSupportFragmentManager()));
-        viewPager.setOffscreenPageLimit(3);
+        viewPager.setOffscreenPageLimit(7);
 
         TabLayout tabLayout = view.findViewById(R.id.tablayout);
         tabLayout.setupWithViewPager(viewPager);
@@ -107,9 +106,6 @@ public class DailySchedule extends Fragment {
         int day = calendar.get(Calendar.DAY_OF_WEEK);
 
         switch (day) {
-            case Calendar.SUNDAY:
-                viewPager.setCurrentItem(6);
-                break;
             case Calendar.MONDAY:
                 viewPager.setCurrentItem(0);
                 break;
@@ -132,25 +128,12 @@ public class DailySchedule extends Fragment {
             case Calendar.SATURDAY:
                 viewPager.setCurrentItem(5);
                 break;
+            case Calendar.SUNDAY:
+                viewPager.setCurrentItem(6);
+                break;
         }
 
-        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int i, float v, int i1) {
 
-            }
-
-            @Override
-            public void onPageSelected(int i) {
-                Log.d("DAS/DS/",i+"");
-                tabPosition=i;
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int i) {
-                Log.d("XXDX",i+"");
-            }
-        });
         return view;
 
     }
