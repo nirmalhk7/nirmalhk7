@@ -93,8 +93,9 @@ public class DailySchedule extends Fragment {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_daily_schedule, container, false);
 
-        ViewPager viewPager = view.findViewById(R.id.view_pager);
+        viewPager = view.findViewById(R.id.view_pager);
         viewPager.setAdapter(new ViewPagerAdapter(getActivity().getSupportFragmentManager()));
+        viewPager.setOffscreenPageLimit(3);
 
         TabLayout tabLayout = view.findViewById(R.id.tablayout);
         tabLayout.setupWithViewPager(viewPager);
@@ -141,7 +142,8 @@ public class DailySchedule extends Fragment {
 
             @Override
             public void onPageSelected(int i) {
-
+                Log.d("DAS/DS/",i+"");
+                tabPosition=i;
             }
 
             @Override

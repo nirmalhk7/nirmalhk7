@@ -5,25 +5,24 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.util.Log;
 import android.view.ViewGroup;
 
-public class ViewPagerAdapter extends FragmentPagerAdapter {
+public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     public ViewPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 
     @Override
     public Fragment getItem(int position) {
-        if(position<7)
-        {
+
             Bundle bundle=new Bundle();
+            Log.d("DAS/VPA",position+" ");
             bundle.putInt("day",position);
 
             DailyScheduleList dsl=new DailyScheduleList();
             dsl.setArguments(bundle);
             return dsl;
-        }
-        return null;
 
     }
 

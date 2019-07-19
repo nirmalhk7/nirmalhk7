@@ -14,6 +14,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,6 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.app.Notification.VISIBILITY_PUBLIC;
+import static com.nirmalhk7.nirmalhk7.dailyscheduler.DailySchedule.viewPager;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -53,7 +55,8 @@ public class DailyScheduleList extends Fragment {
     private String mParam1;
     private String mParam2;
     private static int mday;
-    public static int GTD(){
+
+    public static int GTD() {
         return mday;
     }
 
@@ -61,7 +64,6 @@ public class DailyScheduleList extends Fragment {
     public String scheduleLabel;
     public String scheduleTime;
     private OnFragmentInteractionListener mListener;
-
 
 
     public DailyScheduleList() {
@@ -96,19 +98,16 @@ public class DailyScheduleList extends Fragment {
         }
     }
 
+    private Bundle bundle;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_daily_schedule_list, container, false);
+        final View view = inflater.inflate(R.layout.fragment_daily_schedule_list, container, false);
 
-        Bundle bundle=this.getArguments();
-        if(bundle!=null)
-        {
-            mday=bundle.getInt("day");
-            Log.d("DAS/DSL/","Bundle!:"+mday);
-        }
+        bundle = this.getArguments();
+        Log.d("DAS/DS/XT",bundle.get("day")+"");
         SpeedDialView speedDialView = getActivity().findViewById(R.id.speedDial);
         speedDialView.setVisibility(View.VISIBLE);
         speedDialView.clearActionItems();
@@ -128,18 +127,29 @@ public class DailyScheduleList extends Fragment {
 
             @Override
             public void onToggleChanged(boolean isOpen) {
-                Log.d("xxx","yyy");
+                Log.d("xxx", "yyy");
             }
         });
-        Log.d("DAS/DSL/Ta", "Tab " + DailySchedule.tabPosition);
 
-
-        // Inserting Schedules
-        Log.d("Insert: ", "Inserting ..");
-        DSLfetchDB(view);
+        DSLfetchDB(view,mday);
 
         DSLonRefresh(view);
+        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+                DSLfetchDB(view,i);
+            }
 
+            @Override
+            public void onPageSelected(int i) {
+                DSLfetchDB(view,i);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });
         final ListView singleSchedule = view.findViewById(R.id.list_item);
         singleSchedule.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -150,10 +160,9 @@ public class DailyScheduleList extends Fragment {
                 TextView label = view.findViewById(R.id.default_text_view);
                 TextView starttime = view.findViewById(R.id.start_time);
                 TextView endTime = view.findViewById(R.id.end_time);
-                TextView idx=view.findViewById(R.id.itemid);
+                TextView idx = view.findViewById(R.id.itemid);
 
-                Log.d("CONVERTX",endTime+"-"+starttime);
-
+                Log.d("CONVERTX", endTime + "-" + starttime);
 
 
                 FullScreenDialog newFragment = new FullScreenDialog();
@@ -166,8 +175,8 @@ public class DailyScheduleList extends Fragment {
                 args.putString("title", title.getText().toString());
                 args.putString("label", label.getText().toString());
                 args.putString("starttime", starttime.getText().toString());
-                args.putString("endtime",endTime.getText().toString());
-                args.putInt("day",mday);
+                args.putString("endtime", endTime.getText().toString());
+                args.putInt("day", mday);
 
                 Log.d("DS", "PSN:" + Integer.toString(position));
                 newFragment.setArguments(args);
@@ -253,52 +262,54 @@ public class DailyScheduleList extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    public void DSLfetchDB(View view)
-    {
+    public void DSLfetchDB(View view,int r) {
 
-        // Reading all contacts
-        Log.d("Reading: ", "Reading all contacts..");
 
-        ArrayList<scheduleItem> sch = new ArrayList<scheduleItem>();
+            // Reading all contacts
+            Log.d("Reading: ", "Reading all contacts..");
 
-        DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
-                .allowMainThreadQueries().fallbackToDestructiveMigration()
-                .build();
+            ArrayList<scheduleItem> sch = new ArrayList<scheduleItem>();
 
-        scheduleDAO scheduleDAO = database.getScheduleDao();
-        Log.d("DAS/DSL/Tabs","xx"+mday);
-        List<Schedule> schedules = scheduleDAO.getScheduleByDay(mday);
-        for (Schedule cn : schedules) {
+            DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
+                    .allowMainThreadQueries().fallbackToDestructiveMigration()
+                    .build();
 
-            Log.d("DAS/DSL", "Printing: Task "+cn.getTask()+" Time "+cn.getStartTime()+cn.getEndTime()+" Label "+cn.getLabel());
-            sch.add(new scheduleItem(cn.getTask(), convert.railtonormal(cn.getStartTime()),convert.railtonormal(cn.getEndTime()),cn.getSubjCode(),cn.getLabel(),cn.getId(),cn.getDay()));
+            scheduleDAO scheduleDAO = database.getScheduleDao();
+            Log.d("DAS/DS/X", "xx" + mday);
+            List<Schedule> schedules = scheduleDAO.getScheduleByDay(r);
+            for (Schedule cn : schedules) {
+
+                Log.d("DAS/DSL", "Printing: Task " + cn.getTask() + " Time " + cn.getStartTime() + cn.getEndTime() + " Label " + cn.getLabel());
+                sch.add(new scheduleItem(cn.getTask(), convert.railtonormal(cn.getStartTime()), convert.railtonormal(cn.getEndTime()), cn.getSubjCode(), cn.getLabel(), cn.getId(), cn.getDay()));
+            }
+
+            ScheduleAdapter adapter = new ScheduleAdapter(getContext(), sch);
+
+            // Find the {@link ListView} object in the view hierarchy of the {@link Activity}.
+            // There should be a {@link ListView} with the view ID called list, which is declared in the
+            // word_list.xml layout file.
+            ListView listView = view.findViewById(R.id.list_item);
+
+            // Make the {@link ListView} use the {@link ScheduleAdapter} we created above, so that the
+            // {@link ListView} will display list schedules for each {@link scheduleSchedule} in the list.
+            listView.setAdapter(adapter);
+
         }
 
-        ScheduleAdapter adapter = new ScheduleAdapter(getContext(), sch);
-
-        // Find the {@link ListView} object in the view hierarchy of the {@link Activity}.
-        // There should be a {@link ListView} with the view ID called list, which is declared in the
-        // word_list.xml layout file.
-        ListView listView = view.findViewById(R.id.list_item);
-
-        // Make the {@link ListView} use the {@link ScheduleAdapter} we created above, so that the
-        // {@link ListView} will display list schedules for each {@link scheduleSchedule} in the list.
-        listView.setAdapter(adapter);
-
-    }
     SwipeRefreshLayout pullToRefresh;
     ArrayAdapter adapter;
-    public void DSLonRefresh(View rootview){
+
+    public void DSLonRefresh(View rootview) {
         pullToRefresh = rootview.findViewById(R.id.pullToRefresh);
-        final View v=rootview;
+        final View v = rootview;
         pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             int Refreshcounter = 1; //Counting how many times user have refreshed the layout
 
             @Override
             public void onRefresh() {
                 //Here you can update your data from internet or from local SQLite data
-                Log.d("DAS/DSL","Refreshing");
-                DSLfetchDB(v);
+                Log.d("DAS/DSL", "Refreshing");
+                DSLfetchDB(v,mday);
                 pullToRefresh.setRefreshing(false);
             }
         });
