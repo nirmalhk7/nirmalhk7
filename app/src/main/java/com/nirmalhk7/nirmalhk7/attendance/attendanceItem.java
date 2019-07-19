@@ -8,18 +8,19 @@ public class attendanceItem {
     /** Miwok translation for the word */
     private String mSubjDate;
     private String  mSubjTime;
-
+private int mid;
     private int mPresent;
     private int mAbsent;
     private int mCancelled;
 
 
 
-    public attendanceItem(String subjName,int presentCt,int absentCt)
+    public attendanceItem(String subjName,int presentCt,int absentCt,int id)
     {
         mSubjName=subjName;
         mPresent=presentCt;
         mAbsent=absentCt;
+        mid=id;
     }
     /**
      * Get the default translation of the word.
@@ -34,6 +35,7 @@ public class attendanceItem {
     public String getmSubjDate() {
         return mSubjDate;
     }
+
     public String getmSubjTime(){   return mSubjTime;}
     public int getmPresent(){
         return mPresent;
@@ -41,5 +43,5 @@ public class attendanceItem {
     public int getmAbsent(){
         return mAbsent;
     }
-
+    public int getmId(){return mid;}
 }

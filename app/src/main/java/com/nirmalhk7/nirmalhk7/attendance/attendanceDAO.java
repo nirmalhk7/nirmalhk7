@@ -22,8 +22,14 @@ public interface attendanceDAO {
     @Query("SELECT * FROM attendanceEntity")
     List<attendanceEntity> getAllSubject();
 
+    @Query("SELECT * FROM attendanceEntity")
+    List<attendanceEntity> getSubjectNames();
+
     @Update
-    void updateMovie(attendanceEntity movies);
+    void updateSubject(attendanceEntity subject);
+
+    @Query("SELECT * FROM attendanceEntity WHERE id=:mId")
+    attendanceEntity getSubjectbyId(int mId);
 
     @Delete
     void deleteSchedule(attendanceEntity schedule);

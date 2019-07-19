@@ -28,6 +28,9 @@ import android.widget.TimePicker;
 
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
+import com.nirmalhk7.nirmalhk7.attendance.attendanceDAO;
+import com.nirmalhk7.nirmalhk7.attendance.attendanceEntity;
+import com.nirmalhk7.nirmalhk7.attendance.attendanceItem;
 import com.nirmalhk7.nirmalhk7.convert;
 
 import java.util.ArrayList;
@@ -151,14 +154,23 @@ public class FullScreenDialog extends DialogFragment {
                 .build();
 
         scheduleDAO scheduleDAO = database.getScheduleDao();
+        attendanceDAO attendanceDAO=database.getAttendanceDao();
 
         List<Schedule> x = scheduleDAO.getSubjects("College");
-        String[] subject = new String[x.size()];
+
+        List<attendanceEntity> z = attendanceDAO.getSubjectNames();
+        String[] subject = new String[x.size()+z.size()];
         int i = 0;
 
         for (Schedule cn : x) {
             subject[i] = cn.getTask();
-            Log.d("ATT/FSD/", subject[i]);
+            Log.d("ATT/FSD/", "Local "+subject[i]);
+            ++i;
+        }
+        for (attendanceEntity cn: z)
+        {
+            subject[i]=cn.getSubject();
+            Log.d("ATT/FSD/","From Attendance: "+subject[i]);
             ++i;
         }
         final AppCompatAutoCompleteTextView autoTextView;
