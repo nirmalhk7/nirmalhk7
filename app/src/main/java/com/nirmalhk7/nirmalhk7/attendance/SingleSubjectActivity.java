@@ -17,7 +17,6 @@ public class SingleSubjectActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_subject);
 
-
         Intent mIntent = getIntent();
         subjName= mIntent.getStringExtra("subj");
         Log.d("SSA/ATT",subjName);

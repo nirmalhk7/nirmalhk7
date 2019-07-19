@@ -200,11 +200,19 @@
             </RadioGroup>
 
             <android.support.v7.widget.AppCompatAutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Subject Code"
+                android:id="@+id/subjCode"
+                android:inputType="textCapCharacters"
+                android:textColor="@color/colorFontDark"
+                android:textColorHint="@color/colorFontHintDark"/>
+            <android.support.v7.widget.AppCompatAutoCompleteTextView
                 android:id="@+id/taskName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Task Name"
-                android:inputType="textCapSentences"
+                android:inputType="textCapWords"
                 android:textColor="@color/colorFontDark"
                android:textColorHint="@color/colorFontHintDark" />
 
@@ -217,6 +225,7 @@
                 android:inputType="textCapSentences"
                 android:textColor="@color/colorFontDark"
                android:textColorHint="@color/colorFontHintDark" />
+
 
 
 

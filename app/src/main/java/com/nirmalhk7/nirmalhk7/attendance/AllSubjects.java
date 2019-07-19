@@ -104,7 +104,7 @@ public class AllSubjects extends Fragment {
 
         ALSfetchDB(rootView);
 
-        ListView listView = (ListView) rootView.findViewById(R.id.list_item_allsubjects);
+        ListView listView = rootView.findViewById(R.id.list_item_allsubjects);
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -116,6 +116,17 @@ public class AllSubjects extends Fragment {
         });
         SpeedDialView speedDialView =getActivity().findViewById(R.id.speedDial);
         speedDialView.setVisibility(View.VISIBLE);
+        speedDialView.setOnChangeListener(new SpeedDialView.OnChangeListener() {
+            @Override
+            public boolean onMainActionSelected() {
+                return false;
+            }
+
+            @Override
+            public void onToggleChanged(boolean isOpen) {
+
+            }
+        });
         speedDialView.addActionItem(
                 new SpeedDialActionItem.Builder(R.id.content, R.drawable.ic_examholidays)
                         .setLabel("Add Subject")
@@ -218,7 +229,7 @@ public class AllSubjects extends Fragment {
         // Find the {@link ListView} object in the view hierarchy of the {@link Activity}.
         // There should be a {@link ListView} with the view ID called list, which is declared in the
         // word_list.xml layout file.
-        ListView listView = (ListView) rootView.findViewById(R.id.list_item_allsubjects);
+        ListView listView = rootView.findViewById(R.id.list_item_allsubjects);
 
         // Make the {@link ListView} use the {@link attendanceAdapter} we created above, so that the
         // {@link ListView} will display list items for each {@link attendanceItem} in the list.

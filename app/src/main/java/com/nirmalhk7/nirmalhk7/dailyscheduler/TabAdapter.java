@@ -1,5 +1,6 @@
 package com.nirmalhk7.nirmalhk7.dailyscheduler;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -10,9 +11,10 @@ public class TabAdapter extends FragmentStatePagerAdapter {
         super(fm);
     }
     @Override    public Fragment getItem(int position) {
-        mposition=position;
-        return new DailyScheduleList();
+        DailyScheduleList x=new DailyScheduleList();
+        return x;
     }
+
     @Override
     public int getCount() {
         return 7;
