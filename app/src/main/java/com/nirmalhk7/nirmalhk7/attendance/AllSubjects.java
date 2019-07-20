@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.daimajia.swipe.SwipeLayout;
 import com.leinardi.android.speeddial.SpeedDialActionItem;
 import com.leinardi.android.speeddial.SpeedDialView;
 import com.nirmalhk7.nirmalhk7.DBGateway;
@@ -154,6 +155,7 @@ public class AllSubjects extends Fragment {
         });
 
 
+
         return rootView;
     }
 
@@ -188,6 +190,7 @@ public class AllSubjects extends Fragment {
     private SwipeRefreshLayout pullToRefresh;
     void swiperefresh(final View rootview){
         pullToRefresh = rootview.findViewById(R.id.pullToRefresh);
+        pullToRefresh.setEnabled(true);
         pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             int Refreshcounter = 1; //Counting how many times user have refreshed the layout
 

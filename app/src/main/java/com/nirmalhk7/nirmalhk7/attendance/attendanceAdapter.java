@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.daimajia.swipe.SwipeLayout;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
 
@@ -86,26 +87,82 @@ public class attendanceAdapter extends ArrayAdapter<attendanceItem> {
             id.setText(currentWord.getmId()+"");
 
             btnlistener(listItemView,Integer.parseInt(id.getText().toString()));
+
+            SwipeLayout swipeLayout =  (SwipeLayout)listItemView.findViewById(R.id.swipeswipe);
+
+//set show mode.
+            swipeLayout.setShowMode(SwipeLayout.ShowMode.LayDown);
+
+//add drag edge.(If the BottomView has 'layout_gravity' attribute, this line is unnecessary)
+            swipeLayout.addDrag(SwipeLayout.DragEdge.Left, listItemView.findViewById(R.id.bottom_wrapper));
+            final ImageButton deleteb=listItemView.findViewById(R.id.trash_swipe);
+            final ImageButton editb=listItemView.findViewById(R.id.edit_swipe);
+            swipeLayout.addSwipeListener(new SwipeLayout.SwipeListener() {
+                @Override
+                public void onStartOpen(SwipeLayout layout) {
+
+                }
+
+                @Override
+                public void onOpen(SwipeLayout layout) {
+
+                    DBGateway database = Room.databaseBuilder(context, DBGateway.class, "finalDB")
+                            .allowMainThreadQueries()
+                            .fallbackToDestructiveMigration()
+                            .build();
+
+                    final attendanceDAO attendanceDAO = database.getAttendanceDao();
+                    deleteb.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            attendanceEntity x=attendanceDAO.getSubjectbyId(currentWord.getmId());
+                            attendanceDAO.deleteSchedule(x);
+                        }
+                    });
+                    editb.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Log.d("ATT/ATA","Clicked");
+                            AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                            Att_FullScreenDialog newFragment = new Att_FullScreenDialog();
+                            Bundle bundle=new Bundle();
+                            bundle.putInt("key",currentWord.getmId());
+                            bundle.putInt("present",currentWord.getmPresent());
+                            bundle.putInt("absent",currentWord.getmAbsent());
+                            bundle.putString("subject",currentWord.getSubjName());
+                            newFragment.setArguments(bundle);
+                            activity.getSupportFragmentManager().beginTransaction().add(android.R.id.content, newFragment).addToBackStack(null).addToBackStack(null).commit();
+
+                        }
+                    });
+                }
+
+                @Override
+                public void onStartClose(SwipeLayout layout) {
+
+                }
+
+                @Override
+                public void onClose(SwipeLayout layout) {
+
+                }
+
+                @Override
+                public void onUpdate(SwipeLayout layout, int leftOffset, int topOffset) {
+
+                }
+
+                @Override
+                public void onHandRelease(SwipeLayout layout, float xvel, float yvel) {
+
+                }
+            });
+
             LinearLayout edit=listItemView.findViewById(R.id.editAttendance);
             edit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    Log.d("ATT/ATA","Clicked");
-                    AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                  /*  Att_FullScreenDialog newFragment = new Att_FullScreenDialog();
-                    FragmentTransaction transaction = fragmentManager.beginTransaction();
-                    transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                    transaction.add(android.R.id.content, newFragment).addToBackStack(null).commit();*/
-
-                    Att_FullScreenDialog newFragment = new Att_FullScreenDialog();
-                    Bundle bundle=new Bundle();
-                    bundle.putInt("key",currentWord.getmId());
-                    bundle.putInt("present",currentWord.getmPresent());
-                    bundle.putInt("absent",currentWord.getmAbsent());
-                    bundle.putString("subject",currentWord.getSubjName());
-                    newFragment.setArguments(bundle);
-                    activity.getSupportFragmentManager().beginTransaction().add(android.R.id.content, newFragment).addToBackStack(null).addToBackStack(null).commit();
 
                 }
             });
@@ -185,6 +242,7 @@ public class attendanceAdapter extends ArrayAdapter<attendanceItem> {
                 attendanceDAO.updateSubject(att);
             }
         });
+
 
 
 

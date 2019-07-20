@@ -61,15 +61,6 @@
                 android:textSize="10sp" />
         </LinearLayout>
 
-        <sun.bob.mcalendarview.MCalendarView
-            android:id="@+id/calendar_subject"
-            android:layout_width="match_parent"
-
-            android:layout_height="wrap_content"
-            tools:context=".attendance.SingleSubjectActivity">
-
-        </sun.bob.mcalendarview.MCalendarView>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1dp"
