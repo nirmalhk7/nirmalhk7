@@ -5,6 +5,7 @@ import android.arch.persistence.room.RoomDatabase;
 
 import com.nirmalhk7.nirmalhk7.attendance.attendanceDAO;
 import com.nirmalhk7.nirmalhk7.attendance.attendanceEntity;
+import com.nirmalhk7.nirmalhk7.attendance.subjectlogDAO;
 import com.nirmalhk7.nirmalhk7.dailyscheduler.Schedule;
 import com.nirmalhk7.nirmalhk7.dailyscheduler.scheduleDAO;
 import com.nirmalhk7.nirmalhk7.examholidays.ehDAO;
@@ -15,4 +16,5 @@ public abstract class DBGateway extends RoomDatabase {
     public abstract scheduleDAO getScheduleDao();
     public abstract attendanceDAO getAttendanceDao();
     public abstract ehDAO getEHDAO();
+    public abstract subjectlogDAO getSALDAO();
 }

@@ -63,14 +63,14 @@
 
                     <TextView
                         android:id="@+id/presentabsent_subject"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         tools:text="Present Count" />
 
                     <TextView
 
                         android:id="@+id/percent_subject"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         tools:text="Percent" />
                 </LinearLayout>

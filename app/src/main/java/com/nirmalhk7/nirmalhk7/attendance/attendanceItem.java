@@ -6,12 +6,13 @@ public class attendanceItem {
     private String mSubjName;
 
     /** Miwok translation for the word */
-    private String mSubjDate;
-    private String  mSubjTime;
 private int mid;
     private int mPresent;
     private int mAbsent;
     private int mCancelled;
+    private int mPRABCA;
+    private String dateAdded;
+    private String dayTime;
 
 
 
@@ -22,6 +23,29 @@ private int mid;
         mAbsent=absentCt;
         mid=id;
     }
+
+    public attendanceItem(String date,String dt,int prabca,int id)
+    {
+
+        mPRABCA=prabca;
+        dateAdded=date;
+        mid=id;
+        dayTime=dt;
+
+    }
+
+    public int getmPRABCA(){
+        return mPRABCA;
+    }
+
+    public String getDayTime(){
+        return dayTime;
+    }
+    public String getDateAdded(){
+        return dateAdded;
+    }
+
+
     /**
      * Get the default translation of the word.
      */
@@ -32,11 +56,7 @@ private int mid;
     /**
      * Get the Miwok translation of the word.
      */
-    public String getmSubjDate() {
-        return mSubjDate;
-    }
 
-    public String getmSubjTime(){   return mSubjTime;}
     public int getmPresent(){
         return mPresent;
     }

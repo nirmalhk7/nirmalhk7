@@ -26,6 +26,9 @@ import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.MainActivity;
 import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.academics.Academics;
+import com.nirmalhk7.nirmalhk7.dailyscheduler.FullScreenDialog;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,6 +82,7 @@ public class AllSubjects extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -110,8 +114,33 @@ public class AllSubjects extends Fragment {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.d("ATT/ALS","LongClick!");
-                Intent i=new Intent(getContext(),SingleSubjectActivity.class);
-                startActivity(i);
+                subjectAttendanceLog x=new subjectAttendanceLog();
+                TextView subject=view.findViewById(R.id.subjName_subject);
+                TextView percent=view.findViewById(R.id.percent_subject);
+                TextView prabca=view.findViewById(R.id.presentabsent_subject);
+
+                /*
+                presentCount.setText("Present "+currentWord.getmPresent()+" / Absent "+currentWord.getmAbsent());
+                percent.setText("Percent: "+result+"%");
+                */
+
+                String zpercent=percent.getText().toString().substring(8,percent.getText().toString().indexOf('%'));
+                String absent=prabca.getText().toString().substring(prabca.getText().toString().indexOf('A')+7,prabca.getText().toString().length());
+                String present=prabca.getText().toString().substring(8,prabca.getText().toString().indexOf('/')-1);
+
+
+
+                Log.d("ATT/ALS","OnLongItemListener "+zpercent+" / "+absent+" / "+present);
+                Bundle bundle=new Bundle();
+                bundle.putString("subject",subject.getText().toString());
+                bundle.putInt("present",Integer.parseInt(present));
+                bundle.putInt("absent",Integer.parseInt(absent));
+                bundle.putString("percent",zpercent);
+                x.setArguments(bundle);
+
+
+                FragmentTransaction ft=getFragmentManager().beginTransaction();
+                x.show(ft,subjectAttendanceLog.TAG);
                 return false;
             }
         });
@@ -210,11 +239,8 @@ public class AllSubjects extends Fragment {
                 .build();
 
         attendanceDAO AttendanceDAO = database2.getAttendanceDao();
-
         List<attendanceEntity> attendance=AttendanceDAO.getAllSubject();
         ArrayList<attendanceItem> SubjectItem = new ArrayList<>();
-
-
         Log.d("ATT/ALS","Count"+attendance.size());
         
         for (attendanceEntity cn : attendance) {
@@ -222,20 +248,9 @@ public class AllSubjects extends Fragment {
             SubjectItem.add(new attendanceItem(cn.getSubject(), cn.getPresent(),cn.getAbsent(),cn.getId()));
         }
 
-
-
-        // Create an {@link attendanceAdapter}, whose data source is a list of {@link attendanceItem}s. The
-        // adapter knows how to create list items for each item in the list.
         attendanceAdapter adapter = new attendanceAdapter(getContext(), SubjectItem,1);
 
-
-        // Find the {@link ListView} object in the view hierarchy of the {@link Activity}.
-        // There should be a {@link ListView} with the view ID called list, which is declared in the
-        // word_list.xml layout file.
         ListView listView = rootView.findViewById(R.id.list_item_allsubjects);
-
-        // Make the {@link ListView} use the {@link attendanceAdapter} we created above, so that the
-        // {@link ListView} will display list items for each {@link attendanceItem} in the list.
         listView.setAdapter(adapter);
     }
 

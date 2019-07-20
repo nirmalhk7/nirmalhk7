@@ -4,10 +4,6 @@ import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,15 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.daimajia.swipe.SwipeLayout;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -94,7 +87,7 @@ public class attendanceAdapter extends ArrayAdapter<attendanceItem> {
             swipeLayout.setShowMode(SwipeLayout.ShowMode.LayDown);
 
 //add drag edge.(If the BottomView has 'layout_gravity' attribute, this line is unnecessary)
-            swipeLayout.addDrag(SwipeLayout.DragEdge.Left, listItemView.findViewById(R.id.bottom_wrapper));
+            swipeLayout.addDrag(SwipeLayout.DragEdge.Right, listItemView.findViewById(R.id.bottom_wrapper));
             final ImageButton deleteb=listItemView.findViewById(R.id.trash_swipe);
             final ImageButton editb=listItemView.findViewById(R.id.edit_swipe);
             swipeLayout.addSwipeListener(new SwipeLayout.SwipeListener() {
@@ -168,43 +161,40 @@ public class attendanceAdapter extends ArrayAdapter<attendanceItem> {
             });
         }
         else if(kSubject==2){
+            //For Subject Attendance Log
             if (listItemView == null) {
                 listItemView = LayoutInflater.from(getContext()).inflate(
-                        R.layout.attendance_subject_list_calendar, parent, false);
+                        R.layout.attendance_subject_log_item, parent, false);
             }
             attendanceItem currentWord = getItem(position);
             TextView date=listItemView.findViewById(R.id.subjName_calendar);
-            date.setText(currentWord.getmSubjDate());
+            date.setText(currentWord.getDateAdded());
 
             TextView dt= listItemView.findViewById(R.id.dt_calendar);
-            dt.setText("Friday , "+currentWord.getmSubjTime());
+            dt.setText(currentWord.getDayTime());
 
-            TextView pacp= listItemView.findViewById(R.id.pacp_calendar);
-            pacp.setText("Present");
-            pacp.setBackgroundColor(Color.GREEN);
-
-
-        }
-        else{
-            if (listItemView == null) {
-                listItemView = LayoutInflater.from(getContext()).inflate(
-                        R.layout.attendance_list_item, parent, false);
+            if(currentWord.getmPRABCA()==1)
+            {
+                TextView pacp= listItemView.findViewById(R.id.pacp_calendar);
+                pacp.setText("Present");
+                pacp.setBackgroundColor(Color.GREEN);
+            }
+            else if(currentWord.getmPRABCA()==2)
+            {
+                TextView pacp= listItemView.findViewById(R.id.pacp_calendar);
+                pacp.setText("ABSENT");
+                pacp.setBackgroundColor(Color.RED);
+            }
+            else if(currentWord.getmPRABCA()==3)
+            {
+                TextView pacp= listItemView.findViewById(R.id.pacp_calendar);
+                pacp.setText("CANCELLED");
+                pacp.setBackgroundColor(Color.YELLOW);
             }
 
-            // Get the {@link attendanceItem} object located at this position in the list
-            attendanceItem currentWord = getItem(position);
 
-            // Find the TextView in the list_item.xml layout with the ID miwok_text_view.
-            TextView miwokTextView = listItemView.findViewById(R.id.subjName);
-            // Get the Miwok translation from the currentWord object and set this text on
-            // the Miwok TextView.
-            miwokTextView.setText(currentWord.getSubjName());
 
-            // Find the TextView in the list_item.xml layout with the ID default_text_view.
-            TextView defaultTextView = listItemView.findViewById(R.id.subjDateTime);
-            // Get the default translation from the currentWord object and set this text on
-            // the default TextView.
-            defaultTextView.setText(currentWord.getmSubjTime() + currentWord.getmSubjDate());
+
         }
         // Return the whole list item layout (containing 2 TextViews) so that it can be shown in
         // the ListView.

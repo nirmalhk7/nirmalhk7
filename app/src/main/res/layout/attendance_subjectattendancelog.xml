@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/colorDark">
+
+<android.support.design.widget.AppBarLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </android.support.v7.widget.Toolbar>
+
+</android.support.design.widget.AppBarLayout>
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+        android:orientation="vertical"
+       android:padding="@dimen/standard_dimen">
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+           <LinearLayout
+               android:layout_width="wrap_content"
+               android:layout_height="match_parent"
+               android:orientation="vertical"
+               android:layout_weight="1">
+               <TextView
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:id="@+id/sal_subject"
+                   tools:text="Ultra Ultra Ultra Long Subject Name"
+                   android:textSize="20sp"/>
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   tools:text="IT205"
+                   android:layout_marginTop="10dp"
+                   android:id="@+id/sal_code"
+                   android:textAllCaps="true"
+                   android:textStyle="bold"
+                   android:textColor="@color/colorAccent"
+                   android:textSize="15sp"/>
+           </LinearLayout>
+           <LinearLayout
+               android:layout_width="wrap_content"
+               android:layout_height="match_parent"
+               android:orientation="vertical"
+               android:padding="5dp">
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:orientation="horizontal">
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="PRESENT"
+                       android:textSize="13sp"/>
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       tools:text="12"
+                       android:id="@+id/sal_p"
+                       android:padding="2.5dp"
+
+                       android:textSize="16sp"
+                       android:textAlignment="center"/>
+               </LinearLayout>
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:orientation="horizontal">
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="ABSENT"
+                       android:textSize="13sp"/>
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       tools:text="12"
+                       android:id="@+id/sal_a"
+                       android:padding="2.5dp"
+
+                       android:textSize="16sp"
+                       android:textAlignment="center"/>
+               </LinearLayout>
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:orientation="horizontal">
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="CANCELLED"
+                       android:textSize="13sp"/>
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:text="-"
+                       android:padding="2.5dp"
+
+                       android:textSize="16sp"
+                       android:textAlignment="center"/>
+               </LinearLayout>
+           </LinearLayout>
+       </LinearLayout>
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:padding="1dp"
+           android:layout_marginTop="5dp"
+           android:layout_marginBottom="15dp"
+           android:background="@android:color/white"/>
+
+       <android.support.v4.widget.SwipeRefreshLayout
+           android:id="@+id/pullToRefresh"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+           <ListView xmlns:android="http://schemas.android.com/apk/res/android"
+               xmlns:tools="http://schemas.android.com/tools"
+               android:id="@+id/list_item_subjects_log"
+               android:orientation="vertical"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent" />
+       </android.support.v4.widget.SwipeRefreshLayout>
+
+   </LinearLayout>
+
+</FrameLayout>
+</android.support.design.widget.CoordinatorLayout>

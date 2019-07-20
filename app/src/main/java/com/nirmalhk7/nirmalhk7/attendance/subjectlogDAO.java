@@ -5,11 +5,12 @@ import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
+import android.support.annotation.RequiresPermission;
 
 import java.util.List;
 
 @Dao
-public interface calendarDAO {
+public interface subjectlogDAO {
     @Insert
     void insertOnlySingleSubject(attendanceEntity attendance);
 
@@ -22,8 +23,14 @@ public interface calendarDAO {
     @Query("SELECT * FROM attendanceEntity")
     List<attendanceEntity> getAllSubject();
 
+    @Query("SELECT * FROM attendanceEntity")
+    List<attendanceEntity> getSubjectNames();
+
     @Update
-    void updateMovie(attendanceEntity movies);
+    void updateSubject(attendanceEntity subject);
+
+    @Query("SELECT * FROM attendanceEntity WHERE id=:mId")
+    attendanceEntity getSubjectbyId(int mId);
 
     @Delete
     void deleteSchedule(attendanceEntity schedule);
