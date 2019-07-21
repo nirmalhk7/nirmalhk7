@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -49,10 +50,14 @@ public class FullScreenDialog extends DialogFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         final View rootView = inflater.inflate(R.layout.dailyschedule_fullscreenlayout, container, false);
         final Bundle bundle = this.getArguments();
         //If editing
         if (bundle != null) {
+
+            Toolbar toolbar=getActivity().findViewById(R.id.toolbar);
+            toolbar.setTitle("Edit Task");
             String title = bundle.getString("title");
             String label = bundle.getString("label");
             String startTime = bundle.getString("starttime");

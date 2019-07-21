@@ -8,10 +8,21 @@
     <string name="nav_header_title">Welcome Nirmal Khedkar</string>
     <string name="nav_header_subtitle">nirmalhk7@gmail.com</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
+
     <string name="title_scores">Scores</string>
     <string name="title_activity_academics">AcademicsActivity</string>
 
+
+    <string name="nav_end">Dashboard</string>
+    <string name="nav_set">Settings</string>
+
+    <string name="nav_das">Daily Schedule</string>
+    <string name="nav_eah">Exams and Holidays</string>
+    <string name="nav_atm">Attendance Manager</string>
+    <string name="nav_mam">Marks Manager</string>
+    <string name="nav_cam">Call Manager</string>
+    <string name="nav_tam">Tasks Manager</string>
+    <string name="nav_pla">Playground</string>
 
     <string name="playground_text">All features here are demonstration for development
 opurposes only. These may cause crashes in the app.</string>

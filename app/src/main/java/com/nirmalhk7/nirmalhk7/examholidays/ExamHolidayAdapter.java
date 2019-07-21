@@ -35,13 +35,13 @@ public class ExamHolidayAdapter extends ArrayAdapter<heItem> {
         // Get the {@link scheduleItem} object located at this position in the list
         heItem currentWord = getItem(position);
 
-        // Find the TextView in the list_item.xml layout with the ID miwok_text_view.
+        // Find the TextView in the dailyschedule_list_itemdule_list_item.xml layout with the ID miwok_text_view.
         TextView title = listItemView.findViewById(R.id.holidayExam_name);
         // Get the Miwok translation from the currentWord object and set this text on
         // the Miwok TextView.
         title.setText(currentWord.getTitle());
 
-        // Find the TextView in the list_item.xml layout with the ID default_text_view.
+        // Find the TextView in the dailyschedule_list_item.xml_list_item.xml layout with the ID default_text_view.
         TextView hOrE = listItemView.findViewById(R.id.holidayExam);
         // Get the default translation from the currentWord object and set this text on
         // the default TextView.

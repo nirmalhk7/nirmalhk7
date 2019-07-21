@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.nirmalhk7.nirmalhk7.R;
@@ -28,19 +27,19 @@ public class ScheduleAdapter extends ArrayAdapter<scheduleItem> {
         View listItemView = convertView;
         if (listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(
-                    R.layout.list_item, parent, false);
+                    R.layout.dailyschedule_list_item, parent, false);
         }
 
         // Get the {@link scheduleItem} object located at this position in the list
         scheduleItem currentWord = getItem(position);
 
-        // Find the TextView in the list_item.xml layout with the ID miwok_text_view.
+        // Find the TextView in the dailyschedule_list_itemdule_list_item.xml layout with the ID miwok_text_view.
         TextView miwokTextView = listItemView.findViewById(R.id.miwok_text_view);
         // Get the Miwok translation from the currentWord object and set this text on
         // the Miwok TextView.
         miwokTextView.setText(currentWord.getScheduleTitle());
 
-        // Find the TextView in the list_item.xml layout with the ID default_text_view.
+        // Find the TextView in the dailyschedule_list_item.xml_list_item.xml layout with the ID default_text_view.
         if(!currentWord.getScheduleLabel().equals("College")){    TextView defaultTextView = listItemView.findViewById(R.id.default_text_view);
         // Get the default translation from the currentWord object and set this text on
         // the default TextView.

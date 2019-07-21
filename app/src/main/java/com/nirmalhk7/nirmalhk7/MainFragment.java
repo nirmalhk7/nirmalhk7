@@ -244,7 +244,7 @@ public class MainFragment extends Fragment {
             weather.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getActivity(), "LA:"+latitude+" LO:"+longitude,
+                    Toast.makeText(getActivity(), "LA:"+latitude+" LO:"+longitude+". MR1",
                             Toast.LENGTH_SHORT).show();
                 }
             });

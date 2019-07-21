@@ -111,6 +111,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(android.R.anim.fade_in,android.R.anim.fade_out);
         Fragment newFragment;
         if (id == R.id.nav_dashboard) {
 

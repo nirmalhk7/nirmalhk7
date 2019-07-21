@@ -1,5 +1,6 @@
 package com.nirmalhk7.nirmalhk7.dailyscheduler;
 
+
 public class scheduleItem {
 
     /** Default translation for the word */

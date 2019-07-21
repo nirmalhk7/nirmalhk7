@@ -71,6 +71,7 @@ public class CallMgrFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView= inflater.inflate(R.layout.fragment_call_mgr, container, false);
+
         ArrayList<CallMgrItem> call = new ArrayList<CallMgrItem>();
         call.add(new CallMgrItem("Caller 1","9740603777",9));
         call.add(new CallMgrItem("Caller 2","9740603778",7));

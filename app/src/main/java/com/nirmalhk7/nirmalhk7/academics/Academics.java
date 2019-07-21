@@ -69,6 +69,7 @@ public class Academics extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_academics, container, false);
+
         EditText[] sgpa=new EditText[8];
         EditText[] credits=new EditText[8];
         LinearLayout semPtr=view.findViewById(R.id.semPtr);

@@ -89,6 +89,7 @@ public class AllSubjects extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View rootView= inflater.inflate(R.layout.fragment_attendance_all_subjects, container, false);
+
         View tbV= getLayoutInflater().inflate(R.layout.app_bar_main, null);
 
      /*   LinearLayout pending= rootView.findViewById(R.id.pendingSubjects_subject);

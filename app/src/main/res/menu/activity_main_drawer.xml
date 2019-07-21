@@ -7,14 +7,14 @@
         <item
             android:id="@+id/nav_dashboard"
             android:icon="@drawable/ic_dashboard"
-            android:title="Dashboard" />
+            android:title="@string/nav_das" />
 
 
         <item
             android:id="@+id/nav_manage"
             android:icon="@drawable/ic_menu_manage"
             android:iconTint="@android:color/white"
-            android:title="Settings" />
+            android:title="@string/nav_set" />
         <item
             android:id="@+id/nav_backup"
             android:icon="@drawable/ic_menu_backup_restore"
@@ -26,19 +26,19 @@
             <item
                 android:id="@+id/nav_schedule"
                 android:icon="@drawable/ic_schedule"
-                android:title="Daily Scheduler" />
+                android:title="@string/nav_das" />
             <item
                 android:id="@+id/nav_examholidays"
                 android:icon="@drawable/ic_examholidays"
-                android:title="Exams and Holidays"/>
+                android:title="@string/nav_eah"/>
             <item
                 android:id="@+id/nav_attendance"
-                android:title="Attendance Manager"
+                android:title="@string/nav_atm"
                 android:icon="@drawable/ic_attendance"/>
             <item
                 android:id="@+id/nav_academics"
                 android:icon="@drawable/ic_marksmanager"
-                android:title="Marks Manager" />
+                android:title="@string/nav_mam" />
 
         </menu>
     </item>
@@ -47,18 +47,18 @@
             <item
                 android:id="@+id/nav_callManager"
                 android:icon="@drawable/ic_contact_phone_black"
-                android:title="Call Manager" />
+                android:title="@string/nav_cam" />
             <item
                 android:id="@+id/nav_tasks"
                 android:icon="@drawable/ic_check_black"
-                android:title="Tasks Manager" />
+                android:title="@string/nav_tam" />
         </menu>
     </item>
     <item android:title="DevWorld">
         <menu>
             <item
                 android:id="@+id/nav_playground"
-                android:title="Playground"
+                android:title="@string/nav_pla"
                 android:icon="@drawable/ic_playground"/>
         </menu>
     </item>
