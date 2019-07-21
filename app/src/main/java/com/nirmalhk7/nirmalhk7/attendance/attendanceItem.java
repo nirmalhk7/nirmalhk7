@@ -26,11 +26,11 @@ private int mid;
 
     public attendanceItem(String date,String dt,int prabca,int id)
     {
-
-        mPRABCA=prabca;
         dateAdded=date;
-        mid=id;
         dayTime=dt;
+        mPRABCA=prabca;
+        mid=id;
+
 
     }
 

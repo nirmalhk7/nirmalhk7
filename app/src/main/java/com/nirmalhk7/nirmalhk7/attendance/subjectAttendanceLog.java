@@ -93,17 +93,17 @@ public class subjectAttendanceLog extends DialogFragment {
         DBGateway database2 = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
                 .allowMainThreadQueries().fallbackToDestructiveMigration()
                 .build();
-        attendanceDAO AttendanceDAO = database2.getAttendanceDao();
-        List<attendanceEntity> attendance=AttendanceDAO.getAllSubject();
+        subjectlogDAO SLDAO = database2.getSALDAO();
+        List<subjectlogEntity> subjLog=SLDAO.getAllLog();
+
+
         ArrayList<attendanceItem> SubjectItem = new ArrayList<>();
-        Log.d("ATT/ALS","Count"+attendance.size());
+        Log.d("ATT/ALS","Count"+subjLog.size());
 
-        for (attendanceEntity cn : attendance) {
-            Log.d("ATT/ALS", "Printing: Task "+cn.getSubject()+" P "+cn.getPresent()+" A "+cn.getAbsent());
-            //SubjectItem.add(new attendanceItem(cn.getSubject(), cn.getPresent(),cn.getAbsent(),cn.getId()));
+        for (subjectlogEntity cn : subjLog) {
+         //   Log.d("ATT/ALS", "Printing: Task "+cn.getSubject()+" P "+cn.getPresent()+" A "+cn.getAbsent());
+            SubjectItem.add(new attendanceItem(cn.getDateAdded(),cn.getDayTime(),cn.getPrabca(),cn.getId()));
         }
-        SubjectItem.add(new attendanceItem("20/06/2019","Friday, 9:25 AM",1,45));
-
         attendanceAdapter adapter = new attendanceAdapter(getContext(), SubjectItem,2);
 
         ListView listView = rootView.findViewById(R.id.list_item_subjects_log);

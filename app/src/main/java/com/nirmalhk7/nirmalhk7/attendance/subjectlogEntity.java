@@ -1,8 +1,10 @@
 package com.nirmalhk7.nirmalhk7.attendance;
 
+import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+@Entity
 public class subjectlogEntity {
     @NonNull
     @PrimaryKey(autoGenerate = true)
@@ -13,7 +15,7 @@ public class subjectlogEntity {
     private String dateAdded;
     private String dayTime;
 
-    public void setmSubject(String mSubject) {
+    public void setSubject(String mSubject) {
         this.mSubject = mSubject;
     }
 
@@ -34,7 +36,7 @@ public class subjectlogEntity {
     }
 
 
-    public String getmSubject() {
+    public String getSubject() {
         return mSubject;
     }
 

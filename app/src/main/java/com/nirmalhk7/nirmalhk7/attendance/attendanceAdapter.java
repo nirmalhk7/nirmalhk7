@@ -18,7 +18,13 @@ import com.daimajia.swipe.SwipeLayout;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
 
+import org.w3c.dom.Text;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class attendanceAdapter extends ArrayAdapter<attendanceItem> {
 
@@ -51,19 +57,13 @@ public class attendanceAdapter extends ArrayAdapter<attendanceItem> {
                         R.layout.attendance_subject_list_item, parent, false);
             }
 
-            // Get the {@link attendanceItem} object located at this position in the list
             final attendanceItem currentWord = getItem(position);
 
-            // Find the TextView in the list_item.xml layout with the ID miwok_text_view.
             TextView subjName_subj = listItemView.findViewById(R.id.subjName_subject);
-            // Get the Miwok translation from the currentWord object and set this text on
-            // the Miwok TextView.
             subjName_subj.setText(currentWord.getSubjName());
 
-            // Find the TextView in the list_item.xml layout with the ID default_text_view.
             TextView presentCount = listItemView.findViewById(R.id.presentabsent_subject);
-            // Get the default translation from the currentWord object and set this text on
-            // the default TextView.
+
             presentCount.setText("Present "+currentWord.getmPresent()+" / Absent "+currentWord.getmAbsent());
             float present=currentWord.getmPresent();
             float absent=currentWord.getmAbsent();
@@ -71,8 +71,7 @@ public class attendanceAdapter extends ArrayAdapter<attendanceItem> {
             result = (float) Math.round(result * 100);
 
             TextView percent = listItemView.findViewById(R.id.percent_subject);
-            // Get the default translation from the currentWord object and set this text on
-            // the default TextView.
+
             percent.setText("Percent: "+result+"%");
 
             final TextView id=listItemView.findViewById(R.id.attendance_id);
@@ -151,14 +150,7 @@ public class attendanceAdapter extends ArrayAdapter<attendanceItem> {
                 }
             });
 
-            LinearLayout edit=listItemView.findViewById(R.id.editAttendance);
-            edit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
 
-
-                }
-            });
         }
         else if(kSubject==2){
             //For Subject Attendance Log
@@ -201,27 +193,47 @@ public class attendanceAdapter extends ArrayAdapter<attendanceItem> {
         return listItemView;
     }
 
-    void btnlistener(View listitemview,final int id)
+    void btnlistener(final View listitemview,final int id)
     {
         ImageButton p=listitemview.findViewById(R.id.present_btn);
         ImageButton a=listitemview.findViewById(R.id.absent_btn);
-        DBGateway database = Room.databaseBuilder(context, DBGateway.class, "finalDB")
+        final DBGateway database = Room.databaseBuilder(context, DBGateway.class, "finalDB")
                 .allowMainThreadQueries()
                 .fallbackToDestructiveMigration()
                 .build();
 
         final attendanceDAO attendanceDAO = database.getAttendanceDao();
+
         Log.d("ATT/ALS","ID "+id);
         //final attendanceEntity att=attendanceDAO.getSubjectbyId(id);
         final attendanceEntity att=attendanceDAO.getSubjectbyId(id);
 
+
+        Date d=Calendar.getInstance().getTime();
+
+        //sl.setDateAdded(d.getYear()+"/"+d.getMonth()+"/"+d.getDate());
+
         Log.d("ATT/ALS","Recieved "+att.getSubject()+" "+att.getPresent()+" "+att.getAbsent());
+
         p.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int pr=att.getPresent();
                 att.setPresent(++pr);
                 attendanceDAO.updateSubject(att);
+
+                subjectlogDAO SLDAO=database.getSALDAO();
+                final subjectlogEntity sl=new subjectlogEntity();
+                TextView subjName_subj = listitemview.findViewById(R.id.subjName_subject);
+                sl.setSubject(subjName_subj.getText().toString());
+                sl.setPrabca(1);
+                DateFormat dtf = new SimpleDateFormat("d MMM yyyy");
+                sl.setDateAdded(dtf.format(Calendar.getInstance().getTime()));
+
+                DateFormat dwf=new SimpleDateFormat("EEE, HH:mm:ss");
+                sl.setDayTime(dwf.format(Calendar.getInstance().getTime()));
+                Log.d("datex",dtf.format(Calendar.getInstance().getTime())+"//"+dwf.format(Calendar.getInstance().getTime()));
+                SLDAO.insertLog(sl);
             }
         });
         a.setOnClickListener(new View.OnClickListener() {
@@ -230,6 +242,19 @@ public class attendanceAdapter extends ArrayAdapter<attendanceItem> {
                 int ab=att.getAbsent();
                 att.setAbsent(++ab);
                 attendanceDAO.updateSubject(att);
+
+                subjectlogDAO SLDAO=database.getSALDAO();
+                final subjectlogEntity sl=new subjectlogEntity();
+                TextView subjName_subj = listitemview.findViewById(R.id.subjName_subject);
+                sl.setSubject(subjName_subj.getText().toString());
+                sl.setPrabca(2);
+                DateFormat dtf = new SimpleDateFormat("d MMM yyyy");
+                sl.setDateAdded(dtf.format(Calendar.getInstance().getTime()));
+
+                DateFormat dwf=new SimpleDateFormat("EEE, HH:mm:ss");
+                sl.setDayTime(dwf.format(Calendar.getInstance().getTime()));
+                Log.d("datex",dtf.format(Calendar.getInstance().getTime())+"//"+dwf.format(Calendar.getInstance().getTime()));
+                SLDAO.insertLog(sl);
             }
         });
 

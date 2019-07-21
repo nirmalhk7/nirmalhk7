@@ -12,26 +12,23 @@ import java.util.List;
 @Dao
 public interface subjectlogDAO {
     @Insert
-    void insertOnlySingleSubject(attendanceEntity attendance);
+    void insertLog(subjectlogEntity attendance);
 
     @Insert
-    void insertMultipleSchedule(List<attendanceEntity> moviesList);
+    void insertMultipleLogs(List<subjectlogEntity> moviesList);
 
-   /* @Query(“SELECT * FROM attendanceEntity WHERE movieId =:movieId“)
-    attendanceEntity fetchOneSchedulebyMovieId(int movieId);*/
+   /* @Query(“SELECT * FROM subjectlogEntity WHERE movieId =:movieId“)
+    subjectlogEntity fetchOneSchedulebyMovieId(int movieId);*/
 
-    @Query("SELECT * FROM attendanceEntity")
-    List<attendanceEntity> getAllSubject();
-
-    @Query("SELECT * FROM attendanceEntity")
-    List<attendanceEntity> getSubjectNames();
-
+    @Query("SELECT * FROM subjectlogEntity")
+    List<subjectlogEntity> getAllLog();
+    
     @Update
-    void updateSubject(attendanceEntity subject);
+    void updateLog(subjectlogEntity subject);
 
-    @Query("SELECT * FROM attendanceEntity WHERE id=:mId")
-    attendanceEntity getSubjectbyId(int mId);
+    @Query("SELECT * FROM subjectlogEntity WHERE id=:mId")
+    subjectlogEntity getLogbyId(int mId);
 
     @Delete
-    void deleteSchedule(attendanceEntity schedule);
+    void deleteSchedule(subjectlogEntity schedule);
 }
