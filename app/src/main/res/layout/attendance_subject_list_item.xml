@@ -1,86 +1,118 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/SubjectSingleItem"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="15dp">
-
-
+    android:layout_width="match_parent" android:layout_height="80dp"
+    android:id="@+id/swipeswipe">
+    <!-- Bottom View Start-->
     <LinearLayout
-        android:id="@+id/subject_text_container"
+        android:background="#66ddff00"
+        android:id="@+id/bottom_wrapper"
+        android:orientation="horizontal"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:weightSum="1"
+        android:layout_height="match_parent">
+        <!--What you want to show-->
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:minWidth="50dp"
+            android:id="@+id/trash_swipe"
+            android:src="@drawable/ic_trash"
+            android:background="@android:color/holo_red_dark"/>
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:minWidth="50dp"
+            android:id="@+id/edit_swipe"
+            android:src="@drawable/ic_edit"
+            android:background="@color/colorWarning"/>
+    </LinearLayout>
+    <!-- Bottom View End-->
 
-        <TextView
-            android:id="@+id/subjName_subject"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="Subject Name" />
+    <!-- Surface View Start -->
+    <LinearLayout
+        android:id="@+id/SubjectSingleItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="15dp">
+
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:id="@+id/subject_text_container"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp">
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/subjName_subject"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Subject Name" />
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:id="@+id/editAttendance">
+                android:paddingTop="10dp">
 
-                <TextView
-                    android:id="@+id/presentabsent_subject"
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="Present Count" />
+                    android:orientation="vertical"
+                    android:id="@+id/editAttendance">
 
-                <TextView
+                    <TextView
+                        android:id="@+id/presentabsent_subject"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="Present Count" />
 
-                    android:id="@+id/percent_subject"
-                    android:layout_width="match_parent"
+                    <TextView
+
+                        android:id="@+id/percent_subject"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="Percent" />
+                </LinearLayout>
+
+
+                <RelativeLayout
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="Percent" />
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/present_btn"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_toLeftOf="@+id/absent_btn"
+                        android:background="#00000000"
+                        android:scaleX="1.4"
+                        android:scaleY="1.4"
+                        android:src="@drawable/ic_present" />
+
+                    <ImageButton
+                        android:id="@+id/absent_btn"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_alignParentEnd="true"
+                        android:background="#00000000"
+                        android:scaleX="1.4"
+                        android:scaleY="1.4"
+                        android:src="@drawable/ic_absent" />
+                </RelativeLayout>
+
             </LinearLayout>
 
-
-            <RelativeLayout
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/attendance_id"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageButton
-                    android:id="@+id/present_btn"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_toLeftOf="@+id/absent_btn"
-                    android:background="@color/colorDark"
-                    android:scaleX="1.4"
-                    android:scaleY="1.4"
-                    android:src="@drawable/ic_present" />
-
-                <ImageButton
-                    android:id="@+id/absent_btn"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_alignParentEnd="true"
-                    android:background="@color/colorDark"
-                    android:scaleX="1.4"
-                    android:scaleY="1.4"
-                    android:src="@drawable/ic_absent" />
-            </RelativeLayout>
-
+                tools:text="ID" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/attendance_id"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="ID" />
+
     </LinearLayout>
-
-
-</LinearLayout>
+    <!-- Surface View End -->
+</com.daimajia.swipe.SwipeLayout>

@@ -4,6 +4,7 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
+import android.arch.persistence.room.RoomWarnings;
 import android.arch.persistence.room.Update;
 
 import java.util.List;
@@ -44,5 +45,9 @@ public interface scheduleDAO {
 
     @Query("SELECT * FROM Schedule WHERE id=:Id")
     Schedule getScheduleById(int Id);
+
+    @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
+    @Query("SELECT DISTINCT mSubjCode,id,mDay FROM Schedule WHERE mTask=:Task")
+    List<Schedule> getScheduleCodeByTaskName(String Task);
 }
 
