@@ -105,32 +105,32 @@ public class DailySchedule extends Fragment {
 
         Calendar calendar = Calendar.getInstance();
         int day = calendar.get(Calendar.DAY_OF_WEEK);
-
+        int startat=21;
         switch (day) {
             case Calendar.MONDAY:
-                viewPager.setCurrentItem(0);
+                viewPager.setCurrentItem(startat);
                 break;
             case Calendar.TUESDAY:
-                viewPager.setCurrentItem(1);
+                viewPager.setCurrentItem(startat+1);
                 break;
 
             case Calendar.WEDNESDAY:
-                viewPager.setCurrentItem(2);
+                viewPager.setCurrentItem(startat+2);
                 break;
 
             case Calendar.THURSDAY:
-                viewPager.setCurrentItem(3);
+                viewPager.setCurrentItem(startat+3);
                 break;
 
             case Calendar.FRIDAY:
-                viewPager.setCurrentItem(4);
+                viewPager.setCurrentItem(startat+4);
                 break;
 
             case Calendar.SATURDAY:
-                viewPager.setCurrentItem(5);
+                viewPager.setCurrentItem(startat+5);
                 break;
             case Calendar.SUNDAY:
-                viewPager.setCurrentItem(6);
+                viewPager.setCurrentItem(startat+6);
                 break;
         }
 
