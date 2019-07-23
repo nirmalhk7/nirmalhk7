@@ -60,7 +60,23 @@ public class fsdExam extends DialogFragment {
         });
 
         RadioButton exam = rootView.findViewById(R.id.examRadio);
-        exam.setChecked(true);
+        RadioButton holiday=rootView.findViewById(R.id.holidayRadio);
+        Bundle b=getArguments();
+        if(b.getInt("key")==0)
+        {
+            exam.setChecked(true);
+            EditText type= rootView.findViewById(R.id.examHoliday_type);
+            EditText desc = rootView.findViewById(R.id.examHoliday_description);
+            type.setVisibility(View.VISIBLE);
+            desc.setVisibility(View.VISIBLE);
+        }
+        else{
+            holiday.setChecked(true);
+            EditText type = rootView.findViewById(R.id.examHoliday_type);
+            EditText desc = rootView.findViewById(R.id.examHoliday_description);
+            type.setVisibility(View.INVISIBLE);
+            desc.setVisibility(View.INVISIBLE);
+        }
 
         RadioGroup rdg=rootView.findViewById(R.id.radioGrp);
         rdg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -135,7 +151,9 @@ public class fsdExam extends DialogFragment {
             entity.setHolexa(2);
         }
         EHDAO.insertOnlySingleMovie(entity);
+        examHolidays.adapter.notifyDataSetChanged();
         dismiss();
+
     }
     void datelistener(final EditText startdate,final EditText enddate,final int i){
         EditText date=new EditText(getContext());

@@ -27,7 +27,6 @@ import com.leinardi.android.speeddial.SpeedDialView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
-import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
@@ -224,7 +223,7 @@ public class MainFragment extends Fragment {
         if (isOnline()) {
             airLocation = new AirLocation(getActivity(), true, true, new AirLocation.Callbacks() {
                 @Override
-                public void onSuccess(@NotNull Location location) {
+                public void onSuccess(Location location) {
                     latitude = location.getLatitude();
                     longitude = location.getLongitude();
                     Log.d("AirLocation", "Coordinates LA:" + latitude + " + LO:" + longitude);
@@ -236,7 +235,7 @@ public class MainFragment extends Fragment {
                 }
 
                 @Override
-                public void onFailed(@NotNull AirLocation.LocationFailedEnum locationFailedEnum) {
+                public void onFailed(AirLocation.LocationFailedEnum locationFailedEnum) {
                     Log.e("AirLocation", "Location untraceable");
                 }
             });

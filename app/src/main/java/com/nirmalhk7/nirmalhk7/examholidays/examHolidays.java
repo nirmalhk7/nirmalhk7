@@ -28,6 +28,8 @@ import com.nirmalhk7.nirmalhk7.convert;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.nirmalhk7.nirmalhk7.attendance.subjectAttendanceLog.TAG;
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -41,7 +43,7 @@ public class examHolidays extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    public static ExamHolidayAdapter adapter;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -82,6 +84,7 @@ public class examHolidays extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         final View rootView= inflater.inflate(R.layout.fragment_exam_holidays, container, false);
 
@@ -108,27 +111,47 @@ public class examHolidays extends Fragment {
                 return false;
             }
         });
+
         SpeedDialView speed=getActivity().findViewById(R.id.speedDial);
         speed.show();
         speed.clearActionItems();
         speed.addActionItem(
                 new SpeedDialActionItem.Builder(R.id.content, R.drawable.ic_examholidays)
-                        .setLabel("Add Exam/Holiday")
+                        .setLabel("Add Exam")
                         .setLabelColor(Color.WHITE)
+                        .setFabBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.colorWarning, getActivity().getTheme()))
                         .setLabelBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.colorLightDark, getActivity().getTheme()))
                         .create()
         );
+        speed.addActionItem(new SpeedDialActionItem.Builder(R.id.label_container, R.drawable.ic_examholidays)
+                .setLabel("Add Holiday")
+                .setLabelColor(Color.WHITE)
+                .setFabBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.colorGreen, getActivity().getTheme()))
+                .setLabelBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.colorLightDark, getActivity().getTheme()))
+                .create()
+        );
+
         speed.setOnActionSelectedListener( new SpeedDialView.OnActionSelectedListener() {
             @Override
             public boolean onActionSelected(SpeedDialActionItem speedDialActionItem) {
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+
+                fsdExam newFragment = new fsdExam();
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                Bundle b=new Bundle();
                 switch (speedDialActionItem.getId()) {
                     case R.id.content:
-                        Log.d("ATT/ALS","Selct");
-                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                        Log.d("ATT/ALS","Select Exams");
 
-                        fsdExam newFragment = new fsdExam();
-                        FragmentTransaction transaction = fragmentManager.beginTransaction();
-                        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                        b.putInt("key",0);
+                        newFragment.setArguments(b);
+                        transaction.add(android.R.id.content, newFragment).addToBackStack(null).commit();
+                        return false;
+                    case R.id.label_container:
+                        Log.d("ATT/ALS","Select Holidays");
+                        b.putInt("key",1);
+                        newFragment.setArguments(b);
                         transaction.add(android.R.id.content, newFragment).addToBackStack(null).commit();
                         return false; // true to keep the Speed Dial open
                     default:
@@ -186,7 +209,7 @@ public class examHolidays extends Fragment {
 
 
 
-        ExamHolidayAdapter adapter = new ExamHolidayAdapter(getContext(), hs);
+        adapter = new ExamHolidayAdapter(getContext(), hs);
 
         // Find the {@link ListView} object in the view hierarchy of the {@link Activity}.
         // There should be a {@link ListView} with the view ID called list, which is declared in the
@@ -211,6 +234,29 @@ public class examHolidays extends Fragment {
                 pullToRefresh.setRefreshing(false);
             }
         });
+    }
+    @Override
+    public void setMenuVisibility(final boolean visible) {
+        super.setMenuVisibility(visible);
+        if (visible) {
+            Log.d("EAH/EAH","Visible!!");
+            adapter.notifyDataSetChanged();
+        }
+        else
+        {
+
+        }
+    }
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (hidden) {
+            Log.d(TAG, ((Object) this).getClass().getSimpleName() + " is NOT on screen");
+        }
+        else
+        {
+            Log.d(TAG, ((Object) this).getClass().getSimpleName() + " is on screen");
+        }
     }
 
 }
