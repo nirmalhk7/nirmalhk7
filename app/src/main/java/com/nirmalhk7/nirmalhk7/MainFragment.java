@@ -1,7 +1,6 @@
 package com.nirmalhk7.nirmalhk7;
 
 import android.app.Activity;
-import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -12,16 +11,13 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.CalendarView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -30,20 +26,8 @@ import android.widget.Toast;
 import com.leinardi.android.speeddial.SpeedDialView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
-import com.nirmalhk7.nirmalhk7.dailyscheduler.DailySchedule;
-import com.nirmalhk7.nirmalhk7.dailyscheduler.Schedule;
-import com.nirmalhk7.nirmalhk7.dailyscheduler.scheduleDAO;
-import com.nirmalhk7.nirmalhk7.examholidays.examHolidays;
 
-import org.json.JSONException;
 import org.json.JSONObject;
-
-
-import java.sql.Time;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 
 import cz.msebera.android.httpclient.Header;
 import mumayank.com.airlocationlibrary.AirLocation;
@@ -128,15 +112,63 @@ public class MainFragment extends Fragment {
                         String temp = response.getJSONObject("currently").getString("temperature");
                         String summary = response.getJSONObject("currently").getString("summary");
                         String rainWeek = response.getJSONObject("currently").getString("precipProbability");
-                        Log.d(MODULE_TAG+"WeatherAPI", icon + "with" + temp+ summary+rainWeek);
-                        getWeather(rootview,icon,temp,summary,rainWeek);
+                        Log.d(MODULE_TAG+"WeatherAPI", icon + "with" + temp);
+                        weather = rootview.findViewById(R.id.weather);
+                        ImageView weatherIcon = rootview.findViewById(R.id.weatherIcon);
+
+
+                        if (icon.equals("clear-day")) {
+                            weatherIcon.setImageResource(R.drawable.ic_iconfinder_sunny);
+                        } else if (icon.equals("clear-night")) {
+                            weatherIcon.setImageResource(R.drawable.ic_iconfinder_moony);
+                             
+                        } else if (icon.equals("rain")) {
+                            weatherIcon.setImageResource(R.drawable.ic_iconfinder_rainy);
+                            weather.addView(weatherIcon);
+                        } else if (icon.equals("wind")) {
+                            weatherIcon.setImageResource(R.drawable.ic_iconfinder_windy);
+                            weather.addView(weatherIcon);
+                        } else if (icon.equals("fog")) {
+                            weatherIcon.setImageResource(R.drawable.ic_iconfinder_foggy);
+                            weather.addView(weatherIcon);
+                        } else if (icon.equals("cloudy")) {
+                            weatherIcon.setImageResource(R.drawable.ic_iconfinder_cloudy);
+                            weather.addView(weatherIcon);
+                        } else if (icon.equals("partly-cloudy-day")) {
+                            weatherIcon.setImageResource(R.drawable.ic_iconfinder_partly_cloudy_sunny);
+                            weather.addView(weatherIcon);
+                        } else if (icon.equals("partly-cloudy-night")) {
+                            weatherIcon.setImageResource(R.drawable.ic_iconfinder_moony);
+                            weather.addView(weatherIcon);
+                        }
+                        Log.d(MODULE_TAG+"WeatherAPI", icon + temp);
+
+                        LinearLayout weatherDesc = rootview.findViewById(R.id.weatherDesc);
+
+                        TextView summaryText = new TextView(getContext());
+                        summaryText.setText(summary + ". Temperature " + temp + "C");
+
+                        TextView dailyProbability = new TextView(getContext());
+                        if (Integer.parseInt(rainWeek) > 0.5) {
+                            dailyProbability.setText(Integer.parseInt(rainWeek) * 100 + "% chance of rain!");
+                        } else if (Integer.parseInt(rainWeek) < 0.5 && Integer.parseInt(rainWeek) > 0.2) {
+                            dailyProbability.setText("Small probability of rain!");
+                        } else {
+                            dailyProbability.setText("Expect no rain!");
+                        }
+
+
+                        weatherDesc.addView(summaryText);
+                        weatherDesc.addView(dailyProbability);
+                        summaryText.setTextColor(getActivity().getResources().getColor(R.color.colorFontLight));
+                        summaryText.setTextSize(18);
+                        dailyProbability.setTextSize(13);
+                        dailyProbability.setTextColor(getActivity().getResources().getColor(R.color.colorFontLight));
+                        Log.d(MODULE_TAG+"END",weatherDesc.getChildCount()+" Count");
                     }
 
-                } catch (JSONException e) {
-                    Log.e(MODULE_TAG+"/DarkSky :", e.toString());
-                } catch (NullPointerException e)
-                {
-                    Log.e(MODULE_TAG+"/DarkSky :",e.toString());
+                } catch (Exception e) {
+                    Log.e(MODULE_TAG+"DarkSky :", e.toString());
                 }
 
             }
@@ -154,51 +186,6 @@ public class MainFragment extends Fragment {
         });
     }
 
-    private void getWeather(View rootview,String icon,String temp,String rainWeek,String summary)
-    {
-        ImageView weatherIcon = rootview.findViewById(R.id.weatherIcon);
-        if (icon.equals("clear-day")) {
-            weatherIcon.setImageResource(R.drawable.ic_iconfinder_sunny);
-        } else if (icon.equals("clear-night")) {
-            weatherIcon.setImageResource(R.drawable.ic_iconfinder_moony);
-        } else if (icon.equals("rain")) {
-            weatherIcon.setImageResource(R.drawable.ic_iconfinder_rainy);
-        } else if (icon.equals("wind")) {
-            weatherIcon.setImageResource(R.drawable.ic_iconfinder_windy);
-        } else if (icon.equals("fog")) {
-            weatherIcon.setImageResource(R.drawable.ic_iconfinder_foggy);
-        } else if (icon.equals("cloudy")) {
-            weatherIcon.setImageResource(R.drawable.ic_iconfinder_cloudy);
-        } else if (icon.equals("partly-cloudy-day")) {
-            weatherIcon.setImageResource(R.drawable.ic_iconfinder_partly_cloudy_sunny);
-        } else if (icon.equals("partly-cloudy-night")) {
-            weatherIcon.setImageResource(R.drawable.ic_iconfinder_moony);
-        }
-
-        Log.d(MODULE_TAG+"WeatherAPI", icon + temp);
-        LinearLayout weatherDesc = getActivity().findViewById(R.id.weatherDesc);
-
-        TextView summaryText = new TextView(getContext());
-        summaryText.setText(summary + ". " + temp + "C");
-
-        TextView dailyProbability = new TextView(getContext());
-        if (Float.parseFloat(rainWeek) > 0.5) {
-            dailyProbability.setText(Float.parseFloat(rainWeek) * 100 + "% chance of rain!");
-        } else if (Float.parseFloat(rainWeek) < 0.5 && Float.parseFloat(rainWeek) > 0.2) {
-            dailyProbability.setText("Small probability of rain!");
-        } else {
-            dailyProbability.setText("Sunny day!");
-        }
-
-        weatherDesc.addView(summaryText);
-        weatherDesc.addView(dailyProbability);
-        summaryText.setTextColor(getActivity().getResources().getColor(R.color.colorFontLight));
-        summaryText.setTextSize(18);
-        dailyProbability.setTextSize(10);
-        dailyProbability.setAllCaps(true);
-        dailyProbability.setTextColor(getActivity().getResources().getColor(R.color.colorFontLight));
-        Log.d(MODULE_TAG+"END",weatherDesc.getChildCount()+" Count");
-    }
     private boolean isOnline() {
         // get Connectivity Manager object to check connection
         ConnectivityManager connec = (ConnectivityManager) getActivity().getSystemService(getActivity().getBaseContext().CONNECTIVITY_SERVICE);
@@ -229,97 +216,53 @@ public class MainFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View v = inflater.inflate(R.layout.fragment_main, container, false);
-        CardView dailyschedule=v.findViewById(R.id.dailyScheduleCard);
-        CardView examholidays=v.findViewById(R.id.examHolidayCard);
-
-
-        Bundle b=this.getArguments();
-        getWeather(v,b.getString("icon"),b.get);
-
-
-        dailyschedule.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.setCustomAnimations(android.R.anim.fade_in,android.R.anim.fade_out);
-                Fragment newFragment = new DailySchedule();
-                transaction.replace(R.id.fullscreen, newFragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
-            }
-        });
-
-        examholidays.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.setCustomAnimations(android.R.anim.fade_in,android.R.anim.fade_out);
-                Fragment newFragment = new examHolidays();
-                transaction.replace(R.id.fullscreen, newFragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
-            }
-        });
-
         api_link = "https://api.darksky.net/forecast/60569b87b5b2a6220c135e9b2e91646b/";
         SpeedDialView dial=getActivity().findViewById(R.id.speedDial);
         dial.setVisibility(View.INVISIBLE);
         weather = getActivity().findViewById(R.id.weather);
-        LinearLayout weather=v.findViewById(R.id.weather);
-        weather.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                if (isOnline()) {
-                    airLocation = new AirLocation(getActivity(), true, true, new AirLocation.Callbacks() {
-                        @Override
-                        public void onSuccess(Location location) {
-                            latitude = location.getLatitude();
-                            longitude = location.getLongitude();
-                            Log.d("AirLocation", "Coordinates LA:" + latitude + " + LO:" + longitude);
-                            api_link = api_link.concat(Double.toString(latitude) + "," + Double.toString(longitude));
-                            api_link = api_link.concat("?units=si");
-                            Log.d("WeatherAPI", api_link);
-                            requestData(api_link, "weather",v);
-
-                        }
-
-                        @Override
-                        public void onFailed(AirLocation.LocationFailedEnum locationFailedEnum) {
-                            Log.e("AirLocation", "Location untraceable");
-                        }
-                    });
-                } else {
-                    Log.d(MODULE_TAG+"API","No Internet connection");
-                    TextView display=new TextView(getContext());
-                    ImageView i=v.findViewById(R.id.weatherIcon);
-                    i.setImageResource(R.drawable.ic_signal_wifi_off);
-                    display.setText("Phone is not connected");
-                    display.setTextColor(getActivity().getResources().getColor(R.color.colorFontLight));
-                    LinearLayout l=v.findViewById(R.id.weatherDesc);
-                    l.addView(display);
+        if (isOnline()) {
+            airLocation = new AirLocation(getActivity(), true, true, new AirLocation.Callbacks() {
+                @Override
+                public void onSuccess(Location location) {
+                    latitude = location.getLatitude();
+                    longitude = location.getLongitude();
+                    Log.d("AirLocation", "Coordinates LA:" + latitude + " + LO:" + longitude);
+                    api_link = api_link.concat(Double.toString(latitude) + "," + Double.toString(longitude));
+                    api_link = api_link.concat("?units=si");
+                    Log.d("WeatherAPI", api_link);
+                    requestData(api_link, "weather",v);
 
                 }
-                Toast.makeText(getActivity(), "LA:"+latitude+" LO:"+longitude+". MR1",
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
-        LinearLayout taskName=v.findViewById(R.id.taskLatest);
-        getLatestSchedule();
+
+                @Override
+                public void onFailed(AirLocation.LocationFailedEnum locationFailedEnum) {
+                    Log.e("AirLocation", "Location untraceable");
+                }
+            });
+            LinearLayout weather=v.findViewById(R.id.weather);
+            weather.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getActivity(), "LA:"+latitude+" LO:"+longitude+". MR1",
+                            Toast.LENGTH_SHORT).show();
+                }
+            });
+
+
+        } else {
+            Log.d(MODULE_TAG+"API","No Internet connection");
+            TextView display=new TextView(getContext());
+            ImageView i=v.findViewById(R.id.weatherIcon);
+            i.setImageResource(R.drawable.ic_signal_wifi_off);
+            display.setText("Phone is not connected");
+            display.setTextColor(getActivity().getResources().getColor(R.color.colorFontLight));
+            LinearLayout l=v.findViewById(R.id.weatherDesc);
+            l.addView(display);
+
+        }
         return v;
     }
 
-    void getLatestSchedule()
-    {
-        DateFormat df = new SimpleDateFormat("HH:mm a");
-        String time = df.format(Calendar.getInstance().getTime());
-        DateFormat d=new SimpleDateFormat("EEE");
-        String day=d.format(Calendar.getInstance().getTime());
-
-        DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
-                .allowMainThreadQueries().fallbackToDestructiveMigration()
-                .build();
-
-    }
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {

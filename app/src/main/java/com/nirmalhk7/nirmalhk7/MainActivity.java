@@ -33,11 +33,7 @@ import com.nirmalhk7.nirmalhk7.settings.SettingsActivity;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    private String WEATHER_ICON;
-    MainActivity(String WEATHER_ICON)
-    {
 
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,16 +116,6 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_dashboard) {
 
             newFragment = new MainFragment();
-            Bundle fromSplash=getIntent().getExtras();
-            Bundle mainfr=new Bundle();
-
-            mainfr.putString("rainWeek",fromSplash.getString("rainWeek"));
-
-            mainfr.putString("icon",fromSplash.getString("icon"));
-
-            mainfr.putString("temp",fromSplash.getString("temp"));
-
-            mainfr.putString("summary",fromSplash.getString("summary"));
             transaction.replace(R.id.fullscreen, newFragment);
             transaction.addToBackStack(null);
             transaction.commit();
