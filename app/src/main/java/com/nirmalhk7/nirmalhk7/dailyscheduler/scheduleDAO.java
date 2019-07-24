@@ -37,6 +37,9 @@ public interface scheduleDAO {
     @Delete
     void deleteSchedule(Schedule schedule);
 
+    @Query("SELECT * FROM Schedule WHERE mDay=:Day AND mStartTime>:StartTime ORDER BY mStartTime")
+    Schedule getNextSchedule(String Day,String StartTime);
+
     @Query("SELECT DISTINCT mTask,mDay,id FROM Schedule WHERE mLabel=:Label")
     List<Schedule> getSubjects(String Label);
 
