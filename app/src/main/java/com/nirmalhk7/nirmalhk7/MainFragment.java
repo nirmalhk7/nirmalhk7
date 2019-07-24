@@ -27,6 +27,7 @@ import com.leinardi.android.speeddial.SpeedDialView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
@@ -124,22 +125,22 @@ public class MainFragment extends Fragment {
                              
                         } else if (icon.equals("rain")) {
                             weatherIcon.setImageResource(R.drawable.ic_iconfinder_rainy);
-                            weather.addView(weatherIcon);
+                            
                         } else if (icon.equals("wind")) {
                             weatherIcon.setImageResource(R.drawable.ic_iconfinder_windy);
-                            weather.addView(weatherIcon);
+                            
                         } else if (icon.equals("fog")) {
                             weatherIcon.setImageResource(R.drawable.ic_iconfinder_foggy);
-                            weather.addView(weatherIcon);
+                            
                         } else if (icon.equals("cloudy")) {
                             weatherIcon.setImageResource(R.drawable.ic_iconfinder_cloudy);
-                            weather.addView(weatherIcon);
+                            
                         } else if (icon.equals("partly-cloudy-day")) {
                             weatherIcon.setImageResource(R.drawable.ic_iconfinder_partly_cloudy_sunny);
-                            weather.addView(weatherIcon);
+                            
                         } else if (icon.equals("partly-cloudy-night")) {
                             weatherIcon.setImageResource(R.drawable.ic_iconfinder_moony);
-                            weather.addView(weatherIcon);
+                            
                         }
                         Log.d(MODULE_TAG+"WeatherAPI", icon + temp);
 
@@ -149,9 +150,9 @@ public class MainFragment extends Fragment {
                         summaryText.setText(summary + ". Temperature " + temp + "C");
 
                         TextView dailyProbability = new TextView(getContext());
-                        if (Integer.parseInt(rainWeek) > 0.5) {
-                            dailyProbability.setText(Integer.parseInt(rainWeek) * 100 + "% chance of rain!");
-                        } else if (Integer.parseInt(rainWeek) < 0.5 && Integer.parseInt(rainWeek) > 0.2) {
+                        if (Float.parseFloat(rainWeek) > 0.5) {
+                            dailyProbability.setText(Float.parseFloat(rainWeek) * 100 + "% chance of rain!");
+                        } else if (Float.parseFloat(rainWeek) < 0.5 && Float.parseFloat(rainWeek) > 0.2) {
                             dailyProbability.setText("Small probability of rain!");
                         } else {
                             dailyProbability.setText("Expect no rain!");
@@ -167,7 +168,7 @@ public class MainFragment extends Fragment {
                         Log.d(MODULE_TAG+"END",weatherDesc.getChildCount()+" Count");
                     }
 
-                } catch (Exception e) {
+                } catch (JSONException e) {
                     Log.e(MODULE_TAG+"DarkSky :", e.toString());
                 }
 
