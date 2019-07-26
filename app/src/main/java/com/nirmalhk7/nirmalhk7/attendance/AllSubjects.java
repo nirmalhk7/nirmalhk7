@@ -1,6 +1,8 @@
 package com.nirmalhk7.nirmalhk7.attendance;
 
+import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Room;
+import android.arch.persistence.room.migration.Migration;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -136,6 +138,7 @@ public class AllSubjects extends Fragment {
                 bundle.putString("subject",subject.getText().toString());
                 bundle.putInt("present",Integer.parseInt(present));
                 bundle.putInt("absent",Integer.parseInt(absent));
+
                 bundle.putString("percent",zpercent);
                 x.setArguments(bundle);
 
@@ -235,11 +238,13 @@ public class AllSubjects extends Fragment {
     }
 
     void ALSfetchDB(View rootView){
+
         DBGateway database2 = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
                 .allowMainThreadQueries().fallbackToDestructiveMigration()
                 .build();
 
         attendanceDAO AttendanceDAO = database2.getAttendanceDao();
+
         List<attendanceEntity> attendance=AttendanceDAO.getAllSubject();
         ArrayList<attendanceItem> SubjectItem = new ArrayList<>();
         Log.d("ATT/ALS","Count"+attendance.size());

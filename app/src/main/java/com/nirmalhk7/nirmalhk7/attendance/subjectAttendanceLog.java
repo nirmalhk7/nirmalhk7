@@ -52,6 +52,7 @@ public class subjectAttendanceLog extends DialogFragment {
         String subject=b.getString("subject");
         int p=b.getInt("present");
         int a=b.getInt("absent");
+        int c=b.getInt("cancelled");
 
         TextView subjName=rootView.findViewById(R.id.sal_subject);
         subjName.setText(subject);
@@ -59,6 +60,8 @@ public class subjectAttendanceLog extends DialogFragment {
         present.setText(Integer.toString(p));
         TextView absent=rootView.findViewById(R.id.sal_a);
         absent.setText(Integer.toString(a));
+        TextView cancel=rootView.findViewById(R.id.sal_c);
+        cancel.setText(Integer.toString(c));
         DBGateway database2 = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
                 .allowMainThreadQueries().fallbackToDestructiveMigration()
                 .build();
