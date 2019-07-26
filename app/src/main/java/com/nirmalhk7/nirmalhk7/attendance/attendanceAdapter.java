@@ -169,19 +169,19 @@ public class attendanceAdapter extends ArrayAdapter<attendanceItem> {
             {
                 TextView pacp= listItemView.findViewById(R.id.pacp_calendar);
                 pacp.setText("Present");
-                pacp.setBackgroundColor(Color.GREEN);
+                pacp.setTextColor(Color.GREEN);
             }
             else if(currentWord.getmPRABCA()==2)
             {
                 TextView pacp= listItemView.findViewById(R.id.pacp_calendar);
                 pacp.setText("ABSENT");
-                pacp.setBackgroundColor(Color.RED);
+                pacp.setTextColor(Color.RED);
             }
             else if(currentWord.getmPRABCA()==3)
             {
                 TextView pacp= listItemView.findViewById(R.id.pacp_calendar);
                 pacp.setText("CANCELLED");
-                pacp.setBackgroundColor(Color.YELLOW);
+                pacp.setTextColor(Color.YELLOW);
             }
 
 
@@ -197,6 +197,7 @@ public class attendanceAdapter extends ArrayAdapter<attendanceItem> {
     {
         ImageButton p=listitemview.findViewById(R.id.present_btn);
         ImageButton a=listitemview.findViewById(R.id.absent_btn);
+        ImageButton c=listitemview.findViewById(R.id.cancel_btn);
         final DBGateway database = Room.databaseBuilder(context, DBGateway.class, "finalDB")
                 .allowMainThreadQueries()
                 .fallbackToDestructiveMigration()
@@ -257,7 +258,27 @@ public class attendanceAdapter extends ArrayAdapter<attendanceItem> {
                 SLDAO.insertLog(sl);
             }
         });
+        c.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int ca=att.getAbsent();
+                att.setAbsent(++ca);
+                attendanceDAO.updateSubject(att);
 
+                subjectlogDAO SLDAO=database.getSALDAO();
+                final subjectlogEntity sl=new subjectlogEntity();
+                TextView subjName_subj = listitemview.findViewById(R.id.subjName_subject);
+                sl.setSubject(subjName_subj.getText().toString());
+                sl.setPrabca(3);
+                DateFormat dtf = new SimpleDateFormat("d MMM yyyy");
+                sl.setDateAdded(dtf.format(Calendar.getInstance().getTime()));
+
+                DateFormat dwf=new SimpleDateFormat("EEE, HH:mm:ss");
+                sl.setDayTime(dwf.format(Calendar.getInstance().getTime()));
+                Log.d("datex",dtf.format(Calendar.getInstance().getTime())+"//"+dwf.format(Calendar.getInstance().getTime()));
+                SLDAO.insertLog(sl);
+            }
+        });
 
 
 

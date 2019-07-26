@@ -13,9 +13,13 @@ public class attendanceEntity {
     private String mSubject;
     private int mPresent;
     private int mAbsent;
+    private int mCancelled;
 
     public int getId() { return id; }
 
+    public int getCancelled(){
+        return mCancelled;
+    }
     public String getSubject() { return mSubject; }
 
     public int getPresent() { return mPresent; }
@@ -27,6 +31,9 @@ public class attendanceEntity {
 
     public void setSubject(String mSubject) { this.mSubject = mSubject; }
 
+    public void setCancelled(int mCancelled) {
+        this.mCancelled = mCancelled;
+    }
     public void setPresent(int mPresent) { this.mPresent = mPresent; }
 
     public void setAbsent(int mAbsent) { this.mAbsent = mAbsent; }
