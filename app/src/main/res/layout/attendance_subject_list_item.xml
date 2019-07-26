@@ -96,11 +96,20 @@
                         android:id="@+id/absent_btn"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:layout_alignParentEnd="true"
+                        android:layout_toLeftOf="@+id/cancel_btn"
                         android:background="#00000000"
                         android:scaleX="1.4"
                         android:scaleY="1.4"
                         android:src="@drawable/ic_absent" />
+                    <ImageButton
+                        android:id="@+id/cancel_btn"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_alignParentEnd="true"
+                        android:background="#00000000"
+                        android:scaleX="1.4"
+                        android:scaleY="1.4"
+                        android:src="@drawable/ic_cancelled" />
                 </RelativeLayout>
 
             </LinearLayout>
