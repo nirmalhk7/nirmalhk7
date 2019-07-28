@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.arch.persistence.room.Room;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
@@ -62,6 +63,7 @@ public class FullScreenDialog extends DialogFragment {
             String label = bundle.getString("label");
             String startTime = bundle.getString("starttime");
             String endtime = bundle.getString("endtime");
+            String subjcode=bundle.getString("subjcode");
             int rday = bundle.getInt("day");
             Log.d("ddd",rday+"");
             dbNo = bundle.getInt("key");
@@ -70,13 +72,20 @@ public class FullScreenDialog extends DialogFragment {
             AutoCompleteTextView taskNameEdit = rootView.findViewById(R.id.taskName);
             taskNameEdit.setText(title);
             EditText taskLabelEdit = rootView.findViewById(R.id.taskLabel);
-            taskLabelEdit.setText(label);
-
+            if(!label.isEmpty())
+            {
+                taskLabelEdit.setText(label);
+            }
+            else{
+                taskLabelEdit.setText("College");
+            }
+            EditText subjCode=rootView.findViewById(R.id.subjCode);
+            subjCode.setText(subjcode);
 
             EditText taskTimeStartEdit = rootView.findViewById(R.id.taskStart);
             EditText taskTimeEndEdit = rootView.findViewById(R.id.taskEnd);
-            taskTimeStartEdit.setText(convert.normaltorail(startTime));
-            taskTimeEndEdit.setText(convert.normaltorail(endtime));
+            taskTimeStartEdit.setText(startTime);
+            taskTimeEndEdit.setText(endtime);
 
             RadioGroup dayrg=rootView.findViewById(R.id.rgDay);
             ((RadioButton)dayrg.getChildAt(rday)).setChecked(true);
@@ -107,7 +116,18 @@ public class FullScreenDialog extends DialogFragment {
         }
 
 
+        if(bundle==null)
+        {
+            RadioButton Monday=rootView.findViewById(R.id.rbMon);
+            Monday.setChecked(true);
+            EditText starttime=rootView.findViewById(R.id.taskStart);
+            EditText endtime=rootView.findViewById(R.id.taskEnd);
+            starttime.setText("08:00 AM");
+
+        }
+
         RadioGroup day=rootView.findViewById(R.id.rgDay);
+
         day.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -269,8 +289,8 @@ public class FullScreenDialog extends DialogFragment {
                         schedule.setTask(taskNameEdit.getText().toString());
                         schedule.setLabel(taskLabelEdit.getText().toString());
                         schedule.setSubjCode(SubjCode.getText().toString());
-                        schedule.setStartTime(taskTimeStartEdit.getText().toString());
-                        schedule.setEndTime(taskTimeEndEdit.getText().toString());
+                        schedule.setStartTime(convert.normaltorail(taskTimeStartEdit.getText().toString()));
+                        schedule.setEndTime(convert.normaltorail(taskTimeEndEdit.getText().toString()));
                         schedule.setDay(mday);
                         scheduleDAO.updateSchedule(schedule);
 
@@ -279,8 +299,8 @@ public class FullScreenDialog extends DialogFragment {
                         schedule.setTask(taskNameEdit.getText().toString());
                         schedule.setLabel(taskLabelEdit.getText().toString());
                         schedule.setSubjCode(SubjCode.getText().toString());
-                        schedule.setStartTime(taskTimeStartEdit.getText().toString());
-                        schedule.setEndTime(taskTimeEndEdit.getText().toString());
+                        schedule.setStartTime(convert.normaltorail(taskTimeStartEdit.getText().toString()));
+                        schedule.setEndTime(convert.normaltorail(taskTimeEndEdit.getText().toString()));
                         schedule.setDay(mday);
                         scheduleDAO.insertOnlySingleSchedule(schedule);
                     }
@@ -307,18 +327,18 @@ public class FullScreenDialog extends DialogFragment {
                 if (selectedHour < 10) {
 
                     if (selectedMinute < 10) {
-                        Time.setText(selectedHour + "0" + selectedMinute);
+                        Time.setText(convert.railtonormal("0"+ selectedHour + "0" + selectedMinute));
                     }
                     else{
-                        Time.setText("0" + selectedHour + "" + selectedMinute);
+                        Time.setText(convert.railtonormal("0" + selectedHour  + selectedMinute));
                     }
                 } else if (selectedHour >= 10) {
 
                     if (selectedMinute < 10) {
-                        Time.setText(selectedHour + "0" + selectedMinute);
+                        Time.setText(convert.railtonormal(selectedHour + "0" + selectedMinute));
                     }
                     else {
-                        Time.setText(selectedHour + "" + selectedMinute);
+                        Time.setText(convert.railtonormal(selectedHour + "" + selectedMinute));
                     }
                 }
 

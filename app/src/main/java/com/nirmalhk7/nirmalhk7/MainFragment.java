@@ -11,8 +11,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v4.widget.TextViewCompat;
+import android.support.v7.widget.CardView;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +30,8 @@ import android.widget.Toast;
 import com.leinardi.android.speeddial.SpeedDialView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.nirmalhk7.nirmalhk7.dailyscheduler.DailySchedule;
+import com.nirmalhk7.nirmalhk7.examholidays.examHolidays;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -147,8 +153,11 @@ public class MainFragment extends Fragment {
                         LinearLayout weatherDesc = rootview.findViewById(R.id.weatherDesc);
 
                         TextView summaryText = new TextView(getContext());
-                        summaryText.setText(summary + ". Temperature " + temp + "C");
+                        summaryText.setText(summary + "." );
+                        TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(summaryText,1,20,1,TypedValue.COMPLEX_UNIT_DIP);
 
+                        TextView tempT=new TextView(getContext());
+                        tempT.setText(temp+"C");
                         TextView dailyProbability = new TextView(getContext());
                         if (Float.parseFloat(rainWeek) > 0.5) {
                             dailyProbability.setText(Float.parseFloat(rainWeek) * 100 + "% chance of rain!");
@@ -157,13 +166,15 @@ public class MainFragment extends Fragment {
                         } else {
                             dailyProbability.setText("Expect no rain!");
                         }
-
-
+                        dailyProbability.setAllCaps(true);
+                        dailyProbability.setTextSize(12);
                         weatherDesc.addView(summaryText);
+                        weatherDesc.addView(tempT);
                         weatherDesc.addView(dailyProbability);
                         summaryText.setTextColor(getActivity().getResources().getColor(R.color.colorFontLight));
-                        summaryText.setTextSize(18);
-                        dailyProbability.setTextSize(13);
+                        summaryText.setTextSize(15);
+                        tempT.setTextColor(getActivity().getResources().getColor(R.color.colorFontLight));
+                        tempT.setTextSize(12);
                         dailyProbability.setTextColor(getActivity().getResources().getColor(R.color.colorFontLight));
                         Log.d(MODULE_TAG+"END",weatherDesc.getChildCount()+" Count");
                     }
@@ -220,6 +231,32 @@ public class MainFragment extends Fragment {
         api_link = "https://api.darksky.net/forecast/60569b87b5b2a6220c135e9b2e91646b/";
         SpeedDialView dial=getActivity().findViewById(R.id.speedDial);
         dial.setVisibility(View.INVISIBLE);
+        CardView das=v.findViewById(R.id.dailySchedule);
+        das.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.setCustomAnimations(android.R.anim.fade_in,android.R.anim.fade_out);
+                Fragment newFragment;
+                newFragment = new DailySchedule();
+                transaction.replace(R.id.fullscreen, newFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
+        CardView eah=v.findViewById(R.id.examHolidayNext);
+        eah.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.setCustomAnimations(android.R.anim.fade_in,android.R.anim.fade_out);
+                Fragment newFragment;
+                newFragment = new DailySchedule();
+                transaction.replace(R.id.fullscreen, newFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
         weather = getActivity().findViewById(R.id.weather);
         if (isOnline()) {
             airLocation = new AirLocation(getActivity(), true, true, new AirLocation.Callbacks() {
