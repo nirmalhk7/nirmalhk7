@@ -130,6 +130,67 @@
 
             </LinearLayout>
         </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/veronica"
+            android:padding="@dimen/standard_dimen"
+            android:layout_margin="@dimen/standard_dimen">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:background="@color/colorAccent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical"
+                android:padding="@dimen/standard_dimen">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="100px"
+                        android:layout_height="100px"
+                        android:id="@+id/iconVeronica"/>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:paddingLeft="10dp"
+                        android:layout_height="match_parent"
+                        android:id="@+id/veronicaDesc">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/orbitron"
+                            android:text="Veronica"
+                            android:textSize="17sp"
+                            android:textColor="@color/colorFontDark" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="8sp"
+                            android:paddingTop="5dp"
+                            android:textAllCaps="true"
+                            android:text="Very Obedient And Nice Assistant"/>
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/standard_dimen"
+                    android:minHeight="30dp"
+                    android:background="@color/cardview_light_background">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        tools:text="Response from Nirmal."
+                        android:textColor="@color/colorFontLight"
+                        android:paddingLeft="5dp"/>
+                </LinearLayout>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
     </LinearLayout>
     </android.support.v4.widget.SwipeRefreshLayout>
 </FrameLayout>
