@@ -39,7 +39,4 @@ dependencies {
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
 
     implementation "com.daimajia.swipelayout:library:1.2.0@aar"
-    implementation('ai.snips:snips-platform-android:0.62.3@aar') {
-        transitive = true
-    }
 }

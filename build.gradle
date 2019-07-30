@@ -20,11 +20,7 @@ allprojects {
     repositories {
         google()
         jcenter()
-        maven { url 'https://jitpack.io'
-        }
-        maven {
-            url "https://nexus-repository.snips.ai/repository/snips-maven-releases/"
-        }
+        maven { url 'https://jitpack.io' }
     }
 }
 

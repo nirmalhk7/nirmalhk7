@@ -156,8 +156,6 @@ public class DailyScheduleList extends Fragment {
                 TextView starttime = view.findViewById(R.id.start_time);
                 TextView endTime = view.findViewById(R.id.end_time);
                 TextView idx = view.findViewById(R.id.itemid);
-                TextView subjcode=view.findViewById(R.id.fsd_subjabbr);
-
 
                 Log.d("CONVERTX", endTime + "-" + starttime);
 
@@ -173,7 +171,6 @@ public class DailyScheduleList extends Fragment {
                 args.putString("label", label.getText().toString());
                 args.putString("starttime", starttime.getText().toString());
                 args.putString("endtime", endTime.getText().toString());
-                args.putString("subjcode",subjcode.getText().toString());
                 args.putInt("day", bundle.getInt("key"));
 
                 Log.d("DS", "PSN:" + Integer.toString(position));
