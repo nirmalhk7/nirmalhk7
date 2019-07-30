@@ -22,7 +22,6 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v7.widget.Toolbar;
-import android.widget.Toast;
 
 import com.leinardi.android.speeddial.SpeedDialActionItem;
 import com.leinardi.android.speeddial.SpeedDialView;
@@ -93,7 +92,6 @@ public class DailySchedule extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_daily_schedule, container, false);
-
 
         viewPager = view.findViewById(R.id.view_pager);
         viewPager.setAdapter(new ViewPagerAdapter(getActivity().getSupportFragmentManager()));
