@@ -13,7 +13,9 @@
         <item name="android:textColor">@color/colorFontDark</item>
 
     </style>
-
+    <style name="NavigationView">
+        <item name="android:textColorSecondary">@color/colorFontDark</item>
+    </style>
     <style name="AppTheme.NoActionBar">
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
