@@ -57,8 +57,8 @@ public class FullScreenDialog extends DialogFragment {
         //If editing
         if (bundle != null) {
 
-            Toolbar toolbar=getActivity().findViewById(R.id.toolbar);
-            toolbar.setTitle("Edit Task");
+            //Toolbar toolbar=getActivity().findViewById(R.id.toolbar);
+            //toolbar.setTitle("Edit Task");
             String title = bundle.getString("title");
             String label = bundle.getString("label");
             String startTime = bundle.getString("starttime");
@@ -122,7 +122,7 @@ public class FullScreenDialog extends DialogFragment {
             Monday.setChecked(true);
             EditText starttime=rootView.findViewById(R.id.taskStart);
             EditText endtime=rootView.findViewById(R.id.taskEnd);
-            starttime.setText("08:00 AM");
+
 
         }
 
@@ -240,7 +240,7 @@ public class FullScreenDialog extends DialogFragment {
 
             @Override
             public void onClick(View v) {
-                dialogTimePicker(1, startTime);
+                dialogTimePicker(rootView,1, startTime);
 
             }
         });
@@ -251,7 +251,7 @@ public class FullScreenDialog extends DialogFragment {
 
             @Override
             public void onClick(View v) {
-                dialogTimePicker(2, endTime);
+                dialogTimePicker(rootView,2, endTime);
 
             }
         });
@@ -315,31 +315,45 @@ public class FullScreenDialog extends DialogFragment {
         return rootView;
     }
     private EditText endtime;
-    public void dialogTimePicker(final int whatTimeSelected, final EditText Time) {
+    public void dialogTimePicker(final View rv,final int whatTimeSelected, final EditText Time) {
         // TODO Auto-generated method stub
         Calendar mcurrentTime = Calendar.getInstance();
-        int Mhour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-        int Mminute = mcurrentTime.get(Calendar.MINUTE);
+        int Mhour = 0;
+        int Mminute = 0;
         TimePickerDialog mTimePicker;
+
         mTimePicker = new TimePickerDialog(getContext(), AlertDialog.THEME_DEVICE_DEFAULT_DARK, new TimePickerDialog.OnTimeSetListener() {
+
             @Override
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                String railtime="";
                 if (selectedHour < 10) {
 
                     if (selectedMinute < 10) {
-                        Time.setText(convert.railtonormal("0"+ selectedHour + "0" + selectedMinute));
+                        railtime="0"+ selectedHour + "0" + selectedMinute;
+                        
+                        
                     }
                     else{
-                        Time.setText(convert.railtonormal("0" + selectedHour  + selectedMinute));
+                        railtime="0" + selectedHour  + selectedMinute;
+                        
                     }
                 } else if (selectedHour >= 10) {
 
                     if (selectedMinute < 10) {
-                        Time.setText(convert.railtonormal(selectedHour + "0" + selectedMinute));
+                        railtime=selectedHour + "0" + selectedMinute;
+                        
                     }
                     else {
-                        Time.setText(convert.railtonormal(selectedHour + "" + selectedMinute));
+                        railtime=selectedHour + "" + selectedMinute;
+                        
                     }
+                }
+                Time.setText(convert.railtonormal(railtime));
+                if(Time==rv.findViewById(R.id.start_time))
+                {
+                    EditText endtime=rv.findViewById(R.id.end_time);
+                    endtime.setText(convert.addrailtime(railtime,55));
                 }
 
             }

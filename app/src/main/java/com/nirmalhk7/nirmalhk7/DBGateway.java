@@ -12,7 +12,7 @@ import com.nirmalhk7.nirmalhk7.dailyscheduler.scheduleDAO;
 import com.nirmalhk7.nirmalhk7.examholidays.ehDAO;
 import com.nirmalhk7.nirmalhk7.examholidays.ehEntity;
 
-@Database(entities = {Schedule.class, attendanceEntity.class, ehEntity.class, subjectlogEntity.class}, version = 18, exportSchema = false)
+@Database(entities = {Schedule.class, attendanceEntity.class, ehEntity.class, subjectlogEntity.class}, version = 19, exportSchema = false)
 public abstract class DBGateway extends RoomDatabase {
     public abstract scheduleDAO getScheduleDao();
     public abstract attendanceDAO getAttendanceDao();

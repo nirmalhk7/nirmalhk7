@@ -162,18 +162,14 @@
 
                         <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical|left"
                             android:fontFamily="@font/orbitron"
                             android:text="Veronica"
+
                             android:textSize="17sp"
                             android:textColor="@color/colorFontDark" />
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="8sp"
-                            android:paddingTop="5dp"
-                            android:textAllCaps="true"
-                            android:text="Very Obedient And Nice Assistant"/>
+
                     </LinearLayout>
                 </LinearLayout>
                 <LinearLayout
