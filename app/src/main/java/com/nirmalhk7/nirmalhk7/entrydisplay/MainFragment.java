@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.TextViewCompat;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -30,6 +31,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.nirmalhk7.nirmalhk7.MainActivity;
 import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.dailyscheduler.DailySchedule;
+import com.nirmalhk7.nirmalhk7.examholidays.examHolidays;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -244,7 +246,8 @@ public class MainFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View v = inflater.inflate(R.layout.fragment_main, container, false);
-
+        Toolbar toolbar=getActivity().findViewById(R.id.toolbar);
+        toolbar.setTitle("Dashboard");
         assistantLocation = new File(getActivity().getFilesDir(), "snips");
         extractAssistantIfNeeded(assistantLocation);
         if (ensurePermissions()) {
@@ -274,7 +277,7 @@ public class MainFragment extends Fragment {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 transaction.setCustomAnimations(android.R.anim.fade_in,android.R.anim.fade_out);
                 Fragment newFragment;
-                newFragment = new DailySchedule();
+                newFragment = new examHolidays();
                 transaction.replace(R.id.fullscreen, newFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();

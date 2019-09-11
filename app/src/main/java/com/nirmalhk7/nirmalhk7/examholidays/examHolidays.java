@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -87,7 +88,8 @@ public class examHolidays extends Fragment {
 
         // Inflate the layout for this fragment
         final View rootView= inflater.inflate(R.layout.fragment_exam_holidays, container, false);
-
+        Toolbar toolbar=getActivity().findViewById(R.id.toolbar);
+        toolbar.setTitle("nirmalhk7");
         EAHfetchDB(rootView);
         DSLonRefresh(rootView);
 
@@ -203,8 +205,14 @@ public class examHolidays extends Fragment {
         List<ehEntity> list=ehDAO.getItems();
 
         for (ehEntity cn : list) {
-
-            hs.add(new heItem(cn.getHolexa(),cn.getmName(),cn.getmDateStart()+" - "+cn.getmDateEnd()));
+            Log.d("EAH/EAH",cn.getmType()+" ");
+            if(cn.getmDateStart().matches(cn.getmDateEnd())){
+                hs.add(new heItem(cn.getHolexa(),cn.getmName(),cn.getmDateStart(),cn.getmType()));
+            }
+            else
+            {
+                hs.add(new heItem(cn.getHolexa(),cn.getmName(),cn.getmDateStart()+" - "+cn.getmDateEnd(),cn.getmType()));
+            }
         }
 
 
