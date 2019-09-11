@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.arch.persistence.room.Room;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
@@ -56,12 +57,13 @@ public class FullScreenDialog extends DialogFragment {
         //If editing
         if (bundle != null) {
 
-            Toolbar toolbar=getActivity().findViewById(R.id.toolbar);
-            toolbar.setTitle("Edit Task");
+            //Toolbar toolbar=getActivity().findViewById(R.id.toolbar);
+            //toolbar.setTitle("Edit Task");
             String title = bundle.getString("title");
             String label = bundle.getString("label");
             String startTime = bundle.getString("starttime");
             String endtime = bundle.getString("endtime");
+            String subjcode=bundle.getString("subjcode");
             int rday = bundle.getInt("day");
             Log.d("ddd",rday+"");
             dbNo = bundle.getInt("key");
@@ -70,13 +72,20 @@ public class FullScreenDialog extends DialogFragment {
             AutoCompleteTextView taskNameEdit = rootView.findViewById(R.id.taskName);
             taskNameEdit.setText(title);
             EditText taskLabelEdit = rootView.findViewById(R.id.taskLabel);
-            taskLabelEdit.setText(label);
-
+            if(!label.isEmpty())
+            {
+                taskLabelEdit.setText(label);
+            }
+            else{
+                taskLabelEdit.setText("College");
+            }
+            EditText subjCode=rootView.findViewById(R.id.subjCode);
+            subjCode.setText(subjcode);
 
             EditText taskTimeStartEdit = rootView.findViewById(R.id.taskStart);
             EditText taskTimeEndEdit = rootView.findViewById(R.id.taskEnd);
-            taskTimeStartEdit.setText(convert.normaltorail(startTime));
-            taskTimeEndEdit.setText(convert.normaltorail(endtime));
+            taskTimeStartEdit.setText(startTime);
+            taskTimeEndEdit.setText(endtime);
 
             RadioGroup dayrg=rootView.findViewById(R.id.rgDay);
             ((RadioButton)dayrg.getChildAt(rday)).setChecked(true);
@@ -107,7 +116,18 @@ public class FullScreenDialog extends DialogFragment {
         }
 
 
+        if(bundle==null)
+        {
+            RadioButton Monday=rootView.findViewById(R.id.rbMon);
+            Monday.setChecked(true);
+            EditText starttime=rootView.findViewById(R.id.taskStart);
+            EditText endtime=rootView.findViewById(R.id.taskEnd);
+
+
+        }
+
         RadioGroup day=rootView.findViewById(R.id.rgDay);
+
         day.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -220,7 +240,7 @@ public class FullScreenDialog extends DialogFragment {
 
             @Override
             public void onClick(View v) {
-                dialogTimePicker(1, startTime);
+                dialogTimePicker(rootView,1, startTime);
 
             }
         });
@@ -231,7 +251,7 @@ public class FullScreenDialog extends DialogFragment {
 
             @Override
             public void onClick(View v) {
-                dialogTimePicker(2, endTime);
+                dialogTimePicker(rootView,2, endTime);
 
             }
         });
@@ -269,8 +289,8 @@ public class FullScreenDialog extends DialogFragment {
                         schedule.setTask(taskNameEdit.getText().toString());
                         schedule.setLabel(taskLabelEdit.getText().toString());
                         schedule.setSubjCode(SubjCode.getText().toString());
-                        schedule.setStartTime(taskTimeStartEdit.getText().toString());
-                        schedule.setEndTime(taskTimeEndEdit.getText().toString());
+                        schedule.setStartTime(convert.normaltorail(taskTimeStartEdit.getText().toString()));
+                        schedule.setEndTime(convert.normaltorail(taskTimeEndEdit.getText().toString()));
                         schedule.setDay(mday);
                         scheduleDAO.updateSchedule(schedule);
 
@@ -279,8 +299,8 @@ public class FullScreenDialog extends DialogFragment {
                         schedule.setTask(taskNameEdit.getText().toString());
                         schedule.setLabel(taskLabelEdit.getText().toString());
                         schedule.setSubjCode(SubjCode.getText().toString());
-                        schedule.setStartTime(taskTimeStartEdit.getText().toString());
-                        schedule.setEndTime(taskTimeEndEdit.getText().toString());
+                        schedule.setStartTime(convert.normaltorail(taskTimeStartEdit.getText().toString()));
+                        schedule.setEndTime(convert.normaltorail(taskTimeEndEdit.getText().toString()));
                         schedule.setDay(mday);
                         scheduleDAO.insertOnlySingleSchedule(schedule);
                     }
@@ -295,31 +315,45 @@ public class FullScreenDialog extends DialogFragment {
         return rootView;
     }
     private EditText endtime;
-    public void dialogTimePicker(final int whatTimeSelected, final EditText Time) {
+    public void dialogTimePicker(final View rv,final int whatTimeSelected, final EditText Time) {
         // TODO Auto-generated method stub
         Calendar mcurrentTime = Calendar.getInstance();
-        int Mhour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-        int Mminute = mcurrentTime.get(Calendar.MINUTE);
+        int Mhour = 0;
+        int Mminute = 0;
         TimePickerDialog mTimePicker;
+
         mTimePicker = new TimePickerDialog(getContext(), AlertDialog.THEME_DEVICE_DEFAULT_DARK, new TimePickerDialog.OnTimeSetListener() {
+
             @Override
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                String railtime="";
                 if (selectedHour < 10) {
 
                     if (selectedMinute < 10) {
-                        Time.setText(selectedHour + "0" + selectedMinute);
+                        railtime="0"+ selectedHour + "0" + selectedMinute;
+                        
+                        
                     }
                     else{
-                        Time.setText("0" + selectedHour + "" + selectedMinute);
+                        railtime="0" + selectedHour  + selectedMinute;
+                        
                     }
                 } else if (selectedHour >= 10) {
 
                     if (selectedMinute < 10) {
-                        Time.setText(selectedHour + "0" + selectedMinute);
+                        railtime=selectedHour + "0" + selectedMinute;
+                        
                     }
                     else {
-                        Time.setText(selectedHour + "" + selectedMinute);
+                        railtime=selectedHour + "" + selectedMinute;
+                        
                     }
+                }
+                Time.setText(convert.railtonormal(railtime));
+                if(Time==rv.findViewById(R.id.start_time))
+                {
+                    EditText endtime=rv.findViewById(R.id.end_time);
+                    endtime.setText(convert.addrailtime(railtime,55));
                 }
 
             }

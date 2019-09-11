@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -91,7 +92,8 @@ public class AllSubjects extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View rootView= inflater.inflate(R.layout.fragment_attendance_all_subjects, container, false);
-
+        Toolbar toolbar=getActivity().findViewById(R.id.toolbar);
+        toolbar.setTitle("nirmalhk7");
         View tbV= getLayoutInflater().inflate(R.layout.app_bar_main, null);
 
      /*   LinearLayout pending= rootView.findViewById(R.id.pendingSubjects_subject);

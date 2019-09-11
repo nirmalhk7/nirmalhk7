@@ -1,25 +1,16 @@
 package com.nirmalhk7.nirmalhk7.attendance;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Toolbar;
 
-import com.nirmalhk7.nirmalhk7.MainFragment;
 import com.nirmalhk7.nirmalhk7.R;
 
-import java.time.Instant;
 import java.util.ArrayList;
 
 /**
@@ -80,8 +71,6 @@ public class Attendance extends Fragment {
         View rootView= inflater.inflate(R.layout.fragment_attendance, container, false);
 
         ArrayList<attendanceItem> AttendanceItem = new ArrayList<attendanceItem>();
-
-
 
         // Create an {@link attendanceAdapter}, whose data source is a list of {@link attendanceItem}s. The
         // adapter knows how to create list items for each item in the list.

@@ -47,7 +47,7 @@ public class ExamHolidayAdapter extends ArrayAdapter<heItem> {
         // the default TextView.
         if(currentWord.getHolidayOrExam()==1)
         {
-            hOrE.setText("EXAM    ");
+            hOrE.setText(currentWord.getmType());
             hOrE.setTextColor(Color.RED);
         }
         else if(currentWord.getHolidayOrExam()==2)

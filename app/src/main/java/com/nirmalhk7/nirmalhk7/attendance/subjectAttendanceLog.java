@@ -75,8 +75,8 @@ public class subjectAttendanceLog extends DialogFragment {
         }
 
 
-        SALFetch(rootView);
-        swiperefresh(rootView);
+        SALFetch(rootView,subject);
+        swiperefresh(rootView,subject);
         return rootView;
 
     }
@@ -91,13 +91,13 @@ public class subjectAttendanceLog extends DialogFragment {
         }
     }
 
-    private void SALFetch(View rootView)
+    private void SALFetch(View rootView,String subj)
     {
         DBGateway database2 = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
                 .allowMainThreadQueries().fallbackToDestructiveMigration()
                 .build();
         subjectlogDAO SLDAO = database2.getSALDAO();
-        List<subjectlogEntity> subjLog=SLDAO.getAllLog();
+        List<subjectlogEntity> subjLog=SLDAO.getAllLog(subj);
 
 
         ArrayList<attendanceItem> SubjectItem = new ArrayList<>();
@@ -113,7 +113,7 @@ public class subjectAttendanceLog extends DialogFragment {
         listView.setAdapter(adapter);
     }
     private SwipeRefreshLayout pullToRefresh;
-    void swiperefresh(final View rootview){
+    void swiperefresh(final View rootview,final String subj){
         pullToRefresh = rootview.findViewById(R.id.pullToRefresh);
         pullToRefresh.setEnabled(true);
         pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -123,7 +123,7 @@ public class subjectAttendanceLog extends DialogFragment {
             public void onRefresh() {
                 //Here you can update your data from internet or from local SQLite data
                 Log.d("ATT/ALS","Refreshing");
-                SALFetch(rootview);
+                SALFetch(rootview,subj);
                 pullToRefresh.setRefreshing(false);
             }
         });

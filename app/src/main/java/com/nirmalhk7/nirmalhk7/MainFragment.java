@@ -1,19 +1,21 @@
-package com.nirmalhk7.nirmalhk7;
+package com.nirmalhk7.nirmalhk7.entrydisplay;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v4.widget.TextViewCompat;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Gravity;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,11 +28,28 @@ import android.widget.Toast;
 import com.leinardi.android.speeddial.SpeedDialView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.nirmalhk7.nirmalhk7.MainActivity;
+import com.nirmalhk7.nirmalhk7.R;
+import com.nirmalhk7.nirmalhk7.dailyscheduler.DailySchedule;
+import com.nirmalhk7.nirmalhk7.examholidays.examHolidays;
 
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 import cz.msebera.android.httpclient.Header;
 import mumayank.com.airlocationlibrary.AirLocation;
+
+import static android.support.constraint.Constraints.TAG;
 
 
 /**
@@ -124,50 +143,55 @@ public class MainFragment extends Fragment {
                              
                         } else if (icon.equals("rain")) {
                             weatherIcon.setImageResource(R.drawable.ic_iconfinder_rainy);
-                            weather.addView(weatherIcon);
+                            
                         } else if (icon.equals("wind")) {
                             weatherIcon.setImageResource(R.drawable.ic_iconfinder_windy);
-                            weather.addView(weatherIcon);
+                            
                         } else if (icon.equals("fog")) {
                             weatherIcon.setImageResource(R.drawable.ic_iconfinder_foggy);
-                            weather.addView(weatherIcon);
+                            
                         } else if (icon.equals("cloudy")) {
                             weatherIcon.setImageResource(R.drawable.ic_iconfinder_cloudy);
-                            weather.addView(weatherIcon);
+                            
                         } else if (icon.equals("partly-cloudy-day")) {
                             weatherIcon.setImageResource(R.drawable.ic_iconfinder_partly_cloudy_sunny);
-                            weather.addView(weatherIcon);
+                            
                         } else if (icon.equals("partly-cloudy-night")) {
                             weatherIcon.setImageResource(R.drawable.ic_iconfinder_moony);
-                            weather.addView(weatherIcon);
+                            
                         }
                         Log.d(MODULE_TAG+"WeatherAPI", icon + temp);
 
                         LinearLayout weatherDesc = rootview.findViewById(R.id.weatherDesc);
 
                         TextView summaryText = new TextView(getContext());
-                        summaryText.setText(summary + ". Temperature " + temp + "C");
+                        summaryText.setText(summary + "." );
+                        TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(summaryText,1,20,1,TypedValue.COMPLEX_UNIT_DIP);
 
+                        TextView tempT=new TextView(getContext());
+                        tempT.setText(temp+"C");
                         TextView dailyProbability = new TextView(getContext());
-                        if (Integer.parseInt(rainWeek) > 0.5) {
-                            dailyProbability.setText(Integer.parseInt(rainWeek) * 100 + "% chance of rain!");
-                        } else if (Integer.parseInt(rainWeek) < 0.5 && Integer.parseInt(rainWeek) > 0.2) {
+                        if (Float.parseFloat(rainWeek) > 0.5) {
+                            dailyProbability.setText(Float.parseFloat(rainWeek) * 100 + "% chance of rain!");
+                        } else if (Float.parseFloat(rainWeek) < 0.5 && Float.parseFloat(rainWeek) > 0.2) {
                             dailyProbability.setText("Small probability of rain!");
                         } else {
                             dailyProbability.setText("Expect no rain!");
                         }
-
-
+                        dailyProbability.setAllCaps(true);
+                        dailyProbability.setTextSize(12);
                         weatherDesc.addView(summaryText);
+                        weatherDesc.addView(tempT);
                         weatherDesc.addView(dailyProbability);
                         summaryText.setTextColor(getActivity().getResources().getColor(R.color.colorFontLight));
-                        summaryText.setTextSize(18);
-                        dailyProbability.setTextSize(13);
+                        summaryText.setTextSize(15);
+                        tempT.setTextColor(getActivity().getResources().getColor(R.color.colorFontLight));
+                        tempT.setTextSize(12);
                         dailyProbability.setTextColor(getActivity().getResources().getColor(R.color.colorFontLight));
                         Log.d(MODULE_TAG+"END",weatherDesc.getChildCount()+" Count");
                     }
 
-                } catch (Exception e) {
+                } catch (JSONException e) {
                     Log.e(MODULE_TAG+"DarkSky :", e.toString());
                 }
 
@@ -210,15 +234,49 @@ public class MainFragment extends Fragment {
         }
         return false;
     }
-
+    private File assistantLocation;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View v = inflater.inflate(R.layout.fragment_main, container, false);
+        Toolbar toolbar=getActivity().findViewById(R.id.toolbar);
+        toolbar.setTitle("Dashboard");
+        assistantLocation = new File(getActivity().getFilesDir(), "snips");
+        //extractAssistantIfNeeded(assistantLocation);
+        if (ensurePermissions()) {
+          //  startSnips(assistantLocation);
+        }
+
         api_link = "https://api.darksky.net/forecast/60569b87b5b2a6220c135e9b2e91646b/";
         SpeedDialView dial=getActivity().findViewById(R.id.speedDial);
         dial.setVisibility(View.INVISIBLE);
+        CardView das=v.findViewById(R.id.dailySchedule);
+        das.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.setCustomAnimations(android.R.anim.fade_in,android.R.anim.fade_out);
+                Fragment newFragment;
+                newFragment = new DailySchedule();
+                transaction.replace(R.id.fullscreen, newFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
+        CardView eah=v.findViewById(R.id.examHolidayNext);
+        eah.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.setCustomAnimations(android.R.anim.fade_in,android.R.anim.fade_out);
+                Fragment newFragment;
+                newFragment = new examHolidays();
+                transaction.replace(R.id.fullscreen, newFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
         weather = getActivity().findViewById(R.id.weather);
         if (isOnline()) {
             airLocation = new AirLocation(getActivity(), true, true, new AirLocation.Callbacks() {
@@ -263,6 +321,148 @@ public class MainFragment extends Fragment {
         return v;
     }
 
+
+
+    private boolean ensurePermissions() {
+        int status = ActivityCompat.checkSelfPermission(getContext(),
+                Manifest.permission.RECORD_AUDIO);
+        if (status != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{
+                    Manifest.permission.RECORD_AUDIO,
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+            }, 0);
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 0 && grantResults.length > 0 &&
+                grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            //startSnips(assistantLocation);
+        }
+    }
+
+   /* private void startSnips(File snipsDir) {
+        SnipsPlatformClient client = createClient(snipsDir);
+        client.connect(this.getActivity().getApplicationContext());
+    }
+
+    private void extractAssistantIfNeeded(File assistantLocation) {
+        File versionFile = new File(assistantLocation,
+                "android_version_" + BuildConfig.VERSION_NAME);
+
+        if (versionFile.exists()) {
+            return;
+        }
+
+        try {
+            assistantLocation.delete();
+            unzip(getActivity().getBaseContext().getAssets().open("assistant.zip"),
+                    assistantLocation);
+            versionFile.createNewFile();
+        } catch (IOException e) {
+            return;
+        }
+    }
+*/
+  /*  private SnipsPlatformClient createClient(File assistantLocation) {
+        File assistantDir  = new File(assistantLocation, "assistant");
+
+        final SnipsPlatformClient client =
+                new SnipsPlatformClient.Builder(assistantDir)
+                        .enableDialogue(true)
+                        .enableHotword(true)
+                        .enableSnipsWatchHtml(false)
+                        .enableLogs(true)
+                        .withHotwordSensitivity(0.5f)
+                        .enableStreaming(false)
+                        .enableInjection(false)
+                        .build();
+
+        client.setOnPlatformReady(new Function0<Unit>() {
+            @Override
+            public Unit invoke() {
+                Log.d(TAG, "Snips is ready. Say the wake word!");
+                return null;
+            }
+        });
+
+        client.setOnPlatformError(
+                new Function1<SnipsPlatformClient.SnipsPlatformError, Unit>() {
+                    @Override
+                    public Unit invoke(final SnipsPlatformClient.SnipsPlatformError
+                                               snipsPlatformError) {
+                        // Handle error
+                        Log.d(TAG, "Error: " + snipsPlatformError.getMessage());
+                        return null;
+                    }
+                });
+
+        client.setOnHotwordDetectedListener(new Function0<Unit>() {
+            @Override
+            public Unit invoke() {
+                // Wake word detected, start a dialog session
+                Log.d(TAG, "Wake word detected!");
+                client.startSession(null, new ArrayList<String>(),
+                        false, null);
+                return null;
+            }
+        });
+
+        client.setOnIntentDetectedListener(new Function1<IntentMessage, Unit>() {
+            @Override
+            public Unit invoke(final IntentMessage intentMessage) {
+                // Intent detected, so the dialog session ends here
+                client.endSession(intentMessage.getSessionId(), null);
+                Log.d(TAG, "Intent detected: " +
+                        intentMessage.getIntent().getIntentName());
+                return null;
+            }
+        });
+
+        client.setOnSnipsWatchListener(new Function1<String, Unit>() {
+            public Unit invoke(final String s) {
+                Log.d(TAG, "Log: " + s);
+                return null;
+            }
+        });
+
+        return client;
+    }
+*/
+    private void unzip(InputStream zipFile, File targetDirectory)
+            throws IOException {
+        ZipInputStream zis = new ZipInputStream(new BufferedInputStream(zipFile));
+        try {
+            ZipEntry ze;
+            int count;
+            byte[] buffer = new byte[8192];
+            while ((ze = zis.getNextEntry()) != null) {
+                File file = new File(targetDirectory, ze.getName());
+                File dir = ze.isDirectory() ? file : file.getParentFile();
+                if (!dir.isDirectory() && !dir.mkdirs())
+                    throw new FileNotFoundException("Failed to make directory: " +
+                            dir.getAbsolutePath());
+                if (ze.isDirectory())
+                    continue;
+                FileOutputStream fout = new FileOutputStream(file);
+                try {
+                    while ((count = zis.read(buffer)) != -1)
+                        fout.write(buffer, 0, count);
+                } finally {
+                    fout.close();
+                }
+            }
+        } finally {
+            zis.close();
+        }
+    }
+
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -276,6 +476,9 @@ public class MainFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
+
+
 
     /**
      * This interface must be implemented by activities that contain this
