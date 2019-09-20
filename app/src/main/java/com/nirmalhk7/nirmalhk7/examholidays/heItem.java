@@ -6,12 +6,14 @@ public class heItem {
     private String mTitle;
     private String mDate;
     private String mType;
+    private int mId;
 
-    public heItem(int holiday1Exam0, String title, String date,String Type) {
+    public heItem(int id,int holiday1Exam0, String title, String date,String Type) {
         holexa = holiday1Exam0;
         mTitle = title;
         mDate=date;
         mType=Type;
+        mId=id;
     }
     /**
      * Get the default translation of the word.

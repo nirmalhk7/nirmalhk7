@@ -180,7 +180,7 @@ public class Att_FullScreenDialog extends DialogFragment {
     }
 
     public void dialogTimePicker(int whatTimeSelected, final EditText Time) {
-        // TODO Auto-generated method stub
+        //  Auto-generated method stub
         Calendar mcurrentTime = Calendar.getInstance();
         int Mhour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
         int Mminute = mcurrentTime.get(Calendar.MINUTE);

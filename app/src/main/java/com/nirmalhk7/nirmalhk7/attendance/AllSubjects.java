@@ -45,12 +45,12 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class AllSubjects extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
+    //  Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
+    //  Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -68,7 +68,7 @@ public class AllSubjects extends Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment AllSubjects.
      */
-    // TODO: Rename and change types and number of parameters
+    //  Rename and change types and number of parameters
     public static AllSubjects newInstance(String param1, String param2) {
         AllSubjects fragment = new AllSubjects();
         Bundle args = new Bundle();
@@ -194,7 +194,7 @@ public class AllSubjects extends Fragment {
         return rootView;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
+    //  Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -218,7 +218,7 @@ public class AllSubjects extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
+        //  Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 

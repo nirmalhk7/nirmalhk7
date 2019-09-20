@@ -41,6 +41,8 @@ public class ExamHolidayAdapter extends ArrayAdapter<heItem> {
         // the Miwok TextView.
         title.setText(currentWord.getTitle());
 
+        TextView id=listItemView.findViewById(R.id.examholiday_id);
+        id.setText();
         // Find the TextView in the dailyschedule_list_item.xml_list_item.xml layout with the ID default_text_view.
         TextView hOrE = listItemView.findViewById(R.id.holidayExam);
         // Get the default translation from the currentWord object and set this text on

@@ -40,12 +40,12 @@ import static com.nirmalhk7.nirmalhk7.attendance.subjectAttendanceLog.TAG;
  * create an instance of this fragment.
  */
 public class examHolidays extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
+    //  Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     public static ExamHolidayAdapter adapter;
-    // TODO: Rename and change types of parameters
+    //  Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -63,7 +63,7 @@ public class examHolidays extends Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment examHolidays.
      */
-    // TODO: Rename and change types and number of parameters
+    //  Rename and change types and number of parameters
     public static examHolidays newInstance(String param1, String param2) {
         examHolidays fragment = new examHolidays();
         Bundle args = new Bundle();
@@ -166,7 +166,7 @@ public class examHolidays extends Fragment {
         return rootView;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
+    //  Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -190,7 +190,7 @@ public class examHolidays extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
+        //  Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 
@@ -207,11 +207,11 @@ public class examHolidays extends Fragment {
         for (ehEntity cn : list) {
             Log.d("EAH/EAH",cn.getmType()+" ");
             if(cn.getmDateStart().matches(cn.getmDateEnd())){
-                hs.add(new heItem(cn.getHolexa(),cn.getmName(),cn.getmDateStart(),cn.getmType()));
+                hs.add(new heItem(cn.getId(),cn.getHolexa(),cn.getmName(),cn.getmDateStart(),cn.getmType()));
             }
             else
             {
-                hs.add(new heItem(cn.getHolexa(),cn.getmName(),cn.getmDateStart()+" - "+cn.getmDateEnd(),cn.getmType()));
+                hs.add(new heItem(cn.getId(),cn.getHolexa(),cn.getmName(),cn.getmDateStart()+" - "+cn.getmDateEnd(),cn.getmType()));
             }
         }
 

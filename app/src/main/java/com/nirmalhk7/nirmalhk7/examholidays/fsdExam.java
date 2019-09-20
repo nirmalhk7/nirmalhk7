@@ -50,6 +50,8 @@ public class fsdExam extends DialogFragment {
             LinearLayout topIcons = rootView.findViewById(R.id.examHolidayDialog);
             topIcons.addView(trash);
 
+
+
         }
 
         (rootView.findViewById(R.id.button_close)).setOnClickListener(new View.OnClickListener() {

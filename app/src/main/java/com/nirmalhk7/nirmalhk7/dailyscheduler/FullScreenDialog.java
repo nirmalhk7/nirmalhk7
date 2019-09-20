@@ -316,7 +316,7 @@ public class FullScreenDialog extends DialogFragment {
     }
     private EditText endtime;
     public void dialogTimePicker(final View rv,final int whatTimeSelected, final EditText Time) {
-        // TODO Auto-generated method stub
+        //  Auto-generated method stub
         Calendar mcurrentTime = Calendar.getInstance();
         int Mhour = 0;
         int Mminute = 0;
