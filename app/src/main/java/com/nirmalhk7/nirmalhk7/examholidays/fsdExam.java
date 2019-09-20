@@ -51,7 +51,6 @@ public class fsdExam extends DialogFragment {
             topIcons.addView(trash);
 
 
-
         }
 
         (rootView.findViewById(R.id.button_close)).setOnClickListener(new View.OnClickListener() {
@@ -230,7 +229,7 @@ public class fsdExam extends DialogFragment {
                 Rtype=type.getText().toString(),
                 RendDate=endDate.getText().toString(),
                 RstartDate=startDate.getText().toString();
-        
+
         rootview.findViewById(R.id.examHoliday_startDate);
         if(((RadioButton)rootview.findViewById(R.id.examRadio)).isChecked())
         {

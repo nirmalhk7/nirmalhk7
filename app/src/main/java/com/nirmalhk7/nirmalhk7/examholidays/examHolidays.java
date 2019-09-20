@@ -1,13 +1,23 @@
 package com.nirmalhk7.nirmalhk7.examholidays;
 
 import android.arch.persistence.room.Room;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import org.michaelbel.bottomsheet.BottomSheet;
+import org.michaelbel.bottomsheet.BottomSheetCallback;
+import org.michaelbel.bottomsheet.Utils;
+
+import android.support.annotation.LayoutRes;
+import android.support.annotation.MenuRes;
+import android.support.design.widget.BottomSheetDialog;
+import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
@@ -19,12 +29,17 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.leinardi.android.speeddial.SpeedDialActionItem;
 import com.leinardi.android.speeddial.SpeedDialView;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.convert;
+import com.nirmalhk7.nirmalhk7.utility.MyBottomSheetDialogFragment;
+
+import org.michaelbel.bottomsheet.BottomSheet;
+import org.michaelbel.bottomsheet.BottomSheetCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,8 +102,8 @@ public class examHolidays extends Fragment {
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        final View rootView= inflater.inflate(R.layout.fragment_exam_holidays, container, false);
-        Toolbar toolbar=getActivity().findViewById(R.id.toolbar);
+        final View rootView = inflater.inflate(R.layout.fragment_exam_holidays, container, false);
+        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
         toolbar.setTitle("nirmalhk7");
         EAHfetchDB(rootView);
         DSLonRefresh(rootView);
@@ -97,24 +112,34 @@ public class examHolidays extends Fragment {
         // {@link ListView} will display list items for each {@link scheduleItem} in the list.
 
         ListView listView = rootView.findViewById(R.id.list_item_examholiday);
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("EAH/EAH","Long Click!");
-                Bundle bundle=new Bundle();
-                bundle.putInt("key",1);
 
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fsdExam newFragment = new fsdExam();
-                newFragment.setArguments(bundle);
-                FragmentTransaction transaction = fragmentManager.beginTransaction();
-                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                transaction.add(android.R.id.content, newFragment).addToBackStack(null).commit();
-                return false;
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                MyBottomSheetDialogFragment mySheetDialog = new MyBottomSheetDialogFragment();
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                Bundle b=new Bundle();
+                b.putInt("module",1);
+                Log.d("EAH/EAH","Clicked "+view.findViewById(R.id.holidayExam).toString());
+                if(view.findViewById(R.id.holidayExam).toString().equals("HOLIDAY"))
+                {
+                    //Holiday
+                    b.putInt("holidayorexam",0);
+                }
+                else
+                {
+                    b.putInt("holidayorexam",1);
+                }
+                b.putString("startdate",view.findViewById(R.id.holidayExam_date).toString());
+                b.putString("title",view.findViewById(R.id.holidayExam_name).toString());
+                mySheetDialog.setArguments(b);
+                mySheetDialog.show(fm, "modalSheetDialog");
             }
         });
 
-        SpeedDialView speed=getActivity().findViewById(R.id.speedDial);
+
+        SpeedDialView speed = getActivity().findViewById(R.id.speedDial);
         speed.show();
         speed.clearActionItems();
         speed.addActionItem(
@@ -133,7 +158,7 @@ public class examHolidays extends Fragment {
                 .create()
         );
 
-        speed.setOnActionSelectedListener( new SpeedDialView.OnActionSelectedListener() {
+        speed.setOnActionSelectedListener(new SpeedDialView.OnActionSelectedListener() {
             @Override
             public boolean onActionSelected(SpeedDialActionItem speedDialActionItem) {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
@@ -141,18 +166,18 @@ public class examHolidays extends Fragment {
                 fsdExam newFragment = new fsdExam();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                Bundle b=new Bundle();
+                Bundle b = new Bundle();
                 switch (speedDialActionItem.getId()) {
                     case R.id.content:
-                        Log.d("ATT/ALS","Select Exams");
+                        Log.d("ATT/ALS", "Select Exams");
 
-                        b.putInt("key",0);
+                        b.putInt("key", 0);
                         newFragment.setArguments(b);
                         transaction.add(android.R.id.content, newFragment).addToBackStack(null).commit();
                         return false;
                     case R.id.label_container:
-                        Log.d("ATT/ALS","Select Holidays");
-                        b.putInt("key",1);
+                        Log.d("ATT/ALS", "Select Holidays");
+                        b.putInt("key", 1);
                         newFragment.setArguments(b);
                         transaction.add(android.R.id.content, newFragment).addToBackStack(null).commit();
                         return false; // true to keep the Speed Dial open
@@ -194,27 +219,23 @@ public class examHolidays extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    public void EAHfetchDB(View rootView)
-    {
+    public void EAHfetchDB(View rootView) {
         DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "mydbz")
                 .allowMainThreadQueries().fallbackToDestructiveMigration()
                 .build();
 
-        ehDAO ehDAO=database.getEHDAO();
+        ehDAO ehDAO = database.getEHDAO();
         ArrayList<heItem> hs = new ArrayList<heItem>();
-        List<ehEntity> list=ehDAO.getItems();
+        List<ehEntity> list = ehDAO.getItems();
 
         for (ehEntity cn : list) {
-            Log.d("EAH/EAH",cn.getmType()+" ");
-            if(cn.getmDateStart().matches(cn.getmDateEnd())){
-                hs.add(new heItem(cn.getId(),cn.getHolexa(),cn.getmName(),cn.getmDateStart(),cn.getmType()));
-            }
-            else
-            {
-                hs.add(new heItem(cn.getId(),cn.getHolexa(),cn.getmName(),cn.getmDateStart()+" - "+cn.getmDateEnd(),cn.getmType()));
+            Log.d("EAH/EAH", cn.getmType() + " ");
+            if (cn.getmDateStart().matches(cn.getmDateEnd())) {
+                hs.add(new heItem(cn.getId(), cn.getHolexa(), cn.getmName(), cn.getmDateStart(), cn.getmType()));
+            } else {
+                hs.add(new heItem(cn.getId(), cn.getHolexa(), cn.getmName(), cn.getmDateStart() + " - " + cn.getmDateEnd(), cn.getmType()));
             }
         }
-
 
 
         adapter = new ExamHolidayAdapter(getContext(), hs);
@@ -227,8 +248,10 @@ public class examHolidays extends Fragment {
 
 
     }
+
     SwipeRefreshLayout pullToRefresh;
-    public void DSLonRefresh(final View rootview){
+
+    public void DSLonRefresh(final View rootview) {
         pullToRefresh = rootview.findViewById(R.id.pullToRefresh);
 
         pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -237,32 +260,30 @@ public class examHolidays extends Fragment {
             @Override
             public void onRefresh() {
                 //Here you can update your data from internet or from local SQLite data
-                Log.d("ATT/ALS","Refreshing");
+                Log.d("ATT/ALS", "Refreshing");
                 EAHfetchDB(rootview);
                 pullToRefresh.setRefreshing(false);
             }
         });
     }
+
     @Override
     public void setMenuVisibility(final boolean visible) {
         super.setMenuVisibility(visible);
         if (visible) {
-            Log.d("EAH/EAH","Visible!!");
+            Log.d("EAH/EAH", "Visible!!");
             adapter.notifyDataSetChanged();
-        }
-        else
-        {
+        } else {
 
         }
     }
+
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         if (hidden) {
             Log.d(TAG, ((Object) this).getClass().getSimpleName() + " is NOT on screen");
-        }
-        else
-        {
+        } else {
             Log.d(TAG, ((Object) this).getClass().getSimpleName() + " is on screen");
         }
     }

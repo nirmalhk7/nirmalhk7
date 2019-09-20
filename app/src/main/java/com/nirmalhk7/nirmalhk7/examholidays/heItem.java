@@ -28,4 +28,5 @@ public class heItem {
     public String getmDate() {
         return mDate;
     }
+    public int getmId(){ return mId;}
 }
