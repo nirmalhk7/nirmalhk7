@@ -108,7 +108,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Name"
-                android:inputType="textCapWords"
+                android:inputType="textCapWords|textMultiLine"
                 android:textColor="@color/colorFontDark"
                android:textColorHint="@color/colorFontHintDark" />
 

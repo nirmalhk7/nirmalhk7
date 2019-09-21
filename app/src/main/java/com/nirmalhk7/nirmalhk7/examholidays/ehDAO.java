@@ -27,7 +27,6 @@ public interface ehDAO {
     @Update
     void updateMovie(ehEntity movies);
 
-
     @Delete
     void deleteehEntity(ehEntity schedule);
 

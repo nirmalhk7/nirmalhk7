@@ -68,7 +68,7 @@ public class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
             RadioButton holiday = rootView.findViewById(R.id.holidayRadio);
 
             //If person is editing EAH.
-            if (bundle.getString("startdate") != null) {
+            if (bundle.getString("dbkey") != null) {
                 ImageView trash = new ImageView(getContext());
                 trash.setImageResource(R.drawable.ic_trash);
                 trash.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
@@ -77,13 +77,23 @@ public class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
                 LinearLayout topIcons = rootView.findViewById(R.id.examHolidayDialog);
                 topIcons.addView(trash);
 
+                name.setText(bundle.getString("title"));
+                int dbkey=Integer.parseInt(bundle.getString("dbkey"));
+                DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "mydbz")
+                        .allowMainThreadQueries().fallbackToDestructiveMigration()
+                        .build();
 
+                ehDAO EHDAO = database.getEHDAO();
+                ehEntity x=EHDAO.getehEntityById(dbkey);
+                startdate.setText(x.getmDateStart());
+                enddate.setText(x.getmDateEnd());
                 if (bundle.getInt("holidayorexam") == 1) {
                     exam.setChecked(true);
                     Log.d("EAH/BSD","Editing Exam "+bundle.getInt("holidayorexam"));
                     type.setVisibility(View.VISIBLE);
                     desc.setVisibility(View.VISIBLE);
-                    name.setText(bundle.getString("title").toString());
+                    desc.setText(x.getmDescription());
+                    type.setText(x.getmType());
 
                 }
                 else {

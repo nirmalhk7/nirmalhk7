@@ -26,9 +26,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.leinardi.android.speeddial.SpeedDialActionItem;
@@ -40,6 +42,7 @@ import com.nirmalhk7.nirmalhk7.utility.MyBottomSheetDialogFragment;
 
 import org.michaelbel.bottomsheet.BottomSheet;
 import org.michaelbel.bottomsheet.BottomSheetCallback;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -117,12 +120,17 @@ public class examHolidays extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
+                TextView HorE=view.findViewById(R.id.holidayExam);
+                TextView title=(view.findViewById(R.id.holidayExam_name));
+                TextView id=view.findViewById(R.id.holidayExam_id);
+
                 MyBottomSheetDialogFragment mySheetDialog = new MyBottomSheetDialogFragment();
                 FragmentManager fm = getActivity().getSupportFragmentManager();
                 Bundle b=new Bundle();
                 b.putInt("module",1);
-                Log.d("EAH/EAH","Clicked "+view.findViewById(R.id.holidayExam).toString());
-                if(view.findViewById(R.id.holidayExam).toString().equals("HOLIDAY"))
+
+                Log.d("EAH/EAH","Clicked "+HorE.getText().toString());
+                if(HorE.getText().toString().equals("HOLIDAY"))
                 {
                     //Holiday
                     b.putInt("holidayorexam",0);
@@ -131,8 +139,9 @@ public class examHolidays extends Fragment {
                 {
                     b.putInt("holidayorexam",1);
                 }
-                b.putString("startdate",view.findViewById(R.id.holidayExam_date).toString());
-                b.putString("title",view.findViewById(R.id.holidayExam_name).toString());
+                b.putString("dbkey",id.getText().toString());
+                b.putString("title",title.getText().toString());
+
                 mySheetDialog.setArguments(b);
                 mySheetDialog.show(fm, "modalSheetDialog");
             }
