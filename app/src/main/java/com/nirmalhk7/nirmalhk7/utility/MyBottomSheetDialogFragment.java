@@ -51,7 +51,7 @@ public class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
     public class eah {
         private View rootView;
         private Bundle bundle;
-        private int mYear, mMonth, mDay, mHour, mMinute;
+        private int mYear, mMonth, mDay, mHour, mMinute,editing;
 
         eah(View v, Bundle b) {
             rootView = v;
@@ -66,9 +66,10 @@ public class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
             EditText desc = rootView.findViewById(R.id.examHoliday_description);
             RadioButton exam = rootView.findViewById(R.id.examRadio);
             RadioButton holiday = rootView.findViewById(R.id.holidayRadio);
-
+            editing=0;
             //If person is editing EAH.
             if (bundle.getString("dbkey") != null) {
+                editing=Integer.parseInt(bundle.getString("dbkey"));
                 ImageView trash = new ImageView(getContext());
                 trash.setImageResource(R.drawable.ic_trash);
                 trash.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
@@ -78,8 +79,8 @@ public class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
                 topIcons.addView(trash);
 
                 name.setText(bundle.getString("title"));
-                int dbkey=Integer.parseInt(bundle.getString("dbkey"));
-                DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "mydbz")
+                final int dbkey=Integer.parseInt(bundle.getString("dbkey"));
+                DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
                         .allowMainThreadQueries().fallbackToDestructiveMigration()
                         .build();
 
@@ -102,6 +103,19 @@ public class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
                     type.setVisibility(View.INVISIBLE);
                     desc.setVisibility(View.INVISIBLE);
                 }
+
+                trash.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
+                                .allowMainThreadQueries().fallbackToDestructiveMigration()
+                                .build();
+
+                        ehDAO EHDAO = database.getEHDAO();
+                        EHDAO.deleteEvent(EHDAO.getehEntityById(dbkey));
+                        dismiss();
+                    }
+                });
             }
 
             RadioGroup rdg = rootView.findViewById(R.id.radioGrp);
@@ -125,14 +139,14 @@ public class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
                 }
             });
 
-
             (rootView.findViewById(R.id.button_save)).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
                     if (Validation(rootView)) {
                         Log.d("EAH/FSD", "Validation Successful");
-                        saveDialog(rootView);
+                        saveDialog(rootView,editing);
+                        dismiss();
                     }
                     Log.d("EAH/FSD", "Validation Unsuccessful");
                 }
@@ -141,7 +155,7 @@ public class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
             datelistener(startdate, enddate, 1);
             datelistener(startdate, enddate, 2);
         }
-        private void saveDialog(View view)
+        private void saveDialog(View view,int k)
         {
             EditText name=rootView.findViewById(R.id.examHoliday_name);
             EditText startdate=rootView.findViewById(R.id.examHoliday_startDate);
@@ -150,27 +164,46 @@ public class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
             EditText desc=rootView.findViewById(R.id.examHoliday_description);
             RadioButton exam=rootView.findViewById(R.id.examRadio);
 
-            DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "mydbz")
+            DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
                     .allowMainThreadQueries().fallbackToDestructiveMigration()
                     .build();
 
             ehDAO EHDAO = database.getEHDAO();
 
-            ehEntity entity=new ehEntity();
-            entity.setmName(name.getText().toString());
-            entity.setmDateStart(startdate.getText().toString());
-            entity.setmDateEnd(enddate.getText().toString());
-            entity.setmType(type.getText().toString());
-            entity.setmDescription(desc.getText().toString());
-            if(exam.isChecked()){
-                entity.setHolexa(1);
+            if(k==0)
+            {
+                ehEntity entity=new ehEntity();
+                entity.setmName(name.getText().toString());
+                entity.setmDateStart(startdate.getText().toString());
+                entity.setmDateEnd(enddate.getText().toString());
+                entity.setmType(type.getText().toString());
+                entity.setmDescription(desc.getText().toString());
+                if(exam.isChecked()){
+                    entity.setHolexa(1);
+                }
+                else{
+                    entity.setHolexa(2);
+                }
+                EHDAO.insertOnlySingleEvent(entity);
             }
-            else{
-                entity.setHolexa(2);
+            else
+            {
+                ehEntity entity=EHDAO.getehEntityById(k);
+                entity.setmName(name.getText().toString());
+                entity.setmDateStart(startdate.getText().toString());
+                entity.setmDateEnd(enddate.getText().toString());
+                entity.setmType(type.getText().toString());
+                entity.setmDescription(desc.getText().toString());
+                if(exam.isChecked()){
+                    entity.setHolexa(1);
+                }
+                else{
+                    entity.setHolexa(2);
+                }
+                EHDAO.updateEvent(entity);
             }
-            EHDAO.insertOnlySingleMovie(entity);
+
             examHolidays.adapter.notifyDataSetChanged();
-            dismiss();
 
         }
         void datelistener(final EditText startdate,final EditText enddate,final int i){

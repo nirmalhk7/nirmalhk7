@@ -133,7 +133,7 @@ public class fsdExam extends DialogFragment {
         EditText desc=rootView.findViewById(R.id.examHoliday_description);
         RadioButton exam=rootView.findViewById(R.id.examRadio);
 
-        DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "mydbz")
+        DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
                 .allowMainThreadQueries().fallbackToDestructiveMigration()
                 .build();
 
@@ -151,7 +151,7 @@ public class fsdExam extends DialogFragment {
         else{
             entity.setHolexa(2);
         }
-        EHDAO.insertOnlySingleMovie(entity);
+        EHDAO.insertOnlySingleEvent(entity);
         examHolidays.adapter.notifyDataSetChanged();
         dismiss();
 

@@ -12,7 +12,7 @@ import java.util.List;
 @Dao
 public interface ehDAO {
     @Insert
-    void insertOnlySingleMovie(ehEntity movies);
+    void insertOnlySingleEvent(ehEntity movies);
 
     @Insert
     void insertMultipleehEntity(List<ehEntity> moviesList);
@@ -25,10 +25,10 @@ public interface ehDAO {
 
 
     @Update
-    void updateMovie(ehEntity movies);
+    void updateEvent(ehEntity movies);
 
     @Delete
-    void deleteehEntity(ehEntity schedule);
+    void deleteEvent(ehEntity schedule);
 
     @Query("SELECT * FROM ehEntity WHERE id=:Id")
     ehEntity getehEntityById(int Id);

@@ -1,5 +1,6 @@
 package com.nirmalhk7.nirmalhk7.examholidays;
 
+import android.app.AlertDialog;
 import android.arch.persistence.room.Room;
 import android.content.DialogInterface;
 import android.graphics.Color;
@@ -229,7 +230,7 @@ public class examHolidays extends Fragment {
     }
 
     public void EAHfetchDB(View rootView) {
-        DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "mydbz")
+        DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
                 .allowMainThreadQueries().fallbackToDestructiveMigration()
                 .build();
 
