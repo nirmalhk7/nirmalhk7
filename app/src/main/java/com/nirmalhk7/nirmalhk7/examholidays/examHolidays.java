@@ -255,8 +255,7 @@ public class examHolidays extends Fragment {
         // word_list.xml layout file.
         ListView listView = rootView.findViewById(R.id.list_item_examholiday);
         listView.setAdapter(adapter);
-
-
+        
     }
 
     SwipeRefreshLayout pullToRefresh;
