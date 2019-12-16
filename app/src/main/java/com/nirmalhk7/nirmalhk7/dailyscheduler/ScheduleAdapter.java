@@ -1,5 +1,6 @@
 package com.nirmalhk7.nirmalhk7.dailyscheduler;
 
+import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,7 +8,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
+import com.nirmalhk7.nirmalhk7.attendance.attendanceDAO;
+import com.nirmalhk7.nirmalhk7.attendance.attendanceEntity;
 
 import java.util.ArrayList;
 
@@ -60,6 +64,17 @@ public class ScheduleAdapter extends ArrayAdapter<scheduleItem> {
 
         TextView id=listItemView.findViewById(R.id.itemid);
         id.setText(String.valueOf(currentWord.getScheduleId()));
+
+        DBGateway database= Room.databaseBuilder(getContext(),DBGateway.class,"finalDB")
+                .allowMainThreadQueries().fallbackToDestructiveMigration().build();
+        attendanceDAO ATTDAO=database.getAttendanceDao();
+        attendanceEntity attent=ATTDAO.getSubjectbyName(currentWord.getScheduleTitle());
+        if(attent!=null)
+        {
+            TextView prab=listItemView.findViewById(R.id.mandatory);
+            int attfab=(attent.getPresent()-1)/(attent.getPresent()+attent.getAbsent());
+            prab.setText(attfab+"");
+        }
 
         // Return the whole list item layout (containing 2 TextViews) so that it can be shown in
         // the ListView.

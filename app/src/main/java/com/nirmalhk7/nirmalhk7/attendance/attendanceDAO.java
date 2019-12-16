@@ -33,4 +33,7 @@ public interface attendanceDAO {
 
     @Delete
     void deleteSchedule(attendanceEntity schedule);
+
+    @Query("SELECT * FROM attendanceEntity WHERE mSubject=:Subject")
+    attendanceEntity getSubjectbyName(String Subject);
 }

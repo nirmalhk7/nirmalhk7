@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1094312044344",
+    "firebase_url": "https://nirmalhk7-b613d.firebaseio.com",
+    "project_id": "nirmalhk7-b613d",
+    "storage_bucket": "nirmalhk7-b613d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1094312044344:android:78d994fc8dae1f900683cd",
+        "android_client_info": {
+          "package_name": "com.nirmalhk7.nirmalhk7"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1094312044344-51n7ivtogrt78a7d30gugqbf14ahua5e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfQuqYKCn4FFUQW_kwwXdm726HIOCslbE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1094312044344-51n7ivtogrt78a7d30gugqbf14ahua5e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
