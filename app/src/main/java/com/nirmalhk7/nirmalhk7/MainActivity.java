@@ -13,12 +13,12 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import com.nirmalhk7.nirmalhk7.academics.Academics;
 import com.nirmalhk7.nirmalhk7.attendance.AllSubjects;
 import com.nirmalhk7.nirmalhk7.backuprestore.BackupRestore;
 import com.nirmalhk7.nirmalhk7.callmanager.CallMgrFragment;
+import com.nirmalhk7.nirmalhk7.cpschedule.CPSched;
 import com.nirmalhk7.nirmalhk7.dailyscheduler.DailySchedule;
 import com.nirmalhk7.nirmalhk7.entrydisplay.MainFragment;
 import com.nirmalhk7.nirmalhk7.examholidays.examHolidays;
@@ -163,6 +163,13 @@ public class MainActivity extends AppCompatActivity
         {
             newFragment=new BackupRestore();
             transaction.replace(R.id.fullscreen, newFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        }
+        else if(id==R.id.CPSched)
+        {
+            newFragment=new CPSched();
+            transaction.replace(R.id.fullscreen,newFragment);
             transaction.addToBackStack(null);
             transaction.commit();
         }
