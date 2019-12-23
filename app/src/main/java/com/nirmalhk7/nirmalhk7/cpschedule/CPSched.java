@@ -1,27 +1,39 @@
 package com.nirmalhk7.nirmalhk7.cpschedule;
 
+import android.arch.persistence.room.Room;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.TextViewCompat;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
+import com.nirmalhk7.nirmalhk7.examholidays.ExamHolidayAdapter;
+import com.nirmalhk7.nirmalhk7.examholidays.ehDAO;
+import com.nirmalhk7.nirmalhk7.examholidays.ehEntity;
+import com.nirmalhk7.nirmalhk7.examholidays.heItem;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Queue;
 import java.util.Stack;
 
@@ -42,6 +54,7 @@ public class CPSched extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    public static CPAdapter adapter;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -113,17 +126,27 @@ public class CPSched extends Fragment {
 
                         JSONObject contests=response.getJSONObject("contests");
                         JSONArray upcomingContests=contests.getJSONArray("upcoming");
+
+                        ArrayList<cpItem> contestList=new ArrayList<cpItem>();
+                        String link;
                         for(int i=0;i<upcomingContests.length();++i)
                         {
                             JSONObject cp=upcomingContests.getJSONObject(i);
                             Log.d(MODULE_TAG,cp.getString("contest_name")+"");
-                            ContestsU.add(new event(cp.getString("contest_name"),cp.getString("host_name"),cp.getString("contest_url"),cp.getString("start"),cp.getString("duration")));
-
+                            contestList.add(new cpItem(i,cp.getString("contest_name"),cp.getString("host_name"),cp.getString("contest_url"),cp.getString("start"),cp.getString("duration"),0));
+                            link=cp.getString("contest_url");
                         }
+                        CPAdapter adapter=new CPAdapter(getContext(),contestList);
+                        ListView list=(ListView) rootview.findViewById(R.id.list_item_cpsch);
 
-
-
-
+                        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com"));
+                                startActivity(browserIntent);
+                            }
+                        });
+                        list.setAdapter(adapter);
 
                     }
 
@@ -178,10 +201,14 @@ public class CPSched extends Fragment {
         if(isOnline())
         {
             requestData("http://testchallengehunt.appspot.com/v1/all","cp",rootView);
+            Log.d(MODULE_TAG,"Logged");
         }
+
 
         return rootView;
     }
+
+    SwipeRefreshLayout pullToRefresh;
 
 
     // TODO: Rename method, update argument and hook method into UI event

@@ -10,7 +10,7 @@ public class cpItem {
     private String Duration;
     private int mId;
 
-    public cpItem(int id,String name,String url,String hn,String time,String duration,int upact) {
+    public cpItem(int id,String name,String hn,String url,String time,String duration,int upact) {
         upcOrAct=upact;
         CName=name;
         Curl=url;

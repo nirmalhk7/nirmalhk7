@@ -7,22 +7,6 @@
     android:padding="@dimen/standard_dimen">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:id="@+id/callMgr_callTime"
-
-            android:background="@android:color/holo_green_dark"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:padding="5dp"
-            android:textAllCaps="true"
-            android:textSize="10sp"
-            tools:text="Codeforces" />
-    </LinearLayout>
-    <LinearLayout
         android:id="@+id/text_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -31,7 +15,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/codeshed_compname"
+            android:id="@+id/codesh_compname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20sp"
@@ -62,5 +46,22 @@
 
 
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/standard_dimen">
+
+        <TextView
+            android:id="@+id/codesch_hostname"
+
+            android:textColor="@color/colorAccent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="5dp"
+            android:textAllCaps="true"
+            android:textSize="10sp"
+            tools:text="Codeforces" />
+    </LinearLayout>
 
 </LinearLayout>
