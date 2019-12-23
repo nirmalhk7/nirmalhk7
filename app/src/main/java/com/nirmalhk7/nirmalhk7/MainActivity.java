@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity
         String res="HELLO";
         Log.d("CONVERTU","-----------------------");
         Log.d("CONVERTU",convert.normaltorail("01:10 AM"));
-
         Log.d("CONVERTU",convert.normaltorail("01:10 PM"));
         Log.d("CONVERTU",convert.normaltorail("01:00 AM"));
         Log.d("CONVERTU",convert.addrailtime("0105",55));
