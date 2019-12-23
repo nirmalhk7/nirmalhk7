@@ -25,6 +25,9 @@ import com.nirmalhk7.nirmalhk7.examholidays.examHolidays;
 import com.nirmalhk7.nirmalhk7.playground.Playground;
 import com.nirmalhk7.nirmalhk7.settings.SettingsActivity;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -43,6 +46,19 @@ public class MainActivity extends AppCompatActivity
         Log.d("CONVERTU",convert.normaltorail("01:10 AM"));
         Log.d("CONVERTU",convert.normaltorail("01:10 PM"));
         Log.d("CONVERTU",convert.normaltorail("01:00 AM"));
+
+
+        String curDate = "10/10/2016 14:30";
+        SimpleDateFormat curDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        SimpleDateFormat desiredDateFormat = new SimpleDateFormat("HH:mm:ss");
+        try {
+            Date date = curDateFormat.parse(curDate);
+            Log.d("CONVERX",curDate);
+            String desiredDate = desiredDateFormat.format(date);
+            Log.d("CONVERX",desiredDate);
+            // you can use this date string now
+        } catch (Exception e) {}
+
         Log.d("CONVERTU",convert.addrailtime("0105",55));
 
         /*speedDialView.addActionItem(
