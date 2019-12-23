@@ -4,19 +4,21 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import java.util.Date;
+
 @Entity
-public class Schedule {
+public class ScheduleEntity {
     @NonNull
     @PrimaryKey(autoGenerate = true)
     protected int id;
     private String mTask;
-    private String mStartTime;
-    private String mEndTime;
+    private Date mStartTime;
+    private Date mEndTime;
     private String mLabel;
     private int mDay;
     private String mSubjCode;
 
-    public Schedule() {
+    public ScheduleEntity() {
     }
 
     public String getSubjCode(){ return  mSubjCode;}
@@ -24,11 +26,11 @@ public class Schedule {
         return mTask;
     }
 
-    public String getStartTime() {
+    public Date getStartTime() {
         return mStartTime;
     }
 
-    public String getEndTime() {
+    public Date getEndTime() {
         return mEndTime;
     }
 
@@ -52,11 +54,11 @@ public class Schedule {
         mTask=task;
     }
 
-    public void setStartTime(String mStartTime) {
+    public void setStartTime(Date mStartTime) {
         this.mStartTime = mStartTime;
     }
 
-    public void setEndTime(String mEndTime) {
+    public void setEndTime(Date mEndTime) {
         this.mEndTime = mEndTime;
     }
 

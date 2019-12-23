@@ -100,7 +100,7 @@ public class DailySchedule extends Fragment {
         TabLayout tabLayout = view.findViewById(R.id.tablayout);
         tabLayout.setupWithViewPager(viewPager);
         Toolbar toolbar=getActivity().findViewById(R.id.toolbar);
-        toolbar.setTitle("Your Schedule");
+        toolbar.setTitle("Your ScheduleEntity");
 
         viewPager= view.findViewById(R.id.view_pager);
 

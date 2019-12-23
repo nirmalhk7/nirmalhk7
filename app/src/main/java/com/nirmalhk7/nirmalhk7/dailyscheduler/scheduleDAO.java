@@ -12,42 +12,42 @@ import java.util.List;
 @Dao
 public interface scheduleDAO {
     @Insert
-    void insertOnlySingleSchedule(Schedule movies);
+    void insertOnlySingleSchedule(ScheduleEntity movies);
 
     @Insert
-    void insertMultipleSchedule(List<Schedule> moviesList);
+    void insertMultipleSchedule(List<ScheduleEntity> moviesList);
 
-   /* @Query(“SELECT * FROM Schedule WHERE movieId =:movieId“)
-    Schedule fetchOneSchedulebyMovieId(int movieId);*/
+   /* @Query(“SELECT * FROM ScheduleEntity WHERE movieId =:movieId“)
+    ScheduleEntity fetchOneSchedulebyMovieId(int movieId);*/
 
-    @Query("SELECT * FROM Schedule")
-    List<Schedule> getItems();
+    @Query("SELECT * FROM ScheduleEntity")
+    List<ScheduleEntity> getItems();
 
-    @Query("SELECT * FROM Schedule WHERE mDay =:Day ORDER BY mStartTime")
-    List<Schedule> getScheduleByDay(int Day);
+    @Query("SELECT * FROM ScheduleEntity WHERE mDay =:Day ORDER BY mStartTime")
+    List<ScheduleEntity> getScheduleByDay(int Day);
 
     @Update
-    void updateSchedule(Schedule schedule);
+    void updateSchedule(ScheduleEntity scheduleEntity);
 
-    @Query("SELECT * FROM Schedule WHERE mTask=:Task")
-    Schedule getScheduleDetails(String Task);
+    @Query("SELECT * FROM ScheduleEntity WHERE mTask=:Task")
+    ScheduleEntity getScheduleDetails(String Task);
 
 
 
     @Delete
-    void deleteSchedule(Schedule schedule);
+    void deleteSchedule(ScheduleEntity scheduleEntity);
 
-    @Query("SELECT DISTINCT mTask,mDay,id FROM Schedule WHERE mLabel=:Label")
-    List<Schedule> getSubjects(String Label);
+    @Query("SELECT DISTINCT mTask,mDay,id FROM ScheduleEntity WHERE mLabel=:Label")
+    List<ScheduleEntity> getSubjects(String Label);
 
-    @Query("SELECT COUNT(DISTINCT mTask) FROM Schedule WHERE mLabel=:Label")
+    @Query("SELECT COUNT(DISTINCT mTask) FROM ScheduleEntity WHERE mLabel=:Label")
     int getSubjectCount(String Label);
 
-    @Query("SELECT * FROM Schedule WHERE id=:Id")
-    Schedule getScheduleById(int Id);
+    @Query("SELECT * FROM ScheduleEntity WHERE id=:Id")
+    ScheduleEntity getScheduleById(int Id);
 
     @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
-    @Query("SELECT DISTINCT mSubjCode,id,mDay FROM Schedule WHERE mTask=:Task")
-    List<Schedule> getScheduleCodeByTaskName(String Task);
+    @Query("SELECT DISTINCT mSubjCode,id,mDay FROM ScheduleEntity WHERE mTask=:Task")
+    List<ScheduleEntity> getScheduleCodeByTaskName(String Task);
 }
 

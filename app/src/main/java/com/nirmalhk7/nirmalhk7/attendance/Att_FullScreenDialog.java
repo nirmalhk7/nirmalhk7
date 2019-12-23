@@ -6,7 +6,6 @@ import android.app.TimePickerDialog;
 import android.arch.persistence.room.Room;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.text.Editable;
@@ -27,7 +26,7 @@ import android.widget.Toast;
 
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
-import com.nirmalhk7.nirmalhk7.dailyscheduler.Schedule;
+import com.nirmalhk7.nirmalhk7.dailyscheduler.ScheduleEntity;
 import com.nirmalhk7.nirmalhk7.dailyscheduler.scheduleDAO;
 
 import java.util.Calendar;
@@ -96,12 +95,12 @@ public class Att_FullScreenDialog extends DialogFragment {
 
 
 
-        List<Schedule> schedules = scheduleDAO.getSubjects("College");
+        List<ScheduleEntity> scheduleEntities = scheduleDAO.getSubjects("College");
 
-        String[] subject = new String[schedules.size()];
-        Log.d("ATT/FSD", "." + schedules.size());
+        String[] subject = new String[scheduleEntities.size()];
+        Log.d("ATT/FSD", "." + scheduleEntities.size());
         int i = 0;
-        for (Schedule cn : schedules) {
+        for (ScheduleEntity cn : scheduleEntities) {
             subject[i] = cn.getTask();
             Log.d("ATT/FSD/", subject[i]);
             ++i;
