@@ -128,13 +128,12 @@ public class CPSched extends Fragment {
                         JSONArray upcomingContests=contests.getJSONArray("upcoming");
 
                         ArrayList<cpItem> contestList=new ArrayList<cpItem>();
-                        String link;
                         for(int i=0;i<upcomingContests.length();++i)
                         {
                             JSONObject cp=upcomingContests.getJSONObject(i);
                             Log.d(MODULE_TAG,cp.getString("contest_name")+"");
                             contestList.add(new cpItem(i,cp.getString("contest_name"),cp.getString("host_name"),cp.getString("contest_url"),cp.getString("start"),cp.getString("duration"),0));
-                            link=cp.getString("contest_url");
+
                         }
                         CPAdapter adapter=new CPAdapter(getContext(),contestList);
                         ListView list=(ListView) rootview.findViewById(R.id.list_item_cpsch);
@@ -142,8 +141,15 @@ public class CPSched extends Fragment {
                         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com"));
-                                startActivity(browserIntent);
+                                TextView URL=view.findViewById(R.id.codesch_link);
+                                String url=URL.getText().toString();
+                                if (!url.startsWith("https://") && !url.startsWith("http://")){
+                                    url = "https://" + url;
+                                    Log.d(MODULE_TAG,"Opening Link:"+url);
+                                }
+                                Intent ix = new Intent(Intent.ACTION_VIEW);
+                                ix.setData(Uri.parse(url));
+                                startActivity(ix);
                             }
                         });
                         list.setAdapter(adapter);

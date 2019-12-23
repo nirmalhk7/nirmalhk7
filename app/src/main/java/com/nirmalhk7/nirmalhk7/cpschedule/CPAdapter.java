@@ -44,10 +44,10 @@ public class CPAdapter extends ArrayAdapter<cpItem> {
         TextView comptnName=listItemView.findViewById(R.id.codesh_compname);
         comptnName.setText(currentWord.getCName());
 
-        TextView time=listItemView.findViewById(R.id.codesch_time);
-        time.setText(currentWord.getTime());
+        TextView link=listItemView.findViewById(R.id.codesch_link);
+        link.setText(currentWord.getCurl());
 
-        TextView duration=listItemView.findViewById(R.id.codesch_duration);
+        TextView duration=listItemView.findViewById(R.id.codesch_time);
         duration.setText(currentWord.getDuration());
 
         return listItemView;
