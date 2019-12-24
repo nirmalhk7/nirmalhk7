@@ -1,4 +1,4 @@
-package com.nirmalhk7.nirmalhk7;
+package com.nirmalhk7.nirmalhk7.utility;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -15,21 +15,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 
 import com.nirmalhk7.nirmalhk7.Converters;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
-import com.nirmalhk7.nirmalhk7.dailyscheduler.ScheduleEntity;
-import com.nirmalhk7.nirmalhk7.dailyscheduler.scheduleDAO;
 import com.nirmalhk7.nirmalhk7.examholidays.ehDAO;
 import com.nirmalhk7.nirmalhk7.examholidays.ehEntity;
 import com.nirmalhk7.nirmalhk7.examholidays.examHolidays;
 
 import java.util.Calendar;
-import java.util.List;
 
-public class BSDialogFragment extends BottomSheetDialogFragment {
+public class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,19 +37,14 @@ public class BSDialogFragment extends BottomSheetDialogFragment {
                 rootView = inflater.inflate(R.layout.examholiday_fullscreen, container);
                 eah e = new eah(rootView, b);
                 e.examandholidays();
-                (rootView.findViewById(R.id.button_close)).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dismiss();
-                    }
-                });
-                break;
-            case 2:
-                rootView=inflater.inflate(R.layout.attendance_subjectattendancelog,container);
-                att a= new att(rootView, b);
-                a.attendance();
 
         }
+        (rootView.findViewById(R.id.button_close)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
         //  View v=getDialog().findViewById(b.getInt("Hi"));
         return rootView;
     }
@@ -316,43 +307,6 @@ public class BSDialogFragment extends BottomSheetDialogFragment {
 
             return true;
 
-        }
-    }
-    public class att{
-        private View rootView;
-        private Bundle b;
-
-        att(View v,Bundle bundle)
-        {
-            rootView=v;
-            b=bundle;
-        }
-
-        public void attendance(){
-            String subject=b.getString("subject");
-            int p=b.getInt("present");
-            int a=b.getInt("absent");
-            int c=b.getInt("cancelled");
-
-            TextView subjName=rootView.findViewById(R.id.sal_subject);
-            subjName.setText(subject);
-            TextView present=rootView.findViewById(R.id.sal_p);
-            present.setText(Integer.toString(p));
-            TextView absent=rootView.findViewById(R.id.sal_a);
-            absent.setText(Integer.toString(a));
-            TextView cancel=rootView.findViewById(R.id.sal_c);
-            cancel.setText(Integer.toString(c));
-            DBGateway database2 = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
-                    .allowMainThreadQueries().fallbackToDestructiveMigration()
-                    .build();
-
-            scheduleDAO SDAO=database2.getScheduleDao();
-            List<ScheduleEntity> x=SDAO.getScheduleCodeByTaskName(subjName.getText().toString());
-            if(x.size()==1)
-            {
-                TextView code=rootView.findViewById(R.id.sal_code);
-                code.setText(x.get(0).getSubjCode());
-            }
         }
     }
 }
