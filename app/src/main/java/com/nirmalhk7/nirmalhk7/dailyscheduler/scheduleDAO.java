@@ -7,6 +7,7 @@ import android.arch.persistence.room.Query;
 import android.arch.persistence.room.RoomWarnings;
 import android.arch.persistence.room.Update;
 
+import java.util.Date;
 import java.util.List;
 
 @Dao
@@ -32,7 +33,8 @@ public interface scheduleDAO {
     @Query("SELECT * FROM ScheduleEntity WHERE mTask=:Task")
     ScheduleEntity getScheduleDetails(String Task);
 
-
+    @Query("SELECT mTask,mDay,mStartTime,mEndTime,id FROM ScheduleEntity WHERE mStartTime>:starttime ORDER BY mStartTime")
+    List<ScheduleEntity> getScheduleByDayAndTime(Date starttime);
 
     @Delete
     void deleteSchedule(ScheduleEntity scheduleEntity);
