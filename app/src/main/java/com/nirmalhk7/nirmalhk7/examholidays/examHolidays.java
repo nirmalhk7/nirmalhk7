@@ -24,7 +24,7 @@ import com.leinardi.android.speeddial.SpeedDialView;
 import com.nirmalhk7.nirmalhk7.Converters;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
-import com.nirmalhk7.nirmalhk7.utility.MyBottomSheetDialogFragment;
+import com.nirmalhk7.nirmalhk7.BSDialogFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,7 +106,7 @@ public class examHolidays extends Fragment {
                 TextView title=(view.findViewById(R.id.holidayExam_name));
                 TextView id=view.findViewById(R.id.holidayExam_id);
 
-                MyBottomSheetDialogFragment mySheetDialog = new MyBottomSheetDialogFragment();
+                BSDialogFragment mySheetDialog = new BSDialogFragment();
                 FragmentManager fm = getActivity().getSupportFragmentManager();
                 Bundle b=new Bundle();
                 b.putInt("module",1);

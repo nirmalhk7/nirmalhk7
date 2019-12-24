@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.leinardi.android.speeddial.SpeedDialActionItem;
 import com.leinardi.android.speeddial.SpeedDialView;
+import com.nirmalhk7.nirmalhk7.BSDialogFragment;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
 
@@ -108,11 +109,13 @@ public class AllSubjects extends Fragment {
         ALSfetchDB(rootView);
 
         ListView listView = rootView.findViewById(R.id.list_item_allsubjects);
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.d("ATT/ALS","LongClick!");
-                subjectAttendanceLog x=new subjectAttendanceLog();
+              //  subjectAttendanceLog x=new subjectAttendanceLog();
+                BSDialogFragment bsdf=new BSDialogFragment();
+
                 TextView subject=view.findViewById(R.id.subjName_subject);
                 TextView percent=view.findViewById(R.id.percent_subject);
                 TextView prabca=view.findViewById(R.id.presentabsent_subject);
@@ -133,14 +136,13 @@ public class AllSubjects extends Fragment {
                 bundle.putString("subject",subject.getText().toString());
                 bundle.putInt("present",Integer.parseInt(present));
                 bundle.putInt("absent",Integer.parseInt(absent));
-
+                bundle.putInt("module",2);
                 bundle.putString("percent",zpercent);
-                x.setArguments(bundle);
+                bsdf.setArguments(bundle);
 
 
                 FragmentTransaction ft=getFragmentManager().beginTransaction();
-                x.show(ft,subjectAttendanceLog.TAG);
-                return false;
+                bsdf.show(ft,"modalSheetDialog");
             }
         });
         SpeedDialView speedDialView =getActivity().findViewById(R.id.speedDial);
@@ -156,6 +158,7 @@ public class AllSubjects extends Fragment {
 
             }
         });
+        speedDialView.clearActionItems();
         speedDialView.addActionItem(
                 new SpeedDialActionItem.Builder(R.id.content, R.drawable.ic_examholidays)
                         .setLabel("Add Subject")
