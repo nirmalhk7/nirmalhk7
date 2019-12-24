@@ -5,11 +5,9 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.arch.persistence.room.Room;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
-import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -26,12 +24,11 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TimePicker;
 
+import com.nirmalhk7.nirmalhk7.Converters;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.attendance.attendanceDAO;
 import com.nirmalhk7.nirmalhk7.attendance.attendanceEntity;
-import com.nirmalhk7.nirmalhk7.attendance.attendanceItem;
-import com.nirmalhk7.nirmalhk7.convert;
 
 import java.util.Calendar;
 import java.util.List;
@@ -176,13 +173,13 @@ public class FullScreenDialog extends DialogFragment {
         final scheduleDAO scheduleDAO = database.getScheduleDao();
         attendanceDAO attendanceDAO=database.getAttendanceDao();
 
-        List<Schedule> x = scheduleDAO.getSubjects("College");
+        List<ScheduleEntity> x = scheduleDAO.getSubjects("College");
 
         List<attendanceEntity> z = attendanceDAO.getSubjectNames();
         String[] subject = new String[x.size()+z.size()];
         int i = 0;
 
-        for (Schedule cn : x) {
+        for (ScheduleEntity cn : x) {
             subject[i] = cn.getTask();
             Log.d("ATT/FSD/", "Local "+subject[i]);
             ++i;
@@ -216,7 +213,7 @@ public class FullScreenDialog extends DialogFragment {
 
                 @Override
                 public void afterTextChanged(Editable s) {
-                    Schedule sc=scheduleDAO.getScheduleDetails(s.toString());
+                    ScheduleEntity sc=scheduleDAO.getScheduleDetails(s.toString());
                     EditText taskLabelEdit = rootView.findViewById(R.id.taskLabel);
                     taskLabelEdit.setText(sc.getLabel());
                     AutoCompleteTextView SubjCode=rootView.findViewById(R.id.subjCode);
@@ -275,7 +272,7 @@ public class FullScreenDialog extends DialogFragment {
 
                 Log.d("Name:", "H " + taskNameEdit.getText().toString() + taskLabelEdit.getText().toString() + taskTimeEndEdit.getText().toString());
 
-                //  db.addSchedule(new Schedule("Task 1","Label 1","Time 1"));
+                //  db.addSchedule(new ScheduleEntity("Task 1","Label 1","Time 1"));
                 if(Validation(rootView))
                 {
                     DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
@@ -284,25 +281,25 @@ public class FullScreenDialog extends DialogFragment {
                     scheduleDAO scheduleDAO = database.getScheduleDao();
 
                     if (bundle != null) {
-                        Schedule schedule = scheduleDAO.getScheduleById(dbNo);
+                        ScheduleEntity scheduleEntity = scheduleDAO.getScheduleById(dbNo);
 
-                        schedule.setTask(taskNameEdit.getText().toString());
-                        schedule.setLabel(taskLabelEdit.getText().toString());
-                        schedule.setSubjCode(SubjCode.getText().toString());
-                        schedule.setStartTime(convert.normaltorail(taskTimeStartEdit.getText().toString()));
-                        schedule.setEndTime(convert.normaltorail(taskTimeEndEdit.getText().toString()));
-                        schedule.setDay(mday);
-                        scheduleDAO.updateSchedule(schedule);
+                        scheduleEntity.setTask(taskNameEdit.getText().toString());
+                        scheduleEntity.setLabel(taskLabelEdit.getText().toString());
+                        scheduleEntity.setSubjCode(SubjCode.getText().toString());
+                        scheduleEntity.setStartTime(Converters.t12_to_date(taskTimeStartEdit.getText().toString()));
+                        scheduleEntity.setEndTime(Converters.t12_to_date(taskTimeEndEdit.getText().toString()));
+                        scheduleEntity.setDay(mday);
+                        scheduleDAO.updateSchedule(scheduleEntity);
 
                     } else {
-                        Schedule schedule = new Schedule();
-                        schedule.setTask(taskNameEdit.getText().toString());
-                        schedule.setLabel(taskLabelEdit.getText().toString());
-                        schedule.setSubjCode(SubjCode.getText().toString());
-                        schedule.setStartTime(convert.normaltorail(taskTimeStartEdit.getText().toString()));
-                        schedule.setEndTime(convert.normaltorail(taskTimeEndEdit.getText().toString()));
-                        schedule.setDay(mday);
-                        scheduleDAO.insertOnlySingleSchedule(schedule);
+                        ScheduleEntity scheduleEntity = new ScheduleEntity();
+                        scheduleEntity.setTask(taskNameEdit.getText().toString());
+                        scheduleEntity.setLabel(taskLabelEdit.getText().toString());
+                        scheduleEntity.setSubjCode(SubjCode.getText().toString());
+                        scheduleEntity.setStartTime(Converters.t12_to_date(taskTimeStartEdit.getText().toString()));
+                        scheduleEntity.setEndTime(Converters.t12_to_date(taskTimeEndEdit.getText().toString()));
+                        scheduleEntity.setDay(mday);
+                        scheduleDAO.insertOnlySingleSchedule(scheduleEntity);
                     }
 
 
@@ -315,7 +312,7 @@ public class FullScreenDialog extends DialogFragment {
         return rootView;
     }
     private EditText endtime;
-    public void dialogTimePicker(final View rv,final int whatTimeSelected, final EditText Time) {
+    public void dialogTimePicker(final View rv,final int whatTimeSelected, final EditText TimeEdt) {
         //  Auto-generated method stub
         Calendar mcurrentTime = Calendar.getInstance();
         int Mhour = 0;
@@ -326,35 +323,17 @@ public class FullScreenDialog extends DialogFragment {
 
             @Override
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                String railtime="";
+                String time="";
                 if (selectedHour < 10) {
-
-                    if (selectedMinute < 10) {
-                        railtime="0"+ selectedHour + "0" + selectedMinute;
-                        
-                        
-                    }
-                    else{
-                        railtime="0" + selectedHour  + selectedMinute;
-                        
-                    }
-                } else if (selectedHour >= 10) {
-
-                    if (selectedMinute < 10) {
-                        railtime=selectedHour + "0" + selectedMinute;
-                        
-                    }
-                    else {
-                        railtime=selectedHour + "" + selectedMinute;
-                        
-                    }
+                    time="0";
                 }
-                Time.setText(convert.railtonormal(railtime));
-                if(Time==rv.findViewById(R.id.start_time))
+                time+=selectedHour+":";
+                if(selectedMinute<10)
                 {
-                    EditText endtime=rv.findViewById(R.id.end_time);
-                    endtime.setText(convert.addrailtime(railtime,55));
+                    time+="0";
                 }
+                time+=selectedMinute;
+                TimeEdt.setText(Converters.t24_to_t12(time));
 
             }
         }, Mhour, Mminute, false);//yes 12 hour time

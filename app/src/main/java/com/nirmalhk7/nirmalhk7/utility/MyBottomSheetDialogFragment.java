@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.nirmalhk7.nirmalhk7.Converters;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.examholidays.ehDAO;
@@ -86,8 +87,8 @@ public class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
 
                 ehDAO EHDAO = database.getEHDAO();
                 ehEntity x=EHDAO.getehEntityById(dbkey);
-                startdate.setText(x.getmDateStart());
-                enddate.setText(x.getmDateEnd());
+                startdate.setText(Converters.date_to_Dt(x.getStart()));
+                enddate.setText(Converters.date_to_Dt(x.getEnd()));
                 if (bundle.getInt("holidayorexam") == 1) {
                     exam.setChecked(true);
                     Log.d("EAH/BSD","Editing Exam "+bundle.getInt("holidayorexam"));
@@ -174,8 +175,8 @@ public class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
             {
                 ehEntity entity=new ehEntity();
                 entity.setmName(name.getText().toString());
-                entity.setmDateStart(startdate.getText().toString());
-                entity.setmDateEnd(enddate.getText().toString());
+                entity.setStart(Converters.dmy_to_date(startdate.getText().toString()));
+                entity.setEnd(Converters.dmy_to_date(enddate.getText().toString()));
                 entity.setmType(type.getText().toString());
                 entity.setmDescription(desc.getText().toString());
                 if(exam.isChecked()){
@@ -190,8 +191,8 @@ public class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
             {
                 ehEntity entity=EHDAO.getehEntityById(k);
                 entity.setmName(name.getText().toString());
-                entity.setmDateStart(startdate.getText().toString());
-                entity.setmDateEnd(enddate.getText().toString());
+                entity.setStart(Converters.dmy_to_date(startdate.getText().toString()));
+                entity.setEnd(Converters.dmy_to_date(enddate.getText().toString()));
                 entity.setmType(type.getText().toString());
                 entity.setmDescription(desc.getText().toString());
                 if(exam.isChecked()){

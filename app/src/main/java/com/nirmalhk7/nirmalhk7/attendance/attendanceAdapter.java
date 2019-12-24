@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.daimajia.swipe.SwipeLayout;
+import com.nirmalhk7.nirmalhk7.Converters;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
 
@@ -228,12 +229,13 @@ public class attendanceAdapter extends ArrayAdapter<attendanceItem> {
                 TextView subjName_subj = listitemview.findViewById(R.id.subjName_subject);
                 sl.setSubject(subjName_subj.getText().toString());
                 sl.setPrabca(1);
-                DateFormat dtf = new SimpleDateFormat("d MMM yyyy");
-                sl.setDateAdded(dtf.format(Calendar.getInstance().getTime()));
 
-                DateFormat dwf=new SimpleDateFormat("EEE, HH:mm:ss");
-                sl.setDayTime(dwf.format(Calendar.getInstance().getTime()));
-                Log.d("datex",dtf.format(Calendar.getInstance().getTime())+"//"+dwf.format(Calendar.getInstance().getTime()));
+                DateFormat dtf = new SimpleDateFormat("dd MMM yyyy EEE hh:mm a");
+                Date curdate=Converters.dmyt_to_date(dtf.format(Calendar.getInstance().getTime()));
+                sl.setDaytime(curdate);
+
+
+                Log.d("datex",dtf.format(Calendar.getInstance().getTime())+"//"+curdate.getTime());
                 SLDAO.insertLog(sl);
             }
         });
@@ -248,21 +250,22 @@ public class attendanceAdapter extends ArrayAdapter<attendanceItem> {
                 final subjectlogEntity sl=new subjectlogEntity();
                 TextView subjName_subj = listitemview.findViewById(R.id.subjName_subject);
                 sl.setSubject(subjName_subj.getText().toString());
-                sl.setPrabca(2);
-                DateFormat dtf = new SimpleDateFormat("d MMM yyyy");
-                sl.setDateAdded(dtf.format(Calendar.getInstance().getTime()));
 
-                DateFormat dwf=new SimpleDateFormat("EEE, HH:mm:ss");
-                sl.setDayTime(dwf.format(Calendar.getInstance().getTime()));
-                Log.d("datex",dtf.format(Calendar.getInstance().getTime())+"//"+dwf.format(Calendar.getInstance().getTime()));
+                DateFormat dtf = new SimpleDateFormat("dd MMM yyyy EEE hh:mm a");
+                Date curdate=Converters.dmyt_to_date(dtf.format(Calendar.getInstance().getTime()));
+                sl.setDaytime(curdate);
+
+
+                Log.d("datex",dtf.format(Calendar.getInstance().getTime())+"//"+curdate.getTime());
+
                 SLDAO.insertLog(sl);
             }
         });
         c.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int ca=att.getAbsent();
-                att.setAbsent(++ca);
+                int ca=att.getCancelled();
+                att.setCancelled(++ca);
                 attendanceDAO.updateSubject(att);
 
                 subjectlogDAO SLDAO=database.getSALDAO();
@@ -270,12 +273,15 @@ public class attendanceAdapter extends ArrayAdapter<attendanceItem> {
                 TextView subjName_subj = listitemview.findViewById(R.id.subjName_subject);
                 sl.setSubject(subjName_subj.getText().toString());
                 sl.setPrabca(3);
-                DateFormat dtf = new SimpleDateFormat("d MMM yyyy");
-                sl.setDateAdded(dtf.format(Calendar.getInstance().getTime()));
 
-                DateFormat dwf=new SimpleDateFormat("EEE, HH:mm:ss");
-                sl.setDayTime(dwf.format(Calendar.getInstance().getTime()));
-                Log.d("datex",dtf.format(Calendar.getInstance().getTime())+"//"+dwf.format(Calendar.getInstance().getTime()));
+                DateFormat dtf = new SimpleDateFormat("dd MMM yyyy EEE hh:mm a");
+                Date curdate=Converters.dmyt_to_date(dtf.format(Calendar.getInstance().getTime()));
+                sl.setDaytime(curdate);
+
+
+                Log.d("datex",dtf.format(Calendar.getInstance().getTime())+"//"+curdate.getTime());
+
+
                 SLDAO.insertLog(sl);
             }
         });

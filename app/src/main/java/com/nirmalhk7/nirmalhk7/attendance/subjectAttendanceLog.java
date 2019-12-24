@@ -12,9 +12,11 @@ import android.view.ViewGroup;
 import android.support.v7.widget.Toolbar;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.nirmalhk7.nirmalhk7.Converters;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
-import com.nirmalhk7.nirmalhk7.dailyscheduler.Schedule;
+import com.nirmalhk7.nirmalhk7.dailyscheduler.ScheduleEntity;
 import com.nirmalhk7.nirmalhk7.dailyscheduler.scheduleDAO;
 
 import java.util.ArrayList;
@@ -67,7 +69,7 @@ public class subjectAttendanceLog extends DialogFragment {
                 .build();
 
         scheduleDAO SDAO=database2.getScheduleDao();
-        List<Schedule> x=SDAO.getScheduleCodeByTaskName(subjName.getText().toString());
+        List<ScheduleEntity> x=SDAO.getScheduleCodeByTaskName(subjName.getText().toString());
         if(x.size()==1)
         {
             TextView code=rootView.findViewById(R.id.sal_code);
@@ -105,7 +107,7 @@ public class subjectAttendanceLog extends DialogFragment {
 
         for (subjectlogEntity cn : subjLog) {
          //   Log.d("ATT/ALS", "Printing: Task "+cn.getSubject()+" P "+cn.getPresent()+" A "+cn.getAbsent());
-            SubjectItem.add(new attendanceItem(cn.getDateAdded(),cn.getDayTime(),cn.getPrabca(),cn.getId()));
+            SubjectItem.add(new attendanceItem(Converters.date_to_Dt(cn.getDaytime()),Converters.date_to_day(cn.getDaytime())+", "+Converters.date_to_t12(cn.getDaytime()),cn.getPrabca(),cn.getId()));
         }
         attendanceAdapter adapter = new attendanceAdapter(getContext(), SubjectItem,2);
 

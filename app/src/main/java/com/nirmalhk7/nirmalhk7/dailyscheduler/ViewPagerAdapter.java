@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     //Make LOOP_COUNT 1 for single loop.
-    public static int LOOPS_COUNT = 5;
+    public static int LOOPS_COUNT = 1;
     private ArrayList<String> mProducts;
 
 

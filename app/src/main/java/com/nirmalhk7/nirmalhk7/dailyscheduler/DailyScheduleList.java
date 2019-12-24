@@ -4,7 +4,6 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.arch.persistence.room.Room;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -26,8 +25,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.leinardi.android.speeddial.SpeedDialView;
+import com.nirmalhk7.nirmalhk7.Converters;
 import com.nirmalhk7.nirmalhk7.R;
-import com.nirmalhk7.nirmalhk7.convert;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.settings.SettingsActivity;
 
@@ -271,11 +270,11 @@ public class DailyScheduleList extends Fragment {
 
             scheduleDAO scheduleDAO = database.getScheduleDao();
             Log.d("DAS/DS/X", "xx" + bundle.getInt("key"));
-            List<Schedule> schedules = scheduleDAO.getScheduleByDay(bundle.getInt("key"));
-            for (Schedule cn : schedules) {
+            List<ScheduleEntity> scheduleEntities = scheduleDAO.getScheduleByDay(bundle.getInt("key"));
+            for (ScheduleEntity cn : scheduleEntities) {
 
                 Log.d("DAS/DSL", "Printing: Task " + cn.getTask() + " Time " + cn.getStartTime() + cn.getEndTime() + " Label " + cn.getLabel());
-                sch.add(new scheduleItem(cn.getTask(), convert.railtonormal(cn.getStartTime()), convert.railtonormal(cn.getEndTime()), cn.getSubjCode(), cn.getLabel(), cn.getId(), cn.getDay()));
+                sch.add(new scheduleItem(cn.getTask(), Converters.date_to_t12(cn.getStartTime()),Converters.date_to_t12(cn.getEndTime()), cn.getSubjCode(), cn.getLabel(), cn.getId(), cn.getDay()));
             }
 
             ScheduleAdapter adapter = new ScheduleAdapter(getContext(), sch);
@@ -286,7 +285,7 @@ public class DailyScheduleList extends Fragment {
             ListView listView = view.findViewById(R.id.list_item);
 
             // Make the {@link ListView} use the {@link ScheduleAdapter} we created above, so that the
-            // {@link ListView} will display list schedules for each {@link scheduleSchedule} in the list.
+            // {@link ListView} will display list scheduleEntities for each {@link scheduleSchedule} in the list.
             listView.setAdapter(adapter);
 
         }
