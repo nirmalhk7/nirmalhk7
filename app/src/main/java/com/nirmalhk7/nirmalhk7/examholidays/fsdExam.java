@@ -21,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.nirmalhk7.nirmalhk7.Converters;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
 
@@ -141,8 +142,8 @@ public class fsdExam extends DialogFragment {
 
         ehEntity entity=new ehEntity();
         entity.setmName(name.getText().toString());
-        entity.setmDateStart(startdate.getText().toString());
-        entity.setmDateEnd(enddate.getText().toString());
+        entity.setStart(Converters.to_date(startdate.getText().toString(),"MMM d, yyyy"));
+        entity.setEnd(Converters.to_date(enddate.getText().toString(),"MMM d, yyyy"));
         entity.setmType(type.getText().toString());
         entity.setmDescription(desc.getText().toString());
         if(exam.isChecked()){
@@ -180,15 +181,27 @@ public class fsdExam extends DialogFragment {
                             @Override
                             public void onDateSet(DatePicker view, int year,
                                                   int monthOfYear, int dayOfMonth) {
+                                String dsel="";
+                                if(dayOfMonth<10)
+                                {
+                                    dsel+="0";
+                                }
+                                dsel+=dayOfMonth+"/";
+                                if(monthOfYear<10)
+                                {
+                                    dsel+="0";
+                                }
+                                dsel+=(monthOfYear+1)+"/"+year;
+                                dsel=Converters.dtConverter(dsel,"dd/MM/yyyy","MMM d, yyyy");
 
                                 if(i==1)
                                 {
-                                    startdate.setText(dayOfMonth + "." + (monthOfYear + 1) + "." + year);
-                                    enddate.setText(dayOfMonth + "." + (monthOfYear + 1) + "." + year);
+                                    startdate.setText(dsel);
+                                    enddate.setText(dsel);
                                 }
                                 else if(i==2)
                                 {
-                                    enddate.setText(dayOfMonth + "." + (monthOfYear + 1) + "." + year);
+                                    enddate.setText(dsel);
                                 }
                                 date.set(dayOfMonth,(monthOfYear + 1), year);
 

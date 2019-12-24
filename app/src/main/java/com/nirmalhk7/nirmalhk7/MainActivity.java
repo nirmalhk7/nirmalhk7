@@ -42,28 +42,23 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         String res="HELLO";
-        Log.d("CONVERTU","-----------------------");
-        Log.d("CONVERTU",convert.normaltorail("01:10 AM"));
-        Log.d("CONVERTU",convert.normaltorail("01:10 PM"));
-        Log.d("CONVERTU",convert.normaltorail("01:00 AM"));
 
 
-        String curDate = "10/10/2016 14:30";
-        SimpleDateFormat curDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-        SimpleDateFormat desiredDateFormat = new SimpleDateFormat("HH:mm:ss");
+        String curDate1 = "23 Jul 2019 Tue 1:30 PM";
+        SimpleDateFormat curDateFormat = new SimpleDateFormat("dd MMM yyyy EEE hh:mm a");
         try {
-            Date date = curDateFormat.parse(curDate);
-            Log.d("CONVERX",curDate);
-            String desiredDate = desiredDateFormat.format(date);
-            Log.d("CONVERX",desiredDate);
+            Date date = curDateFormat.parse(curDate1);
+            Log.d("CONVERX",date.getTime()+"");
+            Log.d("CONVERX",Converters.date_to_day(date)+ " xx "+Converters.date_to_t12(date)+" yy "+Converters.date_to_Dt(date));
             // you can use this date string now
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            Log.e("ACTMAIN","TimeErr "+e.getMessage());
+        }
 
-        Log.d("CONVERTU",convert.addrailtime("0105",55));
 
         /*speedDialView.addActionItem(
                 new SpeedDialActionItem.Builder(R.id.nav_attendance, R.drawable.ic_attendance)
-                        .setLabelColor(Color.WHITE)
+                        .setLabelColor(Color.WHIT
                         .setLabelBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.colorLightDark, getTheme()))
                         .create()
 

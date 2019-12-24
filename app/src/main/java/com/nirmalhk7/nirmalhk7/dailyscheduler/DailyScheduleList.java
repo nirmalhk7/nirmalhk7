@@ -25,8 +25,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.leinardi.android.speeddial.SpeedDialView;
+import com.nirmalhk7.nirmalhk7.Converters;
 import com.nirmalhk7.nirmalhk7.R;
-import com.nirmalhk7.nirmalhk7.convert;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.settings.SettingsActivity;
 
@@ -274,7 +274,7 @@ public class DailyScheduleList extends Fragment {
             for (ScheduleEntity cn : scheduleEntities) {
 
                 Log.d("DAS/DSL", "Printing: Task " + cn.getTask() + " Time " + cn.getStartTime() + cn.getEndTime() + " Label " + cn.getLabel());
-          //      sch.add(new scheduleItem(cn.getTask(), convert.railtonormal(cn.getStartTime()), convert.railtonormal(cn.getEndTime()), cn.getSubjCode(), cn.getLabel(), cn.getId(), cn.getDay()));
+                sch.add(new scheduleItem(cn.getTask(), Converters.date_to_t12(cn.getStartTime()),Converters.date_to_t12(cn.getEndTime()), cn.getSubjCode(), cn.getLabel(), cn.getId(), cn.getDay()));
             }
 
             ScheduleAdapter adapter = new ScheduleAdapter(getContext(), sch);

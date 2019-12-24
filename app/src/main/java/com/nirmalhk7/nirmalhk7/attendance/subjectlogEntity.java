@@ -4,6 +4,8 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import java.util.Date;
+
 @Entity
 public class subjectlogEntity {
     @NonNull
@@ -12,8 +14,7 @@ public class subjectlogEntity {
 
     private String mSubject;
     private int prabca;
-    private String dateAdded;
-    private String dayTime;
+    private Date daytime;
 
     public void setSubject(String mSubject) {
         this.mSubject = mSubject;
@@ -23,13 +24,10 @@ public class subjectlogEntity {
         this.id = id;
     }
 
-    public void setDateAdded(String dateAdded) {
-        this.dateAdded = dateAdded;
+    public void setDaytime(Date daytime) {
+        this.daytime = daytime;
     }
 
-    public void setDayTime(String dayTime) {
-        this.dayTime = dayTime;
-    }
 
     public void setPrabca(int prabca) {
         this.prabca = prabca;
@@ -48,11 +46,7 @@ public class subjectlogEntity {
         return prabca;
     }
 
-    public String getDateAdded() {
-        return dateAdded;
-    }
-
-    public String getDayTime() {
-        return dayTime;
+    public Date getDaytime() {
+        return daytime;
     }
 }

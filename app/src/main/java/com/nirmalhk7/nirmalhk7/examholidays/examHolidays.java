@@ -1,24 +1,13 @@
 package com.nirmalhk7.nirmalhk7.examholidays;
 
-import android.app.AlertDialog;
 import android.arch.persistence.room.Room;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import org.michaelbel.bottomsheet.BottomSheet;
-import org.michaelbel.bottomsheet.BottomSheetCallback;
-import org.michaelbel.bottomsheet.Utils;
 
-import android.support.annotation.LayoutRes;
-import android.support.annotation.MenuRes;
-import android.support.design.widget.BottomSheetDialog;
-import android.support.design.widget.BottomSheetDialogFragment;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
@@ -27,23 +16,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.leinardi.android.speeddial.SpeedDialActionItem;
 import com.leinardi.android.speeddial.SpeedDialView;
+import com.nirmalhk7.nirmalhk7.Converters;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
-import com.nirmalhk7.nirmalhk7.convert;
 import com.nirmalhk7.nirmalhk7.utility.MyBottomSheetDialogFragment;
-
-import org.michaelbel.bottomsheet.BottomSheet;
-import org.michaelbel.bottomsheet.BottomSheetCallback;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -240,10 +221,10 @@ public class examHolidays extends Fragment {
 
         for (ehEntity cn : list) {
             Log.d("EAH/EAH", cn.getmType() + " ");
-            if (cn.getmDateStart().matches(cn.getmDateEnd())) {
-                hs.add(new heItem(cn.getId(), cn.getHolexa(), cn.getmName(), cn.getmDateStart(), cn.getmType()));
+            if (cn.getStart().equals(cn.getEnd())) {
+                hs.add(new heItem(cn.getId(), cn.getHolexa(), cn.getmName(), Converters.date_to_Dt(cn.getStart()), cn.getmType()));
             } else {
-                hs.add(new heItem(cn.getId(), cn.getHolexa(), cn.getmName(), cn.getmDateStart() + " - " + cn.getmDateEnd(), cn.getmType()));
+                hs.add(new heItem(cn.getId(), cn.getHolexa(), cn.getmName(), Converters.date_to_Dt(cn.getStart()) + " - " + Converters.date_to_Dt(cn.getEnd()), cn.getmType()));
             }
         }
 

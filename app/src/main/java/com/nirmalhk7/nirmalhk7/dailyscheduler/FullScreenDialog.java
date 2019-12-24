@@ -24,14 +24,13 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TimePicker;
 
+import com.nirmalhk7.nirmalhk7.Converters;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.attendance.attendanceDAO;
 import com.nirmalhk7.nirmalhk7.attendance.attendanceEntity;
-import com.nirmalhk7.nirmalhk7.convert;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class FullScreenDialog extends DialogFragment {
@@ -287,9 +286,8 @@ public class FullScreenDialog extends DialogFragment {
                         scheduleEntity.setTask(taskNameEdit.getText().toString());
                         scheduleEntity.setLabel(taskLabelEdit.getText().toString());
                         scheduleEntity.setSubjCode(SubjCode.getText().toString());
-
-                       // scheduleEntity.setStartTime(convert.normaltorail(taskTimeStartEdit.getText().toString()));
-                        //scheduleEntity.setEndTime(convert.normaltorail(taskTimeEndEdit.getText().toString()));
+                        scheduleEntity.setStartTime(Converters.t12_to_date(taskTimeStartEdit.getText().toString()));
+                        scheduleEntity.setEndTime(Converters.t12_to_date(taskTimeEndEdit.getText().toString()));
                         scheduleEntity.setDay(mday);
                         scheduleDAO.updateSchedule(scheduleEntity);
 
@@ -298,8 +296,8 @@ public class FullScreenDialog extends DialogFragment {
                         scheduleEntity.setTask(taskNameEdit.getText().toString());
                         scheduleEntity.setLabel(taskLabelEdit.getText().toString());
                         scheduleEntity.setSubjCode(SubjCode.getText().toString());
-                    //    scheduleEntity.setStartTime(convert.normaltorail(taskTimeStartEdit.getText().toString()));
-                     //   scheduleEntity.setEndTime(convert.normaltorail(taskTimeEndEdit.getText().toString()));
+                        scheduleEntity.setStartTime(Converters.t12_to_date(taskTimeStartEdit.getText().toString()));
+                        scheduleEntity.setEndTime(Converters.t12_to_date(taskTimeEndEdit.getText().toString()));
                         scheduleEntity.setDay(mday);
                         scheduleDAO.insertOnlySingleSchedule(scheduleEntity);
                     }
@@ -314,7 +312,7 @@ public class FullScreenDialog extends DialogFragment {
         return rootView;
     }
     private EditText endtime;
-    public void dialogTimePicker(final View rv,final int whatTimeSelected, final EditText Time) {
+    public void dialogTimePicker(final View rv,final int whatTimeSelected, final EditText TimeEdt) {
         //  Auto-generated method stub
         Calendar mcurrentTime = Calendar.getInstance();
         int Mhour = 0;
@@ -325,35 +323,17 @@ public class FullScreenDialog extends DialogFragment {
 
             @Override
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                String railtime="";
+                String time="";
                 if (selectedHour < 10) {
-
-                    if (selectedMinute < 10) {
-                        railtime="0"+ selectedHour + "0" + selectedMinute;
-                        
-                        
-                    }
-                    else{
-                        railtime="0" + selectedHour  + selectedMinute;
-                        
-                    }
-                } else if (selectedHour >= 10) {
-
-                    if (selectedMinute < 10) {
-                        railtime=selectedHour + "0" + selectedMinute;
-                        
-                    }
-                    else {
-                        railtime=selectedHour + "" + selectedMinute;
-                        
-                    }
+                    time="0";
                 }
-                Time.setText(convert.railtonormal(railtime));
-                if(Time==rv.findViewById(R.id.start_time))
+                time+=selectedHour+":";
+                if(selectedMinute<10)
                 {
-                    EditText endtime=rv.findViewById(R.id.end_time);
-                    endtime.setText(convert.addrailtime(railtime,55));
+                    time+="0";
                 }
+                time+=selectedMinute;
+                TimeEdt.setText(Converters.t24_to_t12(time));
 
             }
         }, Mhour, Mminute, false);//yes 12 hour time

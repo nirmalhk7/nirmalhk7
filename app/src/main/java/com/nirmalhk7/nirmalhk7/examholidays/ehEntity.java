@@ -3,6 +3,8 @@ package com.nirmalhk7.nirmalhk7.examholidays;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
+import java.util.Date;
+
 @Entity
 public class ehEntity {
     @PrimaryKey(autoGenerate = true)
@@ -11,6 +13,8 @@ public class ehEntity {
 
     String mName;
     String mDateStart;
+    Date Start;
+    Date End;
     String mDateEnd;
     String mType;
     String mDescription;
@@ -27,14 +31,6 @@ public class ehEntity {
         return mName;
     }
 
-    public String getmDateEnd() {
-        return mDateEnd;
-    }
-
-    public String getmDateStart() {
-        return mDateStart;
-    }
-
     public String getmType() {
         return mType;
     }
@@ -42,6 +38,23 @@ public class ehEntity {
     public String getmDescription() {
         return mDescription;
     }
+
+    public Date getEnd() {
+        return End;
+    }
+
+    public Date getStart() {
+        return Start;
+    }
+
+    public void setEnd(Date end) {
+        End = end;
+    }
+
+    public void setStart(Date start) {
+        Start = start;
+    }
+
 
     public void setId(int id) {
         this.id = id;
@@ -53,14 +66,6 @@ public class ehEntity {
 
     public void setmName(String mName) {
         this.mName = mName;
-    }
-
-    public void setmDateEnd(String mDateEnd) {
-        this.mDateEnd = mDateEnd;
-    }
-
-    public void setmDateStart(String mDateStart) {
-        this.mDateStart = mDateStart;
     }
 
     public void setmDescription(String mDescription) {
