@@ -1,35 +1,20 @@
 package com.nirmalhk7.nirmalhk7.dailyscheduler;
 
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
-import android.support.v4.view.ViewPager;
-import android.util.Log;
+
+import com.google.android.material.tabs.TabLayout;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
+
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 
-import com.leinardi.android.speeddial.SpeedDialActionItem;
-import com.leinardi.android.speeddial.SpeedDialView;
 import com.nirmalhk7.nirmalhk7.R;
 
 import java.util.Calendar;
-
-import static android.content.Context.NOTIFICATION_SERVICE;
 
 
 /**

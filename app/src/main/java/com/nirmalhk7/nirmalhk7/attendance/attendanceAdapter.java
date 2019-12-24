@@ -1,25 +1,22 @@
 package com.nirmalhk7.nirmalhk7.attendance;
 
-import android.arch.persistence.room.Room;
+import androidx.room.Room;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.daimajia.swipe.SwipeLayout;
 import com.nirmalhk7.nirmalhk7.Converters;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
-
-import org.w3c.dom.Text;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

@@ -1,6 +1,6 @@
 package com.nirmalhk7.nirmalhk7.dailyscheduler;
 
-import android.arch.persistence.room.Room;
+import androidx.room.Room;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;

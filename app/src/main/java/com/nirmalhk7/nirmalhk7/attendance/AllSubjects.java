@@ -1,37 +1,30 @@
 package com.nirmalhk7.nirmalhk7.attendance;
 
-import android.arch.persistence.db.SupportSQLiteDatabase;
-import android.arch.persistence.room.Room;
-import android.arch.persistence.room.migration.Migration;
-import android.content.Intent;
+import androidx.sqlite.db.SupportSQLiteDatabase;
+import androidx.room.Room;
+import androidx.room.migration.Migration;
+
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.res.ResourcesCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.daimajia.swipe.SwipeLayout;
 import com.leinardi.android.speeddial.SpeedDialActionItem;
 import com.leinardi.android.speeddial.SpeedDialView;
 import com.nirmalhk7.nirmalhk7.DBGateway;
-import com.nirmalhk7.nirmalhk7.MainActivity;
 import com.nirmalhk7.nirmalhk7.R;
-import com.nirmalhk7.nirmalhk7.academics.Academics;
-import com.nirmalhk7.nirmalhk7.dailyscheduler.FullScreenDialog;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;

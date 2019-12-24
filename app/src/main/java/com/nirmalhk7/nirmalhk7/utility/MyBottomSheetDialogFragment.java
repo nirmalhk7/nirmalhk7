@@ -2,9 +2,9 @@ package com.nirmalhk7.nirmalhk7.utility;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.arch.persistence.room.Room;
+import androidx.room.Room;
 import android.os.Bundle;
-import android.support.design.widget.BottomSheetDialogFragment;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;

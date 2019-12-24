@@ -1,15 +1,15 @@
 package com.nirmalhk7.nirmalhk7.attendance;
 
 import android.app.Dialog;
-import android.arch.persistence.room.Room;
+import androidx.room.Room;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.widget.SwipeRefreshLayout;
+import androidx.fragment.app.DialogFragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.widget.ListView;
 import android.widget.TextView;
 

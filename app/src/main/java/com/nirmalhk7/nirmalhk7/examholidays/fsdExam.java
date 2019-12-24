@@ -3,12 +3,12 @@ package com.nirmalhk7.nirmalhk7.examholidays;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.arch.persistence.room.Room;
+import androidx.room.Room;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.widget.AppCompatAutoCompleteTextView;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
+import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;

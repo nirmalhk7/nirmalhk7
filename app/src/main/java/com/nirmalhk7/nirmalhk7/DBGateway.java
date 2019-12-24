@@ -1,8 +1,8 @@
 package com.nirmalhk7.nirmalhk7;
 
-import android.arch.persistence.room.Database;
-import android.arch.persistence.room.RoomDatabase;
-import android.arch.persistence.room.TypeConverters;
+import androidx.room.Database;
+import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 
 import com.nirmalhk7.nirmalhk7.attendance.attendanceDAO;
 import com.nirmalhk7.nirmalhk7.attendance.attendanceEntity;

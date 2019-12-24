@@ -1,16 +1,16 @@
 package com.nirmalhk7.nirmalhk7.examholidays;
 
-import android.arch.persistence.room.Room;
+import androidx.room.Room;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.res.ResourcesCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;

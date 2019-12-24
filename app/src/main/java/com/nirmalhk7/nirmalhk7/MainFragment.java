@@ -1,20 +1,20 @@
 package com.nirmalhk7.nirmalhk7.entrydisplay;
 
 import android.Manifest;
-import android.arch.persistence.room.Room;
+import androidx.room.Room;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v4.widget.TextViewCompat;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.core.widget.TextViewCompat;
+import androidx.cardview.widget.CardView;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -29,12 +29,9 @@ import android.widget.Toast;
 import com.leinardi.android.speeddial.SpeedDialView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
-import com.nirmalhk7.nirmalhk7.Converters;
 import com.nirmalhk7.nirmalhk7.DBGateway;
-import com.nirmalhk7.nirmalhk7.MainActivity;
 import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.dailyscheduler.DailySchedule;
-import com.nirmalhk7.nirmalhk7.dailyscheduler.ScheduleEntity;
 import com.nirmalhk7.nirmalhk7.dailyscheduler.scheduleDAO;
 import com.nirmalhk7.nirmalhk7.examholidays.ehDAO;
 import com.nirmalhk7.nirmalhk7.examholidays.examHolidays;
@@ -48,17 +45,13 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 import cz.msebera.android.httpclient.Header;
 import mumayank.com.airlocationlibrary.AirLocation;
 
-import static android.support.constraint.Constraints.TAG;
+//import static androidx.constraintlayout.Constraints.TAG;
 
 
 /**

@@ -9,7 +9,7 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize">
 
@@ -56,10 +56,10 @@
 
         </LinearLayout>
 
-    </android.support.design.widget.AppBarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
 
-    <android.support.v4.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/nested_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -199,7 +199,7 @@
                     android:textSize="15sp" />
             </RadioGroup>
 
-            <android.support.v7.widget.AppCompatAutoCompleteTextView
+            <androidx.appcompat.widget.AppCompatAutoCompleteTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Subject Code"
@@ -207,7 +207,7 @@
                 android:inputType="textCapCharacters"
                 android:textColor="@color/colorFontDark"
                 android:textColorHint="@color/colorFontHintDark"/>
-            <android.support.v7.widget.AppCompatAutoCompleteTextView
+            <androidx.appcompat.widget.AppCompatAutoCompleteTextView
                 android:id="@+id/taskName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -261,6 +261,6 @@
 
         </LinearLayout>
 
-    </android.support.v4.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>

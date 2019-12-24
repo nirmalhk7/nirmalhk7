@@ -1,41 +1,31 @@
 package com.nirmalhk7.nirmalhk7.cpschedule;
 
-import android.arch.persistence.room.Room;
+import androidx.room.Room;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v4.widget.TextViewCompat;
+import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
-import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
-import com.nirmalhk7.nirmalhk7.examholidays.ExamHolidayAdapter;
-import com.nirmalhk7.nirmalhk7.examholidays.ehDAO;
-import com.nirmalhk7.nirmalhk7.examholidays.ehEntity;
-import com.nirmalhk7.nirmalhk7.examholidays.heItem;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Queue;
-import java.util.Stack;
 
 import cz.msebera.android.httpclient.Header;
 
