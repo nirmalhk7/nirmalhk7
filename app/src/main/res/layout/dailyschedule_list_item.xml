@@ -39,7 +39,7 @@
             android:padding="5dp"
             android:textAllCaps="true"
             android:textSize="10sp"
-            tools:text="Can skip this class" />
+            tools:text="Can skip next class" />
 
     </LinearLayout>
     <LinearLayout

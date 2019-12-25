@@ -13,7 +13,6 @@ import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.attendance.attendanceDAO;
 import com.nirmalhk7.nirmalhk7.attendance.attendanceEntity;
-import com.nirmalhk7.nirmalhk7.dailyscheduler.scheduleItem;
 
 import java.util.ArrayList;
 

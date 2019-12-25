@@ -1,4 +1,4 @@
-package com.nirmalhk7.nirmalhk7.dailyscheduler;
+package com.nirmalhk7.nirmalhk7.timetable;
 
 
 public class scheduleItem {
