@@ -1,14 +1,19 @@
 package com.nirmalhk7.nirmalhk7.timetable;
 
+import android.app.Activity;
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.room.Room;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -25,10 +30,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DemoInfinitePagerAdapter extends LoopingPagerAdapter<Integer> {
-    public Toolbar t;
-    public DemoInfinitePagerAdapter(Context context, ArrayList<Integer> itemList, boolean isInfinite, Toolbar toolbar) {
+    public static FragmentManager Fmgr;
+    public DemoInfinitePagerAdapter(Context context, ArrayList<Integer> itemList, boolean isInfinite, FragmentManager fmgr) {
         super(context, itemList, isInfinite);
-        t=toolbar;
+         Fmgr=fmgr;
     }
 
     //This method will be triggered if the item View has not been inflated before.
@@ -36,6 +41,7 @@ public class DemoInfinitePagerAdapter extends LoopingPagerAdapter<Integer> {
     protected View inflateView(int viewType, ViewGroup container, int listPosition) {
         View listview= LayoutInflater.from(context).inflate(R.layout.timetable_list, container, false);
        // TTFetch(listview,context,listPosition);
+
         return listview;
     }
 
@@ -68,7 +74,7 @@ public class DemoInfinitePagerAdapter extends LoopingPagerAdapter<Integer> {
             }
         });
     }
-    private static void TTFetch(View convertView,Context context,int listPosition)
+    private static void TTFetch(View convertView, final Context context, final int listPosition)
     {
         // Reading all contacts
         Log.d("Reading: ", "Reading all contacts..");
@@ -92,6 +98,40 @@ public class DemoInfinitePagerAdapter extends LoopingPagerAdapter<Integer> {
     //    description.setText(scheduleEntities.size()+" classes from "+Converters.date_to(scheduleEntities.get(0).getStartTime(),"hh:mm a")+" to "+Converters.date_to(scheduleEntities.get(scheduleEntities.size()-1).getEndTime(),"hh:mm a"));
         ScheduleAdapter adapter=new ScheduleAdapter(context,sch);
         ListView listView=convertView.findViewById(R.id.list_item_timetable);
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("DAS/DSL", "LongClicked!");
+
+                TextView title = view.findViewById(R.id.miwok_text_view);
+                TextView starttime = view.findViewById(R.id.start_time);
+                TextView endTime = view.findViewById(R.id.end_time);
+                TextView idx = view.findViewById(R.id.itemid);
+
+                Log.d("CONVERTX", endTime + "-" + starttime);
+
+
+                FullScreenDialog newFragment = new FullScreenDialog();
+               // FragmentManager fragmentManager = ctvt.getSupportFragmentManager();
+
+
+                Bundle args = new Bundle();
+                args.putInt("key", Integer.parseInt(idx.getText().toString()));
+                args.putString("title", title.getText().toString());
+                args.putString("starttime", starttime.getText().toString());
+                args.putString("endtime", endTime.getText().toString());
+                args.putInt("day", listPosition);
+
+                Log.d("DS", "PSN:" + Integer.toString(position));
+                newFragment.setArguments(args);
+                FragmentTransaction transaction = Fmgr.beginTransaction();
+                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                transaction.add(android.R.id.content, newFragment).addToBackStack(null).commit();
+                return false;
+            }
+        });
+
         listView.setAdapter(adapter);
     }
 

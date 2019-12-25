@@ -71,13 +71,6 @@ public class FullScreenDialog extends DialogFragment {
             AutoCompleteTextView taskNameEdit = rootView.findViewById(R.id.taskName);
             taskNameEdit.setText(title);
             EditText taskLabelEdit = rootView.findViewById(R.id.taskLabel);
-            if(!label.isEmpty())
-            {
-                taskLabelEdit.setText(label);
-            }
-            else{
-                taskLabelEdit.setText("College");
-            }
             EditText subjCode=rootView.findViewById(R.id.subjCode);
             subjCode.setText(subjcode);
 

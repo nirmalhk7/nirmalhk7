@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -80,9 +81,10 @@ public class Timetable extends Fragment {
 
         Toolbar toolbar=getActivity().findViewById(R.id.toolbar);
         toolbar.setTitle("Your Timetable");
+        FragmentManager fmgr=getActivity().getSupportFragmentManager();
 
         ArrayList<Integer> dataItems=new ArrayList<>(Arrays.asList(1,2,3,4,5,6));
-        vpgr.setAdapter(new DemoInfinitePagerAdapter(getContext(),dataItems,true,toolbar));
+        vpgr.setAdapter(new DemoInfinitePagerAdapter(getContext(),dataItems,true,fmgr));
         return rootView;
     }
 
