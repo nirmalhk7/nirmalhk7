@@ -25,14 +25,15 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.leinardi.android.speeddial.SpeedDialView;
+import com.nirmalhk7.nirmalhk7.Converters;
 import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.settings.SettingsActivity;
-import com.nirmalhk7.nirmalhk7.timetable.FullScreenDialog;
-import com.nirmalhk7.nirmalhk7.timetable.scheduleItem;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import static android.app.Notification.VISIBILITY_PUBLIC;
 import static com.nirmalhk7.nirmalhk7.dailyscheduler.DailySchedule.viewPager;
 
 /**
@@ -150,7 +151,7 @@ public class DailyScheduleList extends Fragment {
                 Log.d("DAS/DSL", "LongClicked!");
 
                 TextView title = view.findViewById(R.id.miwok_text_view);
-             //   TextView label = view.findViewById(R.id.default_text_view);
+                TextView label = view.findViewById(R.id.default_text_view);
                 TextView starttime = view.findViewById(R.id.start_time);
                 TextView endTime = view.findViewById(R.id.end_time);
                 TextView idx = view.findViewById(R.id.itemid);
@@ -166,7 +167,7 @@ public class DailyScheduleList extends Fragment {
                 Bundle args = new Bundle();
                 args.putInt("key", Integer.parseInt(idx.getText().toString()));
                 args.putString("title", title.getText().toString());
-           //     args.putString("label", label.getText().toString());
+                args.putString("label", label.getText().toString());
                 args.putString("starttime", starttime.getText().toString());
                 args.putString("endtime", endTime.getText().toString());
                 args.putInt("day", bundle.getInt("key"));
@@ -199,8 +200,8 @@ public class DailyScheduleList extends Fragment {
                 .addAction(R.drawable.ic_attendance, "ABSENT",
                         pendingIntent)
                 .addAction(R.drawable.ic_attendance, "CLASS CANCELLED",
-                        pendingIntent);
-          //      .setVisibility(VISIBILITY_PUBLIC);
+                        pendingIntent)
+                .setVisibility(VISIBILITY_PUBLIC);
 
 
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getContext());
@@ -267,25 +268,25 @@ public class DailyScheduleList extends Fragment {
                     .allowMainThreadQueries().fallbackToDestructiveMigration()
                     .build();
 
-         //   scheduleDAO scheduleDAO = database.getScheduleDao();
+            scheduleDAO scheduleDAO = database.getScheduleDao();
             Log.d("DAS/DS/X", "xx" + bundle.getInt("key"));
-//            List<ScheduleEntity> scheduleEntities = scheduleDAO.getScheduleByDay(bundle.getInt("key"));
-//            for (ScheduleEntity cn : scheduleEntities) {
-//
-//                Log.d("DAS/DSL", "Printing: Task " + cn.getTask() + " Time " + cn.getStartTime() + cn.getEndTime() + " Label " + cn.getLabel());
-//                sch.add(new scheduleItem(cn.getTask(), Converters.date_to_t12(cn.getStartTime()),Converters.date_to_t12(cn.getEndTime()), cn.getSubjCode(), cn.getLabel(), cn.getId(), cn.getDay()));
-//            }
-//
-//            ScheduleAdapter adapter = new ScheduleAdapter(getContext(), sch);
-//
-//            // Find the {@link ListView} object in the view hierarchy of the {@link Activity}.
-//            // There should be a {@link ListView} with the view ID called list, which is declared in the
-//            // word_list.xml layout file.
-//            ListView listView = view.findViewById(R.id.list_item);
-//
-//            // Make the {@link ListView} use the {@link ScheduleAdapter} we created above, so that the
-//            // {@link ListView} will display list scheduleEntities for each {@link scheduleSchedule} in the list.
-//            listView.setAdapter(adapter);
+            List<ScheduleEntity> scheduleEntities = scheduleDAO.getScheduleByDay(bundle.getInt("key"));
+            for (ScheduleEntity cn : scheduleEntities) {
+
+                Log.d("DAS/DSL", "Printing: Task " + cn.getTask() + " Time " + cn.getStartTime() + cn.getEndTime() + " Label " + cn.getLabel());
+                sch.add(new scheduleItem(cn.getTask(), Converters.date_to_t12(cn.getStartTime()),Converters.date_to_t12(cn.getEndTime()), cn.getSubjCode(), cn.getLabel(), cn.getId(), cn.getDay()));
+            }
+
+            ScheduleAdapter adapter = new ScheduleAdapter(getContext(), sch);
+
+            // Find the {@link ListView} object in the view hierarchy of the {@link Activity}.
+            // There should be a {@link ListView} with the view ID called list, which is declared in the
+            // word_list.xml layout file.
+            ListView listView = view.findViewById(R.id.list_item);
+
+            // Make the {@link ListView} use the {@link ScheduleAdapter} we created above, so that the
+            // {@link ListView} will display list scheduleEntities for each {@link scheduleSchedule} in the list.
+            listView.setAdapter(adapter);
 
         }
 

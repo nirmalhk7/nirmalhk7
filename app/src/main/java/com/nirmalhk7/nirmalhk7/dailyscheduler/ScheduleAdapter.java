@@ -12,7 +12,6 @@ import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.attendance.attendanceDAO;
 import com.nirmalhk7.nirmalhk7.attendance.attendanceEntity;
-import com.nirmalhk7.nirmalhk7.timetable.scheduleItem;
 
 import java.util.ArrayList;
 
@@ -44,14 +43,17 @@ public class ScheduleAdapter extends ArrayAdapter<scheduleItem> {
         // the Miwok TextView.
         miwokTextView.setText(currentWord.getScheduleTitle());
 
-
+        // Find the TextView in the dailyschedule_list_item.xml_list_item.xml layout with the ID default_text_view.
+        if(!currentWord.getScheduleLabel().equals("College")){    TextView defaultTextView = listItemView.findViewById(R.id.default_text_view);
+        // Get the default translation from the currentWord object and set this text on
+        // the default TextView.
+        defaultTextView.setText(currentWord.getScheduleLabel());
+    }
 
         TextView startTime = listItemView.findViewById(R.id.start_time);
         // Get the default translation from the currentWord object and set this text on
         // the default TextView.
         startTime.setText(currentWord.getmStartTime());
-
-
 
         TextView endTime= listItemView.findViewById(R.id.end_time);
         endTime.setText(currentWord.getmEndTime());

@@ -8,8 +8,8 @@ import com.nirmalhk7.nirmalhk7.attendance.attendanceDAO;
 import com.nirmalhk7.nirmalhk7.attendance.attendanceEntity;
 import com.nirmalhk7.nirmalhk7.attendance.subjectlogDAO;
 import com.nirmalhk7.nirmalhk7.attendance.subjectlogEntity;
-import com.nirmalhk7.nirmalhk7.timetable.ScheduleEntity;
-import com.nirmalhk7.nirmalhk7.timetable.scheduleDAO;
+import com.nirmalhk7.nirmalhk7.dailyscheduler.ScheduleEntity;
+import com.nirmalhk7.nirmalhk7.dailyscheduler.scheduleDAO;
 import com.nirmalhk7.nirmalhk7.examholidays.ehDAO;
 import com.nirmalhk7.nirmalhk7.examholidays.ehEntity;
 

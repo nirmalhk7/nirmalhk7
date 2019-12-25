@@ -16,8 +16,8 @@ import android.widget.TextView;
 import com.nirmalhk7.nirmalhk7.Converters;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
-import com.nirmalhk7.nirmalhk7.timetable.ScheduleEntity;
-import com.nirmalhk7.nirmalhk7.timetable.scheduleDAO;
+import com.nirmalhk7.nirmalhk7.dailyscheduler.ScheduleEntity;
+import com.nirmalhk7.nirmalhk7.dailyscheduler.scheduleDAO;
 
 import java.util.ArrayList;
 import java.util.List;
