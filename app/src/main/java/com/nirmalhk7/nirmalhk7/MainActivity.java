@@ -24,6 +24,7 @@ import com.nirmalhk7.nirmalhk7.entrydisplay.MainFragment;
 import com.nirmalhk7.nirmalhk7.examholidays.examHolidays;
 import com.nirmalhk7.nirmalhk7.playground.Playground;
 import com.nirmalhk7.nirmalhk7.settings.SettingsActivity;
+import com.nirmalhk7.nirmalhk7.timetable.Timetable;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -180,6 +181,13 @@ public class MainActivity extends AppCompatActivity
         else if(id==R.id.CPSched)
         {
             newFragment=new CPSched();
+            transaction.replace(R.id.fullscreen,newFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        }
+        else if(id==R.id.nav_timetable)
+        {
+            newFragment=new Timetable();
             transaction.replace(R.id.fullscreen,newFragment);
             transaction.addToBackStack(null);
             transaction.commit();

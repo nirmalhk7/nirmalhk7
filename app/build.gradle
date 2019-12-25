@@ -45,4 +45,5 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics:17.2.1'
     implementation 'org.michaelbel:bottomsheet:1.2.3'
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
+    implementation 'com.asksira.android:loopingviewpager:1.2.0'
 }

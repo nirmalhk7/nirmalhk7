@@ -150,6 +150,19 @@ public class Converters {
         return date;
     }
 
+    public static String dayno_to_day(int x)
+    {
+        switch(x)
+        {
+            case 0:return "Monday";
+            case 1:return "Tuesday";
+            case 2:return "Wednesday";
+            case 3:return "Thursday";
+            case 4:return "Friday";
+            case 5:return "Saturday";
+            default: return null;
+        }
+    }
 
 
 

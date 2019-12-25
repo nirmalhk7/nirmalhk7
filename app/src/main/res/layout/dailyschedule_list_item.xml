@@ -24,16 +24,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/fsd_subjabbr"
             android:layout_marginTop="5dp"
+            android:textColor="@color/colorAccent"
             tools:text="IT201"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="MOOC"
-            android:textSize="10sp"
-            android:layout_marginTop="5dp"
-            android:textAllCaps="true"
-            android:background="@color/colorAccent"
-            android:id="@+id/default_text_view"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="0px"
