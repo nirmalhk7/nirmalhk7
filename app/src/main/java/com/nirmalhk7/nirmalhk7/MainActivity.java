@@ -19,7 +19,6 @@ import com.nirmalhk7.nirmalhk7.attendance.AllSubjects;
 import com.nirmalhk7.nirmalhk7.backuprestore.BackupRestore;
 import com.nirmalhk7.nirmalhk7.callmanager.CallMgrFragment;
 import com.nirmalhk7.nirmalhk7.cpschedule.CPSched;
-import com.nirmalhk7.nirmalhk7.dailyscheduler.DailySchedule;
 import com.nirmalhk7.nirmalhk7.entrydisplay.MainFragment;
 import com.nirmalhk7.nirmalhk7.examholidays.examHolidays;
 import com.nirmalhk7.nirmalhk7.playground.Playground;
@@ -135,7 +134,7 @@ public class MainActivity extends AppCompatActivity
             Intent i=new Intent(MainActivity.this,SettingsActivity.class);
             startActivity(i);
         } else if (id == R.id.nav_schedule) {
-            newFragment = new DailySchedule();
+            newFragment = new Timetable();
             transaction.replace(R.id.fullscreen, newFragment);
             transaction.addToBackStack(null);
             transaction.commit();
@@ -181,13 +180,6 @@ public class MainActivity extends AppCompatActivity
         else if(id==R.id.CPSched)
         {
             newFragment=new CPSched();
-            transaction.replace(R.id.fullscreen,newFragment);
-            transaction.addToBackStack(null);
-            transaction.commit();
-        }
-        else if(id==R.id.nav_timetable)
-        {
-            newFragment=new Timetable();
             transaction.replace(R.id.fullscreen,newFragment);
             transaction.addToBackStack(null);
             transaction.commit();

@@ -16,10 +16,10 @@ import com.asksira.loopingviewpager.LoopingPagerAdapter;
 import com.nirmalhk7.nirmalhk7.Converters;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
-import com.nirmalhk7.nirmalhk7.dailyscheduler.ScheduleAdapter;
-import com.nirmalhk7.nirmalhk7.dailyscheduler.ScheduleEntity;
-import com.nirmalhk7.nirmalhk7.dailyscheduler.scheduleDAO;
-import com.nirmalhk7.nirmalhk7.dailyscheduler.scheduleItem;
+import com.nirmalhk7.nirmalhk7.timetable.ScheduleAdapter;
+import com.nirmalhk7.nirmalhk7.timetable.ScheduleEntity;
+import com.nirmalhk7.nirmalhk7.timetable.scheduleDAO;
+import com.nirmalhk7.nirmalhk7.timetable.scheduleItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,9 +79,10 @@ public class DemoInfinitePagerAdapter extends LoopingPagerAdapter<Integer> {
                 .allowMainThreadQueries().fallbackToDestructiveMigration()
                 .build();
 
-        scheduleDAO scheduleDAO = database.getScheduleDao();
+        //scheduleDAO scheduleDAO = database.getScheduleDao();
+        scheduleDAO SDAO=database.getScheduleDao();
         //Log.d("DAS/DS/X", "xx" + bundle.getInt("key"));
-        List<ScheduleEntity> scheduleEntities = scheduleDAO.getScheduleByDay(listPosition);
+        List<ScheduleEntity> scheduleEntities = SDAO.getScheduleByDay(listPosition);
         for (ScheduleEntity cn : scheduleEntities) {
 
             Log.d("DAS/DSL", "Printing: Task " + cn.getTask() + " Time " + cn.getStartTime() + cn.getEndTime() + " Label " + cn.getLabel());

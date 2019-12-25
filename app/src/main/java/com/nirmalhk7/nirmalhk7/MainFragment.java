@@ -31,10 +31,10 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
-import com.nirmalhk7.nirmalhk7.dailyscheduler.DailySchedule;
-import com.nirmalhk7.nirmalhk7.dailyscheduler.scheduleDAO;
 import com.nirmalhk7.nirmalhk7.examholidays.ehDAO;
 import com.nirmalhk7.nirmalhk7.examholidays.examHolidays;
+import com.nirmalhk7.nirmalhk7.timetable.Timetable;
+import com.nirmalhk7.nirmalhk7.timetable.scheduleDAO;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -260,7 +260,7 @@ public class MainFragment extends Fragment {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 transaction.setCustomAnimations(android.R.anim.fade_in,android.R.anim.fade_out);
                 Fragment newFragment;
-                newFragment = new DailySchedule();
+                newFragment = new Timetable();
                 transaction.replace(R.id.fullscreen, newFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();

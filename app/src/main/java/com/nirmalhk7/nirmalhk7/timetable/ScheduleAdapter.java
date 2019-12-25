@@ -13,7 +13,6 @@ import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.attendance.attendanceDAO;
 import com.nirmalhk7.nirmalhk7.attendance.attendanceEntity;
-import com.nirmalhk7.nirmalhk7.dailyscheduler.scheduleItem;
 
 import java.util.ArrayList;
 
@@ -46,11 +45,6 @@ public class ScheduleAdapter extends ArrayAdapter<scheduleItem> {
         miwokTextView.setText(currentWord.getScheduleTitle());
 
         // Find the TextView in the dailyschedule_list_item.xml_list_item.xml layout with the ID default_text_view.
-        if(!currentWord.getScheduleLabel().equals("College")){    TextView defaultTextView = listItemView.findViewById(R.id.default_text_view);
-        // Get the default translation from the currentWord object and set this text on
-        // the default TextView.
-        defaultTextView.setText(currentWord.getScheduleLabel());
-    }
 
         TextView startTime = listItemView.findViewById(R.id.start_time);
         // Get the default translation from the currentWord object and set this text on
@@ -67,16 +61,16 @@ public class ScheduleAdapter extends ArrayAdapter<scheduleItem> {
         TextView id=listItemView.findViewById(R.id.itemid);
         id.setText(String.valueOf(currentWord.getScheduleId()));
 
-        DBGateway database= Room.databaseBuilder(getContext(),DBGateway.class,"finalDB")
-                .allowMainThreadQueries().fallbackToDestructiveMigration().build();
-        attendanceDAO ATTDAO=database.getAttendanceDao();
-        attendanceEntity attent=ATTDAO.getSubjectbyName(currentWord.getScheduleTitle());
-        if(attent!=null)
-        {
-            TextView prab=listItemView.findViewById(R.id.mandatory);
-            int attfab=(attent.getPresent()-1)/(attent.getPresent()+attent.getAbsent());
-            prab.setText(attfab+"");
-        }
+//        DBGateway database= Room.databaseBuilder(getContext(),DBGateway.class,"finalDB")
+//                .allowMainThreadQueries().fallbackToDestructiveMigration().build();
+//        attendanceDAO ATTDAO=database.getAttendanceDao();
+//        attendanceEntity attent=ATTDAO.getSubjectbyName(currentWord.getScheduleTitle());
+//        if(attent!=null)
+//        {
+//            TextView prab=listItemView.findViewById(R.id.mandatory);
+//            int attfab=(attent.getPresent()-1)/(attent.getPresent()+attent.getAbsent());
+//            prab.setText(attfab+"");
+//        }
 
         // Return the whole list item layout (containing 2 TextViews) so that it can be shown in
         // the ListView.

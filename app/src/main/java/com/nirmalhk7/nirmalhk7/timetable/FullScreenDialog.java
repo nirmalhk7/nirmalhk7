@@ -1,4 +1,4 @@
-package com.nirmalhk7.nirmalhk7.dailyscheduler;
+package com.nirmalhk7.nirmalhk7.timetable;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -29,6 +29,8 @@ import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.attendance.attendanceDAO;
 import com.nirmalhk7.nirmalhk7.attendance.attendanceEntity;
+import com.nirmalhk7.nirmalhk7.timetable.ScheduleEntity;
+import com.nirmalhk7.nirmalhk7.timetable.scheduleDAO;
 
 import java.util.Calendar;
 import java.util.List;
@@ -103,9 +105,9 @@ public class FullScreenDialog extends DialogFragment {
                             .allowMainThreadQueries().fallbackToDestructiveMigration()
                             .build();
 
-                    scheduleDAO scheduleDAO = database.getScheduleDao();
+                    scheduleDAO SDAO=database.getScheduleDao();
                     Log.d("DAS/FSD/ID", Integer.toString(dbNo));
-                    scheduleDAO.deleteSchedule(scheduleDAO.getScheduleById(dbNo));
+                    SDAO.deleteSchedule(SDAO.getScheduleById(dbNo));
                     dismiss();
                 }
             });
@@ -170,10 +172,10 @@ public class FullScreenDialog extends DialogFragment {
                 .allowMainThreadQueries().fallbackToDestructiveMigration()
                 .build();
 
-        final scheduleDAO scheduleDAO = database.getScheduleDao();
+        final scheduleDAO SDAO = database.getScheduleDao();
         attendanceDAO attendanceDAO=database.getAttendanceDao();
 
-        List<ScheduleEntity> x = scheduleDAO.getSubjects("College");
+        List<ScheduleEntity> x = SDAO.getSubjects("College");
 
         List<attendanceEntity> z = attendanceDAO.getSubjectNames();
         String[] subject = new String[x.size()+z.size()];
@@ -213,7 +215,7 @@ public class FullScreenDialog extends DialogFragment {
 
                 @Override
                 public void afterTextChanged(Editable s) {
-                    ScheduleEntity sc=scheduleDAO.getScheduleDetails(s.toString());
+                    ScheduleEntity sc=SDAO.getScheduleDetails(s.toString());
                     EditText taskLabelEdit = rootView.findViewById(R.id.taskLabel);
                     taskLabelEdit.setText(sc.getLabel());
                     AutoCompleteTextView SubjCode=rootView.findViewById(R.id.subjCode);
@@ -278,10 +280,10 @@ public class FullScreenDialog extends DialogFragment {
                     DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
                             .allowMainThreadQueries().fallbackToDestructiveMigration()
                             .build();
-                    scheduleDAO scheduleDAO = database.getScheduleDao();
+                    scheduleDAO SDAO = database.getScheduleDao();
 
                     if (bundle != null) {
-                        ScheduleEntity scheduleEntity = scheduleDAO.getScheduleById(dbNo);
+                        ScheduleEntity scheduleEntity = SDAO.getScheduleById(dbNo);
 
                         scheduleEntity.setTask(taskNameEdit.getText().toString());
                         scheduleEntity.setLabel(taskLabelEdit.getText().toString());
@@ -289,7 +291,7 @@ public class FullScreenDialog extends DialogFragment {
                         scheduleEntity.setStartTime(Converters.t12_to_date(taskTimeStartEdit.getText().toString()));
                         scheduleEntity.setEndTime(Converters.t12_to_date(taskTimeEndEdit.getText().toString()));
                         scheduleEntity.setDay(mday);
-                        scheduleDAO.updateSchedule(scheduleEntity);
+                        SDAO.updateSchedule(scheduleEntity);
 
                     } else {
                         ScheduleEntity scheduleEntity = new ScheduleEntity();
@@ -299,7 +301,7 @@ public class FullScreenDialog extends DialogFragment {
                         scheduleEntity.setStartTime(Converters.t12_to_date(taskTimeStartEdit.getText().toString()));
                         scheduleEntity.setEndTime(Converters.t12_to_date(taskTimeEndEdit.getText().toString()));
                         scheduleEntity.setDay(mday);
-                        scheduleDAO.insertOnlySingleSchedule(scheduleEntity);
+                        SDAO.insertOnlySingleSchedule(scheduleEntity);
                     }
 
 
