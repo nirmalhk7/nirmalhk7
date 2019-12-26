@@ -1,10 +1,7 @@
 package com.nirmalhk7.nirmalhk7.attendance;
 
 import android.app.Dialog;
-import android.arch.persistence.room.Room;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +9,10 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toolbar;
+
+import androidx.fragment.app.DialogFragment;
+import androidx.room.Room;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
@@ -107,7 +108,7 @@ public class subjectLog extends DialogFragment {
 
         for (SubjectlogEntity cn : subjLog) {
          //   Log.d("ATT/ALS", "Printing: Task "+cn.getSubject()+" P "+cn.getPresent()+" A "+cn.getAbsent());
-            SubjectItem.add(new attendanceListItem(Converters.date_to_Dt(cn.getDaytime()),Converters.date_to_day(cn.getDaytime())+", "+Converters.date_to_t12(cn.getDaytime()),cn.getPrabca(),cn.getId()));
+            SubjectItem.add(new attendanceListItem(Converters.date_to(cn.getDaytime(),"dd MMM yyyy"),Converters.date_to(cn.getDaytime(),"EEE")+", "+Converters.date_to_t12(cn.getDaytime()),cn.getPrabca(),cn.getId()));
         }
         attendanceAdapter adapter = new attendanceAdapter(getContext(), SubjectItem,2);
 

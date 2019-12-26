@@ -9,10 +9,6 @@
             android:id="@+id/nav_dashboard"
             android:icon="@drawable/ic_dashboard"
             android:title="@string/nav_das" />
-        <item
-            android:id="@+id/nav_timetable"
-            android:icon="@drawable/ic_dashboard"
-            android:title="Timetable"/>
 
         <item
             android:id="@+id/nav_manage"

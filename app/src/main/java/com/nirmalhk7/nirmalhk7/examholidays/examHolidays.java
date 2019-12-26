@@ -1,14 +1,8 @@
 package com.nirmalhk7.nirmalhk7.examholidays;
 
-import android.arch.persistence.room.Room;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.res.ResourcesCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +10,15 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toolbar;
+
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.room.Room;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.leinardi.android.speeddial.SpeedDialActionItem;
 import com.leinardi.android.speeddial.SpeedDialView;
 import com.nirmalhk7.nirmalhk7.DBGateway;
@@ -220,9 +222,9 @@ public class examHolidays extends Fragment {
         for (ExamholidaysEntity cn : list) {
             Log.d("EAH/EAH", cn.getmType() + " ");
             if (cn.getStart().equals(cn.getEnd())) {
-                hs.add(new examholidaysListItem(cn.getId(), cn.getHolexa(), cn.getmName(), Converters.date_to_Dt(cn.getStart()), cn.getmType()));
+                hs.add(new examholidaysListItem(cn.getId(), cn.getHolexa(), cn.getmName(), Converters.date_to(cn.getStart(),"dd MMM yyyy"), cn.getmType()));
             } else {
-                hs.add(new examholidaysListItem(cn.getId(), cn.getHolexa(), cn.getmName(), Converters.date_to_Dt(cn.getStart()) + " - " + Converters.date_to_Dt(cn.getEnd()), cn.getmType()));
+                hs.add(new examholidaysListItem(cn.getId(), cn.getHolexa(), cn.getmName(), Converters.date_to(cn.getStart(),"dd MMM yyyy") + " - " + Converters.date_to(cn.getEnd(),"dd MMM yyyy"), cn.getmType()));
             }
         }
 

@@ -324,7 +324,7 @@ public class MainFragment extends Fragment {
         DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
                 .allowMainThreadQueries().fallbackToDestructiveMigration()
                 .build();
-        TimetableDAO SCHDAO=database.getScheduleDao();
+        TimetableDAO SCHDAO=database.getTTDao();
         ExamholidaysDAO EHDAO=database.getEHDAO();
 
         return v;

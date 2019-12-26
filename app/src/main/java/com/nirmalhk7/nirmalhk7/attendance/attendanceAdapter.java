@@ -1,10 +1,10 @@
 package com.nirmalhk7.nirmalhk7.attendance;
 
-import android.arch.persistence.room.Room;
+import androidx.room.Room;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -228,7 +228,7 @@ public class attendanceAdapter extends ArrayAdapter<attendanceListItem> {
                 sl.setPrabca(1);
 
                 DateFormat dtf = new SimpleDateFormat("dd MMM yyyy EEE hh:mm a");
-                Date curdate=Converters.dmyt_to_date(dtf.format(Calendar.getInstance().getTime()));
+                Date curdate=Converters.to_date(dtf.format(Calendar.getInstance().getTime()),"dd MMMM yyyy hh:mm a");
                 sl.setDaytime(curdate);
 
 
@@ -249,7 +249,7 @@ public class attendanceAdapter extends ArrayAdapter<attendanceListItem> {
                 sl.setSubject(subjName_subj.getText().toString());
 
                 DateFormat dtf = new SimpleDateFormat("dd MMM yyyy EEE hh:mm a");
-                Date curdate=Converters.dmyt_to_date(dtf.format(Calendar.getInstance().getTime()));
+                Date curdate=Converters.to_date(dtf.format(Calendar.getInstance().getTime()),"dd MMMM yyyy hh:mm a");
                 sl.setDaytime(curdate);
 
 
@@ -272,7 +272,7 @@ public class attendanceAdapter extends ArrayAdapter<attendanceListItem> {
                 sl.setPrabca(3);
 
                 DateFormat dtf = new SimpleDateFormat("dd MMM yyyy EEE hh:mm a");
-                Date curdate=Converters.dmyt_to_date(dtf.format(Calendar.getInstance().getTime()));
+                Date curdate=Converters.to_date(dtf.format(Calendar.getInstance().getTime()),"dd MMMM yyyy hh:mm a");
                 sl.setDaytime(curdate);
 
 

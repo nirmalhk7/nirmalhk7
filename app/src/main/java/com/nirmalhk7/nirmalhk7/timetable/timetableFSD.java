@@ -3,11 +3,7 @@ package com.nirmalhk7.nirmalhk7.timetable;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
-import androidx.room.Room;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.DialogFragment;
-import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -24,11 +20,16 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TimePicker;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
+import androidx.fragment.app.DialogFragment;
+import androidx.room.Room;
+
+import com.nirmalhk7.nirmalhk7.DBGateway;
+import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.attendance.AttendanceDAO;
 import com.nirmalhk7.nirmalhk7.attendance.AttendanceEntity;
 import com.nirmalhk7.nirmalhk7.utility.Converters;
-import com.nirmalhk7.nirmalhk7.DBGateway;
-import com.nirmalhk7.nirmalhk7.R;
 
 import java.util.Calendar;
 import java.util.List;
@@ -96,7 +97,7 @@ public class timetableFSD extends DialogFragment {
                             .allowMainThreadQueries().fallbackToDestructiveMigration()
                             .build();
 
-                    TimetableDAO SDAO=database.getScheduleDao();
+                    TimetableDAO SDAO=database.getTTDao();
                     Log.d("DAS/FSD/ID", Integer.toString(dbNo));
                     SDAO.deleteSchedule(SDAO.getScheduleById(dbNo));
                     dismiss();
@@ -163,8 +164,8 @@ public class timetableFSD extends DialogFragment {
                 .allowMainThreadQueries().fallbackToDestructiveMigration()
                 .build();
 
-        final TimetableDAO SDAO = database.getScheduleDao();
-        AttendanceDAO attendanceDAO=database.getAttendanceDao();
+        final TimetableDAO SDAO = database.getTTDao();
+        AttendanceDAO attendanceDAO=database.getATTDao();
 
         List<TimetableEntity> x = SDAO.getSubjects("College");
 
@@ -271,7 +272,7 @@ public class timetableFSD extends DialogFragment {
                     DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
                             .allowMainThreadQueries().fallbackToDestructiveMigration()
                             .build();
-                    TimetableDAO SDAO = database.getScheduleDao();
+                    TimetableDAO SDAO = database.getTTDao();
 
                     TimetableEntity scheduleEntity;
                     if (bundle != null) {
@@ -286,8 +287,8 @@ public class timetableFSD extends DialogFragment {
                     scheduleEntity.setTask(taskNameEdit.getText().toString());
                     scheduleEntity.setLabel(taskLabelEdit.getText().toString());
                     scheduleEntity.setSubjCode(SubjCode.getText().toString());
-                    scheduleEntity.setStartTime(Converters.t12_to_date(taskTimeStartEdit.getText().toString()));
-                    scheduleEntity.setEndTime(Converters.t12_to_date(taskTimeEndEdit.getText().toString()));
+                    scheduleEntity.setStartTime(Converters.to_date(taskTimeStartEdit.getText().toString(),"hh:mm a"));
+                    scheduleEntity.setEndTime(Converters.to_date(taskTimeEndEdit.getText().toString(),"hh:mm a"));
                     scheduleEntity.setDay(mday);
                     if(bundle!=null)
                         SDAO.updateSchedule(scheduleEntity);

@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import androidx.appcompat.widget.Toolbar;
 
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -17,9 +16,9 @@ import androidx.room.Room;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.asksira.loopingviewpager.LoopingPagerAdapter;
-import com.nirmalhk7.nirmalhk7.utility.Converters;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
+import com.nirmalhk7.nirmalhk7.utility.Converters;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,7 +82,7 @@ public class InfinitePagerAdapter extends LoopingPagerAdapter<Integer> {
                 .build();
 
         //TimetableDAO TimetableDAO = database.getScheduleDao();
-        TimetableDAO SDAO=database.getScheduleDao();
+        TimetableDAO SDAO=database.getTTDao();
         //Log.d("DAS/DS/X", "xx" + bundle.getInt("key"));
         List<TimetableEntity> scheduleEntities = SDAO.getScheduleByDay(listPosition);
         for (TimetableEntity cn : scheduleEntities) {

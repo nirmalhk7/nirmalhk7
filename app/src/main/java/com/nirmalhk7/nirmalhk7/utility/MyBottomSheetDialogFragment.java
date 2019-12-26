@@ -2,11 +2,7 @@ package com.nirmalhk7.nirmalhk7.utility;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-
-import android.arch.persistence.room.Room;
 import android.os.Bundle;
-
-import android.support.design.widget.BottomSheetDialogFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +14,9 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import androidx.room.Room;
+
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.examholidays.ExamholidaysDAO;
@@ -88,8 +87,8 @@ public class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
 
                 ExamholidaysDAO EHDAO = database.getEHDAO();
                 ExamholidaysEntity x=EHDAO.getehEntityById(dbkey);
-                startdate.setText(Converters.date_to_Dt(x.getStart()));
-                enddate.setText(Converters.date_to_Dt(x.getEnd()));
+                startdate.setText(Converters.date_to(x.getStart(),"dd MMM yyyy"));
+                enddate.setText(Converters.date_to(x.getEnd(),"dd MMM yyyy"));
                 if (bundle.getInt("holidayorexam") == 1) {
                     exam.setChecked(true);
                     Log.d("EAH/BSD","Editing Exam "+bundle.getInt("holidayorexam"));
@@ -176,8 +175,8 @@ public class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
             {
                 ExamholidaysEntity entity=new ExamholidaysEntity();
                 entity.setmName(name.getText().toString());
-                entity.setStart(Converters.dmy_to_date(startdate.getText().toString()));
-                entity.setEnd(Converters.dmy_to_date(enddate.getText().toString()));
+                entity.setStart(Converters.to_date(startdate.getText().toString(),"dd MMMM yyyy"));
+                entity.setEnd(Converters.to_date(enddate.getText().toString(),"dd MMMM yyyy"));
                 entity.setmType(type.getText().toString());
                 entity.setmDescription(desc.getText().toString());
                 if(exam.isChecked()){
@@ -192,8 +191,8 @@ public class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
             {
                 ExamholidaysEntity entity=EHDAO.getehEntityById(k);
                 entity.setmName(name.getText().toString());
-                entity.setStart(Converters.dmy_to_date(startdate.getText().toString()));
-                entity.setEnd(Converters.dmy_to_date(enddate.getText().toString()));
+                entity.setStart(Converters.to_date(startdate.getText().toString(),"dd MMMM yyyy"));
+                entity.setEnd(Converters.to_date(enddate.getText().toString(),"dd MMMM yyyy"));
                 entity.setmType(type.getText().toString());
                 entity.setmDescription(desc.getText().toString());
                 if(exam.isChecked()){
