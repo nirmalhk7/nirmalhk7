@@ -52,7 +52,7 @@ public class attendanceAdapter extends ArrayAdapter<attendanceListItem> {
         {
             if (listItemView == null) {
                 listItemView = LayoutInflater.from(getContext()).inflate(
-                        R.layout.attendance_subject_list_item, parent, false);
+                        R.layout.attendance_list_item, parent, false);
             }
 
             final attendanceListItem currentWord = getItem(position);

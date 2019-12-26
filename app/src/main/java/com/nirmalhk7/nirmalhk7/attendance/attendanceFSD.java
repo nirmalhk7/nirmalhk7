@@ -46,7 +46,7 @@ public class attendanceFSD extends DialogFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        final View rootView = inflater.inflate(R.layout.attendance_fullscreen, container, false);
+        final View rootView = inflater.inflate(R.layout.attendance_fsd, container, false);
 
         //If editing
         DBGateway database1 = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
