@@ -32,19 +32,19 @@ import cz.msebera.android.httpclient.Header;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link CPSched.OnFragmentInteractionListener} interface
+ * {@link cpshedule.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link CPSched#newInstance} factory method to
+ * Use the {@link cpshedule#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CPSched extends Fragment {
+public class cpshedule extends Fragment {
 
     private String MODULE_TAG="CPSCH/";
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    public static CPAdapter adapter;
+    public static cpscheduleAdapter adapter;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -52,7 +52,7 @@ public class CPSched extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public CPSched() {
+    public cpshedule() {
         // Required empty public constructor
     }
 
@@ -62,11 +62,11 @@ public class CPSched extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment CPSched.
+     * @return A new instance of fragment cpshedule.
      */
     // TODO: Rename and change types and number of parameters
-    public static CPSched newInstance(String param1, String param2) {
-        CPSched fragment = new CPSched();
+    public static cpshedule newInstance(String param1, String param2) {
+        cpshedule fragment = new cpshedule();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -117,15 +117,15 @@ public class CPSched extends Fragment {
                         JSONObject contests=response.getJSONObject("contests");
                         JSONArray upcomingContests=contests.getJSONArray("upcoming");
 
-                        ArrayList<cpItem> contestList=new ArrayList<cpItem>();
+                        ArrayList<cpscheduleListItem> contestList=new ArrayList<cpscheduleListItem>();
                         for(int i=0;i<upcomingContests.length();++i)
                         {
                             JSONObject cp=upcomingContests.getJSONObject(i);
                             Log.d(MODULE_TAG,cp.getString("contest_name")+"");
-                            contestList.add(new cpItem(i,cp.getString("contest_name"),cp.getString("host_name"),cp.getString("contest_url"),cp.getString("start"),cp.getString("duration"),0));
+                            contestList.add(new cpscheduleListItem(i,cp.getString("contest_name"),cp.getString("host_name"),cp.getString("contest_url"),cp.getString("start"),cp.getString("duration"),0));
 
                         }
-                        CPAdapter adapter=new CPAdapter(getContext(),contestList);
+                        cpscheduleAdapter adapter=new cpscheduleAdapter(getContext(),contestList);
                         ListView list=(ListView) rootview.findViewById(R.id.list_item_cpsch);
 
                         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {

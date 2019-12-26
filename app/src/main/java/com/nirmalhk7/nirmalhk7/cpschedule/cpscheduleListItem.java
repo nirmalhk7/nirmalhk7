@@ -1,6 +1,6 @@
 package com.nirmalhk7.nirmalhk7.cpschedule;
 
-public class cpItem {
+public class cpscheduleListItem {
 
     private int upcOrAct;
     private String CName;
@@ -10,7 +10,7 @@ public class cpItem {
     private String Duration;
     private int mId;
 
-    public cpItem(int id,String name,String hn,String url,String time,String duration,int upact) {
+    public cpscheduleListItem(int id, String name, String hn, String url, String time, String duration, int upact) {
         upcOrAct=upact;
         CName=name;
         Curl=url;

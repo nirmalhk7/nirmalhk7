@@ -16,9 +16,9 @@ import android.view.MenuItem;
 
 import com.nirmalhk7.nirmalhk7.academics.Academics;
 import com.nirmalhk7.nirmalhk7.attendance.AllSubjects;
-import com.nirmalhk7.nirmalhk7.backuprestore.BackupRestore;
-import com.nirmalhk7.nirmalhk7.callmanager.CallMgrFragment;
-import com.nirmalhk7.nirmalhk7.cpschedule.CPSched;
+import com.nirmalhk7.nirmalhk7.backuprestore.backuprestore;
+import com.nirmalhk7.nirmalhk7.callmanager.callmanager;
+import com.nirmalhk7.nirmalhk7.cpschedule.cpshedule;
 import com.nirmalhk7.nirmalhk7.entrydisplay.MainFragment;
 import com.nirmalhk7.nirmalhk7.examholidays.examHolidays;
 import com.nirmalhk7.nirmalhk7.playground.Playground;
@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity
             transaction.commit();
         } else if(id==R.id.nav_callManager)
         {
-            newFragment = new CallMgrFragment();
+            newFragment = new callmanager();
             transaction.replace(R.id.fullscreen, newFragment);
             transaction.addToBackStack(null);
             transaction.commit();
@@ -173,14 +173,14 @@ public class MainActivity extends AppCompatActivity
         }
         else if(id==R.id.nav_backup)
         {
-            newFragment=new BackupRestore();
+            newFragment=new backuprestore();
             transaction.replace(R.id.fullscreen, newFragment);
             transaction.addToBackStack(null);
             transaction.commit();
         }
         else if(id==R.id.CPSched)
         {
-            newFragment=new CPSched();
+            newFragment=new cpshedule();
             transaction.replace(R.id.fullscreen,newFragment);
             transaction.addToBackStack(null);
             transaction.commit();

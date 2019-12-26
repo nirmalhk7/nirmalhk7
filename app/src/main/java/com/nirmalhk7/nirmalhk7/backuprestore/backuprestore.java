@@ -1,28 +1,23 @@
-package com.nirmalhk7.nirmalhk7.callmanager;
+package com.nirmalhk7.nirmalhk7.backuprestore;
 
 import android.net.Uri;
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 import com.nirmalhk7.nirmalhk7.R;
-
-import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link CallMgrFragment.OnFragmentInteractionListener} interface
+ * {@link backuprestore.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link CallMgrFragment#newInstance} factory method to
+ * Use the {@link backuprestore#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CallMgrFragment extends Fragment {
+public class backuprestore extends Fragment {
     //  Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -34,7 +29,7 @@ public class CallMgrFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public CallMgrFragment() {
+    public backuprestore() {
         // Required empty public constructor
     }
 
@@ -44,11 +39,11 @@ public class CallMgrFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment CallMgrFragment.
+     * @return A new instance of fragment backuprestore.
      */
     //  Rename and change types and number of parameters
-    public static CallMgrFragment newInstance(String param1, String param2) {
-        CallMgrFragment fragment = new CallMgrFragment();
+    public static backuprestore newInstance(String param1, String param2) {
+        backuprestore fragment = new backuprestore();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -69,23 +64,7 @@ public class CallMgrFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView= inflater.inflate(R.layout.fragment_call_mgr, container, false);
-
-        ArrayList<CallMgrItem> call = new ArrayList<CallMgrItem>();
-        call.add(new CallMgrItem("Caller 1","9740603777",9));
-        call.add(new CallMgrItem("Caller 2","9740603778",7));
-        CallMgrAdapter adapter = new CallMgrAdapter(getContext(), call);
-
-        // Find the {@link ListView} object in the view hierarchy of the {@link Activity}.
-        // There should be a {@link ListView} with the view ID called list, which is declared in the
-        // word_list.xml layout file.
-        ListView listView = rootView.findViewById(R.id.list_item_callmgr);
-
-        // Make the {@link ListView} use the {@link timetableAdapter} we created above, so that the
-        // {@link ListView} will display list items for each {@link timetableListItem} in the list.
-        listView.setAdapter(adapter);
-
-        return rootView;
+        return inflater.inflate(R.layout.fragment_backup_restore, container, false);
     }
 
     //  Rename method, update argument and hook method into UI event
