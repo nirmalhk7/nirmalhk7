@@ -4,8 +4,6 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import androidx.room.Room;
-
-import android.content.DialogInterface;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
@@ -34,15 +32,12 @@ import com.nirmalhk7.nirmalhk7.attendance.attendanceEntity;
 import com.nirmalhk7.nirmalhk7.timetable.ScheduleEntity;
 import com.nirmalhk7.nirmalhk7.timetable.scheduleDAO;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import static com.nirmalhk7.nirmalhk7.timetable.DemoInfinitePagerAdapter.TTFetch;
-import static com.nirmalhk7.nirmalhk7.timetable.Timetable.adapter;
-
 public class FullScreenDialog extends DialogFragment {
     public int key;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -253,6 +248,7 @@ public class FullScreenDialog extends DialogFragment {
             }
         });
 
+
         //On Click SAVE
         (rootView.findViewById(R.id.button_save)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -301,7 +297,7 @@ public class FullScreenDialog extends DialogFragment {
                         SDAO.insertOnlySingleSchedule(scheduleEntity);
                     }
 
-                    ArrayList<scheduleItem> x=TTFetch();
+
                     adapter.notifyDataSetChanged();
                     dismiss();
                 }
@@ -352,12 +348,6 @@ public class FullScreenDialog extends DialogFragment {
         Dialog dialog = super.onCreateDialog(savedInstanceState);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         return dialog;
-    }
-    @Override
-    public void onDismiss(DialogInterface dialogInterface)
-    {
-        adapter.notifyDataSetChanged();
-        Log.d("FSD","Recvx");
     }
 
     public boolean Validation(View rootview){
