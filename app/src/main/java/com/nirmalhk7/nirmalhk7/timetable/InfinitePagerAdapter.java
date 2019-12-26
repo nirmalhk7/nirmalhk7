@@ -1,6 +1,5 @@
 package com.nirmalhk7.nirmalhk7.timetable;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,21 +17,17 @@ import androidx.room.Room;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.asksira.loopingviewpager.LoopingPagerAdapter;
-import com.nirmalhk7.nirmalhk7.Converters;
+import com.nirmalhk7.nirmalhk7.utility.Converters;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
-import com.nirmalhk7.nirmalhk7.timetable.ScheduleAdapter;
-import com.nirmalhk7.nirmalhk7.timetable.ScheduleEntity;
-import com.nirmalhk7.nirmalhk7.timetable.scheduleDAO;
-import com.nirmalhk7.nirmalhk7.timetable.scheduleItem;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DemoInfinitePagerAdapter extends LoopingPagerAdapter<Integer> {
+public class InfinitePagerAdapter extends LoopingPagerAdapter<Integer> {
     public static FragmentManager Fmgr;
-    public static ScheduleAdapter ttadapter;
-    public DemoInfinitePagerAdapter(Context context, ArrayList<Integer> itemList, boolean isInfinite, FragmentManager fmgr) {
+    public static timetableAdapter ttadapter;
+    public InfinitePagerAdapter(Context context, ArrayList<Integer> itemList, boolean isInfinite, FragmentManager fmgr) {
         super(context, itemList, isInfinite);
          Fmgr=fmgr;
     }
@@ -81,24 +76,24 @@ public class DemoInfinitePagerAdapter extends LoopingPagerAdapter<Integer> {
         // Reading all contacts
         Log.d("Reading: ", "Reading all contacts..");
 
-        ArrayList<scheduleItem> sch = new ArrayList<scheduleItem>();
+        ArrayList<timetableListItem> sch = new ArrayList<timetableListItem>();
 
         DBGateway database = Room.databaseBuilder(context, DBGateway.class, "finalDB")
                 .allowMainThreadQueries().fallbackToDestructiveMigration()
                 .build();
 
-        //scheduleDAO scheduleDAO = database.getScheduleDao();
-        scheduleDAO SDAO=database.getScheduleDao();
+        //TimetableDAO TimetableDAO = database.getScheduleDao();
+        TimetableDAO SDAO=database.getScheduleDao();
         //Log.d("DAS/DS/X", "xx" + bundle.getInt("key"));
-        List<ScheduleEntity> scheduleEntities = SDAO.getScheduleByDay(listPosition);
-        for (ScheduleEntity cn : scheduleEntities) {
+        List<TimetableEntity> scheduleEntities = SDAO.getScheduleByDay(listPosition);
+        for (TimetableEntity cn : scheduleEntities) {
 
             Log.d("DAS/DSL", "Printing: Task " + cn.getTask() + " Time " + cn.getStartTime() + cn.getEndTime() + " Label " + cn.getLabel());
-            sch.add(new scheduleItem(cn.getTask(), Converters.date_to_t12(cn.getStartTime()),Converters.date_to_t12(cn.getEndTime()), cn.getSubjCode(), cn.getLabel(), cn.getId(), cn.getDay()));
+            sch.add(new timetableListItem(cn.getTask(), Converters.date_to_t12(cn.getStartTime()),Converters.date_to_t12(cn.getEndTime()), cn.getSubjCode(), cn.getLabel(), cn.getId(), cn.getDay()));
         }
     //    TextView description=convertView.findViewById(R.id.tt_dayreview);
     //    description.setText(scheduleEntities.size()+" classes from "+Converters.date_to(scheduleEntities.get(0).getStartTime(),"hh:mm a")+" to "+Converters.date_to(scheduleEntities.get(scheduleEntities.size()-1).getEndTime(),"hh:mm a"));
-        ttadapter=new ScheduleAdapter(context,sch);
+        ttadapter=new timetableAdapter(context,sch);
         ListView listView=convertView.findViewById(R.id.list_item_timetable);
 
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -114,7 +109,7 @@ public class DemoInfinitePagerAdapter extends LoopingPagerAdapter<Integer> {
                 Log.d("CONVERTX", endTime + "-" + starttime);
 
 
-                FullScreenDialog newFragment = new FullScreenDialog();
+                timetableFSD newFragment = new timetableFSD();
                // FragmentManager fragmentManager = ctvt.getSupportFragmentManager();
 
 

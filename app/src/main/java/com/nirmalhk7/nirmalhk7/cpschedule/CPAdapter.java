@@ -1,7 +1,6 @@
 package com.nirmalhk7.nirmalhk7.cpschedule;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,9 +8,6 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.nirmalhk7.nirmalhk7.R;
-import com.nirmalhk7.nirmalhk7.examholidays.heItem;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -35,7 +31,7 @@ public class CPAdapter extends ArrayAdapter<cpItem> {
                     R.layout.cpsched_list_item, parent, false);
         }
 
-        // Get the {@link scheduleItem} object located at this position in the list
+        // Get the {@link timetableListItem} object located at this position in the list
         cpItem currentWord = getItem(position);
 
         TextView hostname= listItemView.findViewById(R.id.codesch_hostname);

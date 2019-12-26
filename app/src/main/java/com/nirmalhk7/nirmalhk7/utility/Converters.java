@@ -1,6 +1,6 @@
-package com.nirmalhk7.nirmalhk7;
+package com.nirmalhk7.nirmalhk7.utility;
 
-import androidx.room.TypeConverter;
+import android.arch.persistence.room.TypeConverter;
 import android.util.Log;
 
 import java.text.ParseException;

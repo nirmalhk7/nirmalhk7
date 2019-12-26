@@ -3,11 +3,13 @@ package com.nirmalhk7.nirmalhk7.attendance;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
-import androidx.room.Room;
+
+import android.arch.persistence.room.Room;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.DialogFragment;
-import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
+
+import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
+import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -26,11 +28,13 @@ import android.widget.Toast;
 
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
-import com.nirmalhk7.nirmalhk7.timetable.ScheduleEntity;
-import com.nirmalhk7.nirmalhk7.timetable.scheduleDAO;
+import com.nirmalhk7.nirmalhk7.timetable.TimetableDAO;
+import com.nirmalhk7.nirmalhk7.timetable.TimetableEntity;
 
 import java.util.Calendar;
 import java.util.List;
+
+import static java.security.AccessController.getContext;
 
 public class Att_FullScreenDialog extends DialogFragment {
     public int key;
@@ -51,13 +55,13 @@ public class Att_FullScreenDialog extends DialogFragment {
                 .allowMainThreadQueries().fallbackToDestructiveMigration()
                 .build();
 
-        scheduleDAO scheduleDAO = database1.getScheduleDao();
+        TimetableDAO timetableDAO = database1.getTTDao();
 
         DBGateway database2 = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
                 .allowMainThreadQueries().fallbackToDestructiveMigration()
                 .build();
 
-        final attendanceDAO attendanceDAO = database2.getAttendanceDao();
+        final attendanceDAO attendanceDAO = database2.getATTDao();
         final Bundle bundle = this.getArguments();
         if (bundle != null) {
             final int dbNo=bundle.getInt("key");
@@ -83,7 +87,7 @@ public class Att_FullScreenDialog extends DialogFragment {
                     DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
                             .allowMainThreadQueries().fallbackToDestructiveMigration()
                             .build();
-                    attendanceDAO attDAO=database.getAttendanceDao();
+                    attendanceDAO attDAO=database.getATTDao();
                     attDAO.deleteSchedule(attDAO.getSubjectbyId(dbNo));
                     dismiss();
                 }
@@ -95,12 +99,12 @@ public class Att_FullScreenDialog extends DialogFragment {
 
 
 
-        List<ScheduleEntity> scheduleEntities = scheduleDAO.getSubjects("College");
+        List<TimetableEntity> scheduleEntities = timetableDAO.getSubjects("College");
 
         String[] subject = new String[scheduleEntities.size()];
         Log.d("ATT/FSD", "." + scheduleEntities.size());
         int i = 0;
-        for (ScheduleEntity cn : scheduleEntities) {
+        for (TimetableEntity cn : scheduleEntities) {
             subject[i] = cn.getTask();
             Log.d("ATT/FSD/", subject[i]);
             ++i;

@@ -23,7 +23,8 @@ import com.nirmalhk7.nirmalhk7.entrydisplay.MainFragment;
 import com.nirmalhk7.nirmalhk7.examholidays.examHolidays;
 import com.nirmalhk7.nirmalhk7.playground.Playground;
 import com.nirmalhk7.nirmalhk7.settings.SettingsActivity;
-import com.nirmalhk7.nirmalhk7.timetable.Timetable;
+import com.nirmalhk7.nirmalhk7.timetable.timetable;
+import com.nirmalhk7.nirmalhk7.utility.Converters;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity
         try {
             Date date = curDateFormat.parse(curDate1);
             Log.d("CONVERX",date.getTime()+"");
-            Log.d("CONVERX",Converters.date_to_day(date)+ " xx "+Converters.date_to_t12(date)+" yy "+Converters.date_to_Dt(date));
+            Log.d("CONVERX", Converters.date_to_day(date)+ " xx "+Converters.date_to_t12(date)+" yy "+Converters.date_to_Dt(date));
             // you can use this date string now
         } catch (Exception e) {
             Log.e("ACTMAIN","TimeErr "+e.getMessage());
@@ -134,7 +135,7 @@ public class MainActivity extends AppCompatActivity
             Intent i=new Intent(MainActivity.this,SettingsActivity.class);
             startActivity(i);
         } else if (id == R.id.nav_schedule) {
-            newFragment = new Timetable();
+            newFragment = new timetable();
             transaction.replace(R.id.fullscreen, newFragment);
             transaction.addToBackStack(null);
             transaction.commit();

@@ -13,18 +13,18 @@ import androidx.appcompat.widget.Toolbar;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.nirmalhk7.nirmalhk7.Converters;
+import com.nirmalhk7.nirmalhk7.utility.Converters;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
-import com.nirmalhk7.nirmalhk7.timetable.ScheduleEntity;
-import com.nirmalhk7.nirmalhk7.timetable.scheduleDAO;
+import com.nirmalhk7.nirmalhk7.timetable.TimetableDAO;
+import com.nirmalhk7.nirmalhk7.timetable.TimetableEntity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class subjectAttendanceLog extends DialogFragment {
 
-    public static String TAG = "FullScreenDialog";
+    public static String TAG = "timetableFSD";
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -68,8 +68,8 @@ public class subjectAttendanceLog extends DialogFragment {
                 .allowMainThreadQueries().fallbackToDestructiveMigration()
                 .build();
 
-        scheduleDAO SDAO=database2.getScheduleDao();
-        List<ScheduleEntity> x=SDAO.getScheduleCodeByTaskName(subjName.getText().toString());
+        TimetableDAO SDAO=database2.getScheduleDao();
+        List<TimetableEntity> x=SDAO.getScheduleCodeByTaskName(subjName.getText().toString());
         if(x.size()==1)
         {
             TextView code=rootView.findViewById(R.id.sal_code);

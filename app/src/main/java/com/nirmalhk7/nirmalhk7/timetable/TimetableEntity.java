@@ -1,13 +1,14 @@
 package com.nirmalhk7.nirmalhk7.timetable;
 
-import androidx.annotation.NonNull;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
 
 import java.util.Date;
 
 @Entity
-public class ScheduleEntity {
+public class TimetableEntity {
     @NonNull
     @PrimaryKey(autoGenerate = true)
     protected int id;
@@ -18,7 +19,7 @@ public class ScheduleEntity {
     private int mDay;
     private String mSubjCode;
 
-    public ScheduleEntity() {
+    public TimetableEntity() {
     }
 
     public String getSubjCode(){ return  mSubjCode;}

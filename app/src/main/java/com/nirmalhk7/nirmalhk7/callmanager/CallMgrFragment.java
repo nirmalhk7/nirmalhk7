@@ -81,8 +81,8 @@ public class CallMgrFragment extends Fragment {
         // word_list.xml layout file.
         ListView listView = rootView.findViewById(R.id.list_item_callmgr);
 
-        // Make the {@link ListView} use the {@link ScheduleAdapter} we created above, so that the
-        // {@link ListView} will display list items for each {@link scheduleItem} in the list.
+        // Make the {@link ListView} use the {@link timetableAdapter} we created above, so that the
+        // {@link ListView} will display list items for each {@link timetableListItem} in the list.
         listView.setAdapter(adapter);
 
         return rootView;

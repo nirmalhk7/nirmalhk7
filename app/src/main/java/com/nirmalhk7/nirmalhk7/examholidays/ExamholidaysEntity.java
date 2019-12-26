@@ -1,12 +1,13 @@
 package com.nirmalhk7.nirmalhk7.examholidays;
 
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+
 
 import java.util.Date;
 
 @Entity
-public class ehEntity {
+public class ExamholidaysEntity {
     @PrimaryKey(autoGenerate = true)
     int id;
     int holexa;

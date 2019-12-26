@@ -24,20 +24,16 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TimePicker;
 
-import com.nirmalhk7.nirmalhk7.Converters;
+import com.nirmalhk7.nirmalhk7.utility.Converters;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.attendance.attendanceDAO;
 import com.nirmalhk7.nirmalhk7.attendance.attendanceEntity;
-import com.nirmalhk7.nirmalhk7.timetable.ScheduleEntity;
-import com.nirmalhk7.nirmalhk7.timetable.scheduleDAO;
 
 import java.util.Calendar;
 import java.util.List;
 
-import static com.nirmalhk7.nirmalhk7.timetable.DemoInfinitePagerAdapter.ttadapter;
-
-public class FullScreenDialog extends DialogFragment {
+public class timetableFSD extends DialogFragment {
     public int key;
 
     @Override
@@ -100,7 +96,7 @@ public class FullScreenDialog extends DialogFragment {
                             .allowMainThreadQueries().fallbackToDestructiveMigration()
                             .build();
 
-                    scheduleDAO SDAO=database.getScheduleDao();
+                    TimetableDAO SDAO=database.getScheduleDao();
                     Log.d("DAS/FSD/ID", Integer.toString(dbNo));
                     SDAO.deleteSchedule(SDAO.getScheduleById(dbNo));
                     dismiss();
@@ -167,16 +163,16 @@ public class FullScreenDialog extends DialogFragment {
                 .allowMainThreadQueries().fallbackToDestructiveMigration()
                 .build();
 
-        final scheduleDAO SDAO = database.getScheduleDao();
+        final TimetableDAO SDAO = database.getScheduleDao();
         attendanceDAO attendanceDAO=database.getAttendanceDao();
 
-        List<ScheduleEntity> x = SDAO.getSubjects("College");
+        List<TimetableEntity> x = SDAO.getSubjects("College");
 
         List<attendanceEntity> z = attendanceDAO.getSubjectNames();
         String[] subject = new String[x.size()+z.size()];
         int i = 0;
 
-        for (ScheduleEntity cn : x) {
+        for (TimetableEntity cn : x) {
             subject[i] = cn.getTask();
             Log.d("ATT/FSD/", "Local "+subject[i]);
             ++i;
@@ -210,7 +206,7 @@ public class FullScreenDialog extends DialogFragment {
 
                 @Override
                 public void afterTextChanged(Editable s) {
-                    ScheduleEntity sc=SDAO.getScheduleDetails(s.toString());
+                    TimetableEntity sc=SDAO.getScheduleDetails(s.toString());
                     EditText taskLabelEdit = rootView.findViewById(R.id.taskLabel);
                     taskLabelEdit.setText(sc.getLabel());
                     AutoCompleteTextView SubjCode=rootView.findViewById(R.id.subjCode);
@@ -269,15 +265,15 @@ public class FullScreenDialog extends DialogFragment {
 
                 Log.d("Name:", "H " + taskNameEdit.getText().toString() + taskLabelEdit.getText().toString() + taskTimeEndEdit.getText().toString());
 
-                //  db.addSchedule(new ScheduleEntity("Task 1","Label 1","Time 1"));
+                //  db.addSchedule(new TimetableEntity("Task 1","Label 1","Time 1"));
                 if(Validation(rootView))
                 {
                     DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
                             .allowMainThreadQueries().fallbackToDestructiveMigration()
                             .build();
-                    scheduleDAO SDAO = database.getScheduleDao();
+                    TimetableDAO SDAO = database.getScheduleDao();
 
-                    ScheduleEntity scheduleEntity;
+                    TimetableEntity scheduleEntity;
                     if (bundle != null) {
                         scheduleEntity = SDAO.getScheduleById(dbNo);
 
@@ -285,7 +281,7 @@ public class FullScreenDialog extends DialogFragment {
 
 
                     } else {
-                        scheduleEntity = new ScheduleEntity();
+                        scheduleEntity = new TimetableEntity();
                     }
                     scheduleEntity.setTask(taskNameEdit.getText().toString());
                     scheduleEntity.setLabel(taskLabelEdit.getText().toString());

@@ -2,9 +2,11 @@ package com.nirmalhk7.nirmalhk7.utility;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import androidx.room.Room;
+
+import android.arch.persistence.room.Room;
 import android.os.Bundle;
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+
+import android.support.design.widget.BottomSheetDialogFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,11 +18,10 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import com.nirmalhk7.nirmalhk7.Converters;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
-import com.nirmalhk7.nirmalhk7.examholidays.ehDAO;
-import com.nirmalhk7.nirmalhk7.examholidays.ehEntity;
+import com.nirmalhk7.nirmalhk7.examholidays.ExamholidaysDAO;
+import com.nirmalhk7.nirmalhk7.examholidays.ExamholidaysEntity;
 import com.nirmalhk7.nirmalhk7.examholidays.examHolidays;
 
 import java.util.Calendar;
@@ -85,8 +86,8 @@ public class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
                         .allowMainThreadQueries().fallbackToDestructiveMigration()
                         .build();
 
-                ehDAO EHDAO = database.getEHDAO();
-                ehEntity x=EHDAO.getehEntityById(dbkey);
+                ExamholidaysDAO EHDAO = database.getEHDAO();
+                ExamholidaysEntity x=EHDAO.getehEntityById(dbkey);
                 startdate.setText(Converters.date_to_Dt(x.getStart()));
                 enddate.setText(Converters.date_to_Dt(x.getEnd()));
                 if (bundle.getInt("holidayorexam") == 1) {
@@ -112,7 +113,7 @@ public class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
                                 .allowMainThreadQueries().fallbackToDestructiveMigration()
                                 .build();
 
-                        ehDAO EHDAO = database.getEHDAO();
+                        ExamholidaysDAO EHDAO = database.getEHDAO();
                         EHDAO.deleteEvent(EHDAO.getehEntityById(dbkey));
                         dismiss();
                     }
@@ -169,11 +170,11 @@ public class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
                     .allowMainThreadQueries().fallbackToDestructiveMigration()
                     .build();
 
-            ehDAO EHDAO = database.getEHDAO();
+            ExamholidaysDAO EHDAO = database.getEHDAO();
 
             if(k==0)
             {
-                ehEntity entity=new ehEntity();
+                ExamholidaysEntity entity=new ExamholidaysEntity();
                 entity.setmName(name.getText().toString());
                 entity.setStart(Converters.dmy_to_date(startdate.getText().toString()));
                 entity.setEnd(Converters.dmy_to_date(enddate.getText().toString()));
@@ -189,7 +190,7 @@ public class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
             }
             else
             {
-                ehEntity entity=EHDAO.getehEntityById(k);
+                ExamholidaysEntity entity=EHDAO.getehEntityById(k);
                 entity.setmName(name.getText().toString());
                 entity.setStart(Converters.dmy_to_date(startdate.getText().toString()));
                 entity.setEnd(Converters.dmy_to_date(enddate.getText().toString()));

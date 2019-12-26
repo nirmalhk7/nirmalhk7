@@ -1,16 +1,14 @@
 package com.nirmalhk7.nirmalhk7.examholidays;
 
-import androidx.room.Room;
+import android.arch.persistence.room.Room;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.core.content.res.ResourcesCompat;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import androidx.appcompat.widget.Toolbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.res.ResourcesCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,12 +16,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-
+import android.widget.Toolbar;
 import com.leinardi.android.speeddial.SpeedDialActionItem;
 import com.leinardi.android.speeddial.SpeedDialView;
-import com.nirmalhk7.nirmalhk7.Converters;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
+import com.nirmalhk7.nirmalhk7.utility.Converters;
 import com.nirmalhk7.nirmalhk7.utility.MyBottomSheetDialogFragment;
 
 import java.util.ArrayList;
@@ -44,7 +42,7 @@ public class examHolidays extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    public static ExamHolidayAdapter adapter;
+    public static examHolidayAdapter adapter;
     //  Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -93,8 +91,8 @@ public class examHolidays extends Fragment {
         EAHfetchDB(rootView);
         DSLonRefresh(rootView);
 
-        // Make the {@link ListView} use the {@link ScheduleAdapter} we created above, so that the
-        // {@link ListView} will display list items for each {@link scheduleItem} in the list.
+        // Make the {@link ListView} use the {@link timetableAdapter} we created above, so that the
+        // {@link ListView} will display list items for each {@link timetableListItem} in the list.
 
         ListView listView = rootView.findViewById(R.id.list_item_examholiday);
 
@@ -154,7 +152,7 @@ public class examHolidays extends Fragment {
             public boolean onActionSelected(SpeedDialActionItem speedDialActionItem) {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 
-                fsdExam newFragment = new fsdExam();
+                examholidaysFSD newFragment = new examholidaysFSD();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 Bundle b = new Bundle();
@@ -215,21 +213,21 @@ public class examHolidays extends Fragment {
                 .allowMainThreadQueries().fallbackToDestructiveMigration()
                 .build();
 
-        ehDAO ehDAO = database.getEHDAO();
-        ArrayList<heItem> hs = new ArrayList<heItem>();
-        List<ehEntity> list = ehDAO.getItems();
+        ExamholidaysDAO examholidaysDAO = database.getEHDAO();
+        ArrayList<examholidaysListItem> hs = new ArrayList<examholidaysListItem>();
+        List<ExamholidaysEntity> list = examholidaysDAO.getItems();
 
-        for (ehEntity cn : list) {
+        for (ExamholidaysEntity cn : list) {
             Log.d("EAH/EAH", cn.getmType() + " ");
             if (cn.getStart().equals(cn.getEnd())) {
-                hs.add(new heItem(cn.getId(), cn.getHolexa(), cn.getmName(), Converters.date_to_Dt(cn.getStart()), cn.getmType()));
+                hs.add(new examholidaysListItem(cn.getId(), cn.getHolexa(), cn.getmName(), Converters.date_to_Dt(cn.getStart()), cn.getmType()));
             } else {
-                hs.add(new heItem(cn.getId(), cn.getHolexa(), cn.getmName(), Converters.date_to_Dt(cn.getStart()) + " - " + Converters.date_to_Dt(cn.getEnd()), cn.getmType()));
+                hs.add(new examholidaysListItem(cn.getId(), cn.getHolexa(), cn.getmName(), Converters.date_to_Dt(cn.getStart()) + " - " + Converters.date_to_Dt(cn.getEnd()), cn.getmType()));
             }
         }
 
 
-        adapter = new ExamHolidayAdapter(getContext(), hs);
+        adapter = new examHolidayAdapter(getContext(), hs);
 
         // Find the {@link ListView} object in the view hierarchy of the {@link Activity}.
         // There should be a {@link ListView} with the view ID called list, which is declared in the

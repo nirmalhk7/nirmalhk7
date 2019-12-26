@@ -9,19 +9,16 @@ import android.widget.TextView;
 
 import androidx.room.Room;
 
-import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
-import com.nirmalhk7.nirmalhk7.attendance.attendanceDAO;
-import com.nirmalhk7.nirmalhk7.attendance.attendanceEntity;
 
 import java.util.ArrayList;
 
-public class ScheduleAdapter extends ArrayAdapter<scheduleItem> {
+public class timetableAdapter extends ArrayAdapter<timetableListItem> {
 
     /** Resource ID for the background color for this list of words */
 
 
-    public ScheduleAdapter(Context context, ArrayList<scheduleItem> words) {
+    public timetableAdapter(Context context, ArrayList<timetableListItem> words) {
         super(context, 0, words);
     }
 
@@ -34,8 +31,8 @@ public class ScheduleAdapter extends ArrayAdapter<scheduleItem> {
                     R.layout.dailyschedule_list_item, parent, false);
         }
 
-        // Get the {@link scheduleItem} object located at this position in the list
-        scheduleItem currentWord = getItem(position);
+        // Get the {@link timetableListItem} object located at this position in the list
+        timetableListItem currentWord = getItem(position);
 
         // Find the TextView in the dailyschedule_list_itemdule_list_item.xml layout with the ID miwok_text_view.
         TextView miwokTextView = listItemView.findViewById(R.id.miwok_text_view);

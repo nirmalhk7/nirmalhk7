@@ -1,23 +1,25 @@
 package com.nirmalhk7.nirmalhk7;
 
-import androidx.room.Database;
-import androidx.room.RoomDatabase;
-import androidx.room.TypeConverters;
+import android.arch.persistence.room.Database;
+import android.arch.persistence.room.RoomDatabase;
+import android.arch.persistence.room.TypeConverters;
 
 import com.nirmalhk7.nirmalhk7.attendance.attendanceDAO;
 import com.nirmalhk7.nirmalhk7.attendance.attendanceEntity;
 import com.nirmalhk7.nirmalhk7.attendance.subjectlogDAO;
 import com.nirmalhk7.nirmalhk7.attendance.subjectlogEntity;
-import com.nirmalhk7.nirmalhk7.timetable.ScheduleEntity;
-import com.nirmalhk7.nirmalhk7.timetable.scheduleDAO;
-import com.nirmalhk7.nirmalhk7.examholidays.ehDAO;
-import com.nirmalhk7.nirmalhk7.examholidays.ehEntity;
+import com.nirmalhk7.nirmalhk7.examholidays.ExamholidaysEntity;
+import com.nirmalhk7.nirmalhk7.examholidays.ExamholidaysDAO;
+import com.nirmalhk7.nirmalhk7.timetable.TimetableDAO;
+import com.nirmalhk7.nirmalhk7.timetable.TimetableEntity;
+import com.nirmalhk7.nirmalhk7.utility.Converters;
 
-@Database(entities = {ScheduleEntity.class, attendanceEntity.class, ehEntity.class, subjectlogEntity.class}, version = 22, exportSchema = false)
+@Database(entities = {TimetableEntity.class, attendanceEntity.class, ExamholidaysEntity.class, subjectlogEntity.class}, version = 22, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class DBGateway extends RoomDatabase {
-    public abstract scheduleDAO getScheduleDao();
-    public abstract attendanceDAO getAttendanceDao();
-    public abstract ehDAO getEHDAO();
+    public abstract TimetableDAO getTTDao();
+    public abstract attendanceDAO getATTDao();
+    public abstract ExamholidaysDAO getEHDAO();
     public abstract subjectlogDAO getSALDAO();
+
 }

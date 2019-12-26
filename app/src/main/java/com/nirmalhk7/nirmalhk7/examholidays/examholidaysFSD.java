@@ -3,12 +3,13 @@ package com.nirmalhk7.nirmalhk7.examholidays;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import androidx.room.Room;
+
+import android.arch.persistence.room.Room;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.DialogFragment;
-import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
+
+import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,13 +22,13 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import com.nirmalhk7.nirmalhk7.Converters;
+import com.nirmalhk7.nirmalhk7.utility.Converters;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
 
 import java.util.Calendar;
 
-public class fsdExam extends DialogFragment {
+public class examholidaysFSD extends DialogFragment {
     public int key;
 
     @Override
@@ -138,9 +139,9 @@ public class fsdExam extends DialogFragment {
                 .allowMainThreadQueries().fallbackToDestructiveMigration()
                 .build();
 
-        ehDAO EHDAO = database.getEHDAO();
+        ExamholidaysDAO EHDAO = database.getEHDAO();
 
-        ehEntity entity=new ehEntity();
+        ExamholidaysEntity entity=new ExamholidaysEntity();
         entity.setmName(name.getText().toString());
         entity.setStart(Converters.to_date(startdate.getText().toString(),"MMM d, yyyy"));
         entity.setEnd(Converters.to_date(enddate.getText().toString(),"MMM d, yyyy"));

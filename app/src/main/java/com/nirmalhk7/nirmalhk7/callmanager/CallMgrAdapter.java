@@ -31,7 +31,7 @@ public class CallMgrAdapter extends ArrayAdapter<CallMgrItem> {
                     R.layout.callmgr_list_item, parent, false);
         }
 
-        // Get the {@link scheduleItem} object located at this position in the list
+        // Get the {@link timetableListItem} object located at this position in the list
         CallMgrItem currentWord = getItem(position);
 
         // Find the TextView in the dailyschedule_list_item.xml_list_item.xml layout with the ID miwok_text_view.

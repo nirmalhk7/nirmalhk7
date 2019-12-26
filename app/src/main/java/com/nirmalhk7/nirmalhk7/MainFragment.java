@@ -31,10 +31,10 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
-import com.nirmalhk7.nirmalhk7.examholidays.ehDAO;
+import com.nirmalhk7.nirmalhk7.examholidays.ExamholidaysDAO;
 import com.nirmalhk7.nirmalhk7.examholidays.examHolidays;
-import com.nirmalhk7.nirmalhk7.timetable.Timetable;
-import com.nirmalhk7.nirmalhk7.timetable.scheduleDAO;
+import com.nirmalhk7.nirmalhk7.timetable.timetable;
+import com.nirmalhk7.nirmalhk7.timetable.TimetableDAO;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -260,7 +260,7 @@ public class MainFragment extends Fragment {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 transaction.setCustomAnimations(android.R.anim.fade_in,android.R.anim.fade_out);
                 Fragment newFragment;
-                newFragment = new Timetable();
+                newFragment = new timetable();
                 transaction.replace(R.id.fullscreen, newFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
@@ -324,8 +324,8 @@ public class MainFragment extends Fragment {
         DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
                 .allowMainThreadQueries().fallbackToDestructiveMigration()
                 .build();
-        scheduleDAO SCHDAO=database.getScheduleDao();
-        ehDAO EHDAO=database.getEHDAO();
+        TimetableDAO SCHDAO=database.getScheduleDao();
+        ExamholidaysDAO EHDAO=database.getEHDAO();
 
         return v;
     }
