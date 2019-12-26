@@ -5,6 +5,7 @@ import android.util.Log;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class Converters {
@@ -162,6 +163,27 @@ public class Converters {
             case 5:return "Saturday";
             default: return null;
         }
+    }
+    public static int day_to_dayno(String x)
+    {
+        if(x.matches("Monday"))
+            return 0;
+        else if(x.matches("Tuesday"))
+            return 1;
+        else if(x.matches("Wednesday"))
+            return 2;
+        else if(x.matches("Thursday"))
+            return 3;
+        else if(x.matches("Friday"))
+            return 4;
+        else if(x.matches("Saturday"))
+            return 5;
+        return Integer.MAX_VALUE;
+    }
+    public static String today_get(String format)
+    {
+        Date d=new Date(Calendar.getInstance().getTimeInMillis());
+        return date_to(d,format);
     }
 
 

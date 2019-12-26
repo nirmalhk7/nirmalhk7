@@ -187,7 +187,7 @@ public class FullScreenDialog extends DialogFragment {
         }
         final AppCompatAutoCompleteTextView autoTextView;
         autoTextView = rootView.findViewById(R.id.taskName);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>
                 (getContext(), android.R.layout.select_dialog_item, subject);
         autoTextView.setThreshold(1); //will start working from first character
         autoTextView.setAdapter(adapter);
@@ -298,7 +298,7 @@ public class FullScreenDialog extends DialogFragment {
                     }
 
 
-
+                    adapter.notifyDataSetChanged();
                     dismiss();
                 }
 

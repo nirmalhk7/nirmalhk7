@@ -6,13 +6,20 @@ import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.room.Room;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.asksira.loopingviewpager.LoopingViewPager;
 import com.google.android.material.tabs.TabLayout;
+import com.leinardi.android.speeddial.SpeedDialActionItem;
+import com.leinardi.android.speeddial.SpeedDialView;
+import com.nirmalhk7.nirmalhk7.Converters;
+import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
 
 import java.lang.reflect.Array;
@@ -71,20 +78,46 @@ public class Timetable extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
+    public static DemoInfinitePagerAdapter adapter;
+    public static LoopingViewPager vpgr;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView= inflater.inflate(R.layout.fragment_timetable, container, false);
-        LoopingViewPager vpgr=rootView.findViewById(R.id.viewpager);
-
+        vpgr=rootView.findViewById(R.id.viewpager);
+        vpgr.setCurrentItem(3);
+        Log.d("CONVCC",""+vpgr.getCurrentItem());
         Toolbar toolbar=getActivity().findViewById(R.id.toolbar);
         toolbar.setTitle("Your Timetable");
         FragmentManager fmgr=getActivity().getSupportFragmentManager();
-
         ArrayList<Integer> dataItems=new ArrayList<>(Arrays.asList(1,2,3,4,5,6));
-        vpgr.setAdapter(new DemoInfinitePagerAdapter(getContext(),dataItems,true,fmgr));
+        adapter=new DemoInfinitePagerAdapter(getContext(),dataItems,true,fmgr);
+        vpgr.setAdapter(adapter);
+
+        SpeedDialView speedDialView = getActivity().findViewById(R.id.speedDial);
+        speedDialView.setVisibility(View.VISIBLE);
+        speedDialView.clearActionItems();
+
+        speedDialView.setOnChangeListener(new SpeedDialView.OnChangeListener() {
+            @Override
+            public boolean onMainActionSelected() {
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+
+                FullScreenDialog newFragment = new FullScreenDialog();
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                transaction.add(android.R.id.content, newFragment).addToBackStack(null).commit();
+                return false;
+
+            }
+
+            @Override
+            public void onToggleChanged(boolean isOpen) {
+                Log.d("xxx", "yyy");
+            }
+        });
+
         return rootView;
     }
 
@@ -100,7 +133,13 @@ public class Timetable extends Fragment {
         super.onDetach();
         mListener = null;
     }
-
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        adapter.notifyDataSetChanged();
+        Log.d("TT","OnRes");
+    }
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -115,4 +154,5 @@ public class Timetable extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
 }

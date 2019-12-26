@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class ScheduleAdapter extends ArrayAdapter<scheduleItem> {
 
     /** Resource ID for the background color for this list of words */
-    private int mColorResourceId;
+
 
 
     public ScheduleAdapter(Context context, ArrayList<scheduleItem> words) {

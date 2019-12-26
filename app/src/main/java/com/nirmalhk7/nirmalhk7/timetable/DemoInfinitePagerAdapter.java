@@ -74,7 +74,7 @@ public class DemoInfinitePagerAdapter extends LoopingPagerAdapter<Integer> {
             }
         });
     }
-    private static void TTFetch(View convertView, final Context context, final int listPosition)
+    public static void TTFetch(View convertView, final Context context, final int listPosition)
     {
         // Reading all contacts
         Log.d("Reading: ", "Reading all contacts..");

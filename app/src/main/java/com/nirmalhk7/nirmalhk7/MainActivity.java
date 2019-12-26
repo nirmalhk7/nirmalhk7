@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         String res="HELLO";
-
+        Log.d("CONVC",""+Converters.day_to_dayno(Converters.today_get("EEEE")));
 
         String curDate1 = "23 Jul 2019 Tue 1:30 PM";
         SimpleDateFormat curDateFormat = new SimpleDateFormat("dd MMM yyyy EEE hh:mm a");
