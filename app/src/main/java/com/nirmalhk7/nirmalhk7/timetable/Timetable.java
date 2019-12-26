@@ -27,6 +27,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.nirmalhk7.nirmalhk7.timetable.DemoInfinitePagerAdapter.ttadapter;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -78,7 +80,6 @@ public class Timetable extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-    public static DemoInfinitePagerAdapter adapter;
     public static LoopingViewPager vpgr;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -92,7 +93,7 @@ public class Timetable extends Fragment {
         toolbar.setTitle("Your Timetable");
         FragmentManager fmgr=getActivity().getSupportFragmentManager();
         ArrayList<Integer> dataItems=new ArrayList<>(Arrays.asList(1,2,3,4,5,6));
-        adapter=new DemoInfinitePagerAdapter(getContext(),dataItems,true,fmgr);
+        DemoInfinitePagerAdapter adapter=new DemoInfinitePagerAdapter(getContext(),dataItems,true,fmgr);
         vpgr.setAdapter(adapter);
 
         SpeedDialView speedDialView = getActivity().findViewById(R.id.speedDial);
@@ -132,13 +133,6 @@ public class Timetable extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
-    }
-    @Override
-    public void onResume()
-    {
-        super.onResume();
-        adapter.notifyDataSetChanged();
-        Log.d("TT","OnRes");
     }
     /**
      * This interface must be implemented by activities that contain this

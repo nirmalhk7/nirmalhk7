@@ -21,7 +21,6 @@ public class ScheduleAdapter extends ArrayAdapter<scheduleItem> {
     /** Resource ID for the background color for this list of words */
 
 
-
     public ScheduleAdapter(Context context, ArrayList<scheduleItem> words) {
         super(context, 0, words);
     }

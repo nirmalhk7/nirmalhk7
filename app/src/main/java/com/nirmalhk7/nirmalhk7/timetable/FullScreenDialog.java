@@ -35,6 +35,8 @@ import com.nirmalhk7.nirmalhk7.timetable.scheduleDAO;
 import java.util.Calendar;
 import java.util.List;
 
+import static com.nirmalhk7.nirmalhk7.timetable.DemoInfinitePagerAdapter.ttadapter;
+
 public class FullScreenDialog extends DialogFragment {
     public int key;
 
@@ -70,7 +72,7 @@ public class FullScreenDialog extends DialogFragment {
             //Pass title,label and time value to EditText
             AutoCompleteTextView taskNameEdit = rootView.findViewById(R.id.taskName);
             taskNameEdit.setText(title);
-            EditText taskLabelEdit = rootView.findViewById(R.id.taskLabel);
+            //EditText taskLabelEdit = rootView.findViewById(R.id.taskLabel);
             EditText subjCode=rootView.findViewById(R.id.subjCode);
             subjCode.setText(subjcode);
 
@@ -275,30 +277,28 @@ public class FullScreenDialog extends DialogFragment {
                             .build();
                     scheduleDAO SDAO = database.getScheduleDao();
 
+                    ScheduleEntity scheduleEntity;
                     if (bundle != null) {
-                        ScheduleEntity scheduleEntity = SDAO.getScheduleById(dbNo);
+                        scheduleEntity = SDAO.getScheduleById(dbNo);
 
-                        scheduleEntity.setTask(taskNameEdit.getText().toString());
-                        scheduleEntity.setLabel(taskLabelEdit.getText().toString());
-                        scheduleEntity.setSubjCode(SubjCode.getText().toString());
-                        scheduleEntity.setStartTime(Converters.t12_to_date(taskTimeStartEdit.getText().toString()));
-                        scheduleEntity.setEndTime(Converters.t12_to_date(taskTimeEndEdit.getText().toString()));
-                        scheduleEntity.setDay(mday);
-                        SDAO.updateSchedule(scheduleEntity);
+
+
 
                     } else {
-                        ScheduleEntity scheduleEntity = new ScheduleEntity();
-                        scheduleEntity.setTask(taskNameEdit.getText().toString());
-                        scheduleEntity.setLabel(taskLabelEdit.getText().toString());
-                        scheduleEntity.setSubjCode(SubjCode.getText().toString());
-                        scheduleEntity.setStartTime(Converters.t12_to_date(taskTimeStartEdit.getText().toString()));
-                        scheduleEntity.setEndTime(Converters.t12_to_date(taskTimeEndEdit.getText().toString()));
-                        scheduleEntity.setDay(mday);
-                        SDAO.insertOnlySingleSchedule(scheduleEntity);
+                        scheduleEntity = new ScheduleEntity();
                     }
+                    scheduleEntity.setTask(taskNameEdit.getText().toString());
+                    scheduleEntity.setLabel(taskLabelEdit.getText().toString());
+                    scheduleEntity.setSubjCode(SubjCode.getText().toString());
+                    scheduleEntity.setStartTime(Converters.t12_to_date(taskTimeStartEdit.getText().toString()));
+                    scheduleEntity.setEndTime(Converters.t12_to_date(taskTimeEndEdit.getText().toString()));
+                    scheduleEntity.setDay(mday);
+                    if(bundle!=null)
+                        SDAO.updateSchedule(scheduleEntity);
+                    else
+                        SDAO.insertOnlySingleSchedule(scheduleEntity);
 
-
-                    adapter.notifyDataSetChanged();
+                   
                     dismiss();
                 }
 

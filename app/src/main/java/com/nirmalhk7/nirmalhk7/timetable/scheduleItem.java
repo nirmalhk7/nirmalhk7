@@ -24,6 +24,9 @@ public class scheduleItem {
         mSubjCode=SubjCode;
         mDay=Day;
     }
+    public scheduleItem()
+    {}
+
     public String getmSubjCode(){
         return mSubjCode;
     }
@@ -45,5 +48,32 @@ public class scheduleItem {
     }
     public int getScheduleId(){ return mId;}
     public int getDay(){return mDay;}
-   
+
+    public void setmEndTime(String mEndTime) {
+        this.mEndTime = mEndTime;
+    }
+
+    public void setmLabel(String mLabel) {
+        this.mLabel = mLabel;
+    }
+
+    public void setmScheduleTitle(String mScheduleTitle) {
+        this.mScheduleTitle = mScheduleTitle;
+    }
+
+    public void setmStartTime(String mStartTime) {
+        this.mStartTime = mStartTime;
+    }
+
+    public void setmId(int mId) {
+        this.mId = mId;
+    }
+
+    public void setmDay(int mDay) {
+        this.mDay = mDay;
+    }
+
+    public void setmSubjCode(String mSubjCode) {
+        this.mSubjCode = mSubjCode;
+    }
 }

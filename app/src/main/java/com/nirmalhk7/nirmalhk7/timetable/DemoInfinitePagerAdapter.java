@@ -31,6 +31,7 @@ import java.util.List;
 
 public class DemoInfinitePagerAdapter extends LoopingPagerAdapter<Integer> {
     public static FragmentManager Fmgr;
+    public static ScheduleAdapter ttadapter;
     public DemoInfinitePagerAdapter(Context context, ArrayList<Integer> itemList, boolean isInfinite, FragmentManager fmgr) {
         super(context, itemList, isInfinite);
          Fmgr=fmgr;
@@ -58,6 +59,7 @@ public class DemoInfinitePagerAdapter extends LoopingPagerAdapter<Integer> {
         TTFetch(convertView,context,listPosition);
 
     }
+
     private SwipeRefreshLayout pullToRefresh;
     void swiperefresh(final View rootview,final Context c,final int listpos){
         pullToRefresh = rootview.findViewById(R.id.pullToRefresh);
@@ -96,7 +98,7 @@ public class DemoInfinitePagerAdapter extends LoopingPagerAdapter<Integer> {
         }
     //    TextView description=convertView.findViewById(R.id.tt_dayreview);
     //    description.setText(scheduleEntities.size()+" classes from "+Converters.date_to(scheduleEntities.get(0).getStartTime(),"hh:mm a")+" to "+Converters.date_to(scheduleEntities.get(scheduleEntities.size()-1).getEndTime(),"hh:mm a"));
-        ScheduleAdapter adapter=new ScheduleAdapter(context,sch);
+        ttadapter=new ScheduleAdapter(context,sch);
         ListView listView=convertView.findViewById(R.id.list_item_timetable);
 
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -108,7 +110,7 @@ public class DemoInfinitePagerAdapter extends LoopingPagerAdapter<Integer> {
                 TextView starttime = view.findViewById(R.id.start_time);
                 TextView endTime = view.findViewById(R.id.end_time);
                 TextView idx = view.findViewById(R.id.itemid);
-
+                TextView subjcode=view.findViewById(R.id.fsd_subjabbr);
                 Log.d("CONVERTX", endTime + "-" + starttime);
 
 
@@ -121,6 +123,7 @@ public class DemoInfinitePagerAdapter extends LoopingPagerAdapter<Integer> {
                 args.putString("title", title.getText().toString());
                 args.putString("starttime", starttime.getText().toString());
                 args.putString("endtime", endTime.getText().toString());
+                args.putString("subjcode",subjcode.getText().toString());
                 args.putInt("day", listPosition);
 
                 Log.d("DS", "PSN:" + Integer.toString(position));
@@ -132,7 +135,7 @@ public class DemoInfinitePagerAdapter extends LoopingPagerAdapter<Integer> {
             }
         });
 
-        listView.setAdapter(adapter);
+        listView.setAdapter(ttadapter);
     }
 
 }
