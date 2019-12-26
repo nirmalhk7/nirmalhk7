@@ -24,11 +24,11 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TimePicker;
 
+import com.nirmalhk7.nirmalhk7.attendance.AttendanceDAO;
+import com.nirmalhk7.nirmalhk7.attendance.AttendanceEntity;
 import com.nirmalhk7.nirmalhk7.utility.Converters;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
-import com.nirmalhk7.nirmalhk7.attendance.attendanceDAO;
-import com.nirmalhk7.nirmalhk7.attendance.attendanceEntity;
 
 import java.util.Calendar;
 import java.util.List;
@@ -164,11 +164,11 @@ public class timetableFSD extends DialogFragment {
                 .build();
 
         final TimetableDAO SDAO = database.getScheduleDao();
-        attendanceDAO attendanceDAO=database.getAttendanceDao();
+        AttendanceDAO attendanceDAO=database.getAttendanceDao();
 
         List<TimetableEntity> x = SDAO.getSubjects("College");
 
-        List<attendanceEntity> z = attendanceDAO.getSubjectNames();
+        List<AttendanceEntity> z = attendanceDAO.getSubjectNames();
         String[] subject = new String[x.size()+z.size()];
         int i = 0;
 
@@ -177,7 +177,7 @@ public class timetableFSD extends DialogFragment {
             Log.d("ATT/FSD/", "Local "+subject[i]);
             ++i;
         }
-        for (attendanceEntity cn: z)
+        for (AttendanceEntity cn: z)
         {
             subject[i]=cn.getSubject();
             Log.d("ATT/FSD/","From Attendance: "+subject[i]);

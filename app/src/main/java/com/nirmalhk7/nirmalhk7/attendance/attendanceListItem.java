@@ -1,6 +1,6 @@
 package com.nirmalhk7.nirmalhk7.attendance;
 
-public class attendanceItem {
+public class attendanceListItem {
 
     /** Default translation for the word */
     private String mSubjName;
@@ -16,7 +16,7 @@ private int mid;
 
 
 
-    public attendanceItem(String subjName,int presentCt,int absentCt,int id)
+    public attendanceListItem(String subjName, int presentCt, int absentCt, int id)
     {
         mSubjName=subjName;
         mPresent=presentCt;
@@ -24,7 +24,7 @@ private int mid;
         mid=id;
     }
 
-    public attendanceItem(String date,String dt,int prabca,int id)
+    public attendanceListItem(String date, String dt, int prabca, int id)
     {
         dateAdded=date;
         dayTime=dt;

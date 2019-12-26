@@ -1,18 +1,15 @@
 package com.nirmalhk7.nirmalhk7.attendance;
 
-import androidx.sqlite.db.SupportSQLiteDatabase;
-import androidx.room.Room;
-import androidx.room.migration.Migration;
 
+import android.arch.persistence.room.Room;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.core.content.res.ResourcesCompat;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import androidx.appcompat.widget.Toolbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.res.ResourcesCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import com.leinardi.android.speeddial.SpeedDialActionItem;
 import com.leinardi.android.speeddial.SpeedDialView;
@@ -32,12 +30,12 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link AllSubjects.OnFragmentInteractionListener} interface
+ * {@link attendance.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link AllSubjects#newInstance} factory method to
+ * Use the {@link attendance#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AllSubjects extends Fragment {
+public class attendance extends Fragment {
     //  Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -49,7 +47,7 @@ public class AllSubjects extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public AllSubjects() {
+    public attendance() {
         // Required empty public constructor
     }
 
@@ -59,11 +57,11 @@ public class AllSubjects extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment AllSubjects.
+     * @return A new instance of fragment attendance.
      */
     //  Rename and change types and number of parameters
-    public static AllSubjects newInstance(String param1, String param2) {
-        AllSubjects fragment = new AllSubjects();
+    public static attendance newInstance(String param1, String param2) {
+        attendance fragment = new attendance();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -112,7 +110,7 @@ public class AllSubjects extends Fragment {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.d("ATT/ALS","LongClick!");
-                subjectAttendanceLog x=new subjectAttendanceLog();
+                subjectLog x=new subjectLog();
                 TextView subject=view.findViewById(R.id.subjName_subject);
                 TextView percent=view.findViewById(R.id.percent_subject);
                 TextView prabca=view.findViewById(R.id.presentabsent_subject);
@@ -139,7 +137,7 @@ public class AllSubjects extends Fragment {
 
 
                 FragmentTransaction ft=getFragmentManager().beginTransaction();
-                x.show(ft,subjectAttendanceLog.TAG);
+                x.show(ft, subjectLog.TAG);
                 return false;
             }
         });
@@ -171,7 +169,7 @@ public class AllSubjects extends Fragment {
                         Log.d("ATT/ALS","Selct");
                         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 
-                        Att_FullScreenDialog newFragment = new Att_FullScreenDialog();
+                        attendanceFSD newFragment = new attendanceFSD();
                         FragmentTransaction transaction = fragmentManager.beginTransaction();
                         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                         transaction.add(android.R.id.content, newFragment).addToBackStack(null).commit();
@@ -238,15 +236,15 @@ public class AllSubjects extends Fragment {
                 .allowMainThreadQueries().fallbackToDestructiveMigration()
                 .build();
 
-        attendanceDAO AttendanceDAO = database2.getAttendanceDao();
+        AttendanceDAO AttendanceDAO = database2.getATTDao();
 
-        List<attendanceEntity> attendance=AttendanceDAO.getAllSubject();
-        ArrayList<attendanceItem> SubjectItem = new ArrayList<>();
+        List<AttendanceEntity> attendance=AttendanceDAO.getAllSubject();
+        ArrayList<attendanceListItem> SubjectItem = new ArrayList<>();
         Log.d("ATT/ALS","Count"+attendance.size());
         
-        for (attendanceEntity cn : attendance) {
+        for (AttendanceEntity cn : attendance) {
             Log.d("ATT/ALS", "Printing: Task "+cn.getSubject()+" P "+cn.getPresent()+" A "+cn.getAbsent());
-            SubjectItem.add(new attendanceItem(cn.getSubject(), cn.getPresent(),cn.getAbsent(),cn.getId()));
+            SubjectItem.add(new attendanceListItem(cn.getSubject(), cn.getPresent(),cn.getAbsent(),cn.getId()));
         }
 
         attendanceAdapter adapter = new attendanceAdapter(getContext(), SubjectItem,1);

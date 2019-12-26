@@ -59,8 +59,8 @@ public class timetableAdapter extends ArrayAdapter<timetableListItem> {
 
 //        DBGateway database= Room.databaseBuilder(getContext(),DBGateway.class,"finalDB")
 //                .allowMainThreadQueries().fallbackToDestructiveMigration().build();
-//        attendanceDAO ATTDAO=database.getAttendanceDao();
-//        attendanceEntity attent=ATTDAO.getSubjectbyName(currentWord.getScheduleTitle());
+//        AttendanceDAO ATTDAO=database.getAttendanceDao();
+//        AttendanceEntity attent=ATTDAO.getSubjectbyName(currentWord.getScheduleTitle());
 //        if(attent!=null)
 //        {
 //            TextView prab=listItemView.findViewById(R.id.mandatory);

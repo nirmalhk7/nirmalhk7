@@ -14,8 +14,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.nirmalhk7.nirmalhk7.academics.Academics;
-import com.nirmalhk7.nirmalhk7.attendance.AllSubjects;
+import com.nirmalhk7.nirmalhk7.academics.academics;
+import com.nirmalhk7.nirmalhk7.attendance.attendance;
 import com.nirmalhk7.nirmalhk7.backuprestore.backuprestore;
 import com.nirmalhk7.nirmalhk7.callmanager.callmanager;
 import com.nirmalhk7.nirmalhk7.cpschedule.cpshedule;
@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity
             transaction.addToBackStack(null);
             transaction.commit();
         } else if (id == R.id.nav_academics) {
-            newFragment = new Academics();
+            newFragment = new academics();
             transaction.replace(R.id.fullscreen, newFragment);
             transaction.addToBackStack(null);
             transaction.commit();
@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity
             transaction.commit();
         }else if(id==R.id.nav_attendance)
         {
-            newFragment = new AllSubjects();
+            newFragment = new attendance();
             transaction.replace(R.id.fullscreen, newFragment);
             transaction.addToBackStack(null);
             transaction.commit();

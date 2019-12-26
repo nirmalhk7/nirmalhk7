@@ -34,9 +34,7 @@ import com.nirmalhk7.nirmalhk7.timetable.TimetableEntity;
 import java.util.Calendar;
 import java.util.List;
 
-import static java.security.AccessController.getContext;
-
-public class Att_FullScreenDialog extends DialogFragment {
+public class attendanceFSD extends DialogFragment {
     public int key;
 
     @Override
@@ -61,7 +59,7 @@ public class Att_FullScreenDialog extends DialogFragment {
                 .allowMainThreadQueries().fallbackToDestructiveMigration()
                 .build();
 
-        final attendanceDAO attendanceDAO = database2.getATTDao();
+        final AttendanceDAO attendanceDAO = database2.getATTDao();
         final Bundle bundle = this.getArguments();
         if (bundle != null) {
             final int dbNo=bundle.getInt("key");
@@ -87,7 +85,7 @@ public class Att_FullScreenDialog extends DialogFragment {
                     DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
                             .allowMainThreadQueries().fallbackToDestructiveMigration()
                             .build();
-                    attendanceDAO attDAO=database.getATTDao();
+                    AttendanceDAO attDAO=database.getATTDao();
                     attDAO.deleteSchedule(attDAO.getSubjectbyId(dbNo));
                     dismiss();
                 }
@@ -145,7 +143,7 @@ public class Att_FullScreenDialog extends DialogFragment {
                         try {
                             int present = Integer.valueOf(Present.getText().toString());
                             int absent = Integer.valueOf(Absent.getText().toString());
-                            attendanceEntity x = new attendanceEntity();
+                            AttendanceEntity x = new AttendanceEntity();
                             x.setSubject(subj);
                             x.setPresent(present);
                             x.setAbsent(absent);
@@ -163,7 +161,7 @@ public class Att_FullScreenDialog extends DialogFragment {
                         try {
                             int present = Integer.valueOf(Present.getText().toString());
                             int absent = Integer.valueOf(Absent.getText().toString());
-                            attendanceEntity x = attendanceDAO.getSubjectbyId(bundle.getInt("key"));
+                            AttendanceEntity x = attendanceDAO.getSubjectbyId(bundle.getInt("key"));
                             x.setSubject(subj);
                             x.setPresent(present);
                             x.setAbsent(absent);

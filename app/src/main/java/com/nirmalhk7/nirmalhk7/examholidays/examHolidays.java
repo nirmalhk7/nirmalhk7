@@ -27,7 +27,7 @@ import com.nirmalhk7.nirmalhk7.utility.MyBottomSheetDialogFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.nirmalhk7.nirmalhk7.attendance.subjectAttendanceLog.TAG;
+import static com.nirmalhk7.nirmalhk7.attendance.subjectLog.TAG;
 
 /**
  * A simple {@link Fragment} subclass.

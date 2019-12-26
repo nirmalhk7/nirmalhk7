@@ -1,28 +1,28 @@
 package com.nirmalhk7.nirmalhk7.attendance;
 
 import android.app.Dialog;
-import androidx.room.Room;
+import android.arch.persistence.room.Room;
 import android.os.Bundle;
-import androidx.fragment.app.DialogFragment;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import androidx.appcompat.widget.Toolbar;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
-import com.nirmalhk7.nirmalhk7.utility.Converters;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.timetable.TimetableDAO;
 import com.nirmalhk7.nirmalhk7.timetable.TimetableEntity;
+import com.nirmalhk7.nirmalhk7.utility.Converters;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class subjectAttendanceLog extends DialogFragment {
+public class subjectLog extends DialogFragment {
 
     public static String TAG = "timetableFSD";
 
@@ -68,7 +68,7 @@ public class subjectAttendanceLog extends DialogFragment {
                 .allowMainThreadQueries().fallbackToDestructiveMigration()
                 .build();
 
-        TimetableDAO SDAO=database2.getScheduleDao();
+        TimetableDAO SDAO=database2.getTTDao();
         List<TimetableEntity> x=SDAO.getScheduleCodeByTaskName(subjName.getText().toString());
         if(x.size()==1)
         {
@@ -98,16 +98,16 @@ public class subjectAttendanceLog extends DialogFragment {
         DBGateway database2 = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
                 .allowMainThreadQueries().fallbackToDestructiveMigration()
                 .build();
-        subjectlogDAO SLDAO = database2.getSALDAO();
-        List<subjectlogEntity> subjLog=SLDAO.getAllLog(subj);
+        SubjectlogDAO SLDAO = database2.getSALDAO();
+        List<SubjectlogEntity> subjLog=SLDAO.getAllLog(subj);
 
 
-        ArrayList<attendanceItem> SubjectItem = new ArrayList<>();
+        ArrayList<attendanceListItem> SubjectItem = new ArrayList<>();
         Log.d("ATT/ALS","Count"+subjLog.size());
 
-        for (subjectlogEntity cn : subjLog) {
+        for (SubjectlogEntity cn : subjLog) {
          //   Log.d("ATT/ALS", "Printing: Task "+cn.getSubject()+" P "+cn.getPresent()+" A "+cn.getAbsent());
-            SubjectItem.add(new attendanceItem(Converters.date_to_Dt(cn.getDaytime()),Converters.date_to_day(cn.getDaytime())+", "+Converters.date_to_t12(cn.getDaytime()),cn.getPrabca(),cn.getId()));
+            SubjectItem.add(new attendanceListItem(Converters.date_to_Dt(cn.getDaytime()),Converters.date_to_day(cn.getDaytime())+", "+Converters.date_to_t12(cn.getDaytime()),cn.getPrabca(),cn.getId()));
         }
         attendanceAdapter adapter = new attendanceAdapter(getContext(), SubjectItem,2);
 

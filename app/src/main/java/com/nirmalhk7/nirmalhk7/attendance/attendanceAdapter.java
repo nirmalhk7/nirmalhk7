@@ -1,10 +1,10 @@
 package com.nirmalhk7.nirmalhk7.attendance;
 
-import androidx.room.Room;
+import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,9 +14,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.daimajia.swipe.SwipeLayout;
-import com.nirmalhk7.nirmalhk7.utility.Converters;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
+import com.nirmalhk7.nirmalhk7.utility.Converters;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -24,20 +24,20 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class attendanceAdapter extends ArrayAdapter<attendanceItem> {
+public class attendanceAdapter extends ArrayAdapter<attendanceListItem> {
 
     /**
      * Resource ID for the background color for this list of words
      */
     private int kSubject;
     private Context context;
-    public attendanceAdapter(Context context, ArrayList<attendanceItem> AttendanceItem) {
-        super(context, 0, AttendanceItem);
+    public attendanceAdapter(Context context, ArrayList<attendanceListItem> attendanceListItem) {
+        super(context, 0, attendanceListItem);
         kSubject=0;
         this.context=context;
     }
 
-    public attendanceAdapter(Context context, ArrayList<attendanceItem> SubjectItem, int key) {
+    public attendanceAdapter(Context context, ArrayList<attendanceListItem> SubjectItem, int key) {
         super(context, 0, SubjectItem);
         kSubject = key;
         this.context=context;
@@ -55,7 +55,7 @@ public class attendanceAdapter extends ArrayAdapter<attendanceItem> {
                         R.layout.attendance_subject_list_item, parent, false);
             }
 
-            final attendanceItem currentWord = getItem(position);
+            final attendanceListItem currentWord = getItem(position);
 
             TextView subjName_subj = listItemView.findViewById(R.id.subjName_subject);
             subjName_subj.setText(currentWord.getSubjName());
@@ -101,11 +101,11 @@ public class attendanceAdapter extends ArrayAdapter<attendanceItem> {
                             .fallbackToDestructiveMigration()
                             .build();
 
-                    final attendanceDAO attendanceDAO = database.getAttendanceDao();
+                    final AttendanceDAO attendanceDAO = database.getATTDao();
                     deleteb.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            attendanceEntity x=attendanceDAO.getSubjectbyId(currentWord.getmId());
+                            AttendanceEntity x=attendanceDAO.getSubjectbyId(currentWord.getmId());
                             attendanceDAO.deleteSchedule(x);
                         }
                     });
@@ -114,7 +114,7 @@ public class attendanceAdapter extends ArrayAdapter<attendanceItem> {
                         public void onClick(View v) {
                             Log.d("ATT/ATA","Clicked");
                             AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                            Att_FullScreenDialog newFragment = new Att_FullScreenDialog();
+                            attendanceFSD newFragment = new attendanceFSD();
                             Bundle bundle=new Bundle();
                             bundle.putInt("key",currentWord.getmId());
                             bundle.putInt("present",currentWord.getmPresent());
@@ -156,7 +156,7 @@ public class attendanceAdapter extends ArrayAdapter<attendanceItem> {
                 listItemView = LayoutInflater.from(getContext()).inflate(
                         R.layout.attendance_subject_log_item, parent, false);
             }
-            attendanceItem currentWord = getItem(position);
+            attendanceListItem currentWord = getItem(position);
             TextView date=listItemView.findViewById(R.id.subjName_calendar);
             date.setText(currentWord.getDateAdded());
 
@@ -191,7 +191,7 @@ public class attendanceAdapter extends ArrayAdapter<attendanceItem> {
         return listItemView;
     }
 
-    void btnlistener(final View listitemview,final int id)
+    private void btnlistener(final View listitemview,final int id)
     {
         ImageButton p=listitemview.findViewById(R.id.present_btn);
         ImageButton a=listitemview.findViewById(R.id.absent_btn);
@@ -201,11 +201,11 @@ public class attendanceAdapter extends ArrayAdapter<attendanceItem> {
                 .fallbackToDestructiveMigration()
                 .build();
 
-        final attendanceDAO attendanceDAO = database.getAttendanceDao();
+        final AttendanceDAO attendanceDAO = database.getATTDao();
 
         Log.d("ATT/ALS","ID "+id);
-        //final attendanceEntity att=attendanceDAO.getSubjectbyId(id);
-        final attendanceEntity att=attendanceDAO.getSubjectbyId(id);
+        //final AttendanceEntity att=AttendanceDAO.getSubjectbyId(id);
+        final AttendanceEntity att=attendanceDAO.getSubjectbyId(id);
 
 
         Date d=Calendar.getInstance().getTime();
@@ -221,8 +221,8 @@ public class attendanceAdapter extends ArrayAdapter<attendanceItem> {
                 att.setPresent(++pr);
                 attendanceDAO.updateSubject(att);
 
-                subjectlogDAO SLDAO=database.getSALDAO();
-                final subjectlogEntity sl=new subjectlogEntity();
+                SubjectlogDAO SLDAO=database.getSALDAO();
+                final SubjectlogEntity sl=new SubjectlogEntity();
                 TextView subjName_subj = listitemview.findViewById(R.id.subjName_subject);
                 sl.setSubject(subjName_subj.getText().toString());
                 sl.setPrabca(1);
@@ -243,8 +243,8 @@ public class attendanceAdapter extends ArrayAdapter<attendanceItem> {
                 att.setAbsent(++ab);
                 attendanceDAO.updateSubject(att);
 
-                subjectlogDAO SLDAO=database.getSALDAO();
-                final subjectlogEntity sl=new subjectlogEntity();
+                SubjectlogDAO SLDAO=database.getSALDAO();
+                final SubjectlogEntity sl=new SubjectlogEntity();
                 TextView subjName_subj = listitemview.findViewById(R.id.subjName_subject);
                 sl.setSubject(subjName_subj.getText().toString());
 
@@ -265,8 +265,8 @@ public class attendanceAdapter extends ArrayAdapter<attendanceItem> {
                 att.setCancelled(++ca);
                 attendanceDAO.updateSubject(att);
 
-                subjectlogDAO SLDAO=database.getSALDAO();
-                final subjectlogEntity sl=new subjectlogEntity();
+                SubjectlogDAO SLDAO=database.getSALDAO();
+                final SubjectlogEntity sl=new SubjectlogEntity();
                 TextView subjName_subj = listitemview.findViewById(R.id.subjName_subject);
                 sl.setSubject(subjName_subj.getText().toString());
                 sl.setPrabca(3);
