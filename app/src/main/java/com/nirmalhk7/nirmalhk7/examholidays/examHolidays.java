@@ -217,7 +217,7 @@ public class examHolidays extends Fragment {
 
         ExamholidaysDAO examholidaysDAO = database.getEHDAO();
         ArrayList<examholidaysListItem> hs = new ArrayList<examholidaysListItem>();
-        List<ExamholidaysEntity> list = examholidaysDAO.getItems();
+        List<ExamholidaysEntity> list = examholidaysDAO.getEventsOrdered();
 
         for (ExamholidaysEntity cn : list) {
             Log.d("EAH/EAH", cn.getmType() + " ");

@@ -3,13 +3,7 @@ package com.nirmalhk7.nirmalhk7.examholidays;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-
-import androidx.room.Room;
 import android.os.Bundle;
-
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.DialogFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,9 +16,13 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import com.nirmalhk7.nirmalhk7.utility.Converters;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
+import androidx.room.Room;
+
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
+import com.nirmalhk7.nirmalhk7.utility.Converters;
 
 import java.util.Calendar;
 
@@ -216,11 +214,13 @@ public class examholidaysFSD extends DialogFragment {
                 {
                     datePickerDialog.setTitle("Start Date");
                     datePickerDialog.getDatePicker().setMinDate(Calendar.getInstance().getTimeInMillis());
+                    Log.d("DTTIMP",Calendar.getInstance().getTimeInMillis()+"");
                 }
                 else{
                     datePickerDialog.setTitle("End Date");
 
                     datePickerDialog.getDatePicker().setMinDate(Calendar.getInstance().getTimeInMillis());
+                    Log.d("DTTIMP",Converters.dateToTimestamp(Converters.to_date(startdate.getText().toString(),"MMM d, YYY"))+"");
                 }
 
             }

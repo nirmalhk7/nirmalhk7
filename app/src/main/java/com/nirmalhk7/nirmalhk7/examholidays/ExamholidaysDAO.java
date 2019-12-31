@@ -21,8 +21,8 @@ public interface ExamholidaysDAO {
    /* @Query(“SELECT * FROM ExamholidaysEntity WHERE movieId =:movieId“)
     ExamholidaysEntity fetchOneehEntitybyMovieId(int movieId);*/
 
-    @Query("SELECT * FROM ExamholidaysEntity")
-    List<ExamholidaysEntity> getItems();
+    @Query("SELECT * FROM ExamholidaysEntity ORDER BY Start")
+    List<ExamholidaysEntity> getEventsOrdered();
 
 
     @Update
