@@ -21,12 +21,10 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.navigation.NavigationView;
 import com.nirmalhk7.nirmalhk7.academics.academics;
 import com.nirmalhk7.nirmalhk7.attendance.attendance;
-import com.nirmalhk7.nirmalhk7.backuprestore.backuprestore;
 import com.nirmalhk7.nirmalhk7.callmanager.callmanager;
 import com.nirmalhk7.nirmalhk7.cpschedule.cpshedule;
 import com.nirmalhk7.nirmalhk7.entrydisplay.MainFragment;
 import com.nirmalhk7.nirmalhk7.examholidays.examHolidays;
-import com.nirmalhk7.nirmalhk7.playground.Playground;
 import com.nirmalhk7.nirmalhk7.settings.SettingsActivity;
 import com.nirmalhk7.nirmalhk7.timetable.timetable;
 import com.nirmalhk7.nirmalhk7.utility.Converters;
@@ -148,9 +146,6 @@ public class MainActivity extends AppCompatActivity
             transaction.replace(R.id.fullscreen, newFragment);
             transaction.addToBackStack(null);
             transaction.commit();
-        } else if (id == R.id.nav_manage) {
-            Intent i=new Intent(MainActivity.this,SettingsActivity.class);
-            startActivity(i);
         } else if (id == R.id.nav_schedule) {
             newFragment = new timetable();
             transaction.replace(R.id.fullscreen, newFragment);
@@ -177,20 +172,6 @@ public class MainActivity extends AppCompatActivity
         else if(id==R.id.nav_examholidays)
         {
             newFragment = new examHolidays();
-            transaction.replace(R.id.fullscreen, newFragment);
-            transaction.addToBackStack(null);
-            transaction.commit();
-        }
-        else if(id==R.id.nav_playground)
-        {
-            newFragment = new Playground();
-            transaction.replace(R.id.fullscreen, newFragment);
-            transaction.addToBackStack(null);
-            transaction.commit();
-        }
-        else if(id==R.id.nav_backup)
-        {
-            newFragment=new backuprestore();
             transaction.replace(R.id.fullscreen, newFragment);
             transaction.addToBackStack(null);
             transaction.commit();

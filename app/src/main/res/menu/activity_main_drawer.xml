@@ -9,16 +9,10 @@
             android:id="@+id/nav_dashboard"
             android:icon="@drawable/ic_dashboard"
             android:title="@string/nav_das" />
-
         <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:iconTint="@android:color/white"
-            android:title="@string/nav_set" />
-        <item
-            android:id="@+id/nav_backup"
-            android:icon="@drawable/ic_menu_backup_restore"
-            android:title="Backup &amp; Restore" />
+            android:id="@+id/CPSched"
+            android:title="CP Schedule"
+            android:icon="@android:drawable/ic_menu_compass"/>
     </group>
 
     <item android:title="Academics">
@@ -54,17 +48,4 @@
                 android:title="@string/nav_tam" />
         </menu>
     </item>
-    <item android:title="DevWorld">
-        <menu>
-            <item
-                android:id="@+id/CPSched"
-                android:title="CP Schedule"
-                android:icon="@android:drawable/ic_menu_compass"/>
-            <item
-                android:id="@+id/nav_playground"
-                android:title="@string/nav_pla"
-                android:icon="@drawable/ic_playground"/>
-        </menu>
-    </item>
-
 </menu>
