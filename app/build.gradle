@@ -6,7 +6,7 @@ android {
         applicationId "com.nirmalhk7.nirmalhk7"
         minSdkVersion 23
         targetSdkVersion 28
-        versionName "DevBuild 1.3"
+        versionName "DevBuild 1.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
