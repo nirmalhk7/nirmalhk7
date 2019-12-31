@@ -27,6 +27,7 @@ import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.utility.Converters;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class examholidaysFSD extends DialogFragment {
@@ -78,7 +79,7 @@ public class examholidaysFSD extends DialogFragment {
         }
         AutoCompleteTextView examtype=rootView.findViewById(R.id.examHoliday_type);
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>
-                (getContext(), android.R.layout.select_dialog_item, suggestions);
+                (getContext(), R.layout.suggestion_item, suggestions);
         examtype.setThreshold(1); //will start working from first character
         examtype.setAdapter(adapter);
 
@@ -237,6 +238,7 @@ public class examholidaysFSD extends DialogFragment {
                     datePickerDialog.setTitle("Start Date");
                     datePickerDialog.getDatePicker().setMinDate(Calendar.getInstance().getTimeInMillis());
                     Log.d("DTTIMP",Calendar.getInstance().getTimeInMillis()+"");
+
                 }
                 else{
                     datePickerDialog.setTitle("End Date");
@@ -288,6 +290,13 @@ public class examholidaysFSD extends DialogFragment {
                 Log.d("EAH/FSD","Validation endDate");
                 endDate.setError("Required");
 
+            }
+            Date start=Converters.to_date(RstartDate,"MMM d, YYY");
+            Date end=Converters.to_date(RendDate,"MMM d, YYY");
+            if(Converters.dateToTimestamp(start)>Converters.dateToTimestamp(end))
+            {
+                startDate.setError("Recheck the dates");
+                endDate.setError("Recheck the Dates");
             }
             if(RstartDate.isEmpty())
             {

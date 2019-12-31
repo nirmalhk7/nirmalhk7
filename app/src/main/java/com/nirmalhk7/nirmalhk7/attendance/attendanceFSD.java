@@ -111,7 +111,7 @@ public class attendanceFSD extends DialogFragment {
         final AppCompatAutoCompleteTextView autoTextView;
         autoTextView = rootView.findViewById(R.id.attendance_task);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>
-                (getContext(), android.R.layout.select_dialog_item, subject);
+                (getContext(), R.layout.suggestion_item, subject);
         autoTextView.setThreshold(1); //will start working from first character
         autoTextView.setAdapter(adapter);
 
