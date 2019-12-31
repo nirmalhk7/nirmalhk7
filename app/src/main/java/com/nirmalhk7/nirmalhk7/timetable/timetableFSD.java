@@ -171,6 +171,7 @@ public class timetableFSD extends DialogFragment {
 
         List<AttendanceEntity> z = attendanceDAO.getSubjectNames();
         String[] subject = new String[x.size()+z.size()];
+
         int i = 0;
 
         for (TimetableEntity cn : x) {

@@ -132,14 +132,14 @@
                 android:textColor="@color/colorFontDark"
                android:textColorHint="@color/colorFontHintDark"/>
 
-            <EditText
+            <androidx.appcompat.widget.AppCompatAutoCompleteTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="Type of Exam"
                 android:id="@+id/examHoliday_type"
-                android:hint="Type"
-                android:paddingTop="@dimen/standard_dimen"
                 android:textColor="@color/colorFontDark"
-               android:textColorHint="@color/colorFontHintDark"/>
+                android:textColorHint="@color/colorFontHintDark"/>
+
 
             <EditText
                 android:layout_width="match_parent"

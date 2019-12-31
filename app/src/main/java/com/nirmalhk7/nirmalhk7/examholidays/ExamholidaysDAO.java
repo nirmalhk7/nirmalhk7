@@ -13,7 +13,7 @@ import java.util.List;
 @Dao
 public interface ExamholidaysDAO {
     @Insert
-    void insertOnlySingleEvent(ExamholidaysEntity movies);
+    void insertOnlySingleEvent(ExamholidaysEntity event);
 
     @Insert
     void insertMultipleehEntity(List<ExamholidaysEntity> moviesList);
@@ -26,11 +26,15 @@ public interface ExamholidaysDAO {
 
 
     @Update
-    void updateEvent(ExamholidaysEntity movies);
+    void updateEvent(ExamholidaysEntity event);
 
     @Delete
-    void deleteEvent(ExamholidaysEntity schedule);
+    void deleteEvent(ExamholidaysEntity event);
 
     @Query("SELECT * FROM ExamholidaysEntity WHERE id=:Id")
     ExamholidaysEntity getehEntityById(int Id);
+
+    @Query("SELECT DISTINCT * FROM ExamholidaysEntity WHERE id IN (SELECT MAX(id) FROM ExamholidaysEntity GROUP BY mType)")
+    List<ExamholidaysEntity> getEHTypesUnique();
+
 }

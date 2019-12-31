@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -25,6 +27,7 @@ import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.utility.Converters;
 
 import java.util.Calendar;
+import java.util.List;
 
 public class examholidaysFSD extends DialogFragment {
     public int key;
@@ -59,6 +62,25 @@ public class examholidaysFSD extends DialogFragment {
                 dismiss();
             }
         });
+
+        DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
+                .allowMainThreadQueries().fallbackToDestructiveMigration()
+                .build();
+        ExamholidaysDAO EHDAO=database.getEHDAO();
+        List<ExamholidaysEntity> eah= EHDAO.getEHTypesUnique();
+        String[] suggestions=new String[eah.size()];
+        int i=0;
+        for(ExamholidaysEntity ehe: eah)
+        {
+            Log.d("EAH/EHE","Suggesting "+ehe.getmType());
+            suggestions[i]=ehe.getmType();
+            ++i;
+        }
+        AutoCompleteTextView examtype=rootView.findViewById(R.id.examHoliday_type);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>
+                (getContext(), android.R.layout.select_dialog_item, suggestions);
+        examtype.setThreshold(1); //will start working from first character
+        examtype.setAdapter(adapter);
 
         RadioButton exam = rootView.findViewById(R.id.examRadio);
         RadioButton holiday=rootView.findViewById(R.id.holidayRadio);
