@@ -1,10 +1,8 @@
 package com.nirmalhk7.nirmalhk7.attendance;
 
-import androidx.room.Room;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +10,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import com.daimajia.swipe.SwipeLayout;
 import com.nirmalhk7.nirmalhk7.DBGateway;
@@ -181,7 +182,12 @@ public class attendanceAdapter extends ArrayAdapter<attendanceListItem> {
                 pacp.setText("CANCELLED");
                 pacp.setTextColor(Color.YELLOW);
             }
-
+            else if(currentWord.getmPRABCA()==-1)
+            {
+                TextView pacp=listItemView.findViewById(R.id.pacp_calendar);
+                pacp.setText("RESET");
+                pacp.setTextColor(Color.BLUE);
+            }
 
 
 

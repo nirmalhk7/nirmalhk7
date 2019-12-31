@@ -49,4 +49,8 @@ public class SubjectlogEntity {
     public Date getDaytime() {
         return daytime;
     }
+
+    SubjectlogEntity()
+    {}
+
 }

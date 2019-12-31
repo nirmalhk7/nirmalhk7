@@ -29,8 +29,12 @@ import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.timetable.TimetableDAO;
 import com.nirmalhk7.nirmalhk7.timetable.TimetableEntity;
+import com.nirmalhk7.nirmalhk7.utility.Converters;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class attendanceFSD extends DialogFragment {
@@ -59,6 +63,7 @@ public class attendanceFSD extends DialogFragment {
                 .build();
 
         final AttendanceDAO attendanceDAO = database2.getATTDao();
+        final SubjectlogDAO SLDAO=database2.getSALDAO();
         final Bundle bundle = this.getArguments();
         if (bundle != null) {
             final int dbNo=bundle.getInt("key");
@@ -165,6 +170,19 @@ public class attendanceFSD extends DialogFragment {
                             x.setPresent(present);
                             x.setAbsent(absent);
                             attendanceDAO.updateSubject(x);
+
+
+                            if(present!=bundle.getInt("present")||absent!=bundle.getInt("absent"))
+                            {
+                                SubjectlogEntity sle=new SubjectlogEntity();
+                                sle.setPrabca(-1);
+                                DateFormat dtf = new SimpleDateFormat("dd MMM yyyy EEE hh:mm a");
+                                Date curdate= Converters.to_date(dtf.format(Calendar.getInstance().getTime()),"dd MMMM yyyy hh:mm a");
+                                sle.setDaytime(curdate);
+                                sle.setSubject(subj);
+                                SLDAO.insertLog(sle);
+                            }
+
                             Toast.makeText(getActivity(), "Refresh to Update",
                                     Toast.LENGTH_LONG).show();
                             Log.d("ATT/FSD", "Editing data!" + x.getSubject() + x.getPresent() + x.getAbsent());
