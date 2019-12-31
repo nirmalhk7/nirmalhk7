@@ -42,6 +42,9 @@ public interface TimetableDAO {
     @Query("SELECT DISTINCT mTask,mDay,id FROM TimetableEntity WHERE mLabel=:Label")
     List<TimetableEntity> getSubjects(String Label);
 
+    @Query("SELECT DISTINCT * FROM TimetableEntity WHERE mLabel=:Label AND id IN (SELECT MAX(id) FROM TimetableEntity GROUP BY mSubjCode)")
+    List<TimetableEntity> getUnqiueSubjects(String Label);
+
     @Query("SELECT COUNT(DISTINCT mTask) FROM TimetableEntity WHERE mLabel=:Label")
     int getSubjectCount(String Label);
 

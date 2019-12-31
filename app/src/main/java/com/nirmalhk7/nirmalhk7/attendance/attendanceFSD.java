@@ -3,13 +3,7 @@ package com.nirmalhk7.nirmalhk7.attendance;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
-
-import androidx.room.Room;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.DialogFragment;
-import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -25,6 +19,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
+import androidx.fragment.app.DialogFragment;
+import androidx.room.Room;
 
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
@@ -97,7 +96,7 @@ public class attendanceFSD extends DialogFragment {
 
 
 
-        List<TimetableEntity> scheduleEntities = timetableDAO.getSubjects("College");
+        List<TimetableEntity> scheduleEntities = timetableDAO.getUnqiueSubjects("College");
 
         String[] subject = new String[scheduleEntities.size()];
         Log.d("ATT/FSD", "." + scheduleEntities.size());

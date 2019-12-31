@@ -2,16 +2,14 @@ package com.nirmalhk7.nirmalhk7.timetable;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-import androidx.annotation.NonNull;
-
 
 import java.util.Date;
 
 @Entity
 public class TimetableEntity {
-    @NonNull
     @PrimaryKey(autoGenerate = true)
     protected int id;
+
     private String mTask;
     private Date mStartTime;
     private Date mEndTime;
