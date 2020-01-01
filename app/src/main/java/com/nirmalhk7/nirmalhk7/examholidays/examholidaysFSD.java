@@ -24,7 +24,7 @@ import androidx.room.Room;
 
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
-import com.nirmalhk7.nirmalhk7.utility.Converters;
+import com.nirmalhk7.nirmalhk7.util.timeconv;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -164,8 +164,8 @@ public class examholidaysFSD extends DialogFragment {
 
         ExamholidaysEntity entity=new ExamholidaysEntity();
         entity.setmName(name.getText().toString());
-        entity.setStart(Converters.to_date(startdate.getText().toString(),"MMM d, yyyy"));
-        entity.setEnd(Converters.to_date(enddate.getText().toString(),"MMM d, yyyy"));
+        entity.setStart(timeconv.to_date(startdate.getText().toString(),"MMM d, yyyy"));
+        entity.setEnd(timeconv.to_date(enddate.getText().toString(),"MMM d, yyyy"));
         entity.setmType(type.getText().toString());
         entity.setmDescription(desc.getText().toString());
         if(exam.isChecked()){
@@ -214,7 +214,7 @@ public class examholidaysFSD extends DialogFragment {
                                     dsel+="0";
                                 }
                                 dsel+=(monthOfYear+1)+"/"+year;
-                                dsel=Converters.dtConverter(dsel,"dd/MM/yyyy","MMM d, yyyy");
+                                dsel= timeconv.dtConverter(dsel,"dd/MM/yyyy","MMM d, yyyy");
 
                                 if(i==1)
                                 {
@@ -244,7 +244,7 @@ public class examholidaysFSD extends DialogFragment {
                     datePickerDialog.setTitle("End Date");
 
                     datePickerDialog.getDatePicker().setMinDate(Calendar.getInstance().getTimeInMillis());
-                    Log.d("DTTIMP",Converters.dateToTimestamp(Converters.to_date(startdate.getText().toString(),"MMM d, YYY"))+"");
+                    Log.d("DTTIMP", timeconv.dateToTimestamp(timeconv.to_date(startdate.getText().toString(),"MMM d, YYY"))+"");
                 }
 
             }
@@ -291,9 +291,9 @@ public class examholidaysFSD extends DialogFragment {
                 endDate.setError("Required");
 
             }
-            Date start=Converters.to_date(RstartDate,"MMM d, YYY");
-            Date end=Converters.to_date(RendDate,"MMM d, YYY");
-            if(Converters.dateToTimestamp(start)>Converters.dateToTimestamp(end))
+            Date start= timeconv.to_date(RstartDate,"MMM d, YYY");
+            Date end= timeconv.to_date(RendDate,"MMM d, YYY");
+            if(timeconv.dateToTimestamp(start)> timeconv.dateToTimestamp(end))
             {
                 startDate.setError("Recheck the dates");
                 endDate.setError("Recheck the Dates");

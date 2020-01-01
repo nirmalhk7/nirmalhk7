@@ -23,8 +23,8 @@ import com.leinardi.android.speeddial.SpeedDialActionItem;
 import com.leinardi.android.speeddial.SpeedDialView;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
-import com.nirmalhk7.nirmalhk7.utility.Converters;
-import com.nirmalhk7.nirmalhk7.utility.MyBottomSheetDialogFragment;
+import com.nirmalhk7.nirmalhk7.util.timeconv;
+import com.nirmalhk7.nirmalhk7.util.MyBottomSheetDialogFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -222,9 +222,9 @@ public class examHolidays extends Fragment {
         for (ExamholidaysEntity cn : list) {
             Log.d("EAH/EAH", cn.getmType() + " ");
             if (cn.getStart().equals(cn.getEnd())) {
-                hs.add(new examholidaysListItem(cn.getId(), cn.getHolexa(), cn.getmName(), Converters.date_to(cn.getStart(),"dd MMM yyyy"), cn.getmType()));
+                hs.add(new examholidaysListItem(cn.getId(), cn.getHolexa(), cn.getmName(), timeconv.date_to(cn.getStart(),"dd MMM yyyy"), cn.getmType()));
             } else {
-                hs.add(new examholidaysListItem(cn.getId(), cn.getHolexa(), cn.getmName(), Converters.date_to(cn.getStart(),"dd MMM yyyy") + " - " + Converters.date_to(cn.getEnd(),"dd MMM yyyy"), cn.getmType()));
+                hs.add(new examholidaysListItem(cn.getId(), cn.getHolexa(), cn.getmName(), timeconv.date_to(cn.getStart(),"dd MMM yyyy") + " - " + timeconv.date_to(cn.getEnd(),"dd MMM yyyy"), cn.getmType()));
             }
         }
 

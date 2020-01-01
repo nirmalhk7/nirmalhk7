@@ -1,4 +1,4 @@
-package com.nirmalhk7.nirmalhk7.utility;
+package com.nirmalhk7.nirmalhk7.util;
 
 import android.util.Log;
 
@@ -8,7 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Converters {
+public class timeconv {
     @TypeConverter
     public static Date fromTimestamp(Long value) {
         return value == null ? null : new Date(value);
@@ -101,19 +101,19 @@ public class Converters {
     }
     public static int day_to_dayno(String x)
     {
-        if(x.matches("Monday"))
+        if(x.matches("Mon"))
             return 0;
-        else if(x.matches("Tuesday"))
+        else if(x.matches("Tues"))
             return 1;
-        else if(x.matches("Wednesday"))
+        else if(x.matches("Wed"))
             return 2;
-        else if(x.matches("Thursday"))
+        else if(x.matches("Thu"))
             return 3;
-        else if(x.matches("Friday"))
+        else if(x.matches("Fri"))
             return 4;
-        else if(x.matches("Saturday"))
+        else if(x.matches("Sat"))
             return 5;
-        return Integer.MAX_VALUE;
+        return Integer.MIN_VALUE;
     }
     public static String today_get(String format)
     {

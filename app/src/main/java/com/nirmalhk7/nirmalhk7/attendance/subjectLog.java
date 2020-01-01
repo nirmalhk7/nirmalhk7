@@ -18,7 +18,7 @@ import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.timetable.TimetableDAO;
 import com.nirmalhk7.nirmalhk7.timetable.TimetableEntity;
-import com.nirmalhk7.nirmalhk7.utility.Converters;
+import com.nirmalhk7.nirmalhk7.util.timeconv;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -108,7 +108,7 @@ public class subjectLog extends DialogFragment {
 
         for (SubjectlogEntity cn : subjLog) {
          //   Log.d("ATT/ALS", "Printing: Task "+cn.getSubject()+" P "+cn.getPresent()+" A "+cn.getAbsent());
-            SubjectItem.add(new attendanceListItem(Converters.date_to(cn.getDaytime(),"dd MMM yyyy"),Converters.date_to(cn.getDaytime(),"EEE")+", "+Converters.date_to_t12(cn.getDaytime()),cn.getPrabca(),cn.getId()));
+            SubjectItem.add(new attendanceListItem(timeconv.date_to(cn.getDaytime(),"dd MMM yyyy"), timeconv.date_to(cn.getDaytime(),"EEE")+", "+ timeconv.date_to_t12(cn.getDaytime()),cn.getPrabca(),cn.getId()));
         }
         attendanceAdapter adapter = new attendanceAdapter(getContext(), SubjectItem,2);
 

@@ -27,7 +27,7 @@ import com.nirmalhk7.nirmalhk7.entrydisplay.MainFragment;
 import com.nirmalhk7.nirmalhk7.examholidays.examHolidays;
 import com.nirmalhk7.nirmalhk7.settings.SettingsActivity;
 import com.nirmalhk7.nirmalhk7.timetable.timetable;
-import com.nirmalhk7.nirmalhk7.utility.Converters;
+import com.nirmalhk7.nirmalhk7.util.timeconv;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         String res="HELLO";
-        Log.d("CONVC",""+Converters.day_to_dayno(Converters.today_get("EEEE")));
+        Log.d("CONVC",""+ timeconv.day_to_dayno(timeconv.today_get("EEEE")));
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity
         try {
             Date date = curDateFormat.parse(curDate1);
             Log.d("CONVERX",date.getTime()+"");
-            Log.d("CONVERX", Converters.date_to(date,"EEE")+ " xx "+Converters.date_to_t12(date)+" yy "+Converters.date_to(date,"dd MMM yyyy"));
+            Log.d("CONVERX", timeconv.date_to(date,"EEE")+ " xx "+ timeconv.date_to_t12(date)+" yy "+ timeconv.date_to(date,"dd MMM yyyy"));
             // you can use this date string now
         } catch (Exception e) {
             Log.e("ACTMAIN","TimeErr "+e.getMessage());

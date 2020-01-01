@@ -18,7 +18,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.asksira.loopingviewpager.LoopingPagerAdapter;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
-import com.nirmalhk7.nirmalhk7.utility.Converters;
+import com.nirmalhk7.nirmalhk7.util.timeconv;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +48,7 @@ public class InfinitePagerAdapter extends LoopingPagerAdapter<Integer> {
     protected void bindView(View convertView, int listPosition, int viewType) {
         //convertView.findViewById(R.id.image).setBackgroundColor(context.getResources().getColor(getBackgroundColor(listPosition)));
         TextView description = convertView.findViewById(R.id.description);
-        description.setText(Converters.dayno_to_day(listPosition));
+        description.setText(timeconv.dayno_to_day(listPosition));
         swiperefresh(convertView,context,listPosition);
         TTFetch(convertView,context,listPosition);
 
@@ -88,10 +88,10 @@ public class InfinitePagerAdapter extends LoopingPagerAdapter<Integer> {
         for (TimetableEntity cn : scheduleEntities) {
 
             Log.d("DAS/DSL", "Printing: Task " + cn.getTask() + " Time " + cn.getStartTime() + cn.getEndTime() + " Label " + cn.getLabel());
-            sch.add(new timetableListItem(cn.getTask(), Converters.date_to_t12(cn.getStartTime()),Converters.date_to_t12(cn.getEndTime()), cn.getSubjCode(), cn.getLabel(), cn.getId(), cn.getDay()));
+            sch.add(new timetableListItem(cn.getTask(), timeconv.date_to_t12(cn.getStartTime()), timeconv.date_to_t12(cn.getEndTime()), cn.getSubjCode(), cn.getLabel(), cn.getId(), cn.getDay()));
         }
     //    TextView description=convertView.findViewById(R.id.tt_dayreview);
-    //    description.setText(scheduleEntities.size()+" classes from "+Converters.date_to(scheduleEntities.get(0).getStartTime(),"hh:mm a")+" to "+Converters.date_to(scheduleEntities.get(scheduleEntities.size()-1).getEndTime(),"hh:mm a"));
+    //    description.setText(scheduleEntities.size()+" classes from "+timeconv.date_to(scheduleEntities.get(0).getStartTime(),"hh:mm a")+" to "+timeconv.date_to(scheduleEntities.get(scheduleEntities.size()-1).getEndTime(),"hh:mm a"));
         ttadapter=new timetableAdapter(context,sch);
         ListView listView=convertView.findViewById(R.id.list_item_timetable);
 

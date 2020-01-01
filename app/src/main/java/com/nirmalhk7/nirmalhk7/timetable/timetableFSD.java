@@ -4,8 +4,6 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,14 +27,14 @@ import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.attendance.AttendanceDAO;
 import com.nirmalhk7.nirmalhk7.attendance.AttendanceEntity;
-import com.nirmalhk7.nirmalhk7.utility.Converters;
+import com.nirmalhk7.nirmalhk7.util.timeconv;
 
 import java.util.Calendar;
 import java.util.List;
 
 public class timetableFSD extends DialogFragment {
     public int key;
-
+    public String PAGE_TAG;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +49,7 @@ public class timetableFSD extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         final View rootView = inflater.inflate(R.layout.dailyschedule_fullscreenlayout, container, false);
+        PAGE_TAG=timetable.MODULE_TAG+"FSD";
         final Bundle bundle = this.getArguments();
         //If editing
         if (bundle != null) {
@@ -63,7 +62,7 @@ public class timetableFSD extends DialogFragment {
             String endtime = bundle.getString("endtime");
             String subjcode=bundle.getString("subjcode");
             int rday = bundle.getInt("day");
-            Log.d("ddd",rday+"");
+            Log.d(PAGE_TAG,rday+" Provided by TT");
             dbNo = bundle.getInt("key");
 
             //Pass title,label and time value to EditText
@@ -92,13 +91,13 @@ public class timetableFSD extends DialogFragment {
             trash.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d("DAS/FullDialog", "Delete Button");
+                    Log.d(PAGE_TAG, "Delete Button Clicked!");
                     DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
                             .allowMainThreadQueries().fallbackToDestructiveMigration()
                             .build();
 
                     TimetableDAO SDAO=database.getTTDao();
-                    Log.d("DAS/FSD/ID", Integer.toString(dbNo));
+                    Log.d(PAGE_TAG, dbNo+" DB Deleted");
                     SDAO.deleteSchedule(SDAO.getScheduleById(dbNo));
                     dismiss();
                 }
@@ -117,40 +116,35 @@ public class timetableFSD extends DialogFragment {
 
         }
 
-        RadioGroup day=rootView.findViewById(R.id.rgDay);
-
+        final RadioGroup day=rootView.findViewById(R.id.rgDay);
         day.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch(checkedId)
                 {
                     case R.id.rbMon:
-                        Log.d("DAS/FSD","Day Selected: Monday");
-                        mday=0;
+                        Log.d(PAGE_TAG,"Day Selected: Monday");
+                        mday= timeconv.day_to_dayno("Mon");
                         break;
                     case R.id.rbTue:
-                        Log.d("DAS/FSD","Day Selected: Tuesday");
-                        mday=1;
+                        Log.d(PAGE_TAG,"Day Selected: Tuesday");
+                        mday= timeconv.day_to_dayno("Tue");
                         break;
                     case R.id.rbWed:
-                        Log.d("DAS/FSD","Day Selected: Wednesday");
-                        mday=2;
+                        Log.d(PAGE_TAG,"Day Selected: Wednesday");
+                        mday= timeconv.day_to_dayno("Wed");
                         break;
                     case R.id.rbThu:
-                        Log.d("DAS/FSD","Day Selected: Thursday");
-                        mday=3;
+                        Log.d(PAGE_TAG,"Day Selected: Thursday");
+                        mday= timeconv.day_to_dayno("Thu");
                         break;
                     case R.id.rbFriday:
-                        Log.d("DAS/FSD","Day Selected: Friday");
-                        mday=4;
+                        Log.d(PAGE_TAG,"Day Selected: Friday");
+                        mday= timeconv.day_to_dayno("Fri");
                         break;
                     case R.id.rbSaturday:
-                        Log.d("DAS/FSD","Day Selected: Saturday");
-                        mday=5;
-                        break;
-                    case R.id.rbSunday:
-                        Log.d("DAS/FSD","Day Selected: Sunday");
-                        mday=6;
+                        Log.d(PAGE_TAG,"Day Selected: Saturday");
+                        mday= timeconv.day_to_dayno("Sat");
                         break;
 
 
@@ -176,13 +170,13 @@ public class timetableFSD extends DialogFragment {
 
         for (TimetableEntity cn : x) {
             subject[i] = cn.getTask();
-            Log.d("ATT/FSD/", "Local "+subject[i]);
+            Log.d(PAGE_TAG, "Autocomplete Local "+subject[i]);
             ++i;
         }
         for (AttendanceEntity cn: z)
         {
             subject[i]=cn.getSubject();
-            Log.d("ATT/FSD/","From Attendance: "+subject[i]);
+            Log.d(PAGE_TAG,"Autocomplete From Attendance: "+subject[i]);
             ++i;
         }
         final AppCompatAutoCompleteTextView autoTextView;
@@ -192,31 +186,6 @@ public class timetableFSD extends DialogFragment {
         autoTextView.setThreshold(1); //will start working from first character
         autoTextView.setAdapter(adapter);
 
-        if(x.size()==100)
-        {
-
-            autoTextView.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                }
-
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) {
-                    TimetableEntity sc=SDAO.getScheduleDetails(s.toString());
-                    EditText taskLabelEdit = rootView.findViewById(R.id.taskLabel);
-                    taskLabelEdit.setText(sc.getLabel());
-                    AutoCompleteTextView SubjCode=rootView.findViewById(R.id.subjCode);
-
-                    SubjCode.setText(sc.getSubjCode());
-                }
-            });
-        }
 
         //Close button action
         (rootView.findViewById(R.id.button_close)).setOnClickListener(new View.OnClickListener() {
@@ -288,9 +257,10 @@ public class timetableFSD extends DialogFragment {
                     scheduleEntity.setTask(taskNameEdit.getText().toString());
                     scheduleEntity.setLabel(taskLabelEdit.getText().toString());
                     scheduleEntity.setSubjCode(SubjCode.getText().toString());
-                    scheduleEntity.setStartTime(Converters.to_date(taskTimeStartEdit.getText().toString(),"hh:mm a"));
-                    scheduleEntity.setEndTime(Converters.to_date(taskTimeEndEdit.getText().toString(),"hh:mm a"));
-                    scheduleEntity.setDay(mday);
+                    scheduleEntity.setStartTime(timeconv.to_date(taskTimeStartEdit.getText().toString(),"hh:mm a"));
+                    scheduleEntity.setEndTime(timeconv.to_date(taskTimeEndEdit.getText().toString(),"hh:mm a"));
+                    scheduleEntity.setDay(getDayChecked(rootView,day));
+                    Log.d(PAGE_TAG,"Day saved: "+getDayChecked(rootView,day));
                     if(bundle!=null)
                         SDAO.updateSchedule(scheduleEntity);
                     else
@@ -326,7 +296,7 @@ public class timetableFSD extends DialogFragment {
                     time+="0";
                 }
                 time+=selectedMinute;
-                TimeEdt.setText(Converters.t24_to_t12(time));
+                TimeEdt.setText(timeconv.t24_to_t12(time));
 
             }
         }, Mhour, Mminute, false);//yes 12 hour time
@@ -361,24 +331,24 @@ public class timetableFSD extends DialogFragment {
         {
             if(taskName.isEmpty())
             {
-                Log.d("DAS/FSD","Validation taskName");
+                Log.d(PAGE_TAG,"Validation taskName");
                 EtaskName.setError("Required");
             }
             if(taskStartTime.isEmpty())
             {
-                Log.d("DAS/FSD","Validation taskName");
+                Log.d(PAGE_TAG,"Validation taskName");
                 EtaskStartTime.setError("Required");
 
             }
             if(taskEndTime.isEmpty())
             {
-                Log.d("DAS/FSD","Validation taskName");
+                Log.d(PAGE_TAG,"Validation taskName");
                 EtaskEndTime.setError("Required");
 
             }
             if(taskLabel.isEmpty())
             {
-                Log.d("DAS/FSD","Validation taskName");
+                Log.d(PAGE_TAG,"Validation taskName");
                 EtaskLabel.setError("Required");
 
             }
@@ -388,5 +358,14 @@ public class timetableFSD extends DialogFragment {
         return true;
 
     }
+    public int getDayChecked(View rootview,RadioGroup day)
+    {
+
+        RadioButton selected=rootview.findViewById(day.getCheckedRadioButtonId());
+        mday=timeconv.day_to_dayno(selected.getText().toString());
+        Log.d(PAGE_TAG,"getDayChecked Function "+mday);
+        return mday;
+    }
+
 
 }

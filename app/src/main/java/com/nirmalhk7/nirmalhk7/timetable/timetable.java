@@ -2,20 +2,17 @@ package com.nirmalhk7.nirmalhk7.timetable;
 
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.room.Room;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.asksira.loopingviewpager.LoopingViewPager;
-import com.google.android.material.tabs.TabLayout;
 import com.leinardi.android.speeddial.SpeedDialView;
 import com.nirmalhk7.nirmalhk7.R;
 
@@ -32,14 +29,14 @@ import java.util.Arrays;
  * create an instance of this fragment.
  */
 public class timetable extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+//    //
+//    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+//    private static final String ARG_PARAM1 = "param1";
+//    private static final String ARG_PARAM2 = "param2";
+//
+//    //
+//    private String mParam1;
+//    private String mParam2;
 
     private OnFragmentInteractionListener mListener;
 
@@ -59,8 +56,8 @@ public class timetable extends Fragment {
     public static timetable newInstance(String param1, String param2) {
         timetable fragment = new timetable();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+//        args.putString(ARG_PARAM1, param1);
+//        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -69,19 +66,23 @@ public class timetable extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+//            mParam1 = getArguments().getString(ARG_PARAM1);
+//            mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
     public static LoopingViewPager vpgr;
+    public static String MODULE_TAG;
+    public String PAGE_TAG;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView= inflater.inflate(R.layout.fragment_timetable, container, false);
+        MODULE_TAG="TT/";
+        PAGE_TAG=MODULE_TAG+"TT";
         vpgr=rootView.findViewById(R.id.viewpager);
         vpgr.setCurrentItem(3);
-        Log.d("CONVCC",""+vpgr.getCurrentItem());
+        Log.d(PAGE_TAG,"Position in ViewPager "+vpgr.getCurrentItem());
         Toolbar toolbar=getActivity().findViewById(R.id.toolbar);
         toolbar.setTitle("Your timetable");
         FragmentManager fmgr=getActivity().getSupportFragmentManager();
@@ -92,7 +93,6 @@ public class timetable extends Fragment {
         SpeedDialView speedDialView = getActivity().findViewById(R.id.speedDial);
         speedDialView.setVisibility(View.VISIBLE);
         speedDialView.clearActionItems();
-
         speedDialView.setOnChangeListener(new SpeedDialView.OnChangeListener() {
             @Override
             public boolean onMainActionSelected() {
@@ -108,7 +108,7 @@ public class timetable extends Fragment {
 
             @Override
             public void onToggleChanged(boolean isOpen) {
-                Log.d("xxx", "yyy");
+                Log.d("SpeedDialView", "TOGGLED");
             }
         });
 

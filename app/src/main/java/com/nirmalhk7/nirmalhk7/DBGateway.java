@@ -12,10 +12,10 @@ import com.nirmalhk7.nirmalhk7.examholidays.ExamholidaysEntity;
 import com.nirmalhk7.nirmalhk7.examholidays.ExamholidaysDAO;
 import com.nirmalhk7.nirmalhk7.timetable.TimetableDAO;
 import com.nirmalhk7.nirmalhk7.timetable.TimetableEntity;
-import com.nirmalhk7.nirmalhk7.utility.Converters;
+import com.nirmalhk7.nirmalhk7.util.timeconv;
 
 @Database(entities = {TimetableEntity.class, AttendanceEntity.class, ExamholidaysEntity.class, SubjectlogEntity.class}, version = 21, exportSchema = false)
-@TypeConverters({Converters.class})
+@TypeConverters({timeconv.class})
 public abstract class DBGateway extends RoomDatabase {
     public abstract TimetableDAO getTTDao();
     public abstract AttendanceDAO getATTDao();

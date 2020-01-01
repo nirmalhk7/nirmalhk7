@@ -182,21 +182,6 @@
                     android:text="Sat"
                     android:textSize="15sp" />
 
-                <RadioButton
-                    android:id="@+id/rbSunday"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_rdb"
-                    android:button="@android:color/transparent"
-                    android:gravity="center"
-                    android:paddingBottom="5dp"
-                    android:textColor="@android:color/white"
-                    android:textAllCaps="true"
-                    android:paddingTop="5dp"
-                    android:singleLine="true"
-                    android:text="Sun"
-                    android:textSize="15sp" />
             </RadioGroup>
 
             <androidx.appcompat.widget.AppCompatAutoCompleteTextView
