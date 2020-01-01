@@ -19,20 +19,6 @@ public class timeconv {
         return date == null ? null : date.getTime();
     }
 
-    public static String t24_to_t12(String t24)
-    {
-        SimpleDateFormat curDateFormat = new SimpleDateFormat("HH:mm");
-        SimpleDateFormat desiredDateFormat = new SimpleDateFormat("hh:mm a");
-        String t12="";
-        try {
-            Date date = curDateFormat.parse(t24);
-            t12 = desiredDateFormat.format(date);
-        } catch (Exception e) {
-            Log.e("CONVERTERS","TimeErr");
-        }
-        return t12;
-    }
-
     public static String dtConverter(String t24,String convertFrom,String convertTo)
     {
         SimpleDateFormat curDateFormat = new SimpleDateFormat(convertFrom);
@@ -72,20 +58,6 @@ public class timeconv {
         }
         return ans;
     }
-
-    public static String date_to_t12(Date d)
-    {
-        SimpleDateFormat desiredFormat = new SimpleDateFormat("hh:mm a");
-        String t12="";
-        try{
-            t12=desiredFormat.format(d);
-        }catch (Exception e)
-        {
-            Log.e("CONVERTERS","TimeErr T12");
-        }
-        return t12;
-    }
-
     public static String dayno_to_day(int x)
     {
         switch(x)

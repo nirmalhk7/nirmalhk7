@@ -108,7 +108,7 @@ public class subjectLog extends DialogFragment {
 
         for (SubjectlogEntity cn : subjLog) {
          //   Log.d("ATT/ALS", "Printing: Task "+cn.getSubject()+" P "+cn.getPresent()+" A "+cn.getAbsent());
-            SubjectItem.add(new attendanceListItem(timeconv.date_to(cn.getDaytime(),"dd MMM yyyy"), timeconv.date_to(cn.getDaytime(),"EEE")+", "+ timeconv.date_to_t12(cn.getDaytime()),cn.getPrabca(),cn.getId()));
+            SubjectItem.add(new attendanceListItem(timeconv.date_to(cn.getDaytime(),"dd MMM yyyy"), timeconv.date_to(cn.getDaytime(),"EEE")+", "+ timeconv.date_to(cn.getDaytime(),"hh:mm a"),cn.getPrabca(),cn.getId()));
         }
         attendanceAdapter adapter = new attendanceAdapter(getContext(), SubjectItem,2);
 

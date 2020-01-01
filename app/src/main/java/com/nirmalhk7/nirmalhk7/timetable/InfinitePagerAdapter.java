@@ -88,7 +88,7 @@ public class InfinitePagerAdapter extends LoopingPagerAdapter<Integer> {
         for (TimetableEntity cn : scheduleEntities) {
 
             Log.d("DAS/DSL", "Printing: Task " + cn.getTask() + " Time " + cn.getStartTime() + cn.getEndTime() + " Label " + cn.getLabel());
-            sch.add(new timetableListItem(cn.getTask(), timeconv.date_to_t12(cn.getStartTime()), timeconv.date_to_t12(cn.getEndTime()), cn.getSubjCode(), cn.getLabel(), cn.getId(), cn.getDay()));
+            sch.add(new timetableListItem(cn.getTask(), timeconv.date_to(cn.getStartTime(),"hh:mm a"), timeconv.date_to_t12(cn.getEndTime()), cn.getSubjCode(), cn.getLabel(), cn.getId(), cn.getDay()));
         }
     //    TextView description=convertView.findViewById(R.id.tt_dayreview);
     //    description.setText(scheduleEntities.size()+" classes from "+timeconv.date_to(scheduleEntities.get(0).getStartTime(),"hh:mm a")+" to "+timeconv.date_to(scheduleEntities.get(scheduleEntities.size()-1).getEndTime(),"hh:mm a"));

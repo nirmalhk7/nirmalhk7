@@ -296,7 +296,7 @@ public class timetableFSD extends DialogFragment {
                     time+="0";
                 }
                 time+=selectedMinute;
-                TimeEdt.setText(timeconv.t24_to_t12(time));
+                TimeEdt.setText(timeconv.dtConverter(time,"HH:mm","hh:mm a"));
 
             }
         }, Mhour, Mminute, false);//yes 12 hour time

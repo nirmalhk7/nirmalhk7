@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity
         try {
             Date date = curDateFormat.parse(curDate1);
             Log.d("CONVERX",date.getTime()+"");
-            Log.d("CONVERX", timeconv.date_to(date,"EEE")+ " xx "+ timeconv.date_to_t12(date)+" yy "+ timeconv.date_to(date,"dd MMM yyyy"));
+            Log.d("CONVERX", timeconv.date_to(date,"EEE")+ " xx "+ timeconv.date_to(date,"hh:mm a")+" yy "+ timeconv.date_to(date,"dd MMM yyyy"));
             // you can use this date string now
         } catch (Exception e) {
             Log.e("ACTMAIN","TimeErr "+e.getMessage());
