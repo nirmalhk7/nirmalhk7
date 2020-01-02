@@ -48,7 +48,7 @@ public class TimetableDialog extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        final View rootView = inflater.inflate(R.layout.dailyschedule_fullscreenlayout, container, false);
+        final View rootView = inflater.inflate(R.layout.dialog_timetable, container, false);
         PAGE_TAG= Timetable.MODULE_TAG+"FSD";
         final Bundle bundle = this.getArguments();
         //If editing
@@ -182,7 +182,7 @@ public class TimetableDialog extends DialogFragment {
         final AppCompatAutoCompleteTextView autoTextView;
         autoTextView = rootView.findViewById(R.id.taskName);
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>
-                (getContext(), R.layout.suggestion_item, subject);
+                (getContext(), R.layout.partial_suggestion, subject);
         autoTextView.setThreshold(1); //will start working from first character
         autoTextView.setAdapter(adapter);
 

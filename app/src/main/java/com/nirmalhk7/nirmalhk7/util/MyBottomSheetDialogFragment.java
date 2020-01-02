@@ -34,7 +34,7 @@ public class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
         Bundle b = getArguments();
         switch (b.getInt("module")) {
             case 1:
-                rootView = inflater.inflate(R.layout.examholiday_fullscreen, container);
+                rootView = inflater.inflate(R.layout.dialog_examholiday, container);
                 eah e = new eah(rootView, b);
                 e.examandholidays();
 

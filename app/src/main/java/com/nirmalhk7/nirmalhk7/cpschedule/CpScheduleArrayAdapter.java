@@ -28,7 +28,7 @@ public class CpScheduleArrayAdapter extends ArrayAdapter<CpScheduleListItem> {
         View listItemView = convertView;
         if (listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(
-                    R.layout.cpsched_list_item, parent, false);
+                    R.layout.item_cpschedule, parent, false);
         }
 
         // Get the {@link TimetableListItem} object located at this position in the list

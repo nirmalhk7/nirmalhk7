@@ -192,7 +192,7 @@ public class CpSchedule extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView= inflater.inflate(R.layout.fragment_cpsched, container, false);
+        View rootView= inflater.inflate(R.layout.fragment_cpschedule, container, false);
         if(isOnline())
         {
             requestData("http://testchallengehunt.appspot.com/v1/all","cp",rootView);

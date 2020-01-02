@@ -53,7 +53,7 @@ public class AttendanceArrayAdapter extends ArrayAdapter<AttendanceListItem> {
         {
             if (listItemView == null) {
                 listItemView = LayoutInflater.from(getContext()).inflate(
-                        R.layout.attendance_list_item, parent, false);
+                        R.layout.item_attendance, parent, false);
             }
 
             final AttendanceListItem currentWord = getItem(position);
@@ -155,7 +155,7 @@ public class AttendanceArrayAdapter extends ArrayAdapter<AttendanceListItem> {
             //For Subject Attendance Log
             if (listItemView == null) {
                 listItemView = LayoutInflater.from(getContext()).inflate(
-                        R.layout.attendance_subject_log_item, parent, false);
+                        R.layout.item_subject_log, parent, false);
             }
             AttendanceListItem currentWord = getItem(position);
             TextView date=listItemView.findViewById(R.id.subjName_calendar);

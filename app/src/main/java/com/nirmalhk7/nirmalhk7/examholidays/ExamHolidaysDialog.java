@@ -43,7 +43,7 @@ public class ExamHolidaysDialog extends DialogFragment {
     View rootView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.examholiday_fullscreen, container, false);
+        rootView = inflater.inflate(R.layout.dialog_examholiday, container, false);
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             ImageView trash = new ImageView(getContext());
@@ -79,7 +79,7 @@ public class ExamHolidaysDialog extends DialogFragment {
         }
         AutoCompleteTextView examtype=rootView.findViewById(R.id.examHoliday_type);
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>
-                (getContext(), R.layout.suggestion_item, suggestions);
+                (getContext(), R.layout.partial_suggestion, suggestions);
         examtype.setThreshold(1); //will start working from first character
         examtype.setAdapter(adapter);
 

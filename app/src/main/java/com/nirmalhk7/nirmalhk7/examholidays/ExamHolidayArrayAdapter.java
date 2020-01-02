@@ -44,7 +44,7 @@ public class ExamHolidayArrayAdapter extends ArrayAdapter<ExamHolidaysListItem> 
     //TODO
         TextView id=listItemView.findViewById(R.id.holidayExam_id);
         id.setText(Integer.toString(currentWord.getmId()));
-        // Find the TextView in the dailyschedule_list_item.xml_list_item.xml layout with the ID default_text_view.
+        // Find the TextView in the item_timetable.xml_list_item.xml layout with the ID default_text_view.
         TextView hOrE = listItemView.findViewById(R.id.holidayExam);
         // Get the default translation from the currentWord object and set this text on
         // the default TextView.

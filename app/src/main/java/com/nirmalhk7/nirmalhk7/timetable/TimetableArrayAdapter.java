@@ -26,7 +26,7 @@ public class TimetableArrayAdapter extends ArrayAdapter<TimetableListItem> {
         View listItemView = convertView;
         if (listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(
-                    R.layout.dailyschedule_list_item, parent, false);
+                    R.layout.item_timetable, parent, false);
         }
 
         // Get the {@link TimetableListItem} object located at this position in the list
@@ -38,7 +38,7 @@ public class TimetableArrayAdapter extends ArrayAdapter<TimetableListItem> {
         // the Miwok TextView.
         miwokTextView.setText(currentWord.getScheduleTitle());
 
-        // Find the TextView in the dailyschedule_list_item.xml_list_item.xml layout with the ID default_text_view.
+        // Find the TextView in the item_timetable.xml_list_item.xml layout with the ID default_text_view.
 
         TextView startTime = listItemView.findViewById(R.id.start_time);
         // Get the default translation from the currentWord object and set this text on

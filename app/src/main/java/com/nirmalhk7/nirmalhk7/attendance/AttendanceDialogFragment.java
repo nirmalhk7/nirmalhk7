@@ -49,7 +49,7 @@ public class AttendanceDialogFragment extends DialogFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        final View rootView = inflater.inflate(R.layout.attendance_fsd, container, false);
+        final View rootView = inflater.inflate(R.layout.dialog_attendance, container, false);
 
         //If editing
         DBGateway database1 = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
@@ -116,7 +116,7 @@ public class AttendanceDialogFragment extends DialogFragment {
         final AppCompatAutoCompleteTextView autoTextView;
         autoTextView = rootView.findViewById(R.id.attendance_task);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>
-                (getContext(), R.layout.suggestion_item, subject);
+                (getContext(), R.layout.partial_suggestion, subject);
         autoTextView.setThreshold(1); //will start working from first character
         autoTextView.setAdapter(adapter);
 

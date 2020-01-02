@@ -34,7 +34,7 @@ public class TimetableLoopingPagerAdapter extends LoopingPagerAdapter<Integer> {
     //This method will be triggered if the item View has not been inflated before.
     @Override
     protected View inflateView(int viewType, ViewGroup container, int listPosition) {
-        View listview= LayoutInflater.from(context).inflate(R.layout.timetable_list, container, false);
+        View listview= LayoutInflater.from(context).inflate(R.layout.fragment_timetable_list, container, false);
        // TTFetch(listview,context,listPosition);
 
         return listview;

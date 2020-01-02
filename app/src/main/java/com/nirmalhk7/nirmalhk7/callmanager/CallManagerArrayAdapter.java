@@ -28,13 +28,13 @@ public class CallManagerArrayAdapter extends ArrayAdapter<CallManagerListItem> {
         View listItemView = convertView;
         if (listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(
-                    R.layout.callmgr_list_item, parent, false);
+                    R.layout.item_callmanager, parent, false);
         }
 
         // Get the {@link TimetableListItem} object located at this position in the list
         CallManagerListItem currentWord = getItem(position);
 
-        // Find the TextView in the dailyschedule_list_item.xml_list_item.xml layout with the ID miwok_text_view.
+        // Find the TextView in the item_timetable.xml_list_item.xml layout with the ID miwok_text_view.
         TextView callerName = listItemView.findViewById(R.id.callMgr_callName);
         // Get the Miwok translation from the currentWord object and set this text on
         // the Miwok TextView.
