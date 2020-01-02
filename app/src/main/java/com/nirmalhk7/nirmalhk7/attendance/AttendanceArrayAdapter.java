@@ -26,65 +26,67 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class AttendanceArrayAdapter extends ArrayAdapter<AttendanceListItem> {
+    
+    private int mSubject;
+    private Context mContext;
 
-    /**
-     * Resource ID for the background color for this list of words
-     */
-    private int kSubject;
-    private Context context;
     public AttendanceArrayAdapter(Context context, ArrayList<AttendanceListItem> attendanceListItem) {
         super(context, 0, attendanceListItem);
-        kSubject=0;
-        this.context=context;
+        mSubject =0;
+        this.mContext=context;
     }
 
     public AttendanceArrayAdapter(Context context, ArrayList<AttendanceListItem> SubjectItem, int key) {
         super(context, 0, SubjectItem);
-        kSubject = key;
-        this.context=context;
+        mSubject = key;
+        this.mContext=context;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Check if an existing view is being reused, otherwise inflate the view
         View listItemView = convertView;
+        AttendanceListItem currentItem;
 
-        if(kSubject==1)
+        if(mSubject ==1)
         {
+            TextView subjectName;
+            TextView attendanceCount;
+            TextView id;
+            float present,absent,result;
+
             if (listItemView == null) {
                 listItemView = LayoutInflater.from(getContext()).inflate(
                         R.layout.item_attendance, parent, false);
             }
 
-            final AttendanceListItem currentWord = getItem(position);
 
-            TextView subjName_subj = listItemView.findViewById(R.id.subjName_subject);
-            subjName_subj.setText(currentWord.getSubjName());
+            currentItem = getItem(position);
 
-            TextView presentCount = listItemView.findViewById(R.id.presentabsent_subject);
+            subjectName = listItemView.findViewById(R.id.subjName_subject);
+            subjectName.setText(currentItem.getSubjName());
 
-            presentCount.setText("Present "+currentWord.getmPresent()+" / Absent "+currentWord.getmAbsent());
-            float present=currentWord.getmPresent();
-            float absent=currentWord.getmAbsent();
-            float result=present/(present+absent);
+            attendanceCount = listItemView.findViewById(R.id.presentabsent_subject);
+
+            attendanceCount.setText("Present "+currentItem.getmPresent()+" / Absent "+currentItem.getmAbsent());
+            present = currentItem.getmPresent();
+            absent=currentItem.getmAbsent();
+            result=present/(present+absent);
             result = (float) Math.round(result * 100);
 
-            TextView percent = listItemView.findViewById(R.id.percent_subject);
+            TextView percentAttendance = listItemView.findViewById(R.id.percent_subject);
+            percentAttendance.setText("Percent: "+result+"%");
 
-            percent.setText("Percent: "+result+"%");
-
-            final TextView id=listItemView.findViewById(R.id.attendance_id);
-            Log.d("XXXC",""+currentWord.getmId());
-            id.setText(currentWord.getmId()+"");
+            id=listItemView.findViewById(R.id.attendance_id);
+            Log.d("XXXC",""+currentItem.getmId());
+            id.setText(currentItem.getmId()+"");
 
             btnlistener(listItemView,Integer.parseInt(id.getText().toString()));
 
             SwipeLayout swipeLayout =  (SwipeLayout)listItemView.findViewById(R.id.swipeswipe);
-
-//set show mode.
+            //set show mode.
             swipeLayout.setShowMode(SwipeLayout.ShowMode.LayDown);
-
-//add drag edge.(If the BottomView has 'layout_gravity' attribute, this line is unnecessary)
+            //add drag edge.(If the BottomView has 'layout_gravity' attribute, this line is unnecessary)
             swipeLayout.addDrag(SwipeLayout.DragEdge.Right, listItemView.findViewById(R.id.bottom_wrapper));
             final ImageButton deleteb=listItemView.findViewById(R.id.trash_swipe);
             final ImageButton editb=listItemView.findViewById(R.id.edit_swipe);
@@ -97,7 +99,7 @@ public class AttendanceArrayAdapter extends ArrayAdapter<AttendanceListItem> {
                 @Override
                 public void onOpen(SwipeLayout layout) {
 
-                    DBGateway database = Room.databaseBuilder(context, DBGateway.class, "finalDB")
+                    DBGateway database = Room.databaseBuilder(mContext, DBGateway.class, "finalDB")
                             .allowMainThreadQueries()
                             .fallbackToDestructiveMigration()
                             .build();
@@ -106,7 +108,7 @@ public class AttendanceArrayAdapter extends ArrayAdapter<AttendanceListItem> {
                     deleteb.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            AttendanceEntity x=attendanceDAO.getSubjectbyId(currentWord.getmId());
+                            AttendanceEntity x=attendanceDAO.getSubjectbyId(currentItem.getmId());
                             attendanceDAO.deleteSchedule(x);
                         }
                     });
@@ -117,10 +119,10 @@ public class AttendanceArrayAdapter extends ArrayAdapter<AttendanceListItem> {
                             AppCompatActivity activity = (AppCompatActivity) v.getContext();
                             AttendanceDialogFragment newFragment = new AttendanceDialogFragment();
                             Bundle bundle=new Bundle();
-                            bundle.putInt("key",currentWord.getmId());
-                            bundle.putInt("present",currentWord.getmPresent());
-                            bundle.putInt("absent",currentWord.getmAbsent());
-                            bundle.putString("subject",currentWord.getSubjName());
+                            bundle.putInt("key",currentItem.getmId());
+                            bundle.putInt("present",currentItem.getmPresent());
+                            bundle.putInt("absent",currentItem.getmAbsent());
+                            bundle.putString("subject",currentItem.getSubjName());
                             newFragment.setArguments(bundle);
                             activity.getSupportFragmentManager().beginTransaction().add(android.R.id.content, newFragment).addToBackStack(null).addToBackStack(null).commit();
 
@@ -151,38 +153,38 @@ public class AttendanceArrayAdapter extends ArrayAdapter<AttendanceListItem> {
 
 
         }
-        else if(kSubject==2){
+        else if(mSubject ==2){
             //For Subject Attendance Log
             if (listItemView == null) {
                 listItemView = LayoutInflater.from(getContext()).inflate(
                         R.layout.item_subject_log, parent, false);
             }
-            AttendanceListItem currentWord = getItem(position);
+            currentItem = getItem(position);
             TextView date=listItemView.findViewById(R.id.subjName_calendar);
-            date.setText(currentWord.getDateAdded());
+            date.setText(currentItem.getDateAdded());
 
             TextView dt= listItemView.findViewById(R.id.dt_calendar);
-            dt.setText(currentWord.getDayTime());
+            dt.setText(currentItem.getDayTime());
 
-            if(currentWord.getmPRABCA()==1)
+            if(currentItem.getmPRABCA()==1)
             {
                 TextView pacp= listItemView.findViewById(R.id.pacp_calendar);
                 pacp.setText("Present");
                 pacp.setTextColor(Color.GREEN);
             }
-            else if(currentWord.getmPRABCA()==2)
+            else if(currentItem.getmPRABCA()==2)
             {
                 TextView pacp= listItemView.findViewById(R.id.pacp_calendar);
                 pacp.setText("ABSENT");
                 pacp.setTextColor(Color.RED);
             }
-            else if(currentWord.getmPRABCA()==3)
+            else if(currentItem.getmPRABCA()==3)
             {
                 TextView pacp= listItemView.findViewById(R.id.pacp_calendar);
                 pacp.setText("CANCELLED");
                 pacp.setTextColor(Color.YELLOW);
             }
-            else if(currentWord.getmPRABCA()==-1)
+            else if(currentItem.getmPRABCA()==-1)
             {
                 TextView pacp=listItemView.findViewById(R.id.pacp_calendar);
                 pacp.setText("RESET");
@@ -202,7 +204,7 @@ public class AttendanceArrayAdapter extends ArrayAdapter<AttendanceListItem> {
         ImageButton p=listitemview.findViewById(R.id.present_btn);
         ImageButton a=listitemview.findViewById(R.id.absent_btn);
         ImageButton c=listitemview.findViewById(R.id.cancel_btn);
-        final DBGateway database = Room.databaseBuilder(context, DBGateway.class, "finalDB")
+        final DBGateway database = Room.databaseBuilder(mContext, DBGateway.class, "finalDB")
                 .allowMainThreadQueries()
                 .fallbackToDestructiveMigration()
                 .build();

@@ -2,13 +2,14 @@ package com.nirmalhk7.nirmalhk7.academics;
 
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+
+import androidx.fragment.app.Fragment;
 
 import com.nirmalhk7.nirmalhk7.R;
 
@@ -30,7 +31,6 @@ public class AcademicsFragment extends Fragment {
     //  Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
     private OnFragmentInteractionListener mListener;
 
     public AcademicsFragment() {

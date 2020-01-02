@@ -4,6 +4,7 @@ import android.util.Log;
 
 import androidx.room.TypeConverter;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -27,7 +28,7 @@ public class timeconv {
         try {
             Date date = curDateFormat.parse(t24);
             t12 = desiredDateFormat.format(date);
-        } catch (Exception e) {
+        } catch (ParseException e) {
             Log.e("CONVERTERS","TimeErr x");
         }
         return t12;
@@ -40,7 +41,7 @@ public class timeconv {
         try {
             date = curDateFormat.parse(d);
 
-        } catch (Exception e) {
+        } catch (ParseException e) {
             Log.e("ACTMAIN","TimeErr TDMYT "+e.getMessage());
         }
         return date;
@@ -50,12 +51,7 @@ public class timeconv {
     {
         SimpleDateFormat df= new SimpleDateFormat(simpledtformat);
         String ans="";
-        try{
-            ans=df.format(d);
-        }catch (Exception e)
-        {
-            Log.e("CONVERTERS","Excpn "+e.getMessage());
-        }
+        ans=df.format(d);
         return ans;
     }
     public static String dayno_to_day(int x)

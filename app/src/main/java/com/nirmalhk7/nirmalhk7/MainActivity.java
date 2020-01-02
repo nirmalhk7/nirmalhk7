@@ -27,6 +27,7 @@ import com.nirmalhk7.nirmalhk7.examholidays.ExamHolidayFragment;
 import com.nirmalhk7.nirmalhk7.timetable.Timetable;
 import com.nirmalhk7.nirmalhk7.util.timeconv;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -65,7 +66,7 @@ public class MainActivity extends AppCompatActivity
             Log.d("CONVERX",date.getTime()+"");
             Log.d("CONVERX", timeconv.date_to(date,"EEE")+ " xx "+ timeconv.date_to(date,"hh:mm a")+" yy "+ timeconv.date_to(date,"dd MMM yyyy"));
             // you can use this date string now
-        } catch (Exception e) {
+        } catch (ParseException e) {
             Log.e("ACTMAIN","TimeErr "+e.getMessage());
         }
 
