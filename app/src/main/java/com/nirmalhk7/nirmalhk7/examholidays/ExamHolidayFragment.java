@@ -29,29 +29,29 @@ import com.nirmalhk7.nirmalhk7.util.MyBottomSheetDialogFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.nirmalhk7.nirmalhk7.attendance.subjectLog.TAG;
+import static com.nirmalhk7.nirmalhk7.attendance.SubjectLogDialogFragment.TAG;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link examHolidays.OnFragmentInteractionListener} interface
+ * {@link ExamHolidayFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link examHolidays#newInstance} factory method to
+ * Use the {@link ExamHolidayFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class examHolidays extends Fragment {
+public class ExamHolidayFragment extends Fragment {
     //  Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    public static examHolidayAdapter adapter;
+    public static ExamHolidayArrayAdapter adapter;
     //  Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
 
-    public examHolidays() {
+    public ExamHolidayFragment() {
         // Required empty public constructor
     }
 
@@ -61,11 +61,11 @@ public class examHolidays extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment examHolidays.
+     * @return A new instance of fragment ExamHolidayFragment.
      */
     //  Rename and change types and number of parameters
-    public static examHolidays newInstance(String param1, String param2) {
-        examHolidays fragment = new examHolidays();
+    public static ExamHolidayFragment newInstance(String param1, String param2) {
+        ExamHolidayFragment fragment = new ExamHolidayFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -93,8 +93,8 @@ public class examHolidays extends Fragment {
         EAHfetchDB(rootView);
         DSLonRefresh(rootView);
 
-        // Make the {@link ListView} use the {@link timetableAdapter} we created above, so that the
-        // {@link ListView} will display list items for each {@link timetableListItem} in the list.
+        // Make the {@link ListView} use the {@link TimetableArrayAdapter} we created above, so that the
+        // {@link ListView} will display list items for each {@link TimetableListItem} in the list.
 
         ListView listView = rootView.findViewById(R.id.list_item_examholiday);
 
@@ -154,7 +154,7 @@ public class examHolidays extends Fragment {
             public boolean onActionSelected(SpeedDialActionItem speedDialActionItem) {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 
-                examholidaysFSD newFragment = new examholidaysFSD();
+                ExamHolidaysDialog newFragment = new ExamHolidaysDialog();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 Bundle b = new Bundle();
@@ -216,20 +216,20 @@ public class examHolidays extends Fragment {
                 .build();
 
         ExamholidaysDAO examholidaysDAO = database.getEHDAO();
-        ArrayList<examholidaysListItem> hs = new ArrayList<examholidaysListItem>();
+        ArrayList<ExamHolidaysListItem> hs = new ArrayList<ExamHolidaysListItem>();
         List<ExamholidaysEntity> list = examholidaysDAO.getEventsOrdered();
 
         for (ExamholidaysEntity cn : list) {
             Log.d("EAH/EAH", cn.getmType() + " ");
             if (cn.getStart().equals(cn.getEnd())) {
-                hs.add(new examholidaysListItem(cn.getId(), cn.getHolexa(), cn.getmName(), timeconv.date_to(cn.getStart(),"dd MMM yyyy"), cn.getmType()));
+                hs.add(new ExamHolidaysListItem(cn.getId(), cn.getHolexa(), cn.getmName(), timeconv.date_to(cn.getStart(),"dd MMM yyyy"), cn.getmType()));
             } else {
-                hs.add(new examholidaysListItem(cn.getId(), cn.getHolexa(), cn.getmName(), timeconv.date_to(cn.getStart(),"dd MMM yyyy") + " - " + timeconv.date_to(cn.getEnd(),"dd MMM yyyy"), cn.getmType()));
+                hs.add(new ExamHolidaysListItem(cn.getId(), cn.getHolexa(), cn.getmName(), timeconv.date_to(cn.getStart(),"dd MMM yyyy") + " - " + timeconv.date_to(cn.getEnd(),"dd MMM yyyy"), cn.getmType()));
             }
         }
 
 
-        adapter = new examHolidayAdapter(getContext(), hs);
+        adapter = new ExamHolidayArrayAdapter(getContext(), hs);
 
         // Find the {@link ListView} object in the view hierarchy of the {@link Activity}.
         // There should be a {@link ListView} with the view ID called list, which is declared in the

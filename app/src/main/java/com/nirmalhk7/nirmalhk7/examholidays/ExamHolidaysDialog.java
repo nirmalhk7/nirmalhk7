@@ -30,7 +30,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class examholidaysFSD extends DialogFragment {
+public class ExamHolidaysDialog extends DialogFragment {
     public int key;
 
     @Override
@@ -175,7 +175,7 @@ public class examholidaysFSD extends DialogFragment {
             entity.setHolexa(2);
         }
         EHDAO.insertOnlySingleEvent(entity);
-        examHolidays.adapter.notifyDataSetChanged();
+        ExamHolidayFragment.adapter.notifyDataSetChanged();
         dismiss();
 
     }

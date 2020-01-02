@@ -19,9 +19,9 @@ import androidx.room.Room;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
+import com.nirmalhk7.nirmalhk7.examholidays.ExamHolidayFragment;
 import com.nirmalhk7.nirmalhk7.examholidays.ExamholidaysDAO;
 import com.nirmalhk7.nirmalhk7.examholidays.ExamholidaysEntity;
-import com.nirmalhk7.nirmalhk7.examholidays.examHolidays;
 
 import java.util.Calendar;
 
@@ -204,7 +204,7 @@ public class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
                 EHDAO.updateEvent(entity);
             }
 
-            examHolidays.adapter.notifyDataSetChanged();
+            ExamHolidayFragment.adapter.notifyDataSetChanged();
 
         }
         void datelistener(final EditText startdate,final EditText enddate,final int i){

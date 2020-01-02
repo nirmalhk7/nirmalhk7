@@ -23,10 +23,10 @@ import com.nirmalhk7.nirmalhk7.util.timeconv;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InfinitePagerAdapter extends LoopingPagerAdapter<Integer> {
+public class TimetableLoopingPagerAdapter extends LoopingPagerAdapter<Integer> {
     public static FragmentManager Fmgr;
-    public static timetableAdapter ttadapter;
-    public InfinitePagerAdapter(Context context, ArrayList<Integer> itemList, boolean isInfinite, FragmentManager fmgr) {
+    public static TimetableArrayAdapter ttadapter;
+    public TimetableLoopingPagerAdapter(Context context, ArrayList<Integer> itemList, boolean isInfinite, FragmentManager fmgr) {
         super(context, itemList, isInfinite);
          Fmgr=fmgr;
     }
@@ -75,7 +75,7 @@ public class InfinitePagerAdapter extends LoopingPagerAdapter<Integer> {
         // Reading all contacts
         Log.d("Reading: ", "Reading all contacts..");
 
-        ArrayList<timetableListItem> sch = new ArrayList<timetableListItem>();
+        ArrayList<TimetableListItem> sch = new ArrayList<TimetableListItem>();
 
         DBGateway database = Room.databaseBuilder(context, DBGateway.class, "finalDB")
                 .allowMainThreadQueries().fallbackToDestructiveMigration()
@@ -88,11 +88,11 @@ public class InfinitePagerAdapter extends LoopingPagerAdapter<Integer> {
         for (TimetableEntity cn : scheduleEntities) {
 
             Log.d("DAS/DSL", "Printing: Task " + cn.getTask() + " Time " + cn.getStartTime() + cn.getEndTime() + " Label " + cn.getLabel());
-            sch.add(new timetableListItem(cn.getTask(), timeconv.date_to(cn.getStartTime(),"hh:mm a"), timeconv.date_to_t12(cn.getEndTime()), cn.getSubjCode(), cn.getLabel(), cn.getId(), cn.getDay()));
+            sch.add(new TimetableListItem(cn.getTask(), timeconv.date_to(cn.getStartTime(),"hh:mm a"), timeconv.date_to(cn.getEndTime(),"hh:mm a"), cn.getSubjCode(), cn.getLabel(), cn.getId(), cn.getDay()));
         }
     //    TextView description=convertView.findViewById(R.id.tt_dayreview);
     //    description.setText(scheduleEntities.size()+" classes from "+timeconv.date_to(scheduleEntities.get(0).getStartTime(),"hh:mm a")+" to "+timeconv.date_to(scheduleEntities.get(scheduleEntities.size()-1).getEndTime(),"hh:mm a"));
-        ttadapter=new timetableAdapter(context,sch);
+        ttadapter=new TimetableArrayAdapter(context,sch);
         ListView listView=convertView.findViewById(R.id.list_item_timetable);
 
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -108,7 +108,7 @@ public class InfinitePagerAdapter extends LoopingPagerAdapter<Integer> {
                 Log.d("CONVERTX", endTime + "-" + starttime);
 
 
-                timetableFSD newFragment = new timetableFSD();
+                TimetableDialog newFragment = new TimetableDialog();
                // FragmentManager fragmentManager = ctvt.getSupportFragmentManager();
 
 

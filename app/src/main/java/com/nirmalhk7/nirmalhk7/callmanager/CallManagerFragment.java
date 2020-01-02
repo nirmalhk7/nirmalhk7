@@ -17,12 +17,12 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link callmanager.OnFragmentInteractionListener} interface
+ * {@link CallManagerFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link callmanager#newInstance} factory method to
+ * Use the {@link CallManagerFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class callmanager extends Fragment {
+public class CallManagerFragment extends Fragment {
     //  Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -34,7 +34,7 @@ public class callmanager extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public callmanager() {
+    public CallManagerFragment() {
         // Required empty public constructor
     }
 
@@ -44,11 +44,11 @@ public class callmanager extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment callmanager.
+     * @return A new instance of fragment CallManagerFragment.
      */
     //  Rename and change types and number of parameters
-    public static callmanager newInstance(String param1, String param2) {
-        callmanager fragment = new callmanager();
+    public static CallManagerFragment newInstance(String param1, String param2) {
+        CallManagerFragment fragment = new CallManagerFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -71,18 +71,18 @@ public class callmanager extends Fragment {
         // Inflate the layout for this fragment
         View rootView= inflater.inflate(R.layout.fragment_call_mgr, container, false);
 
-        ArrayList<callmanagerListItem> call = new ArrayList<callmanagerListItem>();
-        call.add(new callmanagerListItem("Caller 1","9740603777",9));
-        call.add(new callmanagerListItem("Caller 2","9740603778",7));
-        callmanagerAdapter adapter = new callmanagerAdapter(getContext(), call);
+        ArrayList<CallManagerListItem> call = new ArrayList<CallManagerListItem>();
+        call.add(new CallManagerListItem("Caller 1","9740603777",9));
+        call.add(new CallManagerListItem("Caller 2","9740603778",7));
+        CallManagerArrayAdapter adapter = new CallManagerArrayAdapter(getContext(), call);
 
         // Find the {@link ListView} object in the view hierarchy of the {@link Activity}.
         // There should be a {@link ListView} with the view ID called list, which is declared in the
         // word_list.xml layout file.
         ListView listView = rootView.findViewById(R.id.list_item_callmgr);
 
-        // Make the {@link ListView} use the {@link timetableAdapter} we created above, so that the
-        // {@link ListView} will display list items for each {@link timetableListItem} in the list.
+        // Make the {@link ListView} use the {@link TimetableArrayAdapter} we created above, so that the
+        // {@link ListView} will display list items for each {@link TimetableListItem} in the list.
         listView.setAdapter(adapter);
 
         return rootView;

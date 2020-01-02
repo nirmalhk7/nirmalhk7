@@ -1,7 +1,7 @@
 package com.nirmalhk7.nirmalhk7.timetable;
 
 
-public class timetableListItem {
+public class TimetableListItem {
 
     /** Default translation for the word */
     private String mScheduleTitle;
@@ -19,7 +19,7 @@ public class timetableListItem {
 
 
 
-    public timetableListItem(String scheduleTitle, String starttime, String endtime, String SubjCode, String label, int Id, int Day) {
+    public TimetableListItem(String scheduleTitle, String starttime, String endtime, String SubjCode, String label, int Id, int Day) {
         mScheduleTitle = scheduleTitle;
         mStartTime=starttime;
         mEndTime=endtime;
@@ -28,7 +28,7 @@ public class timetableListItem {
         mSubjCode=SubjCode;
         mDay=Day;
     }
-    public timetableListItem()
+    public TimetableListItem()
     {}
 
     public String getmSubjCode(){

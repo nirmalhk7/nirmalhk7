@@ -23,12 +23,12 @@ import java.util.Arrays;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link timetable.OnFragmentInteractionListener} interface
+ * {@link Timetable.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link timetable#newInstance} factory method to
+ * Use the {@link Timetable#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class timetable extends Fragment {
+public class Timetable extends Fragment {
 //    //
 //    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 //    private static final String ARG_PARAM1 = "param1";
@@ -40,7 +40,7 @@ public class timetable extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public timetable() {
+    public Timetable() {
         // Required empty public constructor
     }
 
@@ -50,11 +50,11 @@ public class timetable extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment timetable.
+     * @return A new instance of fragment Timetable.
      */
     // TODO: Rename and change types and number of parameters
-    public static timetable newInstance(String param1, String param2) {
-        timetable fragment = new timetable();
+    public static Timetable newInstance(String param1, String param2) {
+        Timetable fragment = new Timetable();
         Bundle args = new Bundle();
 //        args.putString(ARG_PARAM1, param1);
 //        args.putString(ARG_PARAM2, param2);
@@ -84,10 +84,10 @@ public class timetable extends Fragment {
         vpgr.setCurrentItem(3);
         Log.d(PAGE_TAG,"Position in ViewPager "+vpgr.getCurrentItem());
         Toolbar toolbar=getActivity().findViewById(R.id.toolbar);
-        toolbar.setTitle("Your timetable");
+        toolbar.setTitle("Your Timetable");
         FragmentManager fmgr=getActivity().getSupportFragmentManager();
         ArrayList<Integer> dataItems=new ArrayList<>(Arrays.asList(1,2,3,4,5,6));
-        InfinitePagerAdapter adapter=new InfinitePagerAdapter(getContext(),dataItems,true,fmgr);
+        TimetableLoopingPagerAdapter adapter=new TimetableLoopingPagerAdapter(getContext(),dataItems,true,fmgr);
         vpgr.setAdapter(adapter);
 
         SpeedDialView speedDialView = getActivity().findViewById(R.id.speedDial);
@@ -98,7 +98,7 @@ public class timetable extends Fragment {
             public boolean onMainActionSelected() {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 
-                timetableFSD newFragment = new timetableFSD();
+                TimetableDialog newFragment = new TimetableDialog();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 transaction.add(android.R.id.content, newFragment).addToBackStack(null).commit();

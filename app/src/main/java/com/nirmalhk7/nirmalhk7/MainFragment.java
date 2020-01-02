@@ -32,8 +32,8 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.examholidays.ExamholidaysDAO;
-import com.nirmalhk7.nirmalhk7.examholidays.examHolidays;
-import com.nirmalhk7.nirmalhk7.timetable.timetable;
+import com.nirmalhk7.nirmalhk7.examholidays.ExamHolidayFragment;
+import com.nirmalhk7.nirmalhk7.timetable.Timetable;
 import com.nirmalhk7.nirmalhk7.timetable.TimetableDAO;
 
 import org.json.JSONException;
@@ -260,7 +260,7 @@ public class MainFragment extends Fragment {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 transaction.setCustomAnimations(android.R.anim.fade_in,android.R.anim.fade_out);
                 Fragment newFragment;
-                newFragment = new timetable();
+                newFragment = new Timetable();
                 transaction.replace(R.id.fullscreen, newFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
@@ -273,7 +273,7 @@ public class MainFragment extends Fragment {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 transaction.setCustomAnimations(android.R.anim.fade_in,android.R.anim.fade_out);
                 Fragment newFragment;
-                newFragment = new examHolidays();
+                newFragment = new ExamHolidayFragment();
                 transaction.replace(R.id.fullscreen, newFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();

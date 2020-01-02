@@ -32,7 +32,7 @@ import com.nirmalhk7.nirmalhk7.util.timeconv;
 import java.util.Calendar;
 import java.util.List;
 
-public class timetableFSD extends DialogFragment {
+public class TimetableDialog extends DialogFragment {
     public int key;
     public String PAGE_TAG;
     @Override
@@ -49,7 +49,7 @@ public class timetableFSD extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         final View rootView = inflater.inflate(R.layout.dailyschedule_fullscreenlayout, container, false);
-        PAGE_TAG=timetable.MODULE_TAG+"FSD";
+        PAGE_TAG= Timetable.MODULE_TAG+"FSD";
         final Bundle bundle = this.getArguments();
         //If editing
         if (bundle != null) {

@@ -11,14 +11,14 @@ import com.nirmalhk7.nirmalhk7.R;
 
 import java.util.ArrayList;
 
-public class callmanagerAdapter extends ArrayAdapter<callmanagerListItem> {
+public class CallManagerArrayAdapter extends ArrayAdapter<CallManagerListItem> {
 
 
     /**
      * Resource ID for the background color for this list of words
      */
 
-    public callmanagerAdapter(Context context, ArrayList<callmanagerListItem> callItem) {
+    public CallManagerArrayAdapter(Context context, ArrayList<CallManagerListItem> callItem) {
         super(context, 0, callItem);
     }
 
@@ -31,8 +31,8 @@ public class callmanagerAdapter extends ArrayAdapter<callmanagerListItem> {
                     R.layout.callmgr_list_item, parent, false);
         }
 
-        // Get the {@link timetableListItem} object located at this position in the list
-        callmanagerListItem currentWord = getItem(position);
+        // Get the {@link TimetableListItem} object located at this position in the list
+        CallManagerListItem currentWord = getItem(position);
 
         // Find the TextView in the dailyschedule_list_item.xml_list_item.xml layout with the ID miwok_text_view.
         TextView callerName = listItemView.findViewById(R.id.callMgr_callName);

@@ -1,11 +1,11 @@
 package com.nirmalhk7.nirmalhk7.callmanager;
 
-public class callmanagerListItem {
+public class CallManagerListItem {
     private String mgrNameX;
     private String callNo;
     private int callTimeX;
 
-    public callmanagerListItem(String mgrName, String mCallNo, int callTime) {
+    public CallManagerListItem(String mgrName, String mCallNo, int callTime) {
         mgrNameX =mgrName;
         callNo = mCallNo;
         callTimeX=callTime;

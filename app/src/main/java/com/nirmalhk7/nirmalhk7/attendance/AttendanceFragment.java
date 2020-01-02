@@ -31,12 +31,12 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link attendance.OnFragmentInteractionListener} interface
+ * {@link AttendanceFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link attendance#newInstance} factory method to
+ * Use the {@link AttendanceFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class attendance extends Fragment {
+public class AttendanceFragment extends Fragment {
     //  Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -48,7 +48,7 @@ public class attendance extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public attendance() {
+    public AttendanceFragment() {
         // Required empty public constructor
     }
 
@@ -58,11 +58,11 @@ public class attendance extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment attendance.
+     * @return A new instance of fragment AttendanceFragment.
      */
     //  Rename and change types and number of parameters
-    public static attendance newInstance(String param1, String param2) {
-        attendance fragment = new attendance();
+    public static AttendanceFragment newInstance(String param1, String param2) {
+        AttendanceFragment fragment = new AttendanceFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -111,7 +111,7 @@ public class attendance extends Fragment {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.d("ATT/ALS","LongClick!");
-                subjectLog x=new subjectLog();
+                SubjectLogDialogFragment x=new SubjectLogDialogFragment();
                 TextView subject=view.findViewById(R.id.subjName_subject);
                 TextView percent=view.findViewById(R.id.percent_subject);
                 TextView prabca=view.findViewById(R.id.presentabsent_subject);
@@ -138,7 +138,7 @@ public class attendance extends Fragment {
 
 
                 FragmentTransaction ft=getFragmentManager().beginTransaction();
-                x.show(ft, subjectLog.TAG);
+                x.show(ft, SubjectLogDialogFragment.TAG);
                 return false;
             }
         });
@@ -171,7 +171,7 @@ public class attendance extends Fragment {
                         Log.d("ATT/ALS","Selct");
                         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 
-                        attendanceFSD newFragment = new attendanceFSD();
+                        AttendanceDialogFragment newFragment = new AttendanceDialogFragment();
                         FragmentTransaction transaction = fragmentManager.beginTransaction();
                         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                         transaction.add(android.R.id.content, newFragment).addToBackStack(null).commit();
@@ -241,15 +241,15 @@ public class attendance extends Fragment {
         AttendanceDAO AttendanceDAO = database2.getATTDao();
 
         List<AttendanceEntity> attendance=AttendanceDAO.getAllSubject();
-        ArrayList<attendanceListItem> SubjectItem = new ArrayList<>();
+        ArrayList<AttendanceListItem> SubjectItem = new ArrayList<>();
         Log.d("ATT/ALS","Count"+attendance.size());
         
         for (AttendanceEntity cn : attendance) {
             Log.d("ATT/ALS", "Printing: Task "+cn.getSubject()+" P "+cn.getPresent()+" A "+cn.getAbsent());
-            SubjectItem.add(new attendanceListItem(cn.getSubject(), cn.getPresent(),cn.getAbsent(),cn.getId()));
+            SubjectItem.add(new AttendanceListItem(cn.getSubject(), cn.getPresent(),cn.getAbsent(),cn.getId()));
         }
 
-        attendanceAdapter adapter = new attendanceAdapter(getContext(), SubjectItem,1);
+        AttendanceArrayAdapter adapter = new AttendanceArrayAdapter(getContext(), SubjectItem,1);
 
         ListView listView = rootView.findViewById(R.id.list_item_allsubjects);
         listView.setAdapter(adapter);

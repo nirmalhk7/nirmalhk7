@@ -12,14 +12,14 @@ import com.nirmalhk7.nirmalhk7.R;
 
 import java.util.ArrayList;
 
-public class examHolidayAdapter extends ArrayAdapter<examholidaysListItem> {
-    /**
+public class ExamHolidayArrayAdapter extends ArrayAdapter<ExamHolidaysListItem> {
+    /*
      * Resource ID for the background color for this list of words
      */
     private int mColorResourceId;
 
 
-    public examHolidayAdapter(Context context, ArrayList<examholidaysListItem> event) {
+    public ExamHolidayArrayAdapter(Context context, ArrayList<ExamHolidaysListItem> event) {
         super(context, 0, event);
     }
 
@@ -32,8 +32,8 @@ public class examHolidayAdapter extends ArrayAdapter<examholidaysListItem> {
                     R.layout.item_examholiday, parent, false);
         }
 
-        // Get the {@link timetableListItem} object located at this position in the list
-        examholidaysListItem currentWord = getItem(position);
+        // Get the {@link TimetableListItem} object located at this position in the list
+        ExamHolidaysListItem currentWord = getItem(position);
 
         // Find the TextView in the dailyschedule_list_itemdule_list_item.xml layout with the ID miwok_text_view.
         TextView title = listItemView.findViewById(R.id.holidayExam_name);

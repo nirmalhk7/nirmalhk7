@@ -1,6 +1,5 @@
 package com.nirmalhk7.nirmalhk7;
 
-import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -19,14 +18,13 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.navigation.NavigationView;
-import com.nirmalhk7.nirmalhk7.academics.academics;
-import com.nirmalhk7.nirmalhk7.attendance.attendance;
-import com.nirmalhk7.nirmalhk7.callmanager.callmanager;
-import com.nirmalhk7.nirmalhk7.cpschedule.cpshedule;
+import com.nirmalhk7.nirmalhk7.academics.AcademicsFragment;
+import com.nirmalhk7.nirmalhk7.attendance.AttendanceFragment;
+import com.nirmalhk7.nirmalhk7.callmanager.CallManagerFragment;
+import com.nirmalhk7.nirmalhk7.cpschedule.CpSchedule;
 import com.nirmalhk7.nirmalhk7.entrydisplay.MainFragment;
-import com.nirmalhk7.nirmalhk7.examholidays.examHolidays;
-import com.nirmalhk7.nirmalhk7.settings.SettingsActivity;
-import com.nirmalhk7.nirmalhk7.timetable.timetable;
+import com.nirmalhk7.nirmalhk7.examholidays.ExamHolidayFragment;
+import com.nirmalhk7.nirmalhk7.timetable.Timetable;
 import com.nirmalhk7.nirmalhk7.util.timeconv;
 
 import java.text.SimpleDateFormat;
@@ -120,12 +118,12 @@ public class MainActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            Intent i=new Intent(MainActivity.this, SettingsActivity.class);
-            startActivity(i);
-            return true;
-        }
+//        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings) {
+//            Intent i=new Intent(MainActivity.this, SettingsActivity.class);
+//            startActivity(i);
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -147,38 +145,38 @@ public class MainActivity extends AppCompatActivity
             transaction.addToBackStack(null);
             transaction.commit();
         } else if (id == R.id.nav_schedule) {
-            newFragment = new timetable();
+            newFragment = new Timetable();
             transaction.replace(R.id.fullscreen, newFragment);
             transaction.addToBackStack(null);
             transaction.commit();
         } else if (id == R.id.nav_academics) {
-            newFragment = new academics();
+            newFragment = new AcademicsFragment();
             transaction.replace(R.id.fullscreen, newFragment);
             transaction.addToBackStack(null);
             transaction.commit();
         } else if(id==R.id.nav_callManager)
         {
-            newFragment = new callmanager();
+            newFragment = new CallManagerFragment();
             transaction.replace(R.id.fullscreen, newFragment);
             transaction.addToBackStack(null);
             transaction.commit();
         }else if(id==R.id.nav_attendance)
         {
-            newFragment = new attendance();
+            newFragment = new AttendanceFragment();
             transaction.replace(R.id.fullscreen, newFragment);
             transaction.addToBackStack(null);
             transaction.commit();
         }
         else if(id==R.id.nav_examholidays)
         {
-            newFragment = new examHolidays();
+            newFragment = new ExamHolidayFragment();
             transaction.replace(R.id.fullscreen, newFragment);
             transaction.addToBackStack(null);
             transaction.commit();
         }
         else if(id==R.id.CPSched)
         {
-            newFragment=new cpshedule();
+            newFragment=new CpSchedule();
             transaction.replace(R.id.fullscreen,newFragment);
             transaction.addToBackStack(null);
             transaction.commit();

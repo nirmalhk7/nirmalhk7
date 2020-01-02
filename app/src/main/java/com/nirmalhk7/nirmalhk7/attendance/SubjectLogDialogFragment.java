@@ -23,9 +23,9 @@ import com.nirmalhk7.nirmalhk7.util.timeconv;
 import java.util.ArrayList;
 import java.util.List;
 
-public class subjectLog extends DialogFragment {
+public class SubjectLogDialogFragment extends DialogFragment {
 
-    public static String TAG = "timetableFSD";
+    public static String TAG = "TimetableDialog";
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -103,14 +103,14 @@ public class subjectLog extends DialogFragment {
         List<SubjectlogEntity> subjLog=SLDAO.getAllLog(subj);
 
 
-        ArrayList<attendanceListItem> SubjectItem = new ArrayList<>();
+        ArrayList<AttendanceListItem> SubjectItem = new ArrayList<>();
         Log.d("ATT/ALS","Count"+subjLog.size());
 
         for (SubjectlogEntity cn : subjLog) {
          //   Log.d("ATT/ALS", "Printing: Task "+cn.getSubject()+" P "+cn.getPresent()+" A "+cn.getAbsent());
-            SubjectItem.add(new attendanceListItem(timeconv.date_to(cn.getDaytime(),"dd MMM yyyy"), timeconv.date_to(cn.getDaytime(),"EEE")+", "+ timeconv.date_to(cn.getDaytime(),"hh:mm a"),cn.getPrabca(),cn.getId()));
+            SubjectItem.add(new AttendanceListItem(timeconv.date_to(cn.getDaytime(),"dd MMM yyyy"), timeconv.date_to(cn.getDaytime(),"EEE")+", "+ timeconv.date_to(cn.getDaytime(),"hh:mm a"),cn.getPrabca(),cn.getId()));
         }
-        attendanceAdapter adapter = new attendanceAdapter(getContext(), SubjectItem,2);
+        AttendanceArrayAdapter adapter = new AttendanceArrayAdapter(getContext(), SubjectItem,2);
 
         ListView listView = rootView.findViewById(R.id.list_item_subjects_log);
         listView.setAdapter(adapter);

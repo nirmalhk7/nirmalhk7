@@ -25,20 +25,20 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class attendanceAdapter extends ArrayAdapter<attendanceListItem> {
+public class AttendanceArrayAdapter extends ArrayAdapter<AttendanceListItem> {
 
     /**
      * Resource ID for the background color for this list of words
      */
     private int kSubject;
     private Context context;
-    public attendanceAdapter(Context context, ArrayList<attendanceListItem> attendanceListItem) {
+    public AttendanceArrayAdapter(Context context, ArrayList<AttendanceListItem> attendanceListItem) {
         super(context, 0, attendanceListItem);
         kSubject=0;
         this.context=context;
     }
 
-    public attendanceAdapter(Context context, ArrayList<attendanceListItem> SubjectItem, int key) {
+    public AttendanceArrayAdapter(Context context, ArrayList<AttendanceListItem> SubjectItem, int key) {
         super(context, 0, SubjectItem);
         kSubject = key;
         this.context=context;
@@ -56,7 +56,7 @@ public class attendanceAdapter extends ArrayAdapter<attendanceListItem> {
                         R.layout.attendance_list_item, parent, false);
             }
 
-            final attendanceListItem currentWord = getItem(position);
+            final AttendanceListItem currentWord = getItem(position);
 
             TextView subjName_subj = listItemView.findViewById(R.id.subjName_subject);
             subjName_subj.setText(currentWord.getSubjName());
@@ -115,7 +115,7 @@ public class attendanceAdapter extends ArrayAdapter<attendanceListItem> {
                         public void onClick(View v) {
                             Log.d("ATT/ATA","Clicked");
                             AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                            attendanceFSD newFragment = new attendanceFSD();
+                            AttendanceDialogFragment newFragment = new AttendanceDialogFragment();
                             Bundle bundle=new Bundle();
                             bundle.putInt("key",currentWord.getmId());
                             bundle.putInt("present",currentWord.getmPresent());
@@ -157,7 +157,7 @@ public class attendanceAdapter extends ArrayAdapter<attendanceListItem> {
                 listItemView = LayoutInflater.from(getContext()).inflate(
                         R.layout.attendance_subject_log_item, parent, false);
             }
-            attendanceListItem currentWord = getItem(position);
+            AttendanceListItem currentWord = getItem(position);
             TextView date=listItemView.findViewById(R.id.subjName_calendar);
             date.setText(currentWord.getDateAdded());
 

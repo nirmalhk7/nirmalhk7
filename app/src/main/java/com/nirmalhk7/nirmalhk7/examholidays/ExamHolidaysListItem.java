@@ -1,6 +1,6 @@
 package com.nirmalhk7.nirmalhk7.examholidays;
 
-public class examholidaysListItem {
+public class ExamHolidaysListItem {
 
     private int holexa;
     private String mTitle;
@@ -8,7 +8,7 @@ public class examholidaysListItem {
     private String mType;
     private int mId;
 
-    public examholidaysListItem(int id, int holiday1Exam0, String title, String date, String Type) {
+    public ExamHolidaysListItem(int id, int holiday1Exam0, String title, String date, String Type) {
         holexa = holiday1Exam0;
         mTitle = title;
         mDate=date;

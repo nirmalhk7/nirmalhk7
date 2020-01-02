@@ -11,14 +11,14 @@ import com.nirmalhk7.nirmalhk7.R;
 
 import java.util.ArrayList;
 
-public class cpscheduleAdapter extends ArrayAdapter<cpscheduleListItem> {
+public class CpScheduleArrayAdapter extends ArrayAdapter<CpScheduleListItem> {
     /**
      * Resource ID for the background color for this list of words
      */
     private int mColorResourceId;
 
 
-    public cpscheduleAdapter(Context context, ArrayList<cpscheduleListItem> event) {
+    public CpScheduleArrayAdapter(Context context, ArrayList<CpScheduleListItem> event) {
         super(context, 0, event);
     }
 
@@ -31,8 +31,8 @@ public class cpscheduleAdapter extends ArrayAdapter<cpscheduleListItem> {
                     R.layout.cpsched_list_item, parent, false);
         }
 
-        // Get the {@link timetableListItem} object located at this position in the list
-        cpscheduleListItem currentWord = getItem(position);
+        // Get the {@link TimetableListItem} object located at this position in the list
+        CpScheduleListItem currentWord = getItem(position);
 
         TextView hostname= listItemView.findViewById(R.id.codesch_hostname);
         hostname.setText(currentWord.getHname());

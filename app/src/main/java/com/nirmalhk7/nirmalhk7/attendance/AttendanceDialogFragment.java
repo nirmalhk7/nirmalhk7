@@ -37,7 +37,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class attendanceFSD extends DialogFragment {
+public class AttendanceDialogFragment extends DialogFragment {
     public int key;
 
     @Override
