@@ -2,10 +2,12 @@ package com.nirmalhk7.nirmalhk7;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 public class SplashActivity extends AppCompatActivity {
+    private static final String TAG = SplashActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -13,7 +15,7 @@ public class SplashActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
-        Log.d("SPLASH","Splash "+intent);
+        Log.d(TAG,"Splash Screen Running "+intent);
         finish();
     }
 }

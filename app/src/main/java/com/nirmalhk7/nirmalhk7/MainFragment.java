@@ -1,20 +1,11 @@
 package com.nirmalhk7.nirmalhk7.entrydisplay;
 
 import android.Manifest;
-import androidx.room.Room;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import androidx.core.widget.TextViewCompat;
-import androidx.cardview.widget.CardView;
-import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -26,13 +17,23 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.widget.TextViewCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.room.Room;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.leinardi.android.speeddial.SpeedDialView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
-import com.nirmalhk7.nirmalhk7.examholidays.ExamholidaysDAO;
 import com.nirmalhk7.nirmalhk7.examholidays.ExamHolidayFragment;
+import com.nirmalhk7.nirmalhk7.examholidays.ExamholidaysDAO;
 import com.nirmalhk7.nirmalhk7.timetable.Timetable;
 import com.nirmalhk7.nirmalhk7.timetable.TimetableDAO;
 
@@ -72,10 +73,10 @@ public class MainFragment extends Fragment {
     //  Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private String api_link;
-    private AirLocation airLocation;
-    public double longitude;
-    public double latitude;
+    private String mAPILink;
+    private AirLocation mAirLocation;
+    public double mLongitude;
+    public double mLatitude;
 
     private OnFragmentInteractionListener mListener;
 
@@ -250,7 +251,7 @@ public class MainFragment extends Fragment {
           //  startSnips(assistantLocation);
         }
 
-        api_link = "https://api.darksky.net/forecast/60569b87b5b2a6220c135e9b2e91646b/";
+        mAPILink = "https://api.darksky.net/forecast/60569b87b5b2a6220c135e9b2e91646b/";
         SpeedDialView dial=getActivity().findViewById(R.id.speedDial);
         dial.setVisibility(View.INVISIBLE);
         CardView das=v.findViewById(R.id.dailySchedule);
@@ -281,16 +282,16 @@ public class MainFragment extends Fragment {
         });
         weather = getActivity().findViewById(R.id.weather);
         if (isOnline()) {
-            airLocation = new AirLocation(getActivity(), true, true, new AirLocation.Callbacks() {
+            mAirLocation = new AirLocation(getActivity(), true, true, new AirLocation.Callbacks() {
                 @Override
                 public void onSuccess(Location location) {
-                    latitude = location.getLatitude();
-                    longitude = location.getLongitude();
-                    Log.d("AirLocation", "Coordinates LA:" + latitude + " + LO:" + longitude);
-                    api_link = api_link.concat(Double.toString(latitude) + "," + Double.toString(longitude));
-                    api_link = api_link.concat("?units=si");
-                    Log.d("WeatherAPI", api_link);
-                    requestData(api_link, "weather",v);
+                    mLatitude = location.getLatitude();
+                    mLongitude = location.getLongitude();
+                    Log.d("AirLocation", "Coordinates LA:" + mLatitude + " + LO:" + mLongitude);
+                    mAPILink = mAPILink.concat(Double.toString(mLatitude) + "," + Double.toString(mLongitude));
+                    mAPILink = mAPILink.concat("?units=si");
+                    Log.d("WeatherAPI", mAPILink);
+                    requestData(mAPILink, "weather",v);
 
                 }
 
@@ -303,7 +304,7 @@ public class MainFragment extends Fragment {
             weather.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getActivity(), "LA:"+latitude+" LO:"+longitude+". MR1",
+                    Toast.makeText(getActivity(), "LA:"+ mLatitude +" LO:"+ mLongitude +". MR1",
                             Toast.LENGTH_SHORT).show();
                 }
             });
@@ -517,7 +518,7 @@ public class MainFragment extends Fragment {
             public void onRefresh() {
                 //Here you can update your data from internet or from local SQLite data
                 Log.d("DAS/DSL","Refreshing");
-                requestData(api_link, "weather",rootview);
+                requestData(mAPILink, "weather",rootview);
                 pullToRefresh.setRefreshing(false);
             }
         });
