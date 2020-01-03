@@ -244,7 +244,7 @@ public class AttendanceDialogFragment extends DialogFragment {
                 try {
                     int p = Integer.parseInt(s.toString());
                     int a = Integer.parseInt(ab.getText().toString());
-                    Total.setText("Total Classes: " + Integer.toString(p + a));
+                    Total.setText("Total Classes: " + (p + a));
                     Log.d("ATT/FSD", "TotalTV " + Total.getText());
 
                 } catch (NumberFormatException e) {
@@ -269,7 +269,7 @@ public class AttendanceDialogFragment extends DialogFragment {
                 try {
                     int a = Integer.parseInt(s.toString());
                     int p = Integer.parseInt(pr.getText().toString());
-                    Total.setText("Total Classes: " + Integer.toString(p + a));
+                    Total.setText("Total Classes: " + (p + a));
                     Log.d("ATT/FSD", "TotalTV " + Total.getText());
 
                 } catch (NumberFormatException e) {

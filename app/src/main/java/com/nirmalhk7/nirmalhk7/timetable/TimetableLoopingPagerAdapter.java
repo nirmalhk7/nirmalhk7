@@ -120,7 +120,7 @@ public class TimetableLoopingPagerAdapter extends LoopingPagerAdapter<Integer> {
                 args.putString("subjcode",subjcode.getText().toString());
                 args.putInt("day", listPosition);
 
-                Log.d("DS", "PSN:" + Integer.toString(position));
+                Log.d("DS", "PSN:" + position);
                 newFragment.setArguments(args);
                 FragmentTransaction transaction = Fmgr.beginTransaction();
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);

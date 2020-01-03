@@ -29,6 +29,7 @@ public class AttendanceArrayAdapter extends ArrayAdapter<AttendanceListItem> {
     
     private int mSubject;
     private Context mContext;
+    private AttendanceListItem mCurrentItem;
 
     public AttendanceArrayAdapter(Context context, ArrayList<AttendanceListItem> attendanceListItem) {
         super(context, 0, attendanceListItem);
@@ -46,7 +47,7 @@ public class AttendanceArrayAdapter extends ArrayAdapter<AttendanceListItem> {
     public View getView(int position, View convertView, ViewGroup parent) {
         // Check if an existing view is being reused, otherwise inflate the view
         View listItemView = convertView;
-        AttendanceListItem currentItem;
+
 
         if(mSubject ==1)
         {
@@ -61,16 +62,16 @@ public class AttendanceArrayAdapter extends ArrayAdapter<AttendanceListItem> {
             }
 
 
-            currentItem = getItem(position);
+            mCurrentItem = getItem(position);
 
             subjectName = listItemView.findViewById(R.id.subjName_subject);
-            subjectName.setText(currentItem.getSubjName());
+            subjectName.setText(mCurrentItem.getSubjName());
 
             attendanceCount = listItemView.findViewById(R.id.presentabsent_subject);
 
-            attendanceCount.setText("Present "+currentItem.getmPresent()+" / Absent "+currentItem.getmAbsent());
-            present = currentItem.getmPresent();
-            absent=currentItem.getmAbsent();
+            attendanceCount.setText("Present "+ mCurrentItem.getmPresent()+" / Absent "+ mCurrentItem.getmAbsent());
+            present = mCurrentItem.getmPresent();
+            absent= mCurrentItem.getmAbsent();
             result=present/(present+absent);
             result = (float) Math.round(result * 100);
 
@@ -78,12 +79,12 @@ public class AttendanceArrayAdapter extends ArrayAdapter<AttendanceListItem> {
             percentAttendance.setText("Percent: "+result+"%");
 
             id=listItemView.findViewById(R.id.attendance_id);
-            Log.d("XXXC",""+currentItem.getmId());
-            id.setText(currentItem.getmId()+"");
+            Log.d("XXXC",""+ mCurrentItem.getmId());
+            id.setText(mCurrentItem.getmId()+"");
 
             btnlistener(listItemView,Integer.parseInt(id.getText().toString()));
 
-            SwipeLayout swipeLayout =  (SwipeLayout)listItemView.findViewById(R.id.swipeswipe);
+            SwipeLayout swipeLayout = listItemView.findViewById(R.id.swipeswipe);
             //set show mode.
             swipeLayout.setShowMode(SwipeLayout.ShowMode.LayDown);
             //add drag edge.(If the BottomView has 'layout_gravity' attribute, this line is unnecessary)
@@ -108,7 +109,7 @@ public class AttendanceArrayAdapter extends ArrayAdapter<AttendanceListItem> {
                     deleteb.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            AttendanceEntity x=attendanceDAO.getSubjectbyId(currentItem.getmId());
+                            AttendanceEntity x=attendanceDAO.getSubjectbyId(mCurrentItem.getmId());
                             attendanceDAO.deleteSchedule(x);
                         }
                     });
@@ -119,10 +120,10 @@ public class AttendanceArrayAdapter extends ArrayAdapter<AttendanceListItem> {
                             AppCompatActivity activity = (AppCompatActivity) v.getContext();
                             AttendanceDialogFragment newFragment = new AttendanceDialogFragment();
                             Bundle bundle=new Bundle();
-                            bundle.putInt("key",currentItem.getmId());
-                            bundle.putInt("present",currentItem.getmPresent());
-                            bundle.putInt("absent",currentItem.getmAbsent());
-                            bundle.putString("subject",currentItem.getSubjName());
+                            bundle.putInt("key", mCurrentItem.getmId());
+                            bundle.putInt("present", mCurrentItem.getmPresent());
+                            bundle.putInt("absent", mCurrentItem.getmAbsent());
+                            bundle.putString("subject", mCurrentItem.getSubjName());
                             newFragment.setArguments(bundle);
                             activity.getSupportFragmentManager().beginTransaction().add(android.R.id.content, newFragment).addToBackStack(null).addToBackStack(null).commit();
 
@@ -159,32 +160,32 @@ public class AttendanceArrayAdapter extends ArrayAdapter<AttendanceListItem> {
                 listItemView = LayoutInflater.from(getContext()).inflate(
                         R.layout.item_subject_log, parent, false);
             }
-            currentItem = getItem(position);
+            mCurrentItem = getItem(position);
             TextView date=listItemView.findViewById(R.id.subjName_calendar);
-            date.setText(currentItem.getDateAdded());
+            date.setText(mCurrentItem.getDateAdded());
 
             TextView dt= listItemView.findViewById(R.id.dt_calendar);
-            dt.setText(currentItem.getDayTime());
+            dt.setText(mCurrentItem.getDayTime());
 
-            if(currentItem.getmPRABCA()==1)
+            if(mCurrentItem.getmPRABCA()==1)
             {
                 TextView pacp= listItemView.findViewById(R.id.pacp_calendar);
                 pacp.setText("Present");
                 pacp.setTextColor(Color.GREEN);
             }
-            else if(currentItem.getmPRABCA()==2)
+            else if(mCurrentItem.getmPRABCA()==2)
             {
                 TextView pacp= listItemView.findViewById(R.id.pacp_calendar);
                 pacp.setText("ABSENT");
                 pacp.setTextColor(Color.RED);
             }
-            else if(currentItem.getmPRABCA()==3)
+            else if(mCurrentItem.getmPRABCA()==3)
             {
                 TextView pacp= listItemView.findViewById(R.id.pacp_calendar);
                 pacp.setText("CANCELLED");
                 pacp.setTextColor(Color.YELLOW);
             }
-            else if(currentItem.getmPRABCA()==-1)
+            else if(mCurrentItem.getmPRABCA()==-1)
             {
                 TextView pacp=listItemView.findViewById(R.id.pacp_calendar);
                 pacp.setText("RESET");

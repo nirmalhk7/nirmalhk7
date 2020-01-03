@@ -122,7 +122,7 @@ public class AttendanceFragment extends Fragment {
                 */
 
                 String zpercent=percent.getText().toString().substring(8,percent.getText().toString().indexOf('%'));
-                String absent=prabca.getText().toString().substring(prabca.getText().toString().indexOf('A')+7,prabca.getText().toString().length());
+                String absent=prabca.getText().toString().substring(prabca.getText().toString().indexOf('A')+7);
                 String present=prabca.getText().toString().substring(8,prabca.getText().toString().indexOf('/')-1);
 
 

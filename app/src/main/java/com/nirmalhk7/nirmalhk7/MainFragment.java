@@ -288,7 +288,7 @@ public class MainFragment extends Fragment {
                     mLatitude = location.getLatitude();
                     mLongitude = location.getLongitude();
                     Log.d("AirLocation", "Coordinates LA:" + mLatitude + " + LO:" + mLongitude);
-                    mAPILink = mAPILink.concat(Double.toString(mLatitude) + "," + Double.toString(mLongitude));
+                    mAPILink = mAPILink.concat(mLatitude + "," + mLongitude);
                     mAPILink = mAPILink.concat("?units=si");
                     Log.d("WeatherAPI", mAPILink);
                     requestData(mAPILink, "weather",v);

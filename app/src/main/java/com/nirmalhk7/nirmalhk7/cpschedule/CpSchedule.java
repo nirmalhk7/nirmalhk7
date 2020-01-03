@@ -125,7 +125,7 @@ public class CpSchedule extends Fragment {
 
                         }
                         CpScheduleArrayAdapter adapter=new CpScheduleArrayAdapter(getContext(),contestList);
-                        ListView list=(ListView) rootview.findViewById(R.id.list_item_cpsch);
+                        ListView list= rootview.findViewById(R.id.list_item_cpsch);
 
                         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
