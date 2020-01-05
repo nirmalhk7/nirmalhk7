@@ -93,7 +93,7 @@ public class TimetableLoopingPagerAdapter extends LoopingPagerAdapter<Integer> {
     //    TextView description=convertView.findViewById(R.id.tt_dayreview);
     //    description.setText(scheduleEntities.size()+" classes from "+timeconv.date_to(scheduleEntities.get(0).getStartTime(),"hh:mm a")+" to "+timeconv.date_to(scheduleEntities.get(scheduleEntities.size()-1).getEndTime(),"hh:mm a"));
         ttadapter=new TimetableArrayAdapter(context,sch);
-        ListView listView=convertView.findViewById(R.id.list_item_timetable);
+        final ListView listView=convertView.findViewById(R.id.list_item_timetable);
 
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -107,7 +107,6 @@ public class TimetableLoopingPagerAdapter extends LoopingPagerAdapter<Integer> {
                 TextView subjcode=view.findViewById(R.id.fsd_subjabbr);
                 Log.d("CONVERTX", endTime + "-" + starttime);
 
-
                 TimetableDialog newFragment = new TimetableDialog();
                // FragmentManager fragmentManager = ctvt.getSupportFragmentManager();
 
@@ -118,6 +117,7 @@ public class TimetableLoopingPagerAdapter extends LoopingPagerAdapter<Integer> {
                 args.putString("starttime", starttime.getText().toString());
                 args.putString("endtime", endTime.getText().toString());
                 args.putString("subjcode",subjcode.getText().toString());
+                args.putBoolean("editing",true);
                 args.putInt("day", listPosition);
 
                 Log.d("DS", "PSN:" + position);

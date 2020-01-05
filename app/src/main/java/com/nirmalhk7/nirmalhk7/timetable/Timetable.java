@@ -90,18 +90,7 @@ public class Timetable extends Fragment {
         ArrayList<Integer> dataItems=new ArrayList<>(Arrays.asList(1,2,3,4,5,6));
         TimetableLoopingPagerAdapter adapter=new TimetableLoopingPagerAdapter(getContext(),dataItems,true,fmgr);
         vpgr.setAdapter(adapter);
-
-        vpgr.setIndicatorPageChangeListener(new LoopingViewPager.IndicatorPageChangeListener() {
-            @Override
-            public void onIndicatorProgress(int selectingPosition, float progress) {
-
-            }
-
-            @Override
-            public void onIndicatorPageChange(int newIndicatorPosition) {
-                Log.d("POSITION",vpgr.getCurrentItem()+"."+newIndicatorPosition);
-            }
-        });
+        
         SpeedDialView speedDialView = getActivity().findViewById(R.id.speedDial);
         speedDialView.setVisibility(View.VISIBLE);
         speedDialView.clearActionItems();
@@ -111,6 +100,9 @@ public class Timetable extends Fragment {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 
                 TimetableDialog newFragment = new TimetableDialog();
+                Bundle b=new Bundle();
+                b.putBoolean("editing",false);
+                newFragment.setArguments(b);
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 transaction.add(android.R.id.content, newFragment).addToBackStack(null).commit();

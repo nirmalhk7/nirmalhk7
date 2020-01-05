@@ -54,7 +54,7 @@ public class TimetableDialog extends DialogFragment {
         PAGE_TAG= Timetable.MODULE_TAG+"FSD";
         final Bundle bundle = this.getArguments();
         //If editing
-        if (bundle != null) {
+        if (bundle.getBoolean("editing")) {
 
             //Toolbar toolbar=getActivity().findViewById(R.id.toolbar);
             //toolbar.setTitle("Edit Task");
@@ -108,7 +108,7 @@ public class TimetableDialog extends DialogFragment {
         }
 
 
-        if(bundle==null)
+        else
         {
             RadioButton Monday=rootView.findViewById(R.id.rbMon);
             Monday.setChecked(true);
@@ -264,7 +264,7 @@ public class TimetableDialog extends DialogFragment {
                     TimetableDAO SDAO = database.getTTDao();
 
                     TimetableEntity scheduleEntity;
-                    if (bundle != null) {
+                    if (bundle.getBoolean("editing")) {
                         scheduleEntity = SDAO.getScheduleById(dbNo);
 
 
@@ -279,7 +279,7 @@ public class TimetableDialog extends DialogFragment {
                     scheduleEntity.setEndTime(timeconv.to_date(taskTimeEndEdit.getText().toString(),"hh:mm a"));
                     scheduleEntity.setDay(getDayChecked(rootView,day));
                     Log.d(PAGE_TAG,"Day saved: "+getDayChecked(rootView,day));
-                    if(bundle!=null)
+                    if(bundle.getBoolean("editing"))
                         SDAO.updateSchedule(scheduleEntity);
                     else
                         SDAO.insertOnlySingleSchedule(scheduleEntity);
