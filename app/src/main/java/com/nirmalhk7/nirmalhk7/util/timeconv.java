@@ -86,7 +86,7 @@ public class timeconv {
     public static String today_get(String format)
     {
         Date d=new Date(Calendar.getInstance().getTimeInMillis());
-        return date_to(d,format);
+        return date_to(d,format)+"";
     }
     public static Date time_add(Date time1,int secondsToAdd)
     {

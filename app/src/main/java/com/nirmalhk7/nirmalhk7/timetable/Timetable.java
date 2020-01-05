@@ -15,6 +15,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.asksira.loopingviewpager.LoopingViewPager;
 import com.leinardi.android.speeddial.SpeedDialView;
 import com.nirmalhk7.nirmalhk7.R;
+import com.nirmalhk7.nirmalhk7.util.timeconv;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -81,7 +82,7 @@ public class Timetable extends Fragment {
         MODULE_TAG="TT/";
         PAGE_TAG=MODULE_TAG+"TT";
         vpgr=rootView.findViewById(R.id.viewpager);
-        vpgr.setCurrentItem(3);
+        vpgr.setCurrentItem(Integer.parseInt(timeconv.today_get("u")),true);
         Log.d(PAGE_TAG,"Position in ViewPager "+vpgr.getCurrentItem());
         Toolbar toolbar=getActivity().findViewById(R.id.toolbar);
         toolbar.setTitle("Your Timetable");
@@ -90,6 +91,17 @@ public class Timetable extends Fragment {
         TimetableLoopingPagerAdapter adapter=new TimetableLoopingPagerAdapter(getContext(),dataItems,true,fmgr);
         vpgr.setAdapter(adapter);
 
+        vpgr.setIndicatorPageChangeListener(new LoopingViewPager.IndicatorPageChangeListener() {
+            @Override
+            public void onIndicatorProgress(int selectingPosition, float progress) {
+
+            }
+
+            @Override
+            public void onIndicatorPageChange(int newIndicatorPosition) {
+                Log.d("POSITION",vpgr.getCurrentItem()+"."+newIndicatorPosition);
+            }
+        });
         SpeedDialView speedDialView = getActivity().findViewById(R.id.speedDial);
         speedDialView.setVisibility(View.VISIBLE);
         speedDialView.clearActionItems();
