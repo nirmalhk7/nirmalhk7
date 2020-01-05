@@ -296,8 +296,12 @@ public class TimetableDialog extends DialogFragment {
     public void dialogTimePicker(final View rv,final int whatTimeSelected, final EditText TimeEdt) {
         //  Auto-generated method stub
         Calendar mcurrentTime = Calendar.getInstance();
-        int Mhour = 0;
-        int Mminute = 0;
+        int Mhour,Mminute;
+        Mhour=Mminute=0;
+        if(TimeEdt.getText().toString()!=null) {
+            Mhour = Integer.parseInt(timeconv.dtConverter(TimeEdt.getText().toString(), "hh:mm a", "H"));
+            Mminute = Integer.parseInt(timeconv.dtConverter(TimeEdt.getText().toString(), "hh:mm a", "mm"));
+        }
         TimePickerDialog mTimePicker;
 
         mTimePicker = new TimePickerDialog(getContext(), AlertDialog.THEME_DEVICE_DEFAULT_DARK, new TimePickerDialog.OnTimeSetListener() {
