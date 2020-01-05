@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -213,9 +215,27 @@ public class TimetableDialog extends DialogFragment {
             @Override
             public void onClick(View v) {
                 dialogTimePicker(rootView,2, endTime);
-
             }
         });
+
+        startTime.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(endTime.getText().toString()!=null)
+                    endTime.setText(timeconv.date_to(timeconv.time_add(timeconv.to_date(editable.toString(),"hh:mm a"),55*60*1000),"hh:mm a"));
+            }
+        });
+
 
 
         //On Click SAVE
@@ -226,7 +246,6 @@ public class TimetableDialog extends DialogFragment {
                 Log.d("DailyScheduler", "Saving data!");
 
                 AutoCompleteTextView taskNameEdit = getActivity().findViewById(R.id.taskName);
-                EditText taskLabelEdit = getActivity().findViewById(R.id.taskLabel);
                 AutoCompleteTextView SubjCode=getActivity().findViewById(R.id.subjCode);
                 EditText taskTimeStartEdit = getActivity().findViewById(R.id.taskStart);
                 EditText taskTimeEndEdit = getActivity().findViewById(R.id.taskEnd);
@@ -234,7 +253,7 @@ public class TimetableDialog extends DialogFragment {
 
                 //Validation
 
-                Log.d("Name:", "H " + taskNameEdit.getText().toString() + taskLabelEdit.getText().toString() + taskTimeEndEdit.getText().toString());
+                Log.d("Name:", "H " + taskNameEdit.getText().toString() + taskTimeEndEdit.getText().toString());
 
                 //  db.addSchedule(new TimetableEntity("Task 1","Label 1","Time 1"));
                 if(Validation(rootView))
@@ -255,7 +274,6 @@ public class TimetableDialog extends DialogFragment {
                         scheduleEntity = new TimetableEntity();
                     }
                     scheduleEntity.setTask(taskNameEdit.getText().toString());
-                    scheduleEntity.setLabel(taskLabelEdit.getText().toString());
                     scheduleEntity.setSubjCode(SubjCode.getText().toString());
                     scheduleEntity.setStartTime(timeconv.to_date(taskTimeStartEdit.getText().toString(),"hh:mm a"));
                     scheduleEntity.setEndTime(timeconv.to_date(taskTimeEndEdit.getText().toString(),"hh:mm a"));
@@ -298,6 +316,8 @@ public class TimetableDialog extends DialogFragment {
                 time+=selectedMinute;
                 TimeEdt.setText(timeconv.dtConverter(time,"HH:mm","hh:mm a"));
 
+
+
             }
         }, Mhour, Mminute, false);//yes 12 hour time
 
@@ -322,12 +342,10 @@ public class TimetableDialog extends DialogFragment {
         AppCompatAutoCompleteTextView EtaskName=rootview.findViewById(R.id.taskName);
         EditText EtaskStartTime=rootview.findViewById(R.id.taskStart);
         EditText EtaskEndTime=rootview.findViewById(R.id.taskEnd);
-        EditText EtaskLabel=rootview.findViewById(R.id.taskLabel);
         String taskName=EtaskName.getText().toString();
-        String taskLabel=EtaskLabel.getText().toString();
         String taskStartTime=EtaskStartTime.getText().toString();
         String taskEndTime=EtaskEndTime.getText().toString();
-        if(taskName.isEmpty()||taskEndTime.isEmpty()||taskLabel.isEmpty()||taskStartTime.isEmpty())
+        if(taskName.isEmpty()||taskEndTime.isEmpty()||taskStartTime.isEmpty())
         {
             if(taskName.isEmpty())
             {
@@ -344,12 +362,6 @@ public class TimetableDialog extends DialogFragment {
             {
                 Log.d(PAGE_TAG,"Validation taskName");
                 EtaskEndTime.setError("Required");
-
-            }
-            if(taskLabel.isEmpty())
-            {
-                Log.d(PAGE_TAG,"Validation taskName");
-                EtaskLabel.setError("Required");
 
             }
             return false;

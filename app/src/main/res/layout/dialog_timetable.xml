@@ -202,17 +202,6 @@
                android:textColorHint="@color/colorFontHintDark" />
 
 
-            <EditText
-                android:id="@+id/taskLabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="College"
-                android:inputType="textCapSentences"
-                android:textColor="@color/colorFontDark"
-               android:textColorHint="@color/colorFontHintDark" />
-
-
-
 
             <LinearLayout
                 android:layout_width="match_parent"

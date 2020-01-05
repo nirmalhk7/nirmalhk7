@@ -88,6 +88,12 @@ public class timeconv {
         Date d=new Date(Calendar.getInstance().getTimeInMillis());
         return date_to(d,format);
     }
+    public static Date time_add(Date time1,int secondsToAdd)
+    {
+        Long timestamp=dateToTimestamp(time1)+secondsToAdd;
+        return fromTimestamp(timestamp);
+    }
+
 
 
 
