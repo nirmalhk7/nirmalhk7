@@ -298,7 +298,7 @@ public class TimetableDialog extends DialogFragment {
         Calendar mcurrentTime = Calendar.getInstance();
         int Mhour,Mminute;
         Mhour=Mminute=0;
-        if(TimeEdt.getText().toString()!=null) {
+        if(!TimeEdt.getText().toString().matches("")) {
             Mhour = Integer.parseInt(timeconv.dtConverter(TimeEdt.getText().toString(), "hh:mm a", "H"));
             Mminute = Integer.parseInt(timeconv.dtConverter(TimeEdt.getText().toString(), "hh:mm a", "mm"));
         }

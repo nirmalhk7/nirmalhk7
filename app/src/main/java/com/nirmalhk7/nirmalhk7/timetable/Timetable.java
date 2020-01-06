@@ -82,15 +82,16 @@ public class Timetable extends Fragment {
         MODULE_TAG="TT/";
         PAGE_TAG=MODULE_TAG+"TT";
         vpgr=rootView.findViewById(R.id.viewpager);
-        vpgr.setCurrentItem(Integer.parseInt(timeconv.today_get("u")),true);
-        Log.d(PAGE_TAG,"Position in ViewPager "+vpgr.getCurrentItem());
+        Log.d(getClass().getName(),"Todays Time "+Integer.parseInt(timeconv.today_get("u")));
+
         Toolbar toolbar=getActivity().findViewById(R.id.toolbar);
         toolbar.setTitle("Your Timetable");
         FragmentManager fmgr=getActivity().getSupportFragmentManager();
         ArrayList<Integer> dataItems=new ArrayList<>(Arrays.asList(1,2,3,4,5,6));
         TimetableLoopingPagerAdapter adapter=new TimetableLoopingPagerAdapter(getContext(),dataItems,true,fmgr);
         vpgr.setAdapter(adapter);
-        
+        vpgr.setCurrentItem(Integer.parseInt(timeconv.today_get("u")));
+        Log.d(PAGE_TAG,"Position in ViewPager "+vpgr.getCurrentItem());
         SpeedDialView speedDialView = getActivity().findViewById(R.id.speedDial);
         speedDialView.setVisibility(View.VISIBLE);
         speedDialView.clearActionItems();
