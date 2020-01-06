@@ -5,3 +5,10 @@ android:
     - build-tools-28.0.3
     - android-28
     - extra
+    sudo: required
+
+jdk:
+  - oraclejdk8
+
+script:
+  - ./gradlew assembleDebug
