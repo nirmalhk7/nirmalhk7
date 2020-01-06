@@ -38,7 +38,7 @@ public class Timetable extends Fragment {
 //    //
 //    private String mParam1;
 //    private String mParam2;
-
+    private TimetableLoopingPagerAdapter adapter;
     private OnFragmentInteractionListener mListener;
 
     public Timetable() {
@@ -82,13 +82,15 @@ public class Timetable extends Fragment {
         MODULE_TAG="TT/";
         PAGE_TAG=MODULE_TAG+"TT";
         vpgr=rootView.findViewById(R.id.viewpager);
+
         Log.d(getClass().getName(),"Todays Time "+Integer.parseInt(timeconv.today_get("u")));
 
         Toolbar toolbar=getActivity().findViewById(R.id.toolbar);
         toolbar.setTitle("Your Timetable");
         FragmentManager fmgr=getActivity().getSupportFragmentManager();
         ArrayList<Integer> dataItems=new ArrayList<>(Arrays.asList(1,2,3,4,5,6));
-        TimetableLoopingPagerAdapter adapter=new TimetableLoopingPagerAdapter(getContext(),dataItems,true,fmgr);
+
+        adapter = new TimetableLoopingPagerAdapter(getContext(),dataItems,true,fmgr);
         vpgr.setAdapter(adapter);
         vpgr.setCurrentItem(Integer.parseInt(timeconv.today_get("u")));
         Log.d(PAGE_TAG,"Position in ViewPager "+vpgr.getCurrentItem());

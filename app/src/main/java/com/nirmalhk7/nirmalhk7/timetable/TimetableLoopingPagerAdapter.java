@@ -24,9 +24,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TimetableLoopingPagerAdapter extends LoopingPagerAdapter<Integer> {
-    public static FragmentManager Fmgr;
-    public static TimetableArrayAdapter ttadapter;
-    public TimetableLoopingPagerAdapter(Context context, ArrayList<Integer> itemList, boolean isInfinite, FragmentManager fmgr) {
+    private static FragmentManager Fmgr;
+    private static TimetableArrayAdapter ttadapter;
+    private int mListPosition;
+    TimetableLoopingPagerAdapter(Context context, ArrayList<Integer> itemList, boolean isInfinite, FragmentManager fmgr) {
         super(context, itemList, isInfinite);
          Fmgr=fmgr;
     }
@@ -51,7 +52,13 @@ public class TimetableLoopingPagerAdapter extends LoopingPagerAdapter<Integer> {
         description.setText(timeconv.dayno_to_day(listPosition));
         swiperefresh(convertView,context,listPosition);
         TTFetch(convertView,context,listPosition);
+        mListPosition=listPosition;
 
+
+    }
+
+    public int getmListPosition() {
+        return mListPosition;
     }
 
     private SwipeRefreshLayout pullToRefresh;
@@ -70,6 +77,8 @@ public class TimetableLoopingPagerAdapter extends LoopingPagerAdapter<Integer> {
             }
         });
     }
+
+
     public static void TTFetch(View convertView, final Context context, final int listPosition)
     {
         // Reading all contacts
