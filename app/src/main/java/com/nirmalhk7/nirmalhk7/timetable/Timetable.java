@@ -105,6 +105,7 @@ public class Timetable extends Fragment {
                 TimetableDialog newFragment = new TimetableDialog();
                 Bundle b=new Bundle();
                 b.putBoolean("editing",false);
+                b.putInt("day-selected",vpgr.getCurrentItem());
                 newFragment.setArguments(b);
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);

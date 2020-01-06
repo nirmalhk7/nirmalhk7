@@ -189,6 +189,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Subject Code"
                 android:id="@+id/subjCode"
+                android:text="IT"
                 android:inputType="textCapCharacters"
                 android:textColor="@color/colorFontDark"
                 android:textColorHint="@color/colorFontHintDark"/>

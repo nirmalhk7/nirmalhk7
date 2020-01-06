@@ -110,8 +110,8 @@ public class TimetableDialog extends DialogFragment {
 
         else
         {
-            RadioButton Monday=rootView.findViewById(R.id.rbMon);
-            Monday.setChecked(true);
+            RadioGroup dayrg=rootView.findViewById(R.id.rgDay);
+            ((RadioButton)dayrg.getChildAt(bundle.getInt("day-selected")-1)).setChecked(true);
             EditText starttime=rootView.findViewById(R.id.taskStart);
             EditText endtime=rootView.findViewById(R.id.taskEnd);
 
@@ -378,7 +378,7 @@ public class TimetableDialog extends DialogFragment {
     {
 
         RadioButton selected=rootview.findViewById(day.getCheckedRadioButtonId());
-        mday=timeconv.day_to_dayno(selected.getText().toString());
+        mday=day.indexOfChild(selected);
         Log.d(PAGE_TAG,"getDayChecked Function "+mday);
         return mday;
     }
