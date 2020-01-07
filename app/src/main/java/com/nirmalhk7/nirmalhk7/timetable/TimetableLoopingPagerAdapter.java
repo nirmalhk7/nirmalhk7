@@ -81,7 +81,7 @@ public class TimetableLoopingPagerAdapter extends LoopingPagerAdapter<Integer> {
                 args.putString("endtime", endTime.getText().toString());
                 args.putString("subjcode",subjcode.getText().toString());
                 args.putBoolean("editing",true);
-                args.putInt("day", mListPosition);
+                args.putInt("day", mListPosition-1);
 
                 Log.d("DS", "PSN:" + position);
                 newFragment.setArguments(args);

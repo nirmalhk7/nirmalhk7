@@ -32,7 +32,8 @@ import java.util.Calendar;
 
 public class TimetableDialog extends DialogFragment {
     public int key;
-    public String PAGE_TAG;
+    private String PAGE_TAG;
+    private TimetableArrayAdapter ttadapter;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
