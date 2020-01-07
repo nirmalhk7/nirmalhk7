@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.asksira.loopingviewpager.LoopingPagerAdapter;
 import com.nirmalhk7.nirmalhk7.R;
@@ -47,6 +48,7 @@ public class TimetableLoopingPagerAdapter extends LoopingPagerAdapter<Integer> {
     protected void bindView(View convertView, int listPosition, int viewType) {
         //convertView.findViewById(R.id.image).setBackgroundColor(context.getResources().getColor(getBackgroundColor(listPosition)));
         TextView description = convertView.findViewById(R.id.description);
+        SwipeRefreshLayout pullToRefresh=convertView.findViewById(R.id.pullToRefresh);
         description.setText(converter.dayno_to_day(listPosition));
         TimetableController ttControler=new TimetableController(convertView,context,listPosition);
         List<com.nirmalhk7.nirmalhk7.timetable.TimetableEntity> timetableEntities= ttControler.TTFetch();
@@ -91,7 +93,7 @@ public class TimetableLoopingPagerAdapter extends LoopingPagerAdapter<Integer> {
         });
 
         listView.setAdapter(ttadapter);
-        ttControler.swipeToRefresh(convertView,ttControler,ttadapter);
+        ttControler.swipeToRefresh(pullToRefresh,ttControler,ttadapter);
 
 
     }

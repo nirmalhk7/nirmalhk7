@@ -23,16 +23,12 @@ import android.widget.TimePicker;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
 import androidx.fragment.app.DialogFragment;
-import androidx.room.Room;
 
-import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
-import com.nirmalhk7.nirmalhk7.model.AttendanceDAO;
-import com.nirmalhk7.nirmalhk7.model.AttendanceEntity;
+import com.nirmalhk7.nirmalhk7.controllers.TimetableController;
 import com.nirmalhk7.nirmalhk7.util.converter;
 
 import java.util.Calendar;
-import java.util.List;
 
 public class TimetableDialog extends DialogFragment {
     public int key;
@@ -51,8 +47,9 @@ public class TimetableDialog extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         final View rootView = inflater.inflate(R.layout.dialog_timetable, container, false);
-        PAGE_TAG= Timetable.MODULE_TAG+"FSD";
         final Bundle bundle = this.getArguments();
+        final TimetableController ttController=new TimetableController(rootView,getContext());
+
         //If editing
         if (bundle.getBoolean("editing")) {
 
@@ -67,26 +64,23 @@ public class TimetableDialog extends DialogFragment {
             Log.d(PAGE_TAG,rday+" Provided by TT");
             dbNo = bundle.getInt("key");
 
-            //Pass title,label and time value to EditText
             AutoCompleteTextView taskNameEdit = rootView.findViewById(R.id.taskName);
-            taskNameEdit.setText(title);
-            //EditText taskLabelEdit = rootView.findViewById(R.id.taskLabel);
             EditText subjCode=rootView.findViewById(R.id.subjCode);
-            subjCode.setText(subjcode);
-
             EditText taskTimeStartEdit = rootView.findViewById(R.id.taskStart);
             EditText taskTimeEndEdit = rootView.findViewById(R.id.taskEnd);
+            RadioGroup dayrg=rootView.findViewById(R.id.rgDay);
+
+            taskNameEdit.setText(title);
+            subjCode.setText(subjcode);
             taskTimeStartEdit.setText(startTime);
             taskTimeEndEdit.setText(endtime);
-
-            RadioGroup dayrg=rootView.findViewById(R.id.rgDay);
             ((RadioButton)dayrg.getChildAt(rday)).setChecked(true);
 
             //trash is the trashbox for deleting;
+            int pxstd = getContext().getResources().getDimensionPixelSize(R.dimen.standard_dimen);
             ImageView trash = new ImageView(getContext());
             trash.setImageResource(R.drawable.ic_trash);
             trash.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
-            int pxstd = getContext().getResources().getDimensionPixelSize(R.dimen.standard_dimen);
             trash.setPadding(pxstd, 0, pxstd, 0);
             LinearLayout topIcons = rootView.findViewById(R.id.scheduleDialog);
             topIcons.addView(trash);
@@ -94,13 +88,7 @@ public class TimetableDialog extends DialogFragment {
                 @Override
                 public void onClick(View v) {
                     Log.d(PAGE_TAG, "Delete Button Clicked!");
-                    DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
-                            .allowMainThreadQueries().fallbackToDestructiveMigration()
-                            .build();
-
-                    TimetableDAO SDAO=database.getTTDao();
-                    Log.d(PAGE_TAG, dbNo+" DB Deleted");
-                    SDAO.deleteSchedule(SDAO.getScheduleById(dbNo));
+                    ttController.deleteTimetableEntry(dbNo);
                     dismiss();
                 }
             });
@@ -155,32 +143,7 @@ public class TimetableDialog extends DialogFragment {
         });
 
 
-
-        DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
-                .allowMainThreadQueries().fallbackToDestructiveMigration()
-                .build();
-
-        final TimetableDAO SDAO = database.getTTDao();
-        AttendanceDAO attendanceDAO=database.getATTDao();
-
-        List<TimetableEntity> x = SDAO.getSubjects("College");
-
-        List<AttendanceEntity> z = attendanceDAO.getSubjectNames();
-        String[] subject = new String[x.size()+z.size()];
-
-        int i = 0;
-
-        for (TimetableEntity cn : x) {
-            subject[i] = cn.getTask();
-            Log.d(PAGE_TAG, "Autocomplete Local "+subject[i]);
-            ++i;
-        }
-        for (AttendanceEntity cn: z)
-        {
-            subject[i]=cn.getSubject();
-            Log.d(PAGE_TAG,"Autocomplete From Attendance: "+subject[i]);
-            ++i;
-        }
+        String[] subject=ttController.insertSuggestions();
         final AppCompatAutoCompleteTextView autoTextView;
         autoTextView = rootView.findViewById(R.id.taskName);
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>
@@ -249,45 +212,9 @@ public class TimetableDialog extends DialogFragment {
                 AutoCompleteTextView SubjCode=getActivity().findViewById(R.id.subjCode);
                 EditText taskTimeStartEdit = getActivity().findViewById(R.id.taskStart);
                 EditText taskTimeEndEdit = getActivity().findViewById(R.id.taskEnd);
-
-
-                //Validation
-
-                Log.d("Name:", "H " + taskNameEdit.getText().toString() + taskTimeEndEdit.getText().toString());
-
-                //  db.addSchedule(new TimetableEntity("Task 1","Label 1","Time 1"));
                 if(Validation(rootView))
-                {
-                    DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
-                            .allowMainThreadQueries().fallbackToDestructiveMigration()
-                            .build();
-                    TimetableDAO SDAO = database.getTTDao();
-
-                    TimetableEntity scheduleEntity;
-                    if (bundle.getBoolean("editing")) {
-                        scheduleEntity = SDAO.getScheduleById(dbNo);
-
-
-
-
-                    } else {
-                        scheduleEntity = new TimetableEntity();
-                    }
-                    scheduleEntity.setTask(taskNameEdit.getText().toString());
-                    scheduleEntity.setSubjCode(SubjCode.getText().toString());
-                    scheduleEntity.setStartTime(converter.to_date(taskTimeStartEdit.getText().toString(),"hh:mm a"));
-                    scheduleEntity.setEndTime(converter.to_date(taskTimeEndEdit.getText().toString(),"hh:mm a"));
-                    scheduleEntity.setDay(getDayChecked(rootView,day));
-                    Log.d(PAGE_TAG,"Day saved: "+getDayChecked(rootView,day));
-                    if(bundle.getBoolean("editing"))
-                        SDAO.updateSchedule(scheduleEntity);
-                    else
-                        SDAO.insertOnlySingleSchedule(scheduleEntity);
-
-                   
-                    dismiss();
-                }
-
+                    ttController.saveTimetable(taskNameEdit.getText().toString(),SubjCode.getText().toString(),taskTimeStartEdit.getText().toString(),taskTimeEndEdit.getText().toString(),getDayChecked(rootView,day),bundle.getBoolean("editing"),dbNo);
+                dismiss();
             }
         });
         return rootView;

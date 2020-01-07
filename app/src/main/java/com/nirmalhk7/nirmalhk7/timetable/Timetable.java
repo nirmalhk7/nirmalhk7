@@ -79,8 +79,6 @@ public class Timetable extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView= inflater.inflate(R.layout.fragment_timetable, container, false);
-        MODULE_TAG="TT/";
-        PAGE_TAG=MODULE_TAG+"TT";
         vpgr=rootView.findViewById(R.id.viewpager);
 
         Log.d(getClass().getName(),"Todays Time "+Integer.parseInt(converter.today_get("u")));
@@ -88,8 +86,8 @@ public class Timetable extends Fragment {
         Toolbar toolbar=getActivity().findViewById(R.id.toolbar);
         toolbar.setTitle("Your Timetable");
         FragmentManager fmgr=getActivity().getSupportFragmentManager();
-        ArrayList<Integer> dataItems=new ArrayList<>(Arrays.asList(1,2,3,4,5,6));
 
+        ArrayList<Integer> dataItems=new ArrayList<>(Arrays.asList(1,2,3,4,5,6));
         adapter = new TimetableLoopingPagerAdapter(getContext(),dataItems,true,fmgr);
         vpgr.setAdapter(adapter);
         vpgr.setCurrentItem(Integer.parseInt(converter.today_get("u")));
