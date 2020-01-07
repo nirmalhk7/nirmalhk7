@@ -17,6 +17,11 @@ import androidx.room.Room;
 import com.daimajia.swipe.SwipeLayout;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
+import com.nirmalhk7.nirmalhk7.model.AttendanceDAO;
+import com.nirmalhk7.nirmalhk7.model.AttendanceEntity;
+import com.nirmalhk7.nirmalhk7.model.AttendanceListItem;
+import com.nirmalhk7.nirmalhk7.model.SubjectlogDAO;
+import com.nirmalhk7.nirmalhk7.model.SubjectlogEntity;
 import com.nirmalhk7.nirmalhk7.util.converter;
 
 import java.text.DateFormat;

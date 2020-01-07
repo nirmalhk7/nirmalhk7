@@ -27,6 +27,10 @@ import androidx.room.Room;
 
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
+import com.nirmalhk7.nirmalhk7.model.AttendanceDAO;
+import com.nirmalhk7.nirmalhk7.model.AttendanceEntity;
+import com.nirmalhk7.nirmalhk7.model.SubjectlogDAO;
+import com.nirmalhk7.nirmalhk7.model.SubjectlogEntity;
 import com.nirmalhk7.nirmalhk7.timetable.TimetableDAO;
 import com.nirmalhk7.nirmalhk7.timetable.TimetableEntity;
 import com.nirmalhk7.nirmalhk7.util.converter;

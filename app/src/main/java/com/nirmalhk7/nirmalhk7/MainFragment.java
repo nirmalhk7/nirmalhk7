@@ -33,7 +33,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.examholidays.ExamHolidayFragment;
-import com.nirmalhk7.nirmalhk7.examholidays.ExamholidaysDAO;
+import com.nirmalhk7.nirmalhk7.model.ExamholidaysDAO;
 import com.nirmalhk7.nirmalhk7.timetable.Timetable;
 import com.nirmalhk7.nirmalhk7.timetable.TimetableDAO;
 

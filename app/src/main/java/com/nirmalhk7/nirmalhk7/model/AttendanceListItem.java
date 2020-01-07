@@ -1,4 +1,4 @@
-package com.nirmalhk7.nirmalhk7.attendance;
+package com.nirmalhk7.nirmalhk7.model;
 
 public class AttendanceListItem {
 

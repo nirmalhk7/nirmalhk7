@@ -4,12 +4,12 @@ import androidx.room.Database;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
-import com.nirmalhk7.nirmalhk7.attendance.AttendanceDAO;
-import com.nirmalhk7.nirmalhk7.attendance.AttendanceEntity;
-import com.nirmalhk7.nirmalhk7.attendance.SubjectlogDAO;
-import com.nirmalhk7.nirmalhk7.attendance.SubjectlogEntity;
-import com.nirmalhk7.nirmalhk7.examholidays.ExamholidaysEntity;
-import com.nirmalhk7.nirmalhk7.examholidays.ExamholidaysDAO;
+import com.nirmalhk7.nirmalhk7.model.AttendanceDAO;
+import com.nirmalhk7.nirmalhk7.model.AttendanceEntity;
+import com.nirmalhk7.nirmalhk7.model.SubjectlogDAO;
+import com.nirmalhk7.nirmalhk7.model.SubjectlogEntity;
+import com.nirmalhk7.nirmalhk7.model.ExamholidaysEntity;
+import com.nirmalhk7.nirmalhk7.model.ExamholidaysDAO;
 import com.nirmalhk7.nirmalhk7.timetable.TimetableDAO;
 import com.nirmalhk7.nirmalhk7.timetable.TimetableEntity;
 import com.nirmalhk7.nirmalhk7.util.converter;

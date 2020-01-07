@@ -9,17 +9,19 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.nirmalhk7.nirmalhk7.R;
+import com.nirmalhk7.nirmalhk7.model.ExamholidaysEntity;
+import com.nirmalhk7.nirmalhk7.util.converter;
 
-import java.util.ArrayList;
+import java.util.List;
 
-public class ExamHolidayArrayAdapter extends ArrayAdapter<ExamHolidaysListItem> {
+public class ExamHolidayArrayAdapter extends ArrayAdapter<ExamholidaysEntity> {
     /*
      * Resource ID for the background color for this list of words
      */
     private int mColorResourceId;
 
 
-    public ExamHolidayArrayAdapter(Context context, ArrayList<ExamHolidaysListItem> event) {
+    public ExamHolidayArrayAdapter(Context context, List<ExamholidaysEntity> event) {
         super(context, 0, event);
     }
 
@@ -33,27 +35,24 @@ public class ExamHolidayArrayAdapter extends ArrayAdapter<ExamHolidaysListItem> 
         }
 
         // Get the {@link TimetableListItem} object located at this position in the list
-        ExamHolidaysListItem currentWord = getItem(position);
+        ExamholidaysEntity currentWord = getItem(position);
 
         // Find the TextView in the dailyschedule_list_itemdule_list_item.xml layout with the ID miwok_text_view.
         TextView title = listItemView.findViewById(R.id.holidayExam_name);
         // Get the Miwok translation from the currentWord object and set this text on
         // the Miwok TextView.
-        title.setText(currentWord.getTitle());
+        title.setText(currentWord.getmName());
 
     //TODO
         TextView id=listItemView.findViewById(R.id.holidayExam_id);
-        id.setText(Integer.toString(currentWord.getmId()));
-        // Find the TextView in the item_timetable.xml_list_item.xml layout with the ID default_text_view.
+        id.setText(Integer.toString(currentWord.getId()));
         TextView hOrE = listItemView.findViewById(R.id.holidayExam);
-        // Get the default translation from the currentWord object and set this text on
-        // the default TextView.
-        if(currentWord.getHolidayOrExam()==1)
+        if(currentWord.getHolexa()==1)
         {
             hOrE.setText(currentWord.getmType());
             hOrE.setTextColor(Color.RED);
         }
-        else if(currentWord.getHolidayOrExam()==2)
+        else if(currentWord.getHolexa()==2)
         {
             hOrE.setText("HOLIDAY");
             hOrE.setTextColor(Color.GREEN);
@@ -61,13 +60,11 @@ public class ExamHolidayArrayAdapter extends ArrayAdapter<ExamHolidaysListItem> 
 
 
         TextView date = listItemView.findViewById(R.id.holidayExam_date);
-        // Get the default translation from the currentWord object and set this text on
-        // the default TextView.
-        date.setText(currentWord.getmDate());
+        String eventDate= converter.date_to(currentWord.getStart(),"dd MM yyyy");
+        if(currentWord.getEnd()!=null)
+            eventDate+=" - "+converter.date_to(currentWord.getEnd(),"dd MM yyyy");
 
-
-        // Return the whole list item layout (containing 2 TextViews) so that it can be shown in
-        // the ListView.
+        date.setText(eventDate);
         return listItemView;
     }
 }

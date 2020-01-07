@@ -17,16 +17,14 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.room.Room;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.leinardi.android.speeddial.SpeedDialActionItem;
 import com.leinardi.android.speeddial.SpeedDialView;
-import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
+import com.nirmalhk7.nirmalhk7.controllers.AttendanceController;
+import com.nirmalhk7.nirmalhk7.model.AttendanceListItem;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -102,11 +100,17 @@ public class AttendanceFragment extends Fragment {
             }
         });
 */
-        swiperefresh(rootView);
+        AttendanceController attController=new AttendanceController(getContext());
 
-        ALSfetchDB(rootView);
+
+        ArrayList<AttendanceListItem> SubjectItem=attController.fetchAttendance();
+
+        AttendanceArrayAdapter adapter = new AttendanceArrayAdapter(getContext(), SubjectItem,1);
 
         ListView listView = rootView.findViewById(R.id.list_item_allsubjects);
+        listView.setAdapter(adapter);
+        attController.swipeToRefresh(rootView,adapter);
+
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -215,44 +219,10 @@ public class AttendanceFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    private SwipeRefreshLayout pullToRefresh;
-    void swiperefresh(final View rootview){
-        pullToRefresh = rootview.findViewById(R.id.pullToRefresh);
-        pullToRefresh.setEnabled(true);
-        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            int Refreshcounter = 1; //Counting how many times user have refreshed the layout
 
-            @Override
-            public void onRefresh() {
-                //Here you can update your data from internet or from local SQLite data
-                Log.d("ATT/ALS","Refreshing");
-                ALSfetchDB(rootview);
-                pullToRefresh.setRefreshing(false);
-            }
-        });
-    }
 
-    void ALSfetchDB(View rootView){
+    void ALSfetchDB(View rootView,AttendanceController attController){
 
-        DBGateway database2 = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
-                .allowMainThreadQueries().fallbackToDestructiveMigration()
-                .build();
-
-        AttendanceDAO AttendanceDAO = database2.getATTDao();
-
-        List<AttendanceEntity> attendance=AttendanceDAO.getAllSubject();
-        ArrayList<AttendanceListItem> SubjectItem = new ArrayList<>();
-        Log.d("ATT/ALS","Count"+attendance.size());
-        
-        for (AttendanceEntity cn : attendance) {
-            Log.d("ATT/ALS", "Printing: Task "+cn.getSubject()+" P "+cn.getPresent()+" A "+cn.getAbsent());
-            SubjectItem.add(new AttendanceListItem(cn.getSubject(), cn.getPresent(),cn.getAbsent(),cn.getId()));
-        }
-
-        AttendanceArrayAdapter adapter = new AttendanceArrayAdapter(getContext(), SubjectItem,1);
-
-        ListView listView = rootView.findViewById(R.id.list_item_allsubjects);
-        listView.setAdapter(adapter);
     }
 
 

@@ -1,4 +1,4 @@
-package com.nirmalhk7.nirmalhk7.attendance;
+package com.nirmalhk7.nirmalhk7.model;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -49,8 +49,5 @@ public class SubjectlogEntity {
     public Date getDaytime() {
         return daytime;
     }
-
-    SubjectlogEntity()
-    {}
 
 }

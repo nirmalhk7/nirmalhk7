@@ -12,12 +12,10 @@ import android.widget.TextView;
 
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.room.Room;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.asksira.loopingviewpager.LoopingPagerAdapter;
-import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
+import com.nirmalhk7.nirmalhk7.controllers.TimetableController;
 import com.nirmalhk7.nirmalhk7.util.converter;
 
 import java.util.ArrayList;
@@ -50,52 +48,12 @@ public class TimetableLoopingPagerAdapter extends LoopingPagerAdapter<Integer> {
         //convertView.findViewById(R.id.image).setBackgroundColor(context.getResources().getColor(getBackgroundColor(listPosition)));
         TextView description = convertView.findViewById(R.id.description);
         description.setText(converter.dayno_to_day(listPosition));
-        swiperefresh(convertView,context,listPosition);
-        TTFetch(convertView,context,listPosition);
+        TimetableController ttControler=new TimetableController(convertView,context,listPosition);
+        List<com.nirmalhk7.nirmalhk7.timetable.TimetableEntity> timetableEntities= ttControler.TTFetch();
         mListPosition=listPosition;
 
+        ttadapter=new TimetableArrayAdapter(context,timetableEntities);
 
-    }
-
-    public int getmListPosition() {
-        return mListPosition;
-    }
-
-    private SwipeRefreshLayout pullToRefresh;
-    void swiperefresh(final View rootview,final Context c,final int listpos){
-        pullToRefresh = rootview.findViewById(R.id.pullToRefresh);
-        pullToRefresh.setEnabled(true);
-        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            int Refreshcounter = 1; //Counting how many times user have refreshed the layout
-
-            @Override
-            public void onRefresh() {
-                //Here you can update your data from internet or from local SQLite data
-                Log.d("ATT/ALS","Refreshing");
-                TTFetch(rootview,c,listpos);
-                pullToRefresh.setRefreshing(false);
-            }
-        });
-    }
-
-
-    public static void TTFetch(View convertView, final Context context, final int listPosition)
-    {
-        // Reading all contacts
-        Log.d("Reading: ", "Reading all contacts..");
-
-
-        DBGateway database = Room.databaseBuilder(context, DBGateway.class, "finalDB")
-                .allowMainThreadQueries().fallbackToDestructiveMigration()
-                .build();
-
-        //TimetableDAO TimetableDAO = database.getScheduleDao();
-        com.nirmalhk7.nirmalhk7.timetable.TimetableDAO SDAO=database.getTTDao();
-        //Log.d("DAS/DS/X", "xx" + bundle.getInt("key"));
-        List<com.nirmalhk7.nirmalhk7.timetable.TimetableEntity> scheduleEntities = SDAO.getScheduleByDay(listPosition);
-    //    TextView description=convertView.findViewById(R.id.tt_dayreview);
-    //    description.setText(scheduleEntities.size()+" classes from "+converter.date_to(scheduleEntities.get(0).getStartTime(),"hh:mm a")+" to "+converter.date_to(scheduleEntities.get(scheduleEntities.size()-1).getEndTime(),"hh:mm a"));
-        ttadapter=new TimetableArrayAdapter(context,scheduleEntities);
         final ListView listView=convertView.findViewById(R.id.list_item_timetable);
 
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -111,7 +69,7 @@ public class TimetableLoopingPagerAdapter extends LoopingPagerAdapter<Integer> {
                 Log.d("CONVERTX", endTime + "-" + starttime);
 
                 TimetableDialog newFragment = new TimetableDialog();
-               // FragmentManager fragmentManager = ctvt.getSupportFragmentManager();
+                // FragmentManager fragmentManager = ctvt.getSupportFragmentManager();
 
 
                 Bundle args = new Bundle();
@@ -121,7 +79,7 @@ public class TimetableLoopingPagerAdapter extends LoopingPagerAdapter<Integer> {
                 args.putString("endtime", endTime.getText().toString());
                 args.putString("subjcode",subjcode.getText().toString());
                 args.putBoolean("editing",true);
-                args.putInt("day", listPosition);
+                args.putInt("day", mListPosition);
 
                 Log.d("DS", "PSN:" + position);
                 newFragment.setArguments(args);
@@ -133,6 +91,17 @@ public class TimetableLoopingPagerAdapter extends LoopingPagerAdapter<Integer> {
         });
 
         listView.setAdapter(ttadapter);
+        ttControler.swipeToRefresh(convertView,ttControler,ttadapter);
+
+
     }
+
+    public int getmListPosition() {
+        return mListPosition;
+    }
+
+
+
+
 
 }

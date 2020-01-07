@@ -1,11 +1,10 @@
-package com.nirmalhk7.nirmalhk7.examholidays;
+package com.nirmalhk7.nirmalhk7.model;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
-
 
 
 import java.util.List;

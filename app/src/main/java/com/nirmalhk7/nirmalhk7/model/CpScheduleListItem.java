@@ -1,4 +1,4 @@
-package com.nirmalhk7.nirmalhk7.cpschedule;
+package com.nirmalhk7.nirmalhk7.model;
 
 public class CpScheduleListItem {
 

@@ -23,10 +23,10 @@ import com.leinardi.android.speeddial.SpeedDialActionItem;
 import com.leinardi.android.speeddial.SpeedDialView;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
-import com.nirmalhk7.nirmalhk7.util.converter;
+import com.nirmalhk7.nirmalhk7.model.ExamholidaysDAO;
+import com.nirmalhk7.nirmalhk7.model.ExamholidaysEntity;
 import com.nirmalhk7.nirmalhk7.util.MyBottomSheetDialogFragment;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.nirmalhk7.nirmalhk7.attendance.SubjectLogDialogFragment.TAG;
@@ -216,20 +216,9 @@ public class ExamHolidayFragment extends Fragment {
                 .build();
 
         ExamholidaysDAO examholidaysDAO = database.getEHDAO();
-        ArrayList<ExamHolidaysListItem> hs = new ArrayList<ExamHolidaysListItem>();
         List<ExamholidaysEntity> list = examholidaysDAO.getEventsOrdered();
 
-        for (ExamholidaysEntity cn : list) {
-            Log.d("EAH/EAH", cn.getmType() + " ");
-            if (cn.getStart().equals(cn.getEnd())) {
-                hs.add(new ExamHolidaysListItem(cn.getId(), cn.getHolexa(), cn.getmName(), converter.date_to(cn.getStart(),"dd MMM yyyy"), cn.getmType()));
-            } else {
-                hs.add(new ExamHolidaysListItem(cn.getId(), cn.getHolexa(), cn.getmName(), converter.date_to(cn.getStart(),"dd MMM yyyy") + " - " + converter.date_to(cn.getEnd(),"dd MMM yyyy"), cn.getmType()));
-            }
-        }
-
-
-        adapter = new ExamHolidayArrayAdapter(getContext(), hs);
+        adapter = new ExamHolidayArrayAdapter(getContext(), list);
 
         // Find the {@link ListView} object in the view hierarchy of the {@link Activity}.
         // There should be a {@link ListView} with the view ID called list, which is declared in the

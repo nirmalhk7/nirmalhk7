@@ -13,12 +13,12 @@ import com.nirmalhk7.nirmalhk7.util.converter;
 
 import java.util.List;
 
-public class TimetableArrayAdapter extends ArrayAdapter<TimetableEntity> {
+public class TimetableArrayAdapter extends ArrayAdapter<com.nirmalhk7.nirmalhk7.timetable.TimetableEntity> {
 
     /** Resource ID for the background color for this list of words */
 
 
-    public TimetableArrayAdapter(Context context, List<TimetableEntity> words) {
+    public TimetableArrayAdapter(Context context, List<com.nirmalhk7.nirmalhk7.timetable.TimetableEntity> words) {
         super(context, 0, words);
     }
 
@@ -32,7 +32,7 @@ public class TimetableArrayAdapter extends ArrayAdapter<TimetableEntity> {
         }
 
         // Get the {@link TimetableListItem} object located at this position in the list
-        TimetableEntity currentWord = getItem(position);
+        com.nirmalhk7.nirmalhk7.timetable.TimetableEntity currentWord = getItem(position);
 
         // Find the TextView in the dailyschedule_list_itemdule_list_item.xml layout with the ID miwok_text_view.
         TextView miwokTextView = listItemView.findViewById(R.id.miwok_text_view);

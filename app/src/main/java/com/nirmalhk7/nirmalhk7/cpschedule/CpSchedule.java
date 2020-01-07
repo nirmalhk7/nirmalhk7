@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.nirmalhk7.nirmalhk7.R;
+import com.nirmalhk7.nirmalhk7.model.CpScheduleListItem;
 
 import org.json.JSONArray;
 import org.json.JSONException;
