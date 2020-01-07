@@ -18,7 +18,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.asksira.loopingviewpager.LoopingPagerAdapter;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
-import com.nirmalhk7.nirmalhk7.util.timeconv;
+import com.nirmalhk7.nirmalhk7.util.converter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +49,7 @@ public class TimetableLoopingPagerAdapter extends LoopingPagerAdapter<Integer> {
     protected void bindView(View convertView, int listPosition, int viewType) {
         //convertView.findViewById(R.id.image).setBackgroundColor(context.getResources().getColor(getBackgroundColor(listPosition)));
         TextView description = convertView.findViewById(R.id.description);
-        description.setText(timeconv.dayno_to_day(listPosition));
+        description.setText(converter.dayno_to_day(listPosition));
         swiperefresh(convertView,context,listPosition);
         TTFetch(convertView,context,listPosition);
         mListPosition=listPosition;
@@ -84,24 +84,18 @@ public class TimetableLoopingPagerAdapter extends LoopingPagerAdapter<Integer> {
         // Reading all contacts
         Log.d("Reading: ", "Reading all contacts..");
 
-        ArrayList<TimetableListItem> sch = new ArrayList<TimetableListItem>();
 
         DBGateway database = Room.databaseBuilder(context, DBGateway.class, "finalDB")
                 .allowMainThreadQueries().fallbackToDestructiveMigration()
                 .build();
 
         //TimetableDAO TimetableDAO = database.getScheduleDao();
-        TimetableDAO SDAO=database.getTTDao();
+        com.nirmalhk7.nirmalhk7.timetable.TimetableDAO SDAO=database.getTTDao();
         //Log.d("DAS/DS/X", "xx" + bundle.getInt("key"));
-        List<TimetableEntity> scheduleEntities = SDAO.getScheduleByDay(listPosition);
-        for (TimetableEntity cn : scheduleEntities) {
-
-            Log.d("DAS/DSL", "Printing: Task " + cn.getTask() + " Time " + cn.getStartTime() + cn.getEndTime() + " Label " + cn.getLabel());
-            sch.add(new TimetableListItem(cn.getTask(), timeconv.date_to(cn.getStartTime(),"hh:mm a"), timeconv.date_to(cn.getEndTime(),"hh:mm a"), cn.getSubjCode(), cn.getLabel(), cn.getId(), cn.getDay()));
-        }
+        List<com.nirmalhk7.nirmalhk7.timetable.TimetableEntity> scheduleEntities = SDAO.getScheduleByDay(listPosition);
     //    TextView description=convertView.findViewById(R.id.tt_dayreview);
-    //    description.setText(scheduleEntities.size()+" classes from "+timeconv.date_to(scheduleEntities.get(0).getStartTime(),"hh:mm a")+" to "+timeconv.date_to(scheduleEntities.get(scheduleEntities.size()-1).getEndTime(),"hh:mm a"));
-        ttadapter=new TimetableArrayAdapter(context,sch);
+    //    description.setText(scheduleEntities.size()+" classes from "+converter.date_to(scheduleEntities.get(0).getStartTime(),"hh:mm a")+" to "+converter.date_to(scheduleEntities.get(scheduleEntities.size()-1).getEndTime(),"hh:mm a"));
+        ttadapter=new TimetableArrayAdapter(context,scheduleEntities);
         final ListView listView=convertView.findViewById(R.id.list_item_timetable);
 
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {

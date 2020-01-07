@@ -15,7 +15,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.asksira.loopingviewpager.LoopingViewPager;
 import com.leinardi.android.speeddial.SpeedDialView;
 import com.nirmalhk7.nirmalhk7.R;
-import com.nirmalhk7.nirmalhk7.util.timeconv;
+import com.nirmalhk7.nirmalhk7.util.converter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -83,7 +83,7 @@ public class Timetable extends Fragment {
         PAGE_TAG=MODULE_TAG+"TT";
         vpgr=rootView.findViewById(R.id.viewpager);
 
-        Log.d(getClass().getName(),"Todays Time "+Integer.parseInt(timeconv.today_get("u")));
+        Log.d(getClass().getName(),"Todays Time "+Integer.parseInt(converter.today_get("u")));
 
         Toolbar toolbar=getActivity().findViewById(R.id.toolbar);
         toolbar.setTitle("Your Timetable");
@@ -92,7 +92,7 @@ public class Timetable extends Fragment {
 
         adapter = new TimetableLoopingPagerAdapter(getContext(),dataItems,true,fmgr);
         vpgr.setAdapter(adapter);
-        vpgr.setCurrentItem(Integer.parseInt(timeconv.today_get("u")));
+        vpgr.setCurrentItem(Integer.parseInt(converter.today_get("u")));
         Log.d(PAGE_TAG,"Position in ViewPager "+vpgr.getCurrentItem());
         SpeedDialView speedDialView = getActivity().findViewById(R.id.speedDial);
         speedDialView.setVisibility(View.VISIBLE);

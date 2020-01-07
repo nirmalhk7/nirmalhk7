@@ -87,8 +87,8 @@ public class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
 
                 ExamholidaysDAO EHDAO = database.getEHDAO();
                 ExamholidaysEntity x=EHDAO.getehEntityById(dbkey);
-                startdate.setText(timeconv.date_to(x.getStart(),"dd MMM yyyy"));
-                enddate.setText(timeconv.date_to(x.getEnd(),"dd MMM yyyy"));
+                startdate.setText(converter.date_to(x.getStart(),"dd MMM yyyy"));
+                enddate.setText(converter.date_to(x.getEnd(),"dd MMM yyyy"));
                 if (bundle.getInt("holidayorexam") == 1) {
                     exam.setChecked(true);
                     Log.d("EAH/BSD","Editing Exam "+bundle.getInt("holidayorexam"));
@@ -175,8 +175,8 @@ public class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
             {
                 ExamholidaysEntity entity=new ExamholidaysEntity();
                 entity.setmName(name.getText().toString());
-                entity.setStart(timeconv.to_date(startdate.getText().toString(),"dd MMMM yyyy"));
-                entity.setEnd(timeconv.to_date(enddate.getText().toString(),"dd MMMM yyyy"));
+                entity.setStart(converter.to_date(startdate.getText().toString(),"dd MMMM yyyy"));
+                entity.setEnd(converter.to_date(enddate.getText().toString(),"dd MMMM yyyy"));
                 entity.setmType(type.getText().toString());
                 entity.setmDescription(desc.getText().toString());
                 if(exam.isChecked()){
@@ -191,8 +191,8 @@ public class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
             {
                 ExamholidaysEntity entity=EHDAO.getehEntityById(k);
                 entity.setmName(name.getText().toString());
-                entity.setStart(timeconv.to_date(startdate.getText().toString(),"dd MMMM yyyy"));
-                entity.setEnd(timeconv.to_date(enddate.getText().toString(),"dd MMMM yyyy"));
+                entity.setStart(converter.to_date(startdate.getText().toString(),"dd MMMM yyyy"));
+                entity.setEnd(converter.to_date(enddate.getText().toString(),"dd MMMM yyyy"));
                 entity.setmType(type.getText().toString());
                 entity.setmDescription(desc.getText().toString());
                 if(exam.isChecked()){

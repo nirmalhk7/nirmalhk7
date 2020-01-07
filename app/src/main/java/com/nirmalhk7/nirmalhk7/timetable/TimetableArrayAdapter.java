@@ -1,6 +1,7 @@
 package com.nirmalhk7.nirmalhk7.timetable;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,15 +9,16 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.nirmalhk7.nirmalhk7.R;
+import com.nirmalhk7.nirmalhk7.util.converter;
 
-import java.util.ArrayList;
+import java.util.List;
 
-public class TimetableArrayAdapter extends ArrayAdapter<TimetableListItem> {
+public class TimetableArrayAdapter extends ArrayAdapter<TimetableEntity> {
 
     /** Resource ID for the background color for this list of words */
 
 
-    public TimetableArrayAdapter(Context context, ArrayList<TimetableListItem> words) {
+    public TimetableArrayAdapter(Context context, List<TimetableEntity> words) {
         super(context, 0, words);
     }
 
@@ -30,30 +32,36 @@ public class TimetableArrayAdapter extends ArrayAdapter<TimetableListItem> {
         }
 
         // Get the {@link TimetableListItem} object located at this position in the list
-        TimetableListItem currentWord = getItem(position);
+        TimetableEntity currentWord = getItem(position);
 
         // Find the TextView in the dailyschedule_list_itemdule_list_item.xml layout with the ID miwok_text_view.
         TextView miwokTextView = listItemView.findViewById(R.id.miwok_text_view);
         // Get the Miwok translation from the currentWord object and set this text on
         // the Miwok TextView.
-        miwokTextView.setText(currentWord.getScheduleTitle());
+        try{
+            miwokTextView.setText(currentWord.getTask());
+
+        }catch (NullPointerException npe)
+        {
+            Log.e(getClass().getName(),npe.getMessage());
+        }
 
         // Find the TextView in the item_timetable.xml_list_item.xml layout with the ID default_text_view.
 
         TextView startTime = listItemView.findViewById(R.id.start_time);
         // Get the default translation from the currentWord object and set this text on
         // the default TextView.
-        startTime.setText(currentWord.getmStartTime());
+        startTime.setText(converter.date_to(currentWord.getStartTime(),"hh:mm a"));
 
         TextView endTime= listItemView.findViewById(R.id.end_time);
-        endTime.setText(currentWord.getmEndTime());
+        endTime.setText(converter.date_to(currentWord.getEndTime(),"hh:mm a"));
 
         TextView subjcode=listItemView.findViewById(R.id.fsd_subjabbr);
-        subjcode.setText(currentWord.getmSubjCode());
+        subjcode.setText(currentWord.getSubjCode());
 
 
         TextView id=listItemView.findViewById(R.id.itemid);
-        id.setText(String.valueOf(currentWord.getScheduleId()));
+        id.setText(String.valueOf(currentWord.getId()));
 
 //        DBGateway database= Room.databaseBuilder(getContext(),DBGateway.class,"finalDB")
 //                .allowMainThreadQueries().fallbackToDestructiveMigration().build();

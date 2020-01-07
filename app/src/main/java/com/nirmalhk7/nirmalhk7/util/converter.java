@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class timeconv {
+public class converter {
     @TypeConverter
     public static Date fromTimestamp(Long value) {
         return value == null ? null : new Date(value);
@@ -93,8 +93,6 @@ public class timeconv {
         Long timestamp=dateToTimestamp(time1)+secondsToAdd;
         return fromTimestamp(timestamp);
     }
-
-
 
 
 }
