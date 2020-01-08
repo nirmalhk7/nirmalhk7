@@ -8,6 +8,7 @@ import androidx.room.Room;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.nirmalhk7.nirmalhk7.DBGateway;
+import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.model.AttendanceDAO;
 import com.nirmalhk7.nirmalhk7.model.AttendanceEntity;
 import com.nirmalhk7.nirmalhk7.timetable.TimetableArrayAdapter;
@@ -48,14 +49,19 @@ public class TimetableController {
 
         TimetableDAO SDAO=database.getTTDao();
         List<TimetableEntity> scheduleEntities = SDAO.getScheduleByDay(mListPosition);
-
+        Log.d(getClass().getName(),"Fetching List of Size:"+scheduleEntities.size());
 
         return scheduleEntities;
 
     }
 
     public void swipeToRefresh(final SwipeRefreshLayout pullToRefresh,final TimetableController ttController,final TimetableArrayAdapter ttadapter){
+
         pullToRefresh.setEnabled(true);
+        ttadapter.clear();
+        ttadapter.notifyDataSetChanged();
+        ttadapter.addAll(ttController.TTFetch());
+        ttadapter.notifyDataSetChanged();
         pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             int Refreshcounter = 1; //Counting how many times user have refreshed the layout
 
@@ -144,5 +150,14 @@ public class TimetableController {
             SDAO.insertOnlySingleSchedule(scheduleEntity);
 
     }
+    public void refreshOnSave(TimetableArrayAdapter adapter,TimetableController ttController)
+    {
+        adapter.clear();
+        adapter.notifyDataSetChanged();
+        adapter.addAll(ttController.TTFetch());
+        adapter.notifyDataSetChanged();
+        swipeToRefresh((SwipeRefreshLayout)mRootView.findViewById(R.id.pullToRefresh),ttController,ttadapter);
+    }
+
 
 }

@@ -215,6 +215,7 @@ public class TimetableDialog extends DialogFragment {
                 EditText taskTimeEndEdit = getActivity().findViewById(R.id.taskEnd);
                 if(Validation(rootView))
                     ttController.saveTimetable(taskNameEdit.getText().toString(),SubjCode.getText().toString(),taskTimeStartEdit.getText().toString(),taskTimeEndEdit.getText().toString(),getDayChecked(rootView,day),bundle.getBoolean("editing"),dbNo);
+                ttController.refreshOnSave(TimetableLoopingPagerAdapter.ttadapter,ttController);
                 dismiss();
             }
         });

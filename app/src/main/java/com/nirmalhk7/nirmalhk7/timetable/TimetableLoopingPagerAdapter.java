@@ -24,7 +24,7 @@ import java.util.List;
 
 public class TimetableLoopingPagerAdapter extends LoopingPagerAdapter<Integer> {
     private static FragmentManager Fmgr;
-    private static TimetableArrayAdapter ttadapter;
+    public static TimetableArrayAdapter ttadapter;
     private int mListPosition;
     TimetableLoopingPagerAdapter(Context context, ArrayList<Integer> itemList, boolean isInfinite, FragmentManager fmgr) {
         super(context, itemList, isInfinite);
@@ -55,7 +55,7 @@ public class TimetableLoopingPagerAdapter extends LoopingPagerAdapter<Integer> {
         mListPosition=listPosition;
 
         ttadapter=new TimetableArrayAdapter(context,timetableEntities);
-
+        ttadapter.setNotifyOnChange(true);
         final ListView listView=convertView.findViewById(R.id.list_item_timetable);
 
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -81,9 +81,9 @@ public class TimetableLoopingPagerAdapter extends LoopingPagerAdapter<Integer> {
                 args.putString("endtime", endTime.getText().toString());
                 args.putString("subjcode",subjcode.getText().toString());
                 args.putBoolean("editing",true);
-                args.putInt("day", mListPosition-1);
+                args.putInt("day", mListPosition);
 
-                Log.d("DS", "PSN:" + position);
+                Log.d("DS", "Opening Dialog with DayNo:"+(mListPosition));
                 newFragment.setArguments(args);
                 FragmentTransaction transaction = Fmgr.beginTransaction();
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
