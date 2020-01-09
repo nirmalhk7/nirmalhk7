@@ -89,7 +89,7 @@ public class Timetable extends Fragment {
         FragmentManager fmgr=getActivity().getSupportFragmentManager();
 
         ArrayList<Integer> dataItems=new ArrayList<>(Arrays.asList(1,2,3,4,5,6));
-        adapter = new TimetableLoopingPagerAdapter(getContext(),dataItems,true,fmgr);
+        adapter = new TimetableLoopingPagerAdapter(getContext(),dataItems,true,fmgr,getActivity());
         vpgr.setAdapter(adapter);
         vpgr.setCurrentItem(Integer.parseInt(Converters.today_get("u")));
         vpgr.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {

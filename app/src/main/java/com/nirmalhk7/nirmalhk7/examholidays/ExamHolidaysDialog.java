@@ -24,6 +24,7 @@ import androidx.room.Room;
 
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
+import com.nirmalhk7.nirmalhk7.common;
 import com.nirmalhk7.nirmalhk7.controllers.Converters;
 import com.nirmalhk7.nirmalhk7.model.ExamholidaysDAO;
 import com.nirmalhk7.nirmalhk7.model.ExamholidaysEntity;
@@ -34,11 +35,12 @@ import java.util.List;
 
 public class ExamHolidaysDialog extends DialogFragment {
     public int key;
+    private common cmn;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        cmn=new common(getContext());
     }
 
     private int mYear, mMonth, mDay, mHour, mMinute;
@@ -62,6 +64,7 @@ public class ExamHolidaysDialog extends DialogFragment {
         (rootView.findViewById(R.id.button_close)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                cmn.hideKeyboard(getActivity().getCurrentFocus());
                 dismiss();
             }
         });
@@ -177,6 +180,7 @@ public class ExamHolidaysDialog extends DialogFragment {
             entity.setHolexa(2);
         }
         EHDAO.insertOnlySingleEvent(entity);
+        cmn.hideKeyboard(getActivity().getCurrentFocus());
         dismiss();
 
     }

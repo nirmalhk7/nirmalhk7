@@ -16,8 +16,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.asksira.loopingviewpager.LoopingPagerAdapter;
 import com.nirmalhk7.nirmalhk7.R;
-import com.nirmalhk7.nirmalhk7.controllers.TimetableController;
 import com.nirmalhk7.nirmalhk7.controllers.Converters;
+import com.nirmalhk7.nirmalhk7.controllers.TimetableController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +26,11 @@ public class TimetableLoopingPagerAdapter extends LoopingPagerAdapter<Integer> {
     private static FragmentManager Fmgr;
     public static TimetableArrayAdapter ttadapter;
     private int mListPosition;
-    TimetableLoopingPagerAdapter(Context context, ArrayList<Integer> itemList, boolean isInfinite, FragmentManager fmgr) {
+    private Context mActCon;
+    TimetableLoopingPagerAdapter(Context context, ArrayList<Integer> itemList, boolean isInfinite, FragmentManager fmgr,Context actCon) {
         super(context, itemList, isInfinite);
          Fmgr=fmgr;
+         mActCon=actCon;
     }
 
     //This method will be triggered if the item View has not been inflated before.
@@ -51,6 +53,7 @@ public class TimetableLoopingPagerAdapter extends LoopingPagerAdapter<Integer> {
         SwipeRefreshLayout pullToRefresh=convertView.findViewById(R.id.pullToRefresh);
         description.setText(Converters.dayno_to_day(listPosition));
         TimetableController ttControler=new TimetableController(convertView,context,listPosition);
+
         List<com.nirmalhk7.nirmalhk7.timetable.TimetableEntity> timetableEntities= ttControler.TTFetch();
         mListPosition=listPosition;
 
@@ -94,7 +97,6 @@ public class TimetableLoopingPagerAdapter extends LoopingPagerAdapter<Integer> {
 
         listView.setAdapter(ttadapter);
         ttControler.swipeToRefresh(pullToRefresh,ttControler,ttadapter);
-
 
     }
 

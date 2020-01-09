@@ -8,7 +8,6 @@ import androidx.room.Room;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.nirmalhk7.nirmalhk7.DBGateway;
-import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.model.AttendanceDAO;
 import com.nirmalhk7.nirmalhk7.model.AttendanceEntity;
 import com.nirmalhk7.nirmalhk7.timetable.TimetableArrayAdapter;
@@ -154,9 +153,8 @@ public class TimetableController {
     {
         adapter.clear();
         adapter.notifyDataSetChanged();
-        adapter.addAll(ttController.TTFetch());
+        adapter=new TimetableArrayAdapter(mContext,TTFetch());
         adapter.notifyDataSetChanged();
-        swipeToRefresh((SwipeRefreshLayout)mRootView.findViewById(R.id.pullToRefresh),ttController,ttadapter);
     }
 
 
