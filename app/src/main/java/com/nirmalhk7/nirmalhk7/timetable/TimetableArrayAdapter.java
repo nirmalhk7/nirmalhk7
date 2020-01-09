@@ -9,7 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.nirmalhk7.nirmalhk7.R;
-import com.nirmalhk7.nirmalhk7.util.converter;
+import com.nirmalhk7.nirmalhk7.controllers.Converters;
 
 import java.util.List;
 
@@ -51,10 +51,10 @@ public class TimetableArrayAdapter extends ArrayAdapter<com.nirmalhk7.nirmalhk7.
         TextView startTime = listItemView.findViewById(R.id.start_time);
         // Get the default translation from the currentWord object and set this text on
         // the default TextView.
-        startTime.setText(converter.date_to(currentWord.getStartTime(),"hh:mm a"));
+        startTime.setText(Converters.date_to(currentWord.getStartTime(),"hh:mm a"));
 
         TextView endTime= listItemView.findViewById(R.id.end_time);
-        endTime.setText(converter.date_to(currentWord.getEndTime(),"hh:mm a"));
+        endTime.setText(Converters.date_to(currentWord.getEndTime(),"hh:mm a"));
 
         TextView subjcode=listItemView.findViewById(R.id.fsd_subjabbr);
         subjcode.setText(currentWord.getSubjCode());

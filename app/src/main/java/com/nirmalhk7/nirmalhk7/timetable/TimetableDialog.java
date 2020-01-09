@@ -26,7 +26,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.controllers.TimetableController;
-import com.nirmalhk7.nirmalhk7.util.converter;
+import com.nirmalhk7.nirmalhk7.controllers.Converters;
 
 import java.util.Calendar;
 
@@ -115,27 +115,27 @@ public class TimetableDialog extends DialogFragment {
                 {
                     case R.id.rbMon:
                         Log.d(PAGE_TAG,"Day Selected: Monday");
-                        mday= converter.day_to_dayno("Mon");
+                        mday= Converters.day_to_dayno("Mon");
                         break;
                     case R.id.rbTue:
                         Log.d(PAGE_TAG,"Day Selected: Tuesday");
-                        mday= converter.day_to_dayno("Tue");
+                        mday= Converters.day_to_dayno("Tue");
                         break;
                     case R.id.rbWed:
                         Log.d(PAGE_TAG,"Day Selected: Wednesday");
-                        mday= converter.day_to_dayno("Wed");
+                        mday= Converters.day_to_dayno("Wed");
                         break;
                     case R.id.rbThu:
                         Log.d(PAGE_TAG,"Day Selected: Thursday");
-                        mday= converter.day_to_dayno("Thu");
+                        mday= Converters.day_to_dayno("Thu");
                         break;
                     case R.id.rbFriday:
                         Log.d(PAGE_TAG,"Day Selected: Friday");
-                        mday= converter.day_to_dayno("Fri");
+                        mday= Converters.day_to_dayno("Fri");
                         break;
                     case R.id.rbSaturday:
                         Log.d(PAGE_TAG,"Day Selected: Saturday");
-                        mday= converter.day_to_dayno("Sat");
+                        mday= Converters.day_to_dayno("Sat");
                         break;
 
 
@@ -196,7 +196,7 @@ public class TimetableDialog extends DialogFragment {
             @Override
             public void afterTextChanged(Editable editable) {
                 if(endTime.getText().toString()!=null)
-                    endTime.setText(converter.date_to(converter.time_add(converter.to_date(editable.toString(),"hh:mm a"),55*60*1000),"hh:mm a"));
+                    endTime.setText(Converters.date_to(Converters.time_add(Converters.to_date(editable.toString(),"hh:mm a"),55*60*1000),"hh:mm a"));
             }
         });
 
@@ -228,8 +228,8 @@ public class TimetableDialog extends DialogFragment {
         int Mhour,Mminute;
         Mhour=Mminute=0;
         if(!TimeEdt.getText().toString().matches("")) {
-            Mhour = Integer.parseInt(converter.dtConverter(TimeEdt.getText().toString(), "hh:mm a", "H"));
-            Mminute = Integer.parseInt(converter.dtConverter(TimeEdt.getText().toString(), "hh:mm a", "mm"));
+            Mhour = Integer.parseInt(Converters.dtConverter(TimeEdt.getText().toString(), "hh:mm a", "H"));
+            Mminute = Integer.parseInt(Converters.dtConverter(TimeEdt.getText().toString(), "hh:mm a", "mm"));
         }
         TimePickerDialog mTimePicker;
 
@@ -247,7 +247,7 @@ public class TimetableDialog extends DialogFragment {
                     time+="0";
                 }
                 time+=selectedMinute;
-                TimeEdt.setText(converter.dtConverter(time,"HH:mm","hh:mm a"));
+                TimeEdt.setText(Converters.dtConverter(time,"HH:mm","hh:mm a"));
 
 
 

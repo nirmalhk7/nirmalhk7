@@ -17,12 +17,12 @@ import androidx.room.Room;
 import com.daimajia.swipe.SwipeLayout;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
+import com.nirmalhk7.nirmalhk7.controllers.Converters;
 import com.nirmalhk7.nirmalhk7.model.AttendanceDAO;
 import com.nirmalhk7.nirmalhk7.model.AttendanceEntity;
 import com.nirmalhk7.nirmalhk7.model.AttendanceListItem;
 import com.nirmalhk7.nirmalhk7.model.SubjectlogDAO;
 import com.nirmalhk7.nirmalhk7.model.SubjectlogEntity;
-import com.nirmalhk7.nirmalhk7.util.converter;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -242,7 +242,7 @@ public class AttendanceArrayAdapter extends ArrayAdapter<AttendanceListItem> {
                 sl.setPrabca(1);
 
                 DateFormat dtf = new SimpleDateFormat("dd MMM yyyy EEE hh:mm a");
-                Date curdate= converter.to_date(dtf.format(Calendar.getInstance().getTime()),"dd MMMM yyyy hh:mm a");
+                Date curdate= Converters.to_date(dtf.format(Calendar.getInstance().getTime()),"dd MMMM yyyy hh:mm a");
                 sl.setDaytime(curdate);
 
 
@@ -263,7 +263,7 @@ public class AttendanceArrayAdapter extends ArrayAdapter<AttendanceListItem> {
                 sl.setSubject(subjName_subj.getText().toString());
 
                 DateFormat dtf = new SimpleDateFormat("dd MMM yyyy EEE hh:mm a");
-                Date curdate= converter.to_date(dtf.format(Calendar.getInstance().getTime()),"dd MMMM yyyy hh:mm a");
+                Date curdate= Converters.to_date(dtf.format(Calendar.getInstance().getTime()),"dd MMMM yyyy hh:mm a");
                 sl.setDaytime(curdate);
 
 
@@ -286,7 +286,7 @@ public class AttendanceArrayAdapter extends ArrayAdapter<AttendanceListItem> {
                 sl.setPrabca(3);
 
                 DateFormat dtf = new SimpleDateFormat("dd MMM yyyy EEE hh:mm a");
-                Date curdate= converter.to_date(dtf.format(Calendar.getInstance().getTime()),"dd MMMM yyyy hh:mm a");
+                Date curdate= Converters.to_date(dtf.format(Calendar.getInstance().getTime()),"dd MMMM yyyy hh:mm a");
                 sl.setDaytime(curdate);
 
 

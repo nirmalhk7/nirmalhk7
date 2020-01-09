@@ -14,7 +14,6 @@ import com.nirmalhk7.nirmalhk7.model.AttendanceEntity;
 import com.nirmalhk7.nirmalhk7.timetable.TimetableArrayAdapter;
 import com.nirmalhk7.nirmalhk7.timetable.TimetableDAO;
 import com.nirmalhk7.nirmalhk7.timetable.TimetableEntity;
-import com.nirmalhk7.nirmalhk7.util.converter;
 
 import java.util.List;
 
@@ -29,6 +28,7 @@ public class TimetableController {
         mRootView=rootView;
         mContext=context;
         mListPosition=listPosition;
+
     }
 
     public TimetableController(View rootView,Context context)
@@ -140,8 +140,8 @@ public class TimetableController {
         }
         scheduleEntity.setTask(taskName);
         scheduleEntity.setSubjCode(taskCode);
-        scheduleEntity.setStartTime(converter.to_date(startTime,"hh:mm a"));
-        scheduleEntity.setEndTime(converter.to_date(endTime,"hh:mm a"));
+        scheduleEntity.setStartTime(Converters.to_date(startTime,"hh:mm a"));
+        scheduleEntity.setEndTime(Converters.to_date(endTime,"hh:mm a"));
         scheduleEntity.setDay(day);
         Log.d(getClass().getName(),"Day saved: "+day);
         if(editingOrNot)

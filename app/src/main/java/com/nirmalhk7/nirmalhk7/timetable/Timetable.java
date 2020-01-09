@@ -16,7 +16,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.asksira.loopingviewpager.LoopingViewPager;
 import com.leinardi.android.speeddial.SpeedDialView;
 import com.nirmalhk7.nirmalhk7.R;
-import com.nirmalhk7.nirmalhk7.util.converter;
+import com.nirmalhk7.nirmalhk7.controllers.Converters;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -82,7 +82,7 @@ public class Timetable extends Fragment {
         View rootView= inflater.inflate(R.layout.fragment_timetable, container, false);
         vpgr=rootView.findViewById(R.id.viewpager);
 
-        Log.d(getClass().getName(),"Todays Time "+Integer.parseInt(converter.today_get("u")));
+        Log.d(getClass().getName(),"Todays Time "+Integer.parseInt(Converters.today_get("u")));
 
         Toolbar toolbar=getActivity().findViewById(R.id.toolbar);
         toolbar.setTitle("Your Timetable");
@@ -91,7 +91,7 @@ public class Timetable extends Fragment {
         ArrayList<Integer> dataItems=new ArrayList<>(Arrays.asList(1,2,3,4,5,6));
         adapter = new TimetableLoopingPagerAdapter(getContext(),dataItems,true,fmgr);
         vpgr.setAdapter(adapter);
-        vpgr.setCurrentItem(Integer.parseInt(converter.today_get("u")));
+        vpgr.setCurrentItem(Integer.parseInt(Converters.today_get("u")));
         vpgr.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

@@ -1,4 +1,4 @@
-package com.nirmalhk7.nirmalhk7.util;
+package com.nirmalhk7.nirmalhk7.controllers;
 
 import android.util.Log;
 
@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class converter {
+public class Converters {
     @TypeConverter
     public static Date fromTimestamp(Long value) {
         return value == null ? null : new Date(value);

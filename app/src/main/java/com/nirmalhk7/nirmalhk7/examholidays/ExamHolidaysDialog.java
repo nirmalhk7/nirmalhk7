@@ -24,9 +24,9 @@ import androidx.room.Room;
 
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
+import com.nirmalhk7.nirmalhk7.controllers.Converters;
 import com.nirmalhk7.nirmalhk7.model.ExamholidaysDAO;
 import com.nirmalhk7.nirmalhk7.model.ExamholidaysEntity;
-import com.nirmalhk7.nirmalhk7.util.converter;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -166,8 +166,8 @@ public class ExamHolidaysDialog extends DialogFragment {
 
         ExamholidaysEntity entity=new ExamholidaysEntity();
         entity.setmName(name.getText().toString());
-        entity.setStart(converter.to_date(startdate.getText().toString(),"MMM d, yyyy"));
-        entity.setEnd(converter.to_date(enddate.getText().toString(),"MMM d, yyyy"));
+        entity.setStart(Converters.to_date(startdate.getText().toString(),"MMM d, yyyy"));
+        entity.setEnd(Converters.to_date(enddate.getText().toString(),"MMM d, yyyy"));
         entity.setmType(type.getText().toString());
         entity.setmDescription(desc.getText().toString());
         if(exam.isChecked()){
@@ -177,7 +177,6 @@ public class ExamHolidaysDialog extends DialogFragment {
             entity.setHolexa(2);
         }
         EHDAO.insertOnlySingleEvent(entity);
-        ExamHolidayFragment.adapter.notifyDataSetChanged();
         dismiss();
 
     }
@@ -216,7 +215,7 @@ public class ExamHolidaysDialog extends DialogFragment {
                                     dsel+="0";
                                 }
                                 dsel+=(monthOfYear+1)+"/"+year;
-                                dsel= converter.dtConverter(dsel,"dd/MM/yyyy","MMM d, yyyy");
+                                dsel= Converters.dtConverter(dsel,"dd/MM/yyyy","MMM d, yyyy");
 
                                 if(i==1)
                                 {
@@ -246,7 +245,7 @@ public class ExamHolidaysDialog extends DialogFragment {
                     datePickerDialog.setTitle("End Date");
 
                     datePickerDialog.getDatePicker().setMinDate(Calendar.getInstance().getTimeInMillis());
-                    Log.d("DTTIMP", converter.dateToTimestamp(converter.to_date(startdate.getText().toString(),"MMM d, YYY"))+"");
+                    Log.d("DTTIMP", Converters.dateToTimestamp(Converters.to_date(startdate.getText().toString(),"MMM d, YYY"))+"");
                 }
 
             }
@@ -293,9 +292,9 @@ public class ExamHolidaysDialog extends DialogFragment {
                 endDate.setError("Required");
 
             }
-            Date start= converter.to_date(RstartDate,"MMM d, YYY");
-            Date end= converter.to_date(RendDate,"MMM d, YYY");
-            if(converter.dateToTimestamp(start)> converter.dateToTimestamp(end))
+            Date start= Converters.to_date(RstartDate,"MMM d, YYY");
+            Date end= Converters.to_date(RendDate,"MMM d, YYY");
+            if(Converters.dateToTimestamp(start)> Converters.dateToTimestamp(end))
             {
                 startDate.setError("Recheck the dates");
                 endDate.setError("Recheck the Dates");

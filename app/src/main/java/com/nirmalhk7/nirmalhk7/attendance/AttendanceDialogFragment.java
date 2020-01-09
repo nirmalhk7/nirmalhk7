@@ -33,7 +33,7 @@ import com.nirmalhk7.nirmalhk7.model.SubjectlogDAO;
 import com.nirmalhk7.nirmalhk7.model.SubjectlogEntity;
 import com.nirmalhk7.nirmalhk7.timetable.TimetableDAO;
 import com.nirmalhk7.nirmalhk7.timetable.TimetableEntity;
-import com.nirmalhk7.nirmalhk7.util.converter;
+import com.nirmalhk7.nirmalhk7.controllers.Converters;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -181,7 +181,7 @@ public class AttendanceDialogFragment extends DialogFragment {
                                 SubjectlogEntity sle=new SubjectlogEntity();
                                 sle.setPrabca(-1);
                                 DateFormat dtf = new SimpleDateFormat("dd MMM yyyy EEE hh:mm a");
-                                Date curdate= converter.to_date(dtf.format(Calendar.getInstance().getTime()),"dd MMMM yyyy hh:mm a");
+                                Date curdate= Converters.to_date(dtf.format(Calendar.getInstance().getTime()),"dd MMMM yyyy hh:mm a");
                                 sle.setDaytime(curdate);
                                 sle.setSubject(subj);
                                 SLDAO.insertLog(sle);
