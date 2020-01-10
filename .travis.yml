@@ -1,5 +1,4 @@
 language: android
-dist: bionic
 notifications:
   email: false
 before_install:
