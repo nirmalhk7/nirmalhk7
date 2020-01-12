@@ -56,8 +56,7 @@ deploy:
   skip_cleanup: true
   on:
     repo: nirmalhk7/nirmalhk7
-    tags: true
-    jdk: oraclejdk8
+    branch: master
   api_key:
     secure: "ES5pteAZbbJivQdjiKR6/p15+kw3wQtqBHuALBlUviaOWmprgusdsh8XK/XH/EwRxAFO1nw9iagbX/JviIS3HO4/MsEb3puwJ7VcUN3C9WjASsM79Qcc3GnoNiAs6ZH7oD9TYEnNKM0JP/rdjUs6t2muqKngtBpGzHXLc/zrbH0QT7rbdIYvGNa1/EvCh5yGU+vneh9+etwTcQCKR/sOuX4GJuzeNxWQ8qn+xfwCVbrHFAhTTxu8AUEU65qjifJNZqSgJhGhmMb16Q4QJcCl7opESz362vktlm5QFjkDA/HvicnuMXzuJ8FGmFMhZLOkH575RVFkCqyQUH9xeAmBlEulgJ6JGEmipH1FIokvj7eo0kvE/D7wUZ/mOL5oQhq2vFfz5Zc6pAqDcMuGkYNA27rM5oKFJl+agbMVisw5Cp8mrTJ0C1JErqIEVdCH1gegZR3u5x+1iz+w86jwqkMiTZ7R/1nO/Nx2w65o/BsDNqYCdPhGXScfPxLCzgGuAoXS00dYEZkOq9c74yOKs6tWrxgiQa1Y6sIEKsRQb4Xstx5ezUKY1ugjszxzHGlGb7Ff8VP0+HYFqaylNubOxSfi/JjWiVwKhIQdrkkYHMxmgyhIcxKE+ebY2jUgnjlBPr+yVOVo+ZIzaWva00ljKffsBIptyLu+ERepG0ttSvCtdH0="
 branches:
