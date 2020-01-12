@@ -1,10 +1,14 @@
 language: android
 notifications:
   email: false
+before_cache:
+  - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 before_install:
   - sudo apt-get -qq update
   - sudo apt-get install -y pax
   - yes | sdkmanager "platforms;android-28"
+  - penssl aes-256-cbc -K $encrypted_303393e43b12_key -iv $encrypted_303393e43b12_iv -in keystore.jks.enc -out keystore.jks -d
 env:
   global:
   - ANDROID_API_LEVEL=23
@@ -13,6 +17,8 @@ env:
   - ANDROID_ABI=armeabi-v7a
   - ADB_INSTALL_TIMEOUT=20 # minutes (2 minutes by default)
   - QEMU_AUDIO_DRV=none # Remove audio
+  - secure: "CLpzg4NVXOkHg0XVaiiK4430BiEs4YouhZO2KYIh7Tfwp5CEvYw3B4KEqGmmKEHbwL8SzHImftiAISIR1hJBi+zZXLRh7AFF+9HU0QpTGMPylxkffGHNqdkebSyDOWgCijch/HkshYpoJPFaSeo5uO4i2AulsC+x1Y6w2ZXdEE7OhEJ45UwjB9f8t2jlY4ZEmO/BpBvNCZKvRyxokWHJyu6WWf4WNPLgJkCkE4fNEfeKHwbxeNAtXkxbaWNg4YK6Xdi8pMxxGrqIvQK/FBnYr2hGyRtk4v8fps1C1qDheaUSezC8Fj3VId8XviL/hUxuzUPT94HZj+fqZZhxLjqasdhFAFDL8cE0uti/eqWN9udyvL6wSi+XmqxQ6eovm1duRQhfgNMIt6NGzv60vAzEYRVBdWWOAzOWvVlw+/biJZf9yARKee5Z8nEfKlOMgLdadrGGiRxKynSliB3cTtVSEq3cHAw4GC+1jgKo4FYLBBuHk+dHfKO8vZOAxBLrBQFeeLn5eWelmnyHY3/tvkxd7hRoL/NpDKuLMdIOcNscIrYhb3+3w9//ZZbgiw3EQZhGSUEBgZoH9rFQDlpXho0OMOZq32Tg56e+NTmzTn6hnhYUkzezmjIFcTXjXLLaQHRc29I4i+ro3gRCGyhtpGD8V5MEHTZvxW/VWRRQXPNxOsk="
+  - secure: "ApTdG8GaYIdsmvbhNLG5S3aoR28eRqNypD8rorxDOi0My1ZA+bMBQIoUNSjWXBBTAcShbzRIuzFwSi0yE6eGxhofNJAWuvaA/OKOM25Lt2HLDy27h8SE+QE/Lwc13SFs0EBLIa9bP3356HpWEcd1cQKfmYCjx3Q7PVhzPmwlZElL/yK/f/IEzQ76Wf8/wTQY4fq5wN1v2eY194hLVhgNAfZrOPKgrRJEa7NfT7aCWCL0O7zHkL0SK9XlBK3pnSkr+vs1t+9kgamzeDhOByLMjvSVVakxWYjfJ/gymgVeSpVaBjwi+jbRZoibzBwwCDzuInYk2NI3N4UFwktwhR6qRghDy08NmeQ0OWJJ3mtSXCLbcoRqN3OFRy0HoyaeoPXNnZOtGDkMlaNLpZBcl99DsXeanRqAfNVF3W0FpZGN4Ot1DsM9RW2z47k5/jFej1roxpEBT5lrHFe2wxpuV2IhLfO6Nm/u/9UVHQBGiTybP9ddvT+kXxJFezOtMhH9v7Q547RZOT/GgB6dcpK/eK5HJoPZBHvNrYJpvX7yTE5oo7dQtDntAbBngBYQ//sZL0Ar3xcQobEPdxdyk7HZcQvsvpItFVFDwfVKU6AiH7Vde58ypgNC3k9Hzz4sViRHnSslRZFy71bwpalVbKggsPFLWETV3pcuK6yDYzPGyLA0OsA="
 licenses:
   - android-sdk-preview-license-.+
   - android-sdk-license-.+
@@ -37,3 +43,20 @@ before_script:
   - adb shell input keyevent 82 &
 script:
   - ./gradlew clean build connectedCheck -PdisablePreDex --stacktrace
+before_deploy:
+  - cp $TRAVIS_BUILD_DIR/.keystore $HOME
+  - cd app/build/outputs/apk/
+  - jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore $HOME/keystore.jks -storepass $storepass -keypass $keypass app-release-unsigned.apk key0
+  # Verification
+  - jarsigner -verify app-release-unsigned.apk
+  - "${ANDROID_HOME}/build-tools/24.0.2/zipalign -v 4 app-release-unsigned.apk yourapp.apk"
+deploy:
+  provider: releases
+  file: yourapp.apk
+  skip_cleanup: true
+  on:
+    repo: nirmalhk7/nirmalhk7
+    tags: true
+    jdk: oraclejdk8
+  api_key:
+    secure: "ES5pteAZbbJivQdjiKR6/p15+kw3wQtqBHuALBlUviaOWmprgusdsh8XK/XH/EwRxAFO1nw9iagbX/JviIS3HO4/MsEb3puwJ7VcUN3C9WjASsM79Qcc3GnoNiAs6ZH7oD9TYEnNKM0JP/rdjUs6t2muqKngtBpGzHXLc/zrbH0QT7rbdIYvGNa1/EvCh5yGU+vneh9+etwTcQCKR/sOuX4GJuzeNxWQ8qn+xfwCVbrHFAhTTxu8AUEU65qjifJNZqSgJhGhmMb16Q4QJcCl7opESz362vktlm5QFjkDA/HvicnuMXzuJ8FGmFMhZLOkH575RVFkCqyQUH9xeAmBlEulgJ6JGEmipH1FIokvj7eo0kvE/D7wUZ/mOL5oQhq2vFfz5Zc6pAqDcMuGkYNA27rM5oKFJl+agbMVisw5Cp8mrTJ0C1JErqIEVdCH1gegZR3u5x+1iz+w86jwqkMiTZ7R/1nO/Nx2w65o/BsDNqYCdPhGXScfPxLCzgGuAoXS00dYEZkOq9c74yOKs6tWrxgiQa1Y6sIEKsRQb4Xstx5ezUKY1ugjszxzHGlGb7Ff8VP0+HYFqaylNubOxSfi/JjWiVwKhIQdrkkYHMxmgyhIcxKE+ebY2jUgnjlBPr+yVOVo+ZIzaWva00ljKffsBIptyLu+ERepG0ttSvCtdH0="
