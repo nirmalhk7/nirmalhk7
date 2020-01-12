@@ -56,9 +56,3 @@ deploy:
 branches:
   only:
     - master
- notifications:
-  email:
-    recipients:
-    - nirmalhk7@gmail.com
-    on_success: never
-    on_failure: always
