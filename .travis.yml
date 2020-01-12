@@ -45,7 +45,7 @@ script:
   - ./gradlew clean build connectedCheck -PdisablePreDex --stacktrace
 deploy:
   provider: releases
-  file: yourapp.apk
+  file: app/build/outputs/apk/app-release.apk
   skip_cleanup: true
   on:
     repo: nirmalhk7/nirmalhk7
@@ -55,3 +55,9 @@ deploy:
 branches:
   only:
     - master
+ notifications:
+  email:
+    recipients:
+    - nirmalhk7@gmail.com
+    on_success: never
+    on_failure: always
