@@ -8,7 +8,7 @@ before_install:
   - sudo apt-get -qq update
   - sudo apt-get install -y pax
   - yes | sdkmanager "platforms;android-28"
-  - penssl aes-256-cbc -K $encrypted_303393e43b12_key -iv $encrypted_303393e43b12_iv -in keystore.jks.enc -out keystore.jks -d
+  - openssl aes-256-cbc -K $encrypted_303393e43b12_key -iv $encrypted_303393e43b12_iv -in keystore.jks.enc -out keystore.jks -d
 env:
   global:
   - ANDROID_API_LEVEL=23
