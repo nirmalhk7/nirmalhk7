@@ -84,9 +84,9 @@ public class TimetableLoopingPagerAdapter extends LoopingPagerAdapter<Integer> {
                 args.putString("endtime", endTime.getText().toString());
                 args.putString("subjcode",subjcode.getText().toString());
                 args.putBoolean("editing",true);
-                args.putInt("day", mListPosition);
+                args.putInt("day", Timetable.vpgr.getCurrentItem());
 
-                Log.d("DS", "Opening Dialog with DayNo:"+(mListPosition));
+                Log.d("DS", "Opening Dialog with DayNo:"+(Timetable.vpgr.getCurrentItem()));
                 newFragment.setArguments(args);
                 FragmentTransaction transaction = Fmgr.beginTransaction();
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);

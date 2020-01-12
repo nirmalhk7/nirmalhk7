@@ -61,7 +61,7 @@ public class TimetableDialog extends DialogFragment {
             String startTime = bundle.getString("starttime");
             String endtime = bundle.getString("endtime");
             String subjcode=bundle.getString("subjcode");
-            int rday = bundle.getInt("day");
+            int rday = bundle.getInt("day")-1;
             Log.d(PAGE_TAG,rday+" Provided by TT");
             dbNo = bundle.getInt("key");
 
