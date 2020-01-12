@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -24,9 +23,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
 import androidx.fragment.app.DialogFragment;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.nirmalhk7.nirmalhk7.R;
-import com.nirmalhk7.nirmalhk7.controllers.TimetableController;
 import com.nirmalhk7.nirmalhk7.controllers.Converters;
+import com.nirmalhk7.nirmalhk7.controllers.TimetableController;
+import com.nirmalhk7.nirmalhk7.controllers.TimetableDialogController;
 
 import java.util.Calendar;
 
@@ -50,38 +51,21 @@ public class TimetableDialog extends DialogFragment {
         final View rootView = inflater.inflate(R.layout.dialog_timetable, container, false);
         final Bundle bundle = this.getArguments();
         final TimetableController ttController=new TimetableController(rootView,getContext());
-
+        AutoCompleteTextView taskNameEdit = rootView.findViewById(R.id.taskName);
+        EditText subjCode=rootView.findViewById(R.id.subjCode);
+        final EditText taskTimeStartEdit = rootView.findViewById(R.id.taskStart);
+        final EditText taskTimeEndEdit = rootView.findViewById(R.id.taskEnd);
+        RadioGroup dayrg=rootView.findViewById(R.id.rgDay);
+        final TimetableDialogController ttdController=new TimetableDialogController(taskNameEdit,subjCode,
+                taskTimeStartEdit,taskTimeEndEdit,dayrg,getContext());
         //If editing
         if (bundle.getBoolean("editing")) {
-
-            //Toolbar toolbar=getActivity().findViewById(R.id.toolbar);
-            //toolbar.setTitle("Edit Task");
-            String title = bundle.getString("title");
-            String label = bundle.getString("label");
-            String startTime = bundle.getString("starttime");
-            String endtime = bundle.getString("endtime");
-            String subjcode=bundle.getString("subjcode");
-            int rday = bundle.getInt("day")-1;
-            Log.d(PAGE_TAG,rday+" Provided by TT");
-            dbNo = bundle.getInt("key");
-
-            AutoCompleteTextView taskNameEdit = rootView.findViewById(R.id.taskName);
-            EditText subjCode=rootView.findViewById(R.id.subjCode);
-            EditText taskTimeStartEdit = rootView.findViewById(R.id.taskStart);
-            EditText taskTimeEndEdit = rootView.findViewById(R.id.taskEnd);
-            RadioGroup dayrg=rootView.findViewById(R.id.rgDay);
-
-            taskNameEdit.setText(title);
-            subjCode.setText(subjcode);
-            taskTimeStartEdit.setText(startTime);
-            taskTimeEndEdit.setText(endtime);
-            ((RadioButton)dayrg.getChildAt(rday)).setChecked(true);
-
             //trash is the trashbox for deleting;
             int pxstd = getContext().getResources().getDimensionPixelSize(R.dimen.standard_dimen);
             ImageView trash = new ImageView(getContext());
             trash.setImageResource(R.drawable.ic_trash);
-            trash.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            trash.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT));
             trash.setPadding(pxstd, 0, pxstd, 0);
             LinearLayout topIcons = rootView.findViewById(R.id.scheduleDialog);
             topIcons.addView(trash);
@@ -89,69 +73,20 @@ public class TimetableDialog extends DialogFragment {
                 @Override
                 public void onClick(View v) {
                     Log.d(PAGE_TAG, "Delete Button Clicked!");
-                    ttController.deleteTimetableEntry(dbNo);
+                    ttdController.deleteTimetableEntry(dbNo);
+                    Snackbar.make(rootView,"Please Refresh to Load",Snackbar.LENGTH_SHORT);
                     dismiss();
                 }
             });
-
+            ttdController.onLongClick(bundle,trash,rootView);
         }
 
 
         else
         {
-            RadioGroup dayrg=rootView.findViewById(R.id.rgDay);
-            ((RadioButton)dayrg.getChildAt(bundle.getInt("day-selected")-1)).setChecked(true);
-            EditText starttime=rootView.findViewById(R.id.taskStart);
-            EditText endtime=rootView.findViewById(R.id.taskEnd);
-
-
+           ttdController.onAddNew(rootView,bundle);
         }
-
-        final RadioGroup day=rootView.findViewById(R.id.rgDay);
-        day.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch(checkedId)
-                {
-                    case R.id.rbMon:
-                        Log.d(PAGE_TAG,"Day Selected: Monday");
-                        mday= Converters.day_to_dayno("Mon");
-                        break;
-                    case R.id.rbTue:
-                        Log.d(PAGE_TAG,"Day Selected: Tuesday");
-                        mday= Converters.day_to_dayno("Tue");
-                        break;
-                    case R.id.rbWed:
-                        Log.d(PAGE_TAG,"Day Selected: Wednesday");
-                        mday= Converters.day_to_dayno("Wed");
-                        break;
-                    case R.id.rbThu:
-                        Log.d(PAGE_TAG,"Day Selected: Thursday");
-                        mday= Converters.day_to_dayno("Thu");
-                        break;
-                    case R.id.rbFriday:
-                        Log.d(PAGE_TAG,"Day Selected: Friday");
-                        mday= Converters.day_to_dayno("Fri");
-                        break;
-                    case R.id.rbSaturday:
-                        Log.d(PAGE_TAG,"Day Selected: Saturday");
-                        mday= Converters.day_to_dayno("Sat");
-                        break;
-
-
-                }
-            }
-        });
-
-
-        String[] subject=ttController.insertSuggestions();
-        final AppCompatAutoCompleteTextView autoTextView;
-        autoTextView = rootView.findViewById(R.id.taskName);
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>
-                (getContext(), R.layout.partial_suggestion, subject);
-        autoTextView.setThreshold(1); //will start working from first character
-        autoTextView.setAdapter(adapter);
-
+        ttdController.dialogListen();
 
         //Close button action
         (rootView.findViewById(R.id.button_close)).setOnClickListener(new View.OnClickListener() {
@@ -162,27 +97,25 @@ public class TimetableDialog extends DialogFragment {
         });
 
         //Timepicker start dialog onclick
-        final EditText startTime = rootView.findViewById(R.id.taskStart);
-        startTime.setOnClickListener(new View.OnClickListener() {
+        taskTimeStartEdit.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                dialogTimePicker(rootView,1, startTime);
+                dialogTimePicker(rootView,1, taskTimeStartEdit);
 
             }
         });
 
         //Timepicker end time dialog
-        final EditText endTime = rootView.findViewById(R.id.taskEnd);
-        endTime.setOnClickListener(new View.OnClickListener() {
+        taskTimeEndEdit.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                dialogTimePicker(rootView,2, endTime);
+                dialogTimePicker(rootView,2, taskTimeEndEdit);
             }
         });
 
-        startTime.addTextChangedListener(new TextWatcher() {
+        taskTimeStartEdit.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -195,8 +128,8 @@ public class TimetableDialog extends DialogFragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if(endTime.getText().toString()!=null)
-                    endTime.setText(Converters.date_to(Converters.time_add(Converters.to_date(editable.toString(),"hh:mm a"),55*60*1000),"hh:mm a"));
+                if(taskTimeEndEdit.getText().toString()!=null)
+                    taskTimeEndEdit.setText(Converters.date_to(Converters.time_add(Converters.to_date(editable.toString(),"hh:mm a"),55*60*1000),"hh:mm a"));
             }
         });
 
@@ -213,8 +146,11 @@ public class TimetableDialog extends DialogFragment {
                 AutoCompleteTextView SubjCode=getActivity().findViewById(R.id.subjCode);
                 EditText taskTimeStartEdit = getActivity().findViewById(R.id.taskStart);
                 EditText taskTimeEndEdit = getActivity().findViewById(R.id.taskEnd);
+                RadioGroup day=getActivity().findViewById(R.id.rgDay);
                 if(Validation(rootView))
-                    ttController.saveTimetable(taskNameEdit.getText().toString(),SubjCode.getText().toString(),taskTimeStartEdit.getText().toString(),taskTimeEndEdit.getText().toString(),getDayChecked(rootView,day),bundle.getBoolean("editing"),dbNo);
+                    ttdController.saveTimetable(taskNameEdit.getText().toString(),SubjCode.getText().toString(),taskTimeStartEdit.getText().toString(),
+                            taskTimeEndEdit.getText().toString(),
+                            getDayChecked(rootView,day),bundle.getBoolean("editing"),dbNo);
                 ttController.refreshOnSave(TimetableLoopingPagerAdapter.ttadapter,ttController);
                 dismiss();
             }
