@@ -1,11 +1,16 @@
 package com.nirmalhk7.nirmalhk7.entrydisplay;
 
 import android.Manifest;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -32,6 +37,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
+import com.nirmalhk7.nirmalhk7.common;
 import com.nirmalhk7.nirmalhk7.examholidays.ExamHolidayFragment;
 import com.nirmalhk7.nirmalhk7.model.ExamholidaysDAO;
 import com.nirmalhk7.nirmalhk7.timetable.Timetable;
@@ -245,6 +251,18 @@ public class MainFragment extends Fragment {
         final View v = inflater.inflate(R.layout.fragment_main, container, false);
         Toolbar toolbar=getActivity().findViewById(R.id.toolbar);
         toolbar.setTitle("Dashboard");
+        common C=new common(getContext());
+
+        Intent notificationIntent = new Intent(getContext(), Timetable.class);
+        notificationIntent.putExtra("NIRMALHK7", 1);
+        notificationIntent.putExtra(Timetable.NOTIFICATION, notification);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        long futureInMillis = SystemClock.elapsedRealtime() + 50000;
+        AlarmManager alarmManager = (AlarmManager)getContext().getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
+
+
         assistantLocation = new File(getActivity().getFilesDir(), "snips");
         //extractAssistantIfNeeded(assistantLocation);
         if (ensurePermissions()) {
