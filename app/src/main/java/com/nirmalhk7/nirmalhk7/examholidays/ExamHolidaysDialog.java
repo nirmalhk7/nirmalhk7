@@ -20,7 +20,6 @@ import android.widget.RadioGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
-import androidx.room.Room;
 
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
@@ -69,9 +68,7 @@ public class ExamHolidaysDialog extends DialogFragment {
             }
         });
 
-        DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
-                .allowMainThreadQueries().fallbackToDestructiveMigration()
-                .build();
+        DBGateway database =DBGateway.getInstance(getContext());
         ExamholidaysDAO EHDAO=database.getEHDAO();
         List<ExamholidaysEntity> eah= EHDAO.getEHTypesUnique();
         String[] suggestions=new String[eah.size()];
@@ -161,9 +158,7 @@ public class ExamHolidaysDialog extends DialogFragment {
         EditText desc=rootView.findViewById(R.id.examHoliday_description);
         RadioButton exam=rootView.findViewById(R.id.examRadio);
 
-        DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
-                .allowMainThreadQueries().fallbackToDestructiveMigration()
-                .build();
+        DBGateway database = DBGateway.getInstance(getContext());
 
         ExamholidaysDAO EHDAO = database.getEHDAO();
 

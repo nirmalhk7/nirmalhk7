@@ -105,10 +105,7 @@ public class AttendanceArrayAdapter extends ArrayAdapter<AttendanceListItem> {
                 @Override
                 public void onOpen(SwipeLayout layout) {
 
-                    DBGateway database = Room.databaseBuilder(mContext, DBGateway.class, "finalDB")
-                            .allowMainThreadQueries()
-                            .fallbackToDestructiveMigration()
-                            .build();
+                    DBGateway database = DBGateway.getInstance(getContext());
 
                     final AttendanceDAO attendanceDAO = database.getATTDao();
                     deleteb.setOnClickListener(new View.OnClickListener() {

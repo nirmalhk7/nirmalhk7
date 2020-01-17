@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.View;
 
 import androidx.core.content.res.ResourcesCompat;
-import androidx.room.Room;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.leinardi.android.speeddial.SpeedDialActionItem;
@@ -30,9 +29,7 @@ public class AttendanceController {
         mContext=context;
     }
     public ArrayList<AttendanceListItem> fetchAttendance(){
-        DBGateway database2 = Room.databaseBuilder(mContext, DBGateway.class, "finalDB")
-                .allowMainThreadQueries().fallbackToDestructiveMigration()
-                .build();
+        DBGateway database2 = DBGateway.getInstance(mContext);
 
         AttendanceDAO AttendanceDAO = database2.getATTDao();
 

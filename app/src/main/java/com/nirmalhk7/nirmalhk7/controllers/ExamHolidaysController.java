@@ -13,7 +13,6 @@ import android.widget.TextView;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.room.Room;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.leinardi.android.speeddial.SpeedDialActionItem;
@@ -38,9 +37,7 @@ public class ExamHolidaysController {
 
         mRootView=rootView;
         mContext=context;
-        database = Room.databaseBuilder(mContext, DBGateway.class, "finalDB")
-                .allowMainThreadQueries().fallbackToDestructiveMigration()
-                .build();
+        database = DBGateway.getInstance(mContext);
         attachAdapter(listView);
     }
     List<ExamholidaysEntity> getEAHList()

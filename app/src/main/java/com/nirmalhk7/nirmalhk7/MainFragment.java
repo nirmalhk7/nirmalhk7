@@ -25,7 +25,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.widget.TextViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.room.Room;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.leinardi.android.speeddial.SpeedDialView;
@@ -35,21 +34,12 @@ import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.common;
 import com.nirmalhk7.nirmalhk7.examholidays.ExamHolidayFragment;
-import com.nirmalhk7.nirmalhk7.model.ExamholidaysDAO;
 import com.nirmalhk7.nirmalhk7.timetable.Timetable;
-import com.nirmalhk7.nirmalhk7.timetable.TimetableDAO;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
 
 import cz.msebera.android.httpclient.Header;
 import mumayank.com.airlocationlibrary.AirLocation;
@@ -336,11 +326,8 @@ public class MainFragment extends Fragment {
 
         }
 
-        DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
-                .allowMainThreadQueries().fallbackToDestructiveMigration()
-                .build();
-        TimetableDAO SCHDAO=database.getTTDao();
-        ExamholidaysDAO EHDAO=database.getEHDAO();
+        DBGateway database = DBGateway.getInstance(getContext());
+
 
         return v;
     }
@@ -368,133 +355,10 @@ public class MainFragment extends Fragment {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 0 && grantResults.length > 0 &&
                 grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            //startSnips(assistantLocation);
+
+
         }
     }
-
-   /* private void startSnips(File snipsDir) {
-        SnipsPlatformClient client = createClient(snipsDir);
-        client.connect(this.getActivity().getApplicationContext());
-    }
-
-    private void extractAssistantIfNeeded(File assistantLocation) {
-        File versionFile = new File(assistantLocation,
-                "android_version_" + BuildConfig.VERSION_NAME);
-
-        if (versionFile.exists()) {
-            return;
-        }
-
-        try {
-            assistantLocation.delete();
-            unzip(getActivity().getBaseContext().getAssets().open("assistant.zip"),
-                    assistantLocation);
-            versionFile.createNewFile();
-        } catch (IOException e) {
-            return;
-        }
-    }
-*/
-  /*  private SnipsPlatformClient createClient(File assistantLocation) {
-        File assistantDir  = new File(assistantLocation, "assistant");
-
-        final SnipsPlatformClient client =
-                new SnipsPlatformClient.Builder(assistantDir)
-                        .enableDialogue(true)
-                        .enableHotword(true)
-                        .enableSnipsWatchHtml(false)
-                        .enableLogs(true)
-                        .withHotwordSensitivity(0.5f)
-                        .enableStreaming(false)
-                        .enableInjection(false)
-                        .build();
-
-        client.setOnPlatformReady(new Function0<Unit>() {
-            @Override
-            public Unit invoke() {
-                Log.d(TAG, "Snips is ready. Say the wake word!");
-                return null;
-            }
-        });
-
-        client.setOnPlatformError(
-                new Function1<SnipsPlatformClient.SnipsPlatformError, Unit>() {
-                    @Override
-                    public Unit invoke(final SnipsPlatformClient.SnipsPlatformError
-                                               snipsPlatformError) {
-                        // Handle error
-                        Log.d(TAG, "Error: " + snipsPlatformError.getMessage());
-                        return null;
-                    }
-                });
-
-        client.setOnHotwordDetectedListener(new Function0<Unit>() {
-            @Override
-            public Unit invoke() {
-                // Wake word detected, start a dialog session
-                Log.d(TAG, "Wake word detected!");
-                client.startSession(null, new ArrayList<String>(),
-                        false, null);
-                return null;
-            }
-        });
-
-        client.setOnIntentDetectedListener(new Function1<IntentMessage, Unit>() {
-            @Override
-            public Unit invoke(final IntentMessage intentMessage) {
-                // Intent detected, so the dialog session ends here
-                client.endSession(intentMessage.getSessionId(), null);
-                Log.d(TAG, "Intent detected: " +
-                        intentMessage.getIntent().getIntentName());
-                return null;
-            }
-        });
-
-        client.setOnSnipsWatchListener(new Function1<String, Unit>() {
-            public Unit invoke(final String s) {
-                Log.d(TAG, "Log: " + s);
-                return null;
-            }
-        });
-
-        return client;
-    }
-*/
-    private void unzip(InputStream zipFile, File targetDirectory)
-            throws IOException {
-        ZipInputStream zis = new ZipInputStream(new BufferedInputStream(zipFile));
-        try {
-            ZipEntry ze;
-            int count;
-            byte[] buffer = new byte[8192];
-            while ((ze = zis.getNextEntry()) != null) {
-                File file = new File(targetDirectory, ze.getName());
-                File dir = ze.isDirectory() ? file : file.getParentFile();
-                if (!dir.isDirectory() && !dir.mkdirs())
-                    throw new FileNotFoundException("Failed to make directory: " +
-                            dir.getAbsolutePath());
-                if (ze.isDirectory())
-                    continue;
-                FileOutputStream fout = new FileOutputStream(file);
-                try {
-                    while ((count = zis.read(buffer)) != -1)
-                        fout.write(buffer, 0, count);
-                } finally {
-                    fout.close();
-                }
-            }
-        } finally {
-            zis.close();
-        }
-    }
-
-    //  Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
 
     @Override
     public void onDetach() {

@@ -11,8 +11,6 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import androidx.room.Room;
-
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.model.AttendanceDAO;
@@ -60,9 +58,7 @@ public class TimetableDialogController {
     }
     public void deleteTimetableEntry(int dbNo)
     {
-        DBGateway database = Room.databaseBuilder(mContext, DBGateway.class, "finalDB")
-                .allowMainThreadQueries().fallbackToDestructiveMigration()
-                .build();
+        DBGateway database = DBGateway.getInstance(mContext);
 
         com.nirmalhk7.nirmalhk7.timetable.TimetableDAO SDAO=database.getTTDao();
         Log.d(getClass().getName(), dbNo+" DB Deleted");
@@ -127,9 +123,7 @@ public class TimetableDialogController {
         listenAutoTextView();
     }
     private String[] insertSuggestions(){
-        DBGateway database = Room.databaseBuilder(mContext, DBGateway.class, "finalDB")
-                .allowMainThreadQueries().fallbackToDestructiveMigration()
-                .build();
+        DBGateway database = DBGateway.getInstance(mContext);
 
         final TimetableDAO SDAO = database.getTTDao();
         AttendanceDAO attendanceDAO=database.getATTDao();
@@ -161,9 +155,7 @@ public class TimetableDialogController {
 
         //  db.addSchedule(new TimetableEntity("Task 1","Label 1","Time 1"));
 
-        DBGateway database = Room.databaseBuilder(mContext, DBGateway.class, "finalDB")
-                .allowMainThreadQueries().fallbackToDestructiveMigration()
-                .build();
+        DBGateway database = DBGateway.getInstance(mContext);
         TimetableDAO SDAO = database.getTTDao();
 
         TimetableEntity scheduleEntity;

@@ -2,8 +2,6 @@ package com.nirmalhk7.nirmalhk7.attendance;
 
 import android.app.Dialog;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +11,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
@@ -51,29 +48,24 @@ public class AttendanceDialogFragment extends DialogFragment {
         if (bundle != null) {
 
             final int dbNo=bundle.getInt("key");
-            LinearLayout topIcons = rootView.findViewById(R.id.attendanceDialog);
-
-            attendanceDialogController.onEditSetup(dbNo,topIcons);
             Log.d("ATT/FSD","Bundle Passed: "+dbNo);
+
+            LinearLayout topIcons = rootView.findViewById(R.id.attendanceDialog);
+            attendanceDialogController.onEditSetup(dbNo,topIcons);
             Present.setText(bundle.getInt("present")+"");
             Absent.setText(bundle.getInt("absent")+"");
 
             AppCompatAutoCompleteTextView autoTextView=
                     rootView.findViewById(R.id.attendance_task);
-
             autoTextView.setText(bundle.getString("subject")+"");
-
-
         }
-
-
 
         String[] subject = attendanceDialogController.getSubjectsList();
         final AutoCompleteTextView autoTextView=rootView.findViewById(R.id.attendance_task);
         attendanceDialogController.autocompleteSetup(subject,autoTextView);
 
 
-        changeTotal(rootView, Present, Absent);
+        attendanceDialogController.changeTotal(rootView, Present, Absent);
 
 
         //Close button action
@@ -109,61 +101,6 @@ public class AttendanceDialogFragment extends DialogFragment {
         return dialog;
     }
 
-    public void changeTotal(View rootView, final EditText pr, final EditText ab) {
-
-        final TextView Total = rootView.findViewById(R.id.total_fsd);
-        pr.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                try {
-                    int p = Integer.parseInt(s.toString());
-                    int a = Integer.parseInt(ab.getText().toString());
-                    Total.setText("Total Classes: " + (p + a));
-                    Log.d("ATT/FSD", "TotalTV " + Total.getText());
-
-                } catch (NumberFormatException e) {
-                    Log.e("ATT/FSD", e.getMessage());
-                }
-
-            }
-        });
-        ab.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                try {
-                    int a = Integer.parseInt(s.toString());
-                    int p = Integer.parseInt(pr.getText().toString());
-                    Total.setText("Total Classes: " + (p + a));
-                    Log.d("ATT/FSD", "TotalTV " + Total.getText());
-
-                } catch (NumberFormatException e) {
-                    Log.e("ATT/FSD", e.getMessage());
-                }
-
-            }
-        });
-
-    }
 
     public boolean Validation(View rootview) {
         AppCompatAutoCompleteTextView EtaskName = rootview.findViewById(R.id.attendance_task);

@@ -3,15 +3,18 @@ package com.nirmalhk7.nirmalhk7.controllers;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.room.Room;
 
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
@@ -35,9 +38,7 @@ public class AttendanceDialogController implements DialogController {
     public AttendanceDialogController(Context context,Activity activity){
         mContext=context;
         mActivity=activity;
-        database = Room.databaseBuilder(mContext, DBGateway.class, "finalDB")
-                .allowMainThreadQueries().fallbackToDestructiveMigration()
-                .build();
+        database = DBGateway.getInstance(mContext);
     }
     public String[] getSubjectsList()
     {
@@ -112,4 +113,60 @@ public class AttendanceDialogController implements DialogController {
         sle.setSubject(subj);
         SLDAO.insertLog(sle);
     }
+    public void changeTotal(View rootView, final EditText pr, final EditText ab) {
+
+        final TextView Total = rootView.findViewById(R.id.total_fsd);
+        pr.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    int p = Integer.parseInt(s.toString());
+                    int a = Integer.parseInt(ab.getText().toString());
+                    Total.setText("Total Classes: " + (p + a));
+                    Log.d("ATT/FSD", "TotalTV " + Total.getText());
+
+                } catch (NumberFormatException e) {
+                    Log.e("ATT/FSD", e.getMessage());
+                }
+
+            }
+        });
+        ab.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    int a = Integer.parseInt(s.toString());
+                    int p = Integer.parseInt(pr.getText().toString());
+                    Total.setText("Total Classes: " + (p + a));
+                    Log.d("ATT/FSD", "TotalTV " + Total.getText());
+
+                } catch (NumberFormatException e) {
+                    Log.e("ATT/FSD", e.getMessage());
+                }
+
+            }
+        });
+
+    }
+
 }

@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
-import androidx.room.Room;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.nirmalhk7.nirmalhk7.DBGateway;
@@ -68,9 +67,7 @@ public class SubjectLogDialogFragment extends DialogFragment {
         absent.setText(Integer.toString(a));
         TextView cancel=rootView.findViewById(R.id.sal_c);
         cancel.setText(Integer.toString(c));
-        DBGateway database2 = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
-                .allowMainThreadQueries().fallbackToDestructiveMigration()
-                .build();
+        DBGateway database2 = DBGateway.getInstance(getContext());
 
         TimetableDAO SDAO=database2.getTTDao();
         List<TimetableEntity> x=SDAO.getScheduleCodeByTaskName(subjName.getText().toString());
@@ -99,9 +96,7 @@ public class SubjectLogDialogFragment extends DialogFragment {
 
     private void SALFetch(View rootView,String subj)
     {
-        DBGateway database2 = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
-                .allowMainThreadQueries().fallbackToDestructiveMigration()
-                .build();
+        DBGateway database2 = DBGateway.getInstance(getContext());
         SubjectlogDAO SLDAO = database2.getSALDAO();
         List<SubjectlogEntity> subjLog=SLDAO.getAllLog(subj);
 

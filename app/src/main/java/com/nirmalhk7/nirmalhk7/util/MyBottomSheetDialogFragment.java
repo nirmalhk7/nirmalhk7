@@ -14,8 +14,6 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import androidx.room.Room;
-
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
@@ -82,10 +80,7 @@ public class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
 
                 name.setText(bundle.getString("title"));
                 final int dbkey=Integer.parseInt(bundle.getString("dbkey"));
-                DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
-                        .allowMainThreadQueries().fallbackToDestructiveMigration()
-                        .build();
-
+                DBGateway database = DBGateway.getInstance(getContext());
                 ExamholidaysDAO EHDAO = database.getEHDAO();
                 ExamholidaysEntity x=EHDAO.getehEntityById(dbkey);
                 startdate.setText(Converters.date_to(x.getStart(),"dd MMM yyyy"));
@@ -109,9 +104,7 @@ public class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
                 trash.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
-                                .allowMainThreadQueries().fallbackToDestructiveMigration()
-                                .build();
+                        DBGateway database = DBGateway.getInstance(getContext());
 
                         ExamholidaysDAO EHDAO = database.getEHDAO();
                         EHDAO.deleteEvent(EHDAO.getehEntityById(dbkey));
@@ -166,9 +159,7 @@ public class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
             EditText desc=rootView.findViewById(R.id.examHoliday_description);
             RadioButton exam=rootView.findViewById(R.id.examRadio);
 
-            DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
-                    .allowMainThreadQueries().fallbackToDestructiveMigration()
-                    .build();
+            DBGateway database = DBGateway.getInstance(getContext());
 
             ExamholidaysDAO EHDAO = database.getEHDAO();
 
