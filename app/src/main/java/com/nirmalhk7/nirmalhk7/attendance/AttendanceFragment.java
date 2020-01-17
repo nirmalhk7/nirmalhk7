@@ -13,10 +13,9 @@ import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.leinardi.android.speeddial.SpeedDialActionItem;
 import com.leinardi.android.speeddial.SpeedDialView;
 import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.controllers.AttendanceController;
@@ -83,7 +82,7 @@ public class AttendanceFragment extends Fragment {
         Toolbar toolbar=getActivity().findViewById(R.id.toolbar);
         toolbar.setTitle("nirmalhk7");
 
-        AttendanceController attController=new AttendanceController(getContext());
+        AttendanceController attController=new AttendanceController(getContext(),getActivity());
 
 
         ArrayList<AttendanceListItem> SubjectItem=attController.fetchAttendance();
@@ -92,7 +91,7 @@ public class AttendanceFragment extends Fragment {
 
         ListView listView = rootView.findViewById(R.id.list_item_allsubjects);
         listView.setAdapter(adapter);
-        attController.swipeToRefresh(rootView,adapter);
+        attController.swipeToRefresh((SwipeRefreshLayout) rootView.findViewById(R.id.pullToRefresh));
 
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -125,25 +124,11 @@ public class AttendanceFragment extends Fragment {
             }
         });
         SpeedDialView speedDialView =getActivity().findViewById(R.id.speedDial);
-        attController.setSpeedDial(speedDialView,getActivity(),getResources());
-        speedDialView.setOnActionSelectedListener( new SpeedDialView.OnActionSelectedListener() {
-            @Override
-            public boolean onActionSelected(SpeedDialActionItem speedDialActionItem) {
-                switch (speedDialActionItem.getId()) {
-                    case R.id.content:
-                        Log.d("ATT/ALS","Selct");
-                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        speedDialView.setVisibility(View.VISIBLE);
+        speedDialView.clearActionItems();
 
-                        AttendanceDialogFragment newFragment = new AttendanceDialogFragment();
-                        FragmentTransaction transaction = fragmentManager.beginTransaction();
-                        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                        transaction.add(android.R.id.content, newFragment).addToBackStack(null).commit();
-                        return false; // true to keep the Speed Dial open
-                    default:
-                        return false;
-                }
-            }
-        });
+        attController.addSpeedDialOptions(speedDialView,getResources(),getActivity().getTheme());
+        attController.speedDialOnClick(speedDialView,getActivity().getSupportFragmentManager());
 
 
 
@@ -177,14 +162,6 @@ public class AttendanceFragment extends Fragment {
         //  Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
-
-
-
-    void ALSfetchDB(View rootView,AttendanceController attController){
-
-    }
-
-
 
 
 }

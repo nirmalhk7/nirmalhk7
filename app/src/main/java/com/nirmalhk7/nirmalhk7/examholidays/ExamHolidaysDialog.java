@@ -13,7 +13,6 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -25,12 +24,12 @@ import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.common;
 import com.nirmalhk7.nirmalhk7.controllers.Converters;
+import com.nirmalhk7.nirmalhk7.controllers.ExamHolidaysDialogController;
 import com.nirmalhk7.nirmalhk7.model.ExamholidaysDAO;
 import com.nirmalhk7.nirmalhk7.model.ExamholidaysEntity;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 public class ExamHolidaysDialog extends DialogFragment {
     public int key;
@@ -48,14 +47,11 @@ public class ExamHolidaysDialog extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.dialog_examholiday, container, false);
         Bundle bundle = this.getArguments();
+        ExamHolidaysDialogController examHolidaysDialogController=new ExamHolidaysDialogController(getContext());
         if (bundle != null) {
-            ImageView trash = new ImageView(getContext());
-            trash.setImageResource(R.drawable.ic_trash);
-            trash.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
-            int pxstd = getContext().getResources().getDimensionPixelSize(R.dimen.standard_dimen);
-            trash.setPadding(pxstd, 0, pxstd, 0);
+            int dbNo=1;
             LinearLayout topIcons = rootView.findViewById(R.id.examHolidayDialog);
-            topIcons.addView(trash);
+            examHolidaysDialogController.onEditSetup(dbNo,topIcons);
 
 
         }
@@ -68,17 +64,7 @@ public class ExamHolidaysDialog extends DialogFragment {
             }
         });
 
-        DBGateway database =DBGateway.getInstance(getContext());
-        ExamholidaysDAO EHDAO=database.getEHDAO();
-        List<ExamholidaysEntity> eah= EHDAO.getEHTypesUnique();
-        String[] suggestions=new String[eah.size()];
-        int i=0;
-        for(ExamholidaysEntity ehe: eah)
-        {
-            Log.d("EAH/EHE","Suggesting "+ehe.getmType());
-            suggestions[i]=ehe.getmType();
-            ++i;
-        }
+        String[] suggestions=examHolidaysDialogController.autocompleteSetup();
         AutoCompleteTextView examtype=rootView.findViewById(R.id.examHoliday_type);
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>
                 (getContext(), R.layout.partial_suggestion, suggestions);
@@ -91,16 +77,14 @@ public class ExamHolidaysDialog extends DialogFragment {
         if(b.getInt("key")==0)
         {
             exam.setChecked(true);
-            EditText type= rootView.findViewById(R.id.examHoliday_type);
             EditText desc = rootView.findViewById(R.id.examHoliday_description);
-            type.setVisibility(View.VISIBLE);
+            examtype.setVisibility(View.VISIBLE);
             desc.setVisibility(View.VISIBLE);
         }
         else{
             holiday.setChecked(true);
-            EditText type = rootView.findViewById(R.id.examHoliday_type);
             EditText desc = rootView.findViewById(R.id.examHoliday_description);
-            type.setVisibility(View.INVISIBLE);
+            examtype.setVisibility(View.INVISIBLE);
             desc.setVisibility(View.INVISIBLE);
         }
 

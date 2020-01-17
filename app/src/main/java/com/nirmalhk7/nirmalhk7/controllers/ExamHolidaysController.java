@@ -6,9 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.FragmentManager;
@@ -23,11 +21,10 @@ import com.nirmalhk7.nirmalhk7.examholidays.ExamHolidayArrayAdapter;
 import com.nirmalhk7.nirmalhk7.examholidays.ExamHolidaysDialog;
 import com.nirmalhk7.nirmalhk7.model.ExamholidaysDAO;
 import com.nirmalhk7.nirmalhk7.model.ExamholidaysEntity;
-import com.nirmalhk7.nirmalhk7.util.MyBottomSheetDialogFragment;
 
 import java.util.List;
 
-public class ExamHolidaysController {
+public class ExamHolidaysController implements FragmentControllerInterface {
     private View mRootView;
     private Context mContext;
     private ExamHolidayArrayAdapter adapter;
@@ -42,50 +39,20 @@ public class ExamHolidaysController {
     }
     List<ExamholidaysEntity> getEAHList()
     {
-
-
         ExamholidaysDAO examholidaysDAO = database.getEHDAO();
         return examholidaysDAO.getEventsOrdered();
     }
-    void attachAdapter(ListView listView)
+
+    @Override
+    public void attachAdapter(ListView listView)
     {
         adapter = new ExamHolidayArrayAdapter(mContext, getEAHList());
         listView.setAdapter(adapter);
     }
 
-    public void listOnClick(ListView listView, final FragmentManager fragmentManager)
-    {
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                TextView HorE=view.findViewById(R.id.holidayExam);
-                TextView title=(view.findViewById(R.id.holidayExam_name));
-                TextView id=view.findViewById(R.id.holidayExam_id);
 
-                MyBottomSheetDialogFragment mySheetDialog = new MyBottomSheetDialogFragment();
-                Bundle b=new Bundle();
-                b.putInt("module",1);
-
-                Log.d("EAH/EAH","Clicked "+HorE.getText().toString());
-                if(HorE.getText().toString().equals("HOLIDAY"))
-                {
-                    //Holiday
-                    b.putInt("holidayorexam",0);
-                }
-                else
-                {
-                    b.putInt("holidayorexam",1);
-                }
-                b.putString("dbkey",id.getText().toString());
-                b.putString("title",title.getText().toString());
-
-                mySheetDialog.setArguments(b);
-                mySheetDialog.show(fragmentManager, "modalSheetDialog");
-            }
-        });
-    }
-
+    @Override
     public void speedDialOnClick(SpeedDialView speed,final FragmentManager fragmentManager)
     {
         speed.setOnActionSelectedListener(new SpeedDialView.OnActionSelectedListener() {
@@ -116,6 +83,7 @@ public class ExamHolidaysController {
         });
     }
 
+    @Override
     public void addSpeedDialOptions(SpeedDialView speed, Resources resources, Resources.Theme theme)
     {
         speed.addActionItem(
@@ -134,6 +102,7 @@ public class ExamHolidaysController {
                 .create()
         );
     }
+    @Override
     public void swipeToRefresh(final SwipeRefreshLayout pullToRefresh) {
         pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             int Refreshcounter = 1; //Counting how many times user have refreshed the layout

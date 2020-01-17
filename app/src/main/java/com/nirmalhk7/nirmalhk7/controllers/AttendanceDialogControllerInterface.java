@@ -8,8 +8,6 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -31,17 +29,25 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class AttendanceDialogController implements DialogController {
+public class AttendanceDialogControllerInterface implements DialogControllerInterface {
     private Context mContext;
     private DBGateway database;
     private Activity mActivity;
-    public AttendanceDialogController(Context context,Activity activity){
+
+    public AttendanceDialogControllerInterface(Context context, Activity activity){
         mContext=context;
         mActivity=activity;
         database = DBGateway.getInstance(mContext);
     }
-    public String[] getSubjectsList()
+
+    @Override
+    public void deleteEntry(int dbNo)
     {
+
+    }
+
+    @Override
+    public String[] autocompleteSetup(){
         TimetableDAO timetableDAO=database.getTTDao();
         List<TimetableEntity> timetableEntityList=timetableDAO.getUnqiueSubjects("College");
         String[] subject = new String[timetableEntityList.size()];
@@ -56,23 +62,14 @@ public class AttendanceDialogController implements DialogController {
     }
 
     @Override
-    public void autocompleteSetup(String[] subject,AutoCompleteTextView autoTextView){
-        getSubjectsList();
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>
-                (mContext, R.layout.partial_suggestion, subject);
-        autoTextView.setThreshold(1); //will start working from first character
-        autoTextView.setAdapter(adapter);
-    }
-
-    @Override
-    public void onEditSetup(int dbNo, LinearLayout topIcons)
+    public ImageView onEditSetup(int dbNo, LinearLayout topIcons)
     {
         ImageView trash = new ImageView(mContext);
         trash.setImageResource(R.drawable.ic_trash);
         trash.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
         int pxstd = mContext.getResources().getDimensionPixelSize(R.dimen.standard_dimen);
         trash.setPadding(pxstd, 0, pxstd, 0);
-
+        return trash;
     }
     public void onClickSave(Bundle bundle, int present, int absent, String subj){
         AttendanceEntity x=new AttendanceEntity();

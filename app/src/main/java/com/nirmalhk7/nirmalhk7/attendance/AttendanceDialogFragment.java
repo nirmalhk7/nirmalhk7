@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.AutoCompleteTextView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -18,7 +18,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
-import com.nirmalhk7.nirmalhk7.controllers.AttendanceDialogController;
+import com.nirmalhk7.nirmalhk7.controllers.AttendanceDialogControllerInterface;
 import com.nirmalhk7.nirmalhk7.model.AttendanceDAO;
 import com.nirmalhk7.nirmalhk7.model.SubjectlogDAO;
 
@@ -38,11 +38,11 @@ public class AttendanceDialogFragment extends DialogFragment {
 
         final AttendanceDAO attendanceDAO = DBGateway.getInstance(getContext()).getATTDao();
         final SubjectlogDAO SLDAO=DBGateway.getInstance(getContext()).getSALDAO();
-        final AttendanceDialogController attendanceDialogController=new AttendanceDialogController(getContext(),getActivity());
+        final AttendanceDialogControllerInterface attendanceDialogController=new AttendanceDialogControllerInterface(getContext(),getActivity());
 
         final EditText Present = rootView.findViewById(R.id.present_fsd);
         final EditText Absent = rootView.findViewById(R.id.absent_fsd);
-
+        final AppCompatAutoCompleteTextView autoTextView=rootView.findViewById(R.id.attendance_task);
 
         final Bundle bundle = this.getArguments();
         if (bundle != null) {
@@ -55,14 +55,16 @@ public class AttendanceDialogFragment extends DialogFragment {
             Present.setText(bundle.getInt("present")+"");
             Absent.setText(bundle.getInt("absent")+"");
 
-            AppCompatAutoCompleteTextView autoTextView=
-                    rootView.findViewById(R.id.attendance_task);
+
             autoTextView.setText(bundle.getString("subject")+"");
         }
 
-        String[] subject = attendanceDialogController.getSubjectsList();
-        final AutoCompleteTextView autoTextView=rootView.findViewById(R.id.attendance_task);
-        attendanceDialogController.autocompleteSetup(subject,autoTextView);
+        String[] subject = attendanceDialogController.autocompleteSetup();
+        attendanceDialogController.autocompleteSetup();
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>
+                (getContext(), R.layout.partial_suggestion, subject);
+        autoTextView.setThreshold(1); //will start working from first character
+        autoTextView.setAdapter(adapter);
 
 
         attendanceDialogController.changeTotal(rootView, Present, Absent);

@@ -4,10 +4,11 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -20,14 +21,14 @@ import com.nirmalhk7.nirmalhk7.timetable.TimetableEntity;
 
 import java.util.List;
 
-public class TimetableDialogController {
+public class TimetableDialogControllerInterface implements DialogControllerInterface {
 
     private Context mContext;
     private AutoCompleteTextView mTaskName;
     private EditText mTaskCode, mStartTime,mEndTime;
     private RadioGroup mDayRadioGroup;
-    public TimetableDialogController(AutoCompleteTextView taskName, EditText taskCode, EditText taskStartTime,
-                                     EditText taskEndTime, RadioGroup dayrg, Context context)
+    public TimetableDialogControllerInterface(AutoCompleteTextView taskName, EditText taskCode, EditText taskStartTime,
+                                              EditText taskEndTime, RadioGroup dayrg, Context context)
     {
 
         mContext=context;
@@ -37,7 +38,20 @@ public class TimetableDialogController {
         mStartTime=taskStartTime;
         mDayRadioGroup=dayrg;
     }
-    public void onLongClick(Bundle bundle,ImageView trash,View rootView)
+
+    @Override
+    public ImageView onEditSetup(final int dbNo, LinearLayout topIcons) {
+        int pxstd = mContext.getResources().getDimensionPixelSize(R.dimen.standard_dimen);
+        ImageView trash = new ImageView(mContext);
+        trash.setImageResource(R.drawable.ic_trash);
+        trash.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.MATCH_PARENT));
+        trash.setPadding(pxstd, 0, pxstd, 0);
+        topIcons.addView(trash);
+        return trash;
+    }
+
+    public void onLongClick(Bundle bundle, ImageView trash, View rootView)
     {
         String title = bundle.getString("title");
         String label = bundle.getString("label");
@@ -56,7 +70,9 @@ public class TimetableDialogController {
 
 
     }
-    public void deleteTimetableEntry(int dbNo)
+
+    @Override
+    public void deleteEntry(int dbNo)
     {
         DBGateway database = DBGateway.getInstance(mContext);
 
@@ -107,22 +123,15 @@ public class TimetableDialogController {
             }
         });
     }
-    private void listenAutoTextView()
-    {
-        String[] subject=insertSuggestions();
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>
-                (mContext, R.layout.partial_suggestion, subject);
-        mTaskName.setThreshold(1); //will start working from first character
-        mTaskName.setAdapter(adapter);
 
-    }
     private int mday;
     public void dialogListen()
     {
         listenRadioGroup();
-        listenAutoTextView();
     }
-    private String[] insertSuggestions(){
+
+    @Override
+    public String[] autocompleteSetup(){
         DBGateway database = DBGateway.getInstance(mContext);
 
         final TimetableDAO SDAO = database.getTTDao();
@@ -148,6 +157,7 @@ public class TimetableDialogController {
         }
         return subject;
     }
+
     public void saveTimetable(String taskName,String taskCode,String startTime,String endTime,int day,
                               boolean editingOrNot,int dbNo){
 

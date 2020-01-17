@@ -6,7 +6,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
@@ -16,6 +18,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.leinardi.android.speeddial.SpeedDialView;
 import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.controllers.ExamHolidaysController;
+import com.nirmalhk7.nirmalhk7.util.MyBottomSheetDialogFragment;
 
 import static com.nirmalhk7.nirmalhk7.attendance.SubjectLogDialogFragment.TAG;
 
@@ -74,7 +77,35 @@ public class ExamHolidayFragment extends Fragment {
         }
 
 
-        ehController.listOnClick(listView,getActivity().getSupportFragmentManager());
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                TextView HorE=view.findViewById(R.id.holidayExam);
+                TextView title=(view.findViewById(R.id.holidayExam_name));
+                TextView id=view.findViewById(R.id.holidayExam_id);
+
+                MyBottomSheetDialogFragment mySheetDialog = new MyBottomSheetDialogFragment();
+                Bundle b=new Bundle();
+                b.putInt("module",1);
+
+                Log.d("EAH/EAH","Clicked "+HorE.getText().toString());
+                if(HorE.getText().toString().equals("HOLIDAY"))
+                {
+                    //Holiday
+                    b.putInt("holidayorexam",0);
+                }
+                else
+                {
+                    b.putInt("holidayorexam",1);
+                }
+                b.putString("dbkey",id.getText().toString());
+                b.putString("title",title.getText().toString());
+
+                mySheetDialog.setArguments(b);
+                mySheetDialog.show(getFragmentManager(), "modalSheetDialog");
+            }
+        });
 
         speed.show();
         speed.clearActionItems();
