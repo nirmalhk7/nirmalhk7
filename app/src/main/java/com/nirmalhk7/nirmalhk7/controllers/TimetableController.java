@@ -4,7 +4,6 @@ import android.content.Context;
 import android.util.Log;
 import android.view.View;
 
-import androidx.room.Room;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.nirmalhk7.nirmalhk7.DBGateway;
@@ -39,12 +38,9 @@ public class TimetableController {
         // Reading all contacts
         Log.d("Reading: ", "Reading all contacts..");
 
+        Log.d(getClass().getName(),(DBGateway.getInstance(mContext)==null)+"");
 
-        DBGateway database = Room.databaseBuilder(mContext, DBGateway.class, "finalDB")
-                .allowMainThreadQueries().fallbackToDestructiveMigration()
-                .build();
-
-        TimetableDAO SDAO=database.getTTDao();
+        TimetableDAO SDAO=DBGateway.getInstance(mContext).getTTDao();
         List<TimetableEntity> scheduleEntities = SDAO.getScheduleByDay(mListPosition);
         Log.d(getClass().getName(),"Fetching List of Size:"+scheduleEntities.size());
 

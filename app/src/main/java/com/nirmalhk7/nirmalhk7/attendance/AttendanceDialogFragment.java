@@ -1,8 +1,6 @@
 package com.nirmalhk7.nirmalhk7.attendance;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -11,35 +9,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.TimePicker;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
 import androidx.fragment.app.DialogFragment;
-import androidx.room.Room;
 
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
+import com.nirmalhk7.nirmalhk7.controllers.AttendanceDialogController;
 import com.nirmalhk7.nirmalhk7.model.AttendanceDAO;
-import com.nirmalhk7.nirmalhk7.model.AttendanceEntity;
 import com.nirmalhk7.nirmalhk7.model.SubjectlogDAO;
-import com.nirmalhk7.nirmalhk7.model.SubjectlogEntity;
-import com.nirmalhk7.nirmalhk7.timetable.TimetableDAO;
-import com.nirmalhk7.nirmalhk7.timetable.TimetableEntity;
-import com.nirmalhk7.nirmalhk7.controllers.Converters;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 
 public class AttendanceDialogFragment extends DialogFragment {
     public int key;
@@ -55,77 +39,40 @@ public class AttendanceDialogFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.dialog_attendance, container, false);
 
-        //If editing
-        DBGateway database1 = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
-                .allowMainThreadQueries().fallbackToDestructiveMigration()
-                .build();
-
-        TimetableDAO timetableDAO = database1.getTTDao();
-
-        DBGateway database2 = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
-                .allowMainThreadQueries().fallbackToDestructiveMigration()
-                .build();
-
-        final AttendanceDAO attendanceDAO = database2.getATTDao();
-        final SubjectlogDAO SLDAO=database2.getSALDAO();
-        final Bundle bundle = this.getArguments();
-        if (bundle != null) {
-            final int dbNo=bundle.getInt("key");
-            Log.d("ATT/FSD","Bundle Passed: "+dbNo);
-            EditText Present = rootView.findViewById(R.id.present_fsd);
-            Present.setText(bundle.getInt("present")+"");
-            EditText Absent = rootView.findViewById(R.id.absent_fsd);
-            Absent.setText(bundle.getInt("absent")+"");
-            AppCompatAutoCompleteTextView autoTextView=
-                    rootView.findViewById(R.id.attendance_task);
-            autoTextView.setText(bundle.getString("subject")+"");
-            ImageView trash = new ImageView(getContext());
-            trash.setImageResource(R.drawable.ic_trash);
-            trash.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
-            int pxstd = getContext().getResources().getDimensionPixelSize(R.dimen.standard_dimen);
-            trash.setPadding(pxstd, 0, pxstd, 0);
-            LinearLayout topIcons = rootView.findViewById(R.id.attendanceDialog);
-            topIcons.addView(trash);
-            trash.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Log.d("DAS/FullDialog", "Delete Button");
-                    DBGateway database = Room.databaseBuilder(getContext(), DBGateway.class, "finalDB")
-                            .allowMainThreadQueries().fallbackToDestructiveMigration()
-                            .build();
-                    AttendanceDAO attDAO=database.getATTDao();
-                    attDAO.deleteSchedule(attDAO.getSubjectbyId(dbNo));
-                    dismiss();
-                }
-            });
-
-        }
-
-
-
-
-
-        List<TimetableEntity> scheduleEntities = timetableDAO.getUnqiueSubjects("College");
-
-        String[] subject = new String[scheduleEntities.size()];
-        Log.d("ATT/FSD", "." + scheduleEntities.size());
-        int i = 0;
-        for (TimetableEntity cn : scheduleEntities) {
-            subject[i] = cn.getTask();
-            Log.d("ATT/FSD/", subject[i]);
-            ++i;
-        }
-
-
-        final AppCompatAutoCompleteTextView autoTextView;
-        autoTextView = rootView.findViewById(R.id.attendance_task);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>
-                (getContext(), R.layout.partial_suggestion, subject);
-        autoTextView.setThreshold(1); //will start working from first character
-        autoTextView.setAdapter(adapter);
+        final AttendanceDAO attendanceDAO = DBGateway.getInstance(getContext()).getATTDao();
+        final SubjectlogDAO SLDAO=DBGateway.getInstance(getContext()).getSALDAO();
+        final AttendanceDialogController attendanceDialogController=new AttendanceDialogController(getContext(),getActivity());
 
         final EditText Present = rootView.findViewById(R.id.present_fsd);
         final EditText Absent = rootView.findViewById(R.id.absent_fsd);
+
+
+        final Bundle bundle = this.getArguments();
+        if (bundle != null) {
+
+            final int dbNo=bundle.getInt("key");
+            LinearLayout topIcons = rootView.findViewById(R.id.attendanceDialog);
+
+            attendanceDialogController.onEditSetup(dbNo,topIcons);
+            Log.d("ATT/FSD","Bundle Passed: "+dbNo);
+            Present.setText(bundle.getInt("present")+"");
+            Absent.setText(bundle.getInt("absent")+"");
+
+            AppCompatAutoCompleteTextView autoTextView=
+                    rootView.findViewById(R.id.attendance_task);
+
+            autoTextView.setText(bundle.getString("subject")+"");
+
+
+        }
+
+
+
+        String[] subject = attendanceDialogController.getSubjectsList();
+        final AutoCompleteTextView autoTextView=rootView.findViewById(R.id.attendance_task);
+        attendanceDialogController.autocompleteSetup(subject,autoTextView);
+
+
         changeTotal(rootView, Present, Absent);
 
 
@@ -144,81 +91,14 @@ public class AttendanceDialogFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 if (Validation(rootView)) {
-
-                    if(bundle==null)
-                    {
-                        String subj = autoTextView.getText().toString();
-                        try {
-                            int present = Integer.valueOf(Present.getText().toString());
-                            int absent = Integer.valueOf(Absent.getText().toString());
-                            AttendanceEntity x = new AttendanceEntity();
-                            x.setSubject(subj);
-                            x.setPresent(present);
-                            x.setAbsent(absent);
-                            attendanceDAO.insertOnlySingleSubject(x);
-                            Log.d("ATT/FSD", "Saving data!" + x.getSubject() + x.getPresent() + x.getAbsent());
-                            dismiss();
-                        } catch (NumberFormatException ex) { // handle your exception
-                            Log.d("ATT/FSD", "java.lang.NumberFormatException");
-                        }
-                    }
-                    //Editing Attendance Entry
-                    else
-                    {
-                        String subj = autoTextView.getText().toString();
-                        try {
-                            int present = Integer.valueOf(Present.getText().toString());
-                            int absent = Integer.valueOf(Absent.getText().toString());
-                            AttendanceEntity x = attendanceDAO.getSubjectbyId(bundle.getInt("key"));
-                            x.setSubject(subj);
-                            x.setPresent(present);
-                            x.setAbsent(absent);
-                            attendanceDAO.updateSubject(x);
-
-
-                            if(present!=bundle.getInt("present")||absent!=bundle.getInt("absent"))
-                            {
-                                SubjectlogEntity sle=new SubjectlogEntity();
-                                sle.setPrabca(-1);
-                                DateFormat dtf = new SimpleDateFormat("dd MMM yyyy EEE hh:mm a");
-                                Date curdate= Converters.to_date(dtf.format(Calendar.getInstance().getTime()),"dd MMMM yyyy hh:mm a");
-                                sle.setDaytime(curdate);
-                                sle.setSubject(subj);
-                                SLDAO.insertLog(sle);
-                            }
-
-                            Toast.makeText(getActivity(), "Refresh to Update",
-                                    Toast.LENGTH_LONG).show();
-                            Log.d("ATT/FSD", "Editing data!" + x.getSubject() + x.getPresent() + x.getAbsent());
-                            dismiss();
-                        } catch (NumberFormatException ex) { // handle your exception
-                            Log.d("ATT/FSD", "java.lang.NumberFormatException");
-                        }
-                    }
+                    attendanceDialogController.onClickSave(bundle,Integer.valueOf(Present.getText().toString()),
+                            Integer.valueOf(Absent.getText().toString()),
+                            autoTextView.getText().toString());
+                    dismiss();
                 }
             }
         });
         return rootView;
-    }
-
-    public void dialogTimePicker(int whatTimeSelected, final EditText Time) {
-        //  Auto-generated method stub
-        Calendar mcurrentTime = Calendar.getInstance();
-        int Mhour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-        int Mminute = mcurrentTime.get(Calendar.MINUTE);
-        TimePickerDialog mTimePicker;
-        mTimePicker = new TimePickerDialog(getContext(), AlertDialog.THEME_DEVICE_DEFAULT_DARK, new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                Time.setText(selectedHour + ":" + selectedMinute);
-            }
-        }, Mhour, Mminute, true);//yes 12 hour time
-        if (whatTimeSelected == 2) {
-            mTimePicker.setTitle("End Time");
-        } else if (whatTimeSelected == 1) {
-            mTimePicker.setTitle("Start Time");
-        }
-        mTimePicker.show();
     }
 
     @NonNull

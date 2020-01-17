@@ -1,7 +1,6 @@
 package com.nirmalhk7.nirmalhk7.attendance;
 
 
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,7 +12,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -84,22 +82,7 @@ public class AttendanceFragment extends Fragment {
         final View rootView= inflater.inflate(R.layout.fragment_attendance_all_subjects, container, false);
         Toolbar toolbar=getActivity().findViewById(R.id.toolbar);
         toolbar.setTitle("nirmalhk7");
-        View tbV= getLayoutInflater().inflate(R.layout.app_bar_main, null);
 
-     /*   LinearLayout pending= rootView.findViewById(R.id.pendingSubjects_subject);
-        pending.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i("ATT","Pending View clicked");
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                Fragment newFragment;
-                newFragment = new Attendance();
-                transaction.replace(R.id.fullscreen, newFragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
-            }
-        });
-*/
         AttendanceController attController=new AttendanceController(getContext());
 
 
@@ -119,11 +102,6 @@ public class AttendanceFragment extends Fragment {
                 TextView subject=view.findViewById(R.id.subjName_subject);
                 TextView percent=view.findViewById(R.id.percent_subject);
                 TextView prabca=view.findViewById(R.id.presentabsent_subject);
-
-                /*
-                presentCount.setText("Present "+currentWord.getmPresent()+" / Absent "+currentWord.getmAbsent());
-                percent.setText("Percent: "+result+"%");
-                */
 
                 String zpercent=percent.getText().toString().substring(8,percent.getText().toString().indexOf('%'));
                 String absent=prabca.getText().toString().substring(prabca.getText().toString().indexOf('A')+7);
@@ -147,26 +125,7 @@ public class AttendanceFragment extends Fragment {
             }
         });
         SpeedDialView speedDialView =getActivity().findViewById(R.id.speedDial);
-        speedDialView.setVisibility(View.VISIBLE);
-        speedDialView.setOnChangeListener(new SpeedDialView.OnChangeListener() {
-            @Override
-            public boolean onMainActionSelected() {
-                return false;
-            }
-
-            @Override
-            public void onToggleChanged(boolean isOpen) {
-
-            }
-        });
-        speedDialView.clearActionItems();
-        speedDialView.addActionItem(
-                new SpeedDialActionItem.Builder(R.id.content, R.drawable.ic_examholidays)
-                        .setLabel("Add Subject")
-                        .setLabelColor(Color.WHITE)
-                        .setLabelBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.colorLightDark, getActivity().getTheme()))
-                        .create()
-        );
+        attController.setSpeedDial(speedDialView,getActivity(),getResources());
         speedDialView.setOnActionSelectedListener( new SpeedDialView.OnActionSelectedListener() {
             @Override
             public boolean onActionSelected(SpeedDialActionItem speedDialActionItem) {

@@ -1,16 +1,12 @@
 package com.nirmalhk7.nirmalhk7.entrydisplay;
 
 import android.Manifest;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -255,12 +251,12 @@ public class MainFragment extends Fragment {
 
         Intent notificationIntent = new Intent(getContext(), Timetable.class);
         notificationIntent.putExtra("NIRMALHK7", 1);
-        notificationIntent.putExtra(Timetable.NOTIFICATION, notification);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        long futureInMillis = SystemClock.elapsedRealtime() + 50000;
-        AlarmManager alarmManager = (AlarmManager)getContext().getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
+//        notificationIntent.putExtra(Timetable.NOTIFICATION, notification);
+//        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+//
+//        long futureInMillis = SystemClock.elapsedRealtime() + 50000;
+//        AlarmManager alarmManager = (AlarmManager)getContext().getSystemService(Context.ALARM_SERVICE);
+//        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
 
 
         assistantLocation = new File(getActivity().getFilesDir(), "snips");

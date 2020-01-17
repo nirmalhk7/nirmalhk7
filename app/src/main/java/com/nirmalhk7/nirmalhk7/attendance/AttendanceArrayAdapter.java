@@ -198,7 +198,7 @@ public class AttendanceArrayAdapter extends ArrayAdapter<AttendanceListItem> {
             }
 
 
-gi
+
         }
         // Return the whole list item layout (containing 2 TextViews) so that it can be shown in
         // the ListView.

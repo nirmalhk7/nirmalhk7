@@ -1,12 +1,18 @@
 package com.nirmalhk7.nirmalhk7.controllers;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.View;
 
+import androidx.core.content.res.ResourcesCompat;
 import androidx.room.Room;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.leinardi.android.speeddial.SpeedDialActionItem;
+import com.leinardi.android.speeddial.SpeedDialView;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.attendance.AttendanceArrayAdapter;
@@ -63,5 +69,17 @@ public class AttendanceController {
                 pullToRefresh.setRefreshing(false);
             }
         });
+    }
+    public void setSpeedDial(SpeedDialView speedDialView,Activity activity, Resources resources)
+    {
+        speedDialView.setVisibility(View.VISIBLE);
+        speedDialView.clearActionItems();
+        speedDialView.addActionItem(
+                new SpeedDialActionItem.Builder(R.id.content, R.drawable.ic_examholidays)
+                        .setLabel("Add Subject")
+                        .setLabelColor(Color.WHITE)
+                        .setLabelBackgroundColor(ResourcesCompat.getColor(resources, R.color.colorLightDark, activity.getTheme()))
+                        .create()
+        );
     }
 }
