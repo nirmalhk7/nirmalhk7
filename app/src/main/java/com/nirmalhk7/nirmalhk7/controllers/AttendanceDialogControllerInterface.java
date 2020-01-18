@@ -73,6 +73,11 @@ public class AttendanceDialogControllerInterface implements DialogControllerInte
     }
     public void onClickSave(Bundle bundle, int present, int absent, String subj){
         AttendanceEntity x=new AttendanceEntity();
+        Log.d("ATT/FSD", "Editing data!" + x.getSubject() + x.getPresent() + x.getAbsent());
+        x.setSubject(subj);
+        x.setPresent(present);
+        x.setAbsent(absent);
+
         AttendanceDAO attendanceDAO=database.getATTDao();
         if(bundle==null)
         {
@@ -94,10 +99,7 @@ public class AttendanceDialogControllerInterface implements DialogControllerInte
                     Toast.LENGTH_LONG).show();
 
         }
-        Log.d("ATT/FSD", "Editing data!" + x.getSubject() + x.getPresent() + x.getAbsent());
-        x.setSubject(subj);
-        x.setPresent(present);
-        x.setAbsent(absent);
+
     }
     public void updateSubjectLog(String subj)
     {

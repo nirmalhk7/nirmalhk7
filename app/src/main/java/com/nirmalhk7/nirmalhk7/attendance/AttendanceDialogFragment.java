@@ -85,9 +85,16 @@ public class AttendanceDialogFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 if (Validation(rootView)) {
-                    attendanceDialogController.onClickSave(bundle,Integer.valueOf(Present.getText().toString()),
-                            Integer.valueOf(Absent.getText().toString()),
-                            autoTextView.getText().toString());
+
+                    try{
+                        attendanceDialogController.onClickSave(bundle,Integer.valueOf(Present.getText().toString()),
+                                Integer.valueOf(Absent.getText().toString()),
+                                autoTextView.getText().toString());
+                    }catch (NumberFormatException e)
+                    {
+                        Log.d(getClass().getName(),e.getMessage());
+                        attendanceDialogController.onClickSave(bundle,0,0,autoTextView.getText().toString());
+                    }
                     dismiss();
                 }
             }

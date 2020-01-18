@@ -84,15 +84,12 @@ public class AttendanceFragment extends Fragment {
 
         AttendanceController attController=new AttendanceController(getContext(),getActivity());
 
+        ListView listView = rootView.findViewById(R.id.list_item_allsubjects);
 
         ArrayList<AttendanceListItem> SubjectItem=attController.fetchAttendance();
+        attController.attachAdapter(listView);
 
-        AttendanceArrayAdapter adapter = new AttendanceArrayAdapter(getContext(), SubjectItem,1);
-
-        ListView listView = rootView.findViewById(R.id.list_item_allsubjects);
-        listView.setAdapter(adapter);
         attController.swipeToRefresh((SwipeRefreshLayout) rootView.findViewById(R.id.pullToRefresh));
-
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {

@@ -2,7 +2,6 @@ package com.nirmalhk7.nirmalhk7.attendance;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,12 +10,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
 import com.daimajia.swipe.SwipeLayout;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
+import com.nirmalhk7.nirmalhk7.controllers.AttendanceController;
 import com.nirmalhk7.nirmalhk7.controllers.Converters;
 import com.nirmalhk7.nirmalhk7.model.AttendanceDAO;
 import com.nirmalhk7.nirmalhk7.model.AttendanceEntity;
@@ -53,27 +52,24 @@ public class AttendanceArrayAdapter extends ArrayAdapter<AttendanceListItem> {
         // Check if an existing view is being reused, otherwise inflate the view
         View listItemView = convertView;
 
-
+        // 1 when showing Attendance list
         if(mSubject ==1)
         {
-            TextView subjectName;
-            TextView attendanceCount;
-            TextView id;
-            float present,absent,result;
-
             if (listItemView == null) {
                 listItemView = LayoutInflater.from(getContext()).inflate(
                         R.layout.item_attendance, parent, false);
             }
 
+            TextView subjectName=listItemView.findViewById(R.id.subjName_subject);;
+            TextView attendanceCount=listItemView.findViewById(R.id.presentabsent_subject);
+            TextView id;
+            float present,absent,result;
+
+
 
             mCurrentItem = getItem(position);
 
-            subjectName = listItemView.findViewById(R.id.subjName_subject);
             subjectName.setText(mCurrentItem.getSubjName());
-
-            attendanceCount = listItemView.findViewById(R.id.presentabsent_subject);
-
             attendanceCount.setText("Present "+ mCurrentItem.getmPresent()+" / Absent "+ mCurrentItem.getmAbsent());
             present = mCurrentItem.getmPresent();
             absent= mCurrentItem.getmAbsent();
@@ -96,63 +92,9 @@ public class AttendanceArrayAdapter extends ArrayAdapter<AttendanceListItem> {
             swipeLayout.addDrag(SwipeLayout.DragEdge.Right, listItemView.findViewById(R.id.bottom_wrapper));
             final ImageButton deleteb=listItemView.findViewById(R.id.trash_swipe);
             final ImageButton editb=listItemView.findViewById(R.id.edit_swipe);
-            swipeLayout.addSwipeListener(new SwipeLayout.SwipeListener() {
-                @Override
-                public void onStartOpen(SwipeLayout layout) {
 
-                }
-
-                @Override
-                public void onOpen(SwipeLayout layout) {
-
-                    DBGateway database = DBGateway.getInstance(getContext());
-
-                    final AttendanceDAO attendanceDAO = database.getATTDao();
-                    deleteb.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            AttendanceEntity x=attendanceDAO.getSubjectbyId(mCurrentItem.getmId());
-                            attendanceDAO.deleteSchedule(x);
-                        }
-                    });
-                    editb.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Log.d("ATT/ATA","Clicked");
-                            AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                            AttendanceDialogFragment newFragment = new AttendanceDialogFragment();
-                            Bundle bundle=new Bundle();
-                            bundle.putInt("key", mCurrentItem.getmId());
-                            bundle.putInt("present", mCurrentItem.getmPresent());
-                            bundle.putInt("absent", mCurrentItem.getmAbsent());
-                            bundle.putString("subject", mCurrentItem.getSubjName());
-                            newFragment.setArguments(bundle);
-                            activity.getSupportFragmentManager().beginTransaction().add(android.R.id.content, newFragment).addToBackStack(null).addToBackStack(null).commit();
-
-                        }
-                    });
-                }
-
-                @Override
-                public void onStartClose(SwipeLayout layout) {
-
-                }
-
-                @Override
-                public void onClose(SwipeLayout layout) {
-
-                }
-
-                @Override
-                public void onUpdate(SwipeLayout layout, int leftOffset, int topOffset) {
-
-                }
-
-                @Override
-                public void onHandRelease(SwipeLayout layout, float xvel, float yvel) {
-
-                }
-            });
+            AttendanceController attendanceController=new AttendanceController(getContext());
+            attendanceController.swipeLayout(swipeLayout,deleteb,editb,mCurrentItem);
 
 
         }
