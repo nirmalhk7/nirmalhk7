@@ -17,7 +17,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.navigation.NavigationView;
-import com.nirmalhk7.nirmalhk7.academics.AcademicsFragment;
 import com.nirmalhk7.nirmalhk7.attendance.AttendanceFragment;
 import com.nirmalhk7.nirmalhk7.callmanager.CallManagerFragment;
 import com.nirmalhk7.nirmalhk7.cpschedule.CpSchedule;
@@ -132,12 +131,7 @@ public class MainActivity extends AppCompatActivity
             transaction.replace(R.id.fullscreen, newFragment);
             transaction.addToBackStack(null);
             transaction.commit();
-        } else if (id == R.id.nav_academics) {
-            newFragment = new AcademicsFragment();
-            transaction.replace(R.id.fullscreen, newFragment);
-            transaction.addToBackStack(null);
-            transaction.commit();
-        } else if(id==R.id.nav_callManager)
+        }else if(id==R.id.nav_callManager)
         {
             newFragment = new CallManagerFragment();
             transaction.replace(R.id.fullscreen, newFragment);
