@@ -24,7 +24,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
 import androidx.fragment.app.DialogFragment;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.common;
 import com.nirmalhk7.nirmalhk7.controllers.Converters;
@@ -58,7 +57,6 @@ public class TimetableDialog extends DialogFragment {
         final EditText taskTimeStartEdit = rootView.findViewById(R.id.taskStart);
         final EditText taskTimeEndEdit = rootView.findViewById(R.id.taskEnd);
         RadioGroup dayrg=rootView.findViewById(R.id.rgDay);
-
         final TimetableController ttController=new TimetableController(rootView,getContext());
         final TimetableDialogControllerInterface ttdController=new TimetableDialogControllerInterface(taskNameEdit,subjCode,
                 taskTimeStartEdit,taskTimeEndEdit,dayrg,getContext());
@@ -71,10 +69,10 @@ public class TimetableDialog extends DialogFragment {
             trash.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    dbNo=bundle.getInt("key");
                     Log.d(getClass().getName(), "Delete Button Clicked!");
 
                     ttdController.deleteEntry(dbNo);
-                    Snackbar.make(rootView,"Please Refresh to Load",Snackbar.LENGTH_SHORT);
 
                     dismiss();
                 }

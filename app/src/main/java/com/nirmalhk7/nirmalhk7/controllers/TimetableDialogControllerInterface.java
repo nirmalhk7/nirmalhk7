@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
@@ -79,6 +80,7 @@ public class TimetableDialogControllerInterface implements DialogControllerInter
         com.nirmalhk7.nirmalhk7.timetable.TimetableDAO SDAO=database.getTTDao();
         Log.d(getClass().getName(), dbNo+" DB Deleted");
         SDAO.deleteSchedule(SDAO.getScheduleById(dbNo));
+        Toast.makeText(mContext,"Please Refresh to Load",Toast.LENGTH_LONG).show();
     }
 
     public void onAddNew(View rootView,Bundle bundle)

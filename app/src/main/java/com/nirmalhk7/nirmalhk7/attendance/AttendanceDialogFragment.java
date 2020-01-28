@@ -16,13 +16,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
 import androidx.fragment.app.DialogFragment;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.controllers.AttendanceDialogControllerInterface;
 import com.nirmalhk7.nirmalhk7.model.AttendanceDAO;
 import com.nirmalhk7.nirmalhk7.model.SubjectlogDAO;
 
-public class AttendanceDialogFragment extends DialogFragment {
+public class AttendanceDialogFragment extends DialogFragment{
     public int key;
 
     @Override
@@ -31,6 +32,7 @@ public class AttendanceDialogFragment extends DialogFragment {
 
     }
 
+    AttendanceDialogControllerInterface attendanceDialogController=new AttendanceDialogControllerInterface(getContext(),getActivity());
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -38,7 +40,6 @@ public class AttendanceDialogFragment extends DialogFragment {
 
         final AttendanceDAO attendanceDAO = DBGateway.getInstance(getContext()).getATTDao();
         final SubjectlogDAO SLDAO=DBGateway.getInstance(getContext()).getSALDAO();
-        final AttendanceDialogControllerInterface attendanceDialogController=new AttendanceDialogControllerInterface(getContext(),getActivity());
 
         final EditText Present = rootView.findViewById(R.id.present_fsd);
         final EditText Absent = rootView.findViewById(R.id.absent_fsd);
@@ -87,9 +88,11 @@ public class AttendanceDialogFragment extends DialogFragment {
                 if (Validation(rootView)) {
 
                     try{
+                        Snackbar.make(rootView,"Please refresh to update :)",Snackbar.LENGTH_LONG);
                         attendanceDialogController.onClickSave(bundle,Integer.valueOf(Present.getText().toString()),
                                 Integer.valueOf(Absent.getText().toString()),
                                 autoTextView.getText().toString());
+
                     }catch (NumberFormatException e)
                     {
                         Log.d(getClass().getName(),e.getMessage());
