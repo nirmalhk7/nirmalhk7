@@ -18,6 +18,7 @@ import com.asksira.loopingviewpager.LoopingPagerAdapter;
 import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.controllers.Converters;
 import com.nirmalhk7.nirmalhk7.controllers.TimetableController;
+import com.nirmalhk7.nirmalhk7.model.TimetableEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +55,7 @@ public class TimetableLoopingPagerAdapter extends LoopingPagerAdapter<Integer> {
         description.setText(Converters.dayno_to_day(listPosition));
         TimetableController ttControler=new TimetableController(convertView,context,listPosition);
 
-        List<com.nirmalhk7.nirmalhk7.timetable.TimetableEntity> timetableEntities= ttControler.TTFetch();
+        List<TimetableEntity> timetableEntities= ttControler.TTFetch();
         mListPosition=listPosition;
 
         ttadapter=new TimetableArrayAdapter(context,timetableEntities);

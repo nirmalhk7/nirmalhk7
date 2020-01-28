@@ -1,11 +1,14 @@
 package com.nirmalhk7.nirmalhk7.attendance;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -19,8 +22,8 @@ import com.nirmalhk7.nirmalhk7.controllers.Converters;
 import com.nirmalhk7.nirmalhk7.model.AttendanceListItem;
 import com.nirmalhk7.nirmalhk7.model.SubjectlogDAO;
 import com.nirmalhk7.nirmalhk7.model.SubjectlogEntity;
-import com.nirmalhk7.nirmalhk7.timetable.TimetableDAO;
-import com.nirmalhk7.nirmalhk7.timetable.TimetableEntity;
+import com.nirmalhk7.nirmalhk7.model.TimetableDAO;
+import com.nirmalhk7.nirmalhk7.model.TimetableEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,6 +86,33 @@ public class SubjectLogDialogFragment extends DialogFragment {
         return rootView;
 
     }
+    private void onLongClickDelete(View rootView)
+    {
+
+        ListView listView = rootView.findViewById(R.id.list_item_subjects_log);
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
+                builder.setMessage("Are you sure you want to delete attendance record of this subject on this day?")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                //Clicked YES
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                //  Action for 'NO' Button
+                                dialog.cancel();
+                            }
+                        });
+                return false;
+            }
+        });
+    }
+
     @Override
     public void onStart() {
         super.onStart();

@@ -1,4 +1,4 @@
-package com.nirmalhk7.nirmalhk7.timetable;
+package com.nirmalhk7.nirmalhk7.model;
 
 import androidx.room.Dao;
 import androidx.room.Delete;

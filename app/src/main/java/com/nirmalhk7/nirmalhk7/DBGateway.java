@@ -14,8 +14,8 @@ import com.nirmalhk7.nirmalhk7.model.ExamholidaysDAO;
 import com.nirmalhk7.nirmalhk7.model.ExamholidaysEntity;
 import com.nirmalhk7.nirmalhk7.model.SubjectlogDAO;
 import com.nirmalhk7.nirmalhk7.model.SubjectlogEntity;
-import com.nirmalhk7.nirmalhk7.timetable.TimetableDAO;
-import com.nirmalhk7.nirmalhk7.timetable.TimetableEntity;
+import com.nirmalhk7.nirmalhk7.model.TimetableDAO;
+import com.nirmalhk7.nirmalhk7.model.TimetableEntity;
 
 @Database(entities = {TimetableEntity.class, AttendanceEntity.class, ExamholidaysEntity.class, SubjectlogEntity.class}, version = 21, exportSchema = false)
 @TypeConverters({Converters.class})

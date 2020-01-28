@@ -17,8 +17,8 @@ import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.model.AttendanceDAO;
 import com.nirmalhk7.nirmalhk7.model.AttendanceEntity;
-import com.nirmalhk7.nirmalhk7.timetable.TimetableDAO;
-import com.nirmalhk7.nirmalhk7.timetable.TimetableEntity;
+import com.nirmalhk7.nirmalhk7.model.TimetableDAO;
+import com.nirmalhk7.nirmalhk7.model.TimetableEntity;
 
 import java.util.List;
 
@@ -77,7 +77,7 @@ public class TimetableDialogControllerInterface implements DialogControllerInter
     {
         DBGateway database = DBGateway.getInstance(mContext);
 
-        com.nirmalhk7.nirmalhk7.timetable.TimetableDAO SDAO=database.getTTDao();
+        TimetableDAO SDAO=database.getTTDao();
         Log.d(getClass().getName(), dbNo+" DB Deleted");
         SDAO.deleteSchedule(SDAO.getScheduleById(dbNo));
         Toast.makeText(mContext,"Please Refresh to Load",Toast.LENGTH_LONG).show();
