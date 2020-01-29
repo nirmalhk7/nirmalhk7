@@ -27,9 +27,9 @@ import androidx.fragment.app.DialogFragment;
 import com.nirmalhk7.nirmalhk7.ArrayAdapters.TimetableArrayAdapter;
 import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.common;
-import com.nirmalhk7.nirmalhk7.controllers.Converters;
-import com.nirmalhk7.nirmalhk7.controllers.TimetableController;
-import com.nirmalhk7.nirmalhk7.controllers.TimetableDialogControllerInterface;
+import com.nirmalhk7.nirmalhk7.Controllers.Converters;
+import com.nirmalhk7.nirmalhk7.Controllers.TimetableController;
+import com.nirmalhk7.nirmalhk7.Controllers.TimetableDialogControllerInterface;
 import com.nirmalhk7.nirmalhk7.TimetableLoopingPagerAdapter;
 
 import java.util.Calendar;

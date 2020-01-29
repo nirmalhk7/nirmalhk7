@@ -1,4 +1,4 @@
-package com.nirmalhk7.nirmalhk7.controllers;
+package com.nirmalhk7.nirmalhk7.Controllers;
 
 import android.content.Context;
 import android.content.res.Resources;

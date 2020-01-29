@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.nirmalhk7.nirmalhk7.Controllers.Converters;
 import com.nirmalhk7.nirmalhk7.R;
-import com.nirmalhk7.nirmalhk7.controllers.Converters;
 import com.nirmalhk7.nirmalhk7.model.ExamholidaysEntity;
 
 import java.util.List;
@@ -35,6 +35,21 @@ public class ExamHolidayArrayAdapter extends ArrayAdapter<ExamholidaysEntity> {
 
         TextView title = listItemView.findViewById(R.id.holidayExam_name);
         title.setText(currentWord.getmName());
+        Long today=Converters.dateToTimestamp(
+                Converters.to_date(
+                        Converters.today_get("dd MM yyyy"),
+                        "dd MM yyyy"
+                )
+        );
+        Long start=Converters.dateToTimestamp(
+                currentWord.getStart()
+        );
+        Long end=Converters.dateToTimestamp(currentWord.getEnd());
+
+        if(start<today && end<today)
+        {
+            listItemView.setBackgroundColor(Color.parseColor("#66494949"));
+        }
 
         TextView id=listItemView.findViewById(R.id.holidayExam_id);
         id.setText(Integer.toString(currentWord.getId()));

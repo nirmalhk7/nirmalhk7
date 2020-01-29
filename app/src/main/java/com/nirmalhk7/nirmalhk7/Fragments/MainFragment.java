@@ -33,7 +33,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.common;
-import com.nirmalhk7.nirmalhk7.controllers.Converters;
+import com.nirmalhk7.nirmalhk7.Controllers.Converters;
 import com.nirmalhk7.nirmalhk7.model.ExamholidaysEntity;
 import com.nirmalhk7.nirmalhk7.model.TimetableEntity;
 
@@ -335,7 +335,10 @@ public class MainFragment extends Fragment {
     void fillEntryDisplay(View v)
     {
         DBGateway database = DBGateway.getInstance(getContext());
-        TimetableEntity timetableEntities=database.getTTDao().getScheduleByDayAndTime(1,
+        TimetableEntity timetableEntities=database.getTTDao().getScheduleByDayAndTime(
+                Converters.day_to_dayno(
+                        Converters.today_get("EEE")
+                ),
                 Converters.to_date(
                         Converters.today_get("hh:mm a"),
                         "hh:mm a"));
@@ -358,18 +361,27 @@ public class MainFragment extends Fragment {
             nextClass.setText(timetableEntities.getTask());
             TextView nextTime=v.findViewById(R.id.nextClassTime);
             nextTime.setText(Converters.date_to(timetableEntities.getStartTime(),"hh:mm a"));
-
-            TextView nextHoliday=v.findViewById(R.id.nextHoliday);
-            nextHoliday.setText(holiday.getmName()+
-                    " ("+
-                    Converters.date_to(holiday.getStart(),"dd MM yyyy")+")");
+        }catch (NullPointerException e)
+        {
+            Log.e(getClass().getName(),e.getMessage());
+        }
+        try{
+            Log.d("CHECKXE","Next "+exam.getmName());
             TextView nextExam=v.findViewById(R.id.nextExam);
-            nextExam.setText(exam.getmName()+
-                    " ("+
-                    Converters.date_to(holiday.getStart(),"dd MM yyyy")+")");
-
-
-        }catch (Exception e)
+            nextExam.setText(exam.getmName());
+            TextView nextExamDate=v.findViewById(R.id.nextExamDate);
+            nextExamDate.setText(Converters.date_to(holiday.getStart(),"dd MMM yyyy"));
+        }catch(NullPointerException e)
+        {
+            Log.e(getClass().getName(),e.getMessage());
+        }
+        try{
+            Log.d("CHECKXH","Next "+holiday.getmName());
+            TextView nextHoliday=v.findViewById(R.id.nextHoliday);
+            nextHoliday.setText(holiday.getmName());
+            TextView nextHolidayDate=v.findViewById(R.id.nextHolidayDate);
+            nextHolidayDate.setText(Converters.date_to(holiday.getStart(),"dd MMM yyyy"));
+        }catch(NullPointerException e)
         {
             Log.e(getClass().getName(),e.getMessage());
         }

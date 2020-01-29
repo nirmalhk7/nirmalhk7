@@ -24,6 +24,7 @@ public interface ExamholidaysDAO {
     List<ExamholidaysEntity> getEventsOrdered();
 
 
+
     @Update
     void updateEvent(ExamholidaysEntity event);
 
@@ -36,7 +37,7 @@ public interface ExamholidaysDAO {
     @Query("SELECT DISTINCT * FROM ExamholidaysEntity WHERE id IN (SELECT MAX(id) FROM ExamholidaysEntity GROUP BY mType)")
     List<ExamholidaysEntity> getEHTypesUnique();
 
-    @Query("SELECT * FROM ExamholidaysEntity WHERE mDateStart>:date AND holexa=:type LIMIT 1")
+    @Query("SELECT * FROM ExamholidaysEntity WHERE Start>:date AND holexa=:type LIMIT 1")
     ExamholidaysEntity getNextEvent(Date date, int type);
 
 }

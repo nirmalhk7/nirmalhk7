@@ -19,7 +19,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.leinardi.android.speeddial.SpeedDialView;
 import com.nirmalhk7.nirmalhk7.DialogFragments.SubjectLogDialogFragment;
 import com.nirmalhk7.nirmalhk7.R;
-import com.nirmalhk7.nirmalhk7.controllers.AttendanceController;
+import com.nirmalhk7.nirmalhk7.Controllers.AttendanceController;
 import com.nirmalhk7.nirmalhk7.model.AttendanceListItem;
 
 import java.util.ArrayList;

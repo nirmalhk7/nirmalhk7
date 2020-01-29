@@ -18,8 +18,8 @@ import com.asksira.loopingviewpager.LoopingPagerAdapter;
 import com.nirmalhk7.nirmalhk7.ArrayAdapters.TimetableArrayAdapter;
 import com.nirmalhk7.nirmalhk7.DialogFragments.TimetableDialogFragment;
 import com.nirmalhk7.nirmalhk7.Fragments.TimetableFragment;
-import com.nirmalhk7.nirmalhk7.controllers.Converters;
-import com.nirmalhk7.nirmalhk7.controllers.TimetableController;
+import com.nirmalhk7.nirmalhk7.Controllers.Converters;
+import com.nirmalhk7.nirmalhk7.Controllers.TimetableController;
 import com.nirmalhk7.nirmalhk7.model.TimetableEntity;
 
 import java.util.ArrayList;

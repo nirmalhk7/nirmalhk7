@@ -19,7 +19,7 @@ import androidx.fragment.app.DialogFragment;
 import com.google.android.material.snackbar.Snackbar;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
-import com.nirmalhk7.nirmalhk7.controllers.AttendanceDialogControllerInterface;
+import com.nirmalhk7.nirmalhk7.Controllers.AttendanceDialogControllerInterface;
 import com.nirmalhk7.nirmalhk7.model.AttendanceDAO;
 import com.nirmalhk7.nirmalhk7.model.SubjectlogDAO;
 

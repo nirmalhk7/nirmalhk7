@@ -18,7 +18,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.leinardi.android.speeddial.SpeedDialView;
 import com.nirmalhk7.nirmalhk7.ArrayAdapters.ExamHolidayArrayAdapter;
 import com.nirmalhk7.nirmalhk7.R;
-import com.nirmalhk7.nirmalhk7.controllers.ExamHolidaysController;
+import com.nirmalhk7.nirmalhk7.Controllers.ExamHolidaysController;
 import com.nirmalhk7.nirmalhk7.util.MyBottomSheetDialogFragment;
 
 import static com.nirmalhk7.nirmalhk7.DialogFragments.SubjectLogDialogFragment.TAG;

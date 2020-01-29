@@ -14,7 +14,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
-import com.nirmalhk7.nirmalhk7.controllers.SubjectLogDialogController;
+import com.nirmalhk7.nirmalhk7.Controllers.SubjectLogDialogController;
 import com.nirmalhk7.nirmalhk7.model.TimetableDAO;
 import com.nirmalhk7.nirmalhk7.model.TimetableEntity;
 

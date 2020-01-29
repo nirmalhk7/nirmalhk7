@@ -23,8 +23,8 @@ import androidx.fragment.app.DialogFragment;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.common;
-import com.nirmalhk7.nirmalhk7.controllers.Converters;
-import com.nirmalhk7.nirmalhk7.controllers.ExamHolidaysDialogController;
+import com.nirmalhk7.nirmalhk7.Controllers.Converters;
+import com.nirmalhk7.nirmalhk7.Controllers.ExamHolidaysDialogController;
 import com.nirmalhk7.nirmalhk7.model.ExamholidaysDAO;
 import com.nirmalhk7.nirmalhk7.model.ExamholidaysEntity;
 
