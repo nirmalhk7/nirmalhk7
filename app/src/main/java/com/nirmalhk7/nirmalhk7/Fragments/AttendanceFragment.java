@@ -81,7 +81,7 @@ public class AttendanceFragment extends Fragment {
         // Inflate the layout for this fragment
         final View rootView= inflater.inflate(R.layout.fragment_attendance_all_subjects, container, false);
         Toolbar toolbar=getActivity().findViewById(R.id.toolbar);
-        toolbar.setTitle("nirmalhk7");
+        toolbar.setTitle("Attendance");
 
         AttendanceController attController=new AttendanceController(getContext(),getActivity());
 

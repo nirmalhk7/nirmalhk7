@@ -87,7 +87,7 @@ public class TimetableFragment extends Fragment {
         Log.d(getClass().getName(),"Todays Time "+Integer.parseInt(Converters.today_get("u")));
 
         Toolbar toolbar=getActivity().findViewById(R.id.toolbar);
-        toolbar.setTitle("Your TimetableFragment");
+        toolbar.setTitle("Your Timetable");
         FragmentManager fmgr=getActivity().getSupportFragmentManager();
 
         ArrayList<Integer> dataItems=new ArrayList<>(Arrays.asList(1,2,3,4,5,6));

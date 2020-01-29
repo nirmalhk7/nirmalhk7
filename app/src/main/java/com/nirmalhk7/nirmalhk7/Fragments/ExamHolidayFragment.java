@@ -70,7 +70,7 @@ public class ExamHolidayFragment extends Fragment {
 
         try{
             Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
-            toolbar.setTitle("nirmalhk7");
+            toolbar.setTitle("Exams & Holidays");
         }catch (NullPointerException e)
         {
             Log.e(getClass().getName(),e.getMessage());
