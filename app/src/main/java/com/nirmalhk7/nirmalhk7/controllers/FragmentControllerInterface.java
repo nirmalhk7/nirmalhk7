@@ -10,7 +10,6 @@ import com.leinardi.android.speeddial.SpeedDialView;
 
 public interface FragmentControllerInterface {
     void swipeToRefresh(final SwipeRefreshLayout pullToRefresh);
-
     void speedDialOnClick(SpeedDialView speed, final FragmentManager fragmentManager);
     void addSpeedDialOptions(SpeedDialView speed, Resources resources, Resources.Theme theme);
     void attachAdapter(ListView listView);
