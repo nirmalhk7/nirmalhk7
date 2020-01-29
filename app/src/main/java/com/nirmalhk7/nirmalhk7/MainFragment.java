@@ -1,4 +1,4 @@
-package com.nirmalhk7.nirmalhk7.entrydisplay;
+package com.nirmalhk7.nirmalhk7;
 
 import android.Manifest;
 import android.content.Intent;
@@ -30,10 +30,10 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.leinardi.android.speeddial.SpeedDialView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
-import com.nirmalhk7.nirmalhk7.DBGateway;
-import com.nirmalhk7.nirmalhk7.R;
-import com.nirmalhk7.nirmalhk7.common;
+import com.nirmalhk7.nirmalhk7.controllers.Converters;
 import com.nirmalhk7.nirmalhk7.examholidays.ExamHolidayFragment;
+import com.nirmalhk7.nirmalhk7.model.ExamholidaysEntity;
+import com.nirmalhk7.nirmalhk7.model.TimetableEntity;
 import com.nirmalhk7.nirmalhk7.timetable.Timetable;
 
 import org.json.JSONException;
@@ -326,13 +326,53 @@ public class MainFragment extends Fragment {
 
         }
 
-        DBGateway database = DBGateway.getInstance(getContext());
-
+        fillEntryDisplay(v);
 
         return v;
     }
 
+    void fillEntryDisplay(View v)
+    {
+        DBGateway database = DBGateway.getInstance(getContext());
+        TimetableEntity timetableEntities=database.getTTDao().getScheduleByDayAndTime(1,
+                Converters.to_date(
+                        Converters.today_get("hh:mm a"),
+                        "hh:mm a"));
+        ExamholidaysEntity exam=database.getEHDAO().getNextEvent(
+                Converters.to_date(
+                        Converters.today_get("dd MM yyyy"),
+                        "dd MM yyyy"),
+                1
+        );
+        ExamholidaysEntity holiday=database.getEHDAO().getNextEvent(
+                Converters.to_date(
+                        Converters.today_get("dd MM yyyy"),
+                        "dd MM yyyy"),
+                2
+        );
 
+        try{
+            Log.d("CHECKX","Next "+timetableEntities.getTask());
+            TextView nextClass=v.findViewById(R.id.nextClassName);
+            nextClass.setText(timetableEntities.getTask());
+            TextView nextTime=v.findViewById(R.id.nextClassTime);
+            nextTime.setText(Converters.date_to(timetableEntities.getStartTime(),"hh:mm a"));
+
+            TextView nextHoliday=v.findViewById(R.id.nextHoliday);
+            nextHoliday.setText(holiday.getmName()+
+                    " ("+
+                    Converters.date_to(holiday.getStart(),"dd MM yyyy")+")");
+            TextView nextExam=v.findViewById(R.id.nextExam);
+            nextExam.setText(exam.getmName()+
+                    " ("+
+                    Converters.date_to(holiday.getStart(),"dd MM yyyy")+")");
+
+
+        }catch (Exception e)
+        {
+            Log.e(getClass().getName(),e.getMessage());
+        }
+    }
 
 
     private boolean ensurePermissions() {
@@ -397,6 +437,7 @@ public class MainFragment extends Fragment {
                 //Here you can update your data from internet or from local SQLite data
                 Log.d("DAS/DSL","Refreshing");
                 requestData(mAPILink, "weather",rootview);
+                fillEntryDisplay(rootview);
                 pullToRefresh.setRefreshing(false);
             }
         });

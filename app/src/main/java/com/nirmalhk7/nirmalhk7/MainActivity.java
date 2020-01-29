@@ -20,7 +20,6 @@ import com.google.android.material.navigation.NavigationView;
 import com.nirmalhk7.nirmalhk7.attendance.AttendanceFragment;
 import com.nirmalhk7.nirmalhk7.callmanager.CallManagerFragment;
 import com.nirmalhk7.nirmalhk7.cpschedule.CpSchedule;
-import com.nirmalhk7.nirmalhk7.entrydisplay.MainFragment;
 import com.nirmalhk7.nirmalhk7.examholidays.ExamHolidayFragment;
 import com.nirmalhk7.nirmalhk7.timetable.Timetable;
 

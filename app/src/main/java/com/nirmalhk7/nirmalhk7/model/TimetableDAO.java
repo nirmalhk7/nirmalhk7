@@ -33,8 +33,8 @@ public interface TimetableDAO {
     @Query("SELECT * FROM TimetableEntity WHERE mTask=:Task")
     TimetableEntity getScheduleDetails(String Task);
 
-    @Query("SELECT mTask,mDay,mStartTime,mEndTime,id FROM TimetableEntity WHERE mStartTime>:starttime ORDER BY mStartTime")
-    List<TimetableEntity> getScheduleByDayAndTime(Date starttime);
+    @Query("SELECT mTask,mDay,mStartTime,mEndTime,id FROM TimetableEntity WHERE mStartTime>:starttime AND mDay=:Day ORDER BY mStartTime LIMIT 1")
+    TimetableEntity getScheduleByDayAndTime(int Day,Date starttime);
 
     @Delete
     void deleteSchedule(TimetableEntity scheduleEntity);

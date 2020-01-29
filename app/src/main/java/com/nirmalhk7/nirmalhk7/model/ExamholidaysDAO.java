@@ -6,7 +6,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-
+import java.util.Date;
 import java.util.List;
 
 @Dao
@@ -35,5 +35,8 @@ public interface ExamholidaysDAO {
 
     @Query("SELECT DISTINCT * FROM ExamholidaysEntity WHERE id IN (SELECT MAX(id) FROM ExamholidaysEntity GROUP BY mType)")
     List<ExamholidaysEntity> getEHTypesUnique();
+
+    @Query("SELECT * FROM ExamholidaysEntity WHERE mDateStart>:date AND holexa=:type LIMIT 1")
+    ExamholidaysEntity getNextEvent(Date date, int type);
 
 }

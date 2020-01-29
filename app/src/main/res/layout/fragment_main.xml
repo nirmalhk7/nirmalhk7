@@ -110,6 +110,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
                     tools:text="Makar Sankranti"
+                    android:id="@+id/nextHoliday"
                     android:textColor="@color/colorFontLight"/>
                 <TextView
                     android:layout_width="match_parent"
@@ -117,6 +118,7 @@
                     android:textSize="12sp"
                     android:textAllCaps="true"
                     android:paddingTop="10dp"
+                    android:id="@+id/nextExam"
                     android:text="Next Exam"
                     android:textColor="@color/colorFontLight"/>
                 <TextView
