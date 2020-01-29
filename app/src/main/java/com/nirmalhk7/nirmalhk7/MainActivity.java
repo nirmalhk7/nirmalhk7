@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity
         try {
             PackageInfo pInfo = this.getPackageManager().getPackageInfo(getPackageName(), 0);
             String version = pInfo.versionName;
-            navUsername.setText(version);
+            navUsername.setText(version+" ("+getString(R.string.gitBranch)+")");
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
