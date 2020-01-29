@@ -1,4 +1,4 @@
-package com.nirmalhk7.nirmalhk7.callmanager;
+package com.nirmalhk7.nirmalhk7.model;
 
 public class CallManagerListItem {
     private String mgrNameX;

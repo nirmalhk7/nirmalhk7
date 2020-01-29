@@ -17,11 +17,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.navigation.NavigationView;
-import com.nirmalhk7.nirmalhk7.attendance.AttendanceFragment;
-import com.nirmalhk7.nirmalhk7.callmanager.CallManagerFragment;
-import com.nirmalhk7.nirmalhk7.cpschedule.CpSchedule;
-import com.nirmalhk7.nirmalhk7.examholidays.ExamHolidayFragment;
-import com.nirmalhk7.nirmalhk7.timetable.Timetable;
+import com.nirmalhk7.nirmalhk7.Fragments.AttendanceFragment;
+import com.nirmalhk7.nirmalhk7.Fragments.CallManagerFragment;
+import com.nirmalhk7.nirmalhk7.Fragments.CpScheduleFragment;
+import com.nirmalhk7.nirmalhk7.Fragments.ExamHolidayFragment;
+import com.nirmalhk7.nirmalhk7.Fragments.MainFragment;
+import com.nirmalhk7.nirmalhk7.Fragments.TimetableFragment;
 
 
 public class MainActivity extends AppCompatActivity
@@ -126,7 +127,7 @@ public class MainActivity extends AppCompatActivity
             transaction.addToBackStack(null);
             transaction.commit();
         } else if (id == R.id.nav_schedule) {
-            newFragment = new Timetable();
+            newFragment = new TimetableFragment();
             transaction.replace(R.id.fullscreen, newFragment);
             transaction.addToBackStack(null);
             transaction.commit();
@@ -152,7 +153,7 @@ public class MainActivity extends AppCompatActivity
         }
         else if(id==R.id.CPSched)
         {
-            newFragment=new CpSchedule();
+            newFragment=new CpScheduleFragment();
             transaction.replace(R.id.fullscreen,newFragment);
             transaction.addToBackStack(null);
             transaction.commit();

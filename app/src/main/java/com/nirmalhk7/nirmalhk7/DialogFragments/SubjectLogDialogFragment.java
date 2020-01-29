@@ -1,4 +1,4 @@
-package com.nirmalhk7.nirmalhk7.attendance;
+package com.nirmalhk7.nirmalhk7.DialogFragments;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -22,7 +22,7 @@ import java.util.List;
 
 public class SubjectLogDialogFragment extends DialogFragment {
 
-    public static String TAG = "TimetableDialog";
+    public static String TAG = "TimetableDialogFragment";
 
     @Override
     public void onCreate(Bundle savedInstanceState)

@@ -1,4 +1,4 @@
-package com.nirmalhk7.nirmalhk7.examholidays;
+package com.nirmalhk7.nirmalhk7.DialogFragments;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -31,7 +31,7 @@ import com.nirmalhk7.nirmalhk7.model.ExamholidaysEntity;
 import java.util.Calendar;
 import java.util.Date;
 
-public class ExamHolidaysDialog extends DialogFragment {
+public class ExamHolidaysDialogFragment extends DialogFragment {
     public int key;
     private common cmn;
 

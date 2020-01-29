@@ -18,7 +18,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.controllers.Converters;
-import com.nirmalhk7.nirmalhk7.examholidays.ExamHolidayFragment;
+import com.nirmalhk7.nirmalhk7.Fragments.ExamHolidayFragment;
 import com.nirmalhk7.nirmalhk7.model.ExamholidaysDAO;
 import com.nirmalhk7.nirmalhk7.model.ExamholidaysEntity;
 

@@ -1,4 +1,4 @@
-package com.nirmalhk7.nirmalhk7.timetable;
+package com.nirmalhk7.nirmalhk7;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -15,7 +15,9 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.asksira.loopingviewpager.LoopingPagerAdapter;
-import com.nirmalhk7.nirmalhk7.R;
+import com.nirmalhk7.nirmalhk7.ArrayAdapters.TimetableArrayAdapter;
+import com.nirmalhk7.nirmalhk7.DialogFragments.TimetableDialogFragment;
+import com.nirmalhk7.nirmalhk7.Fragments.TimetableFragment;
 import com.nirmalhk7.nirmalhk7.controllers.Converters;
 import com.nirmalhk7.nirmalhk7.controllers.TimetableController;
 import com.nirmalhk7.nirmalhk7.model.TimetableEntity;
@@ -28,7 +30,7 @@ public class TimetableLoopingPagerAdapter extends LoopingPagerAdapter<Integer> {
     public static TimetableArrayAdapter ttadapter;
     private int mListPosition;
     private Context mActCon;
-    TimetableLoopingPagerAdapter(Context context, ArrayList<Integer> itemList, boolean isInfinite, FragmentManager fmgr,Context actCon) {
+    public TimetableLoopingPagerAdapter(Context context, ArrayList<Integer> itemList, boolean isInfinite, FragmentManager fmgr, Context actCon) {
         super(context, itemList, isInfinite);
          Fmgr=fmgr;
          mActCon=actCon;
@@ -74,7 +76,7 @@ public class TimetableLoopingPagerAdapter extends LoopingPagerAdapter<Integer> {
                 TextView subjcode=view.findViewById(R.id.fsd_subjabbr);
                 Log.d("CONVERTX", endTime + "-" + starttime);
 
-                TimetableDialog newFragment = new TimetableDialog();
+                TimetableDialogFragment newFragment = new TimetableDialogFragment();
                 // FragmentManager fragmentManager = ctvt.getSupportFragmentManager();
 
 
@@ -85,9 +87,9 @@ public class TimetableLoopingPagerAdapter extends LoopingPagerAdapter<Integer> {
                 args.putString("endtime", endTime.getText().toString());
                 args.putString("subjcode",subjcode.getText().toString());
                 args.putBoolean("editing",true);
-                args.putInt("day", Timetable.vpgr.getCurrentItem());
+                args.putInt("day", TimetableFragment.vpgr.getCurrentItem());
 
-                Log.d("DS", "Opening Dialog with DayNo:"+(Timetable.vpgr.getCurrentItem()));
+                Log.d("DS", "Opening Dialog with DayNo:"+(TimetableFragment.vpgr.getCurrentItem()));
                 newFragment.setArguments(args);
                 FragmentTransaction transaction = Fmgr.beginTransaction();
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);

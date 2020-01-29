@@ -1,4 +1,4 @@
-package com.nirmalhk7.nirmalhk7.attendance;
+package com.nirmalhk7.nirmalhk7.DialogFragments;
 
 import android.app.Dialog;
 import android.os.Bundle;

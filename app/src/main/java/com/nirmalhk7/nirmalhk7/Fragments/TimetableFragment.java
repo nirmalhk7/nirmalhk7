@@ -1,4 +1,4 @@
-package com.nirmalhk7.nirmalhk7.timetable;
+package com.nirmalhk7.nirmalhk7.Fragments;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,8 +15,10 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.asksira.loopingviewpager.LoopingViewPager;
 import com.leinardi.android.speeddial.SpeedDialView;
+import com.nirmalhk7.nirmalhk7.DialogFragments.TimetableDialogFragment;
 import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.controllers.Converters;
+import com.nirmalhk7.nirmalhk7.TimetableLoopingPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,12 +27,12 @@ import java.util.Arrays;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link Timetable.OnFragmentInteractionListener} interface
+ * {@link TimetableFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link Timetable#newInstance} factory method to
+ * Use the {@link TimetableFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Timetable extends Fragment {
+public class TimetableFragment extends Fragment {
 //    //
 //    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 //    private static final String ARG_PARAM1 = "param1";
@@ -42,7 +44,7 @@ public class Timetable extends Fragment {
     private TimetableLoopingPagerAdapter adapter;
     private OnFragmentInteractionListener mListener;
 
-    public Timetable() {
+    public TimetableFragment() {
         // Required empty public constructor
     }
 
@@ -52,11 +54,11 @@ public class Timetable extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment Timetable.
+     * @return A new instance of fragment TimetableFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static Timetable newInstance(String param1, String param2) {
-        Timetable fragment = new Timetable();
+    public static TimetableFragment newInstance(String param1, String param2) {
+        TimetableFragment fragment = new TimetableFragment();
         Bundle args = new Bundle();
 //        args.putString(ARG_PARAM1, param1);
 //        args.putString(ARG_PARAM2, param2);
@@ -85,7 +87,7 @@ public class Timetable extends Fragment {
         Log.d(getClass().getName(),"Todays Time "+Integer.parseInt(Converters.today_get("u")));
 
         Toolbar toolbar=getActivity().findViewById(R.id.toolbar);
-        toolbar.setTitle("Your Timetable");
+        toolbar.setTitle("Your TimetableFragment");
         FragmentManager fmgr=getActivity().getSupportFragmentManager();
 
         ArrayList<Integer> dataItems=new ArrayList<>(Arrays.asList(1,2,3,4,5,6));
@@ -117,7 +119,7 @@ public class Timetable extends Fragment {
             public boolean onMainActionSelected() {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 
-                TimetableDialog newFragment = new TimetableDialog();
+                TimetableDialogFragment newFragment = new TimetableDialogFragment();
                 Bundle b=new Bundle();
                 b.putBoolean("editing",false);
                 b.putInt("day-selected",vpgr.getCurrentItem());

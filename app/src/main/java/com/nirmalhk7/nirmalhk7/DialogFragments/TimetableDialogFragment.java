@@ -1,4 +1,4 @@
-package com.nirmalhk7.nirmalhk7.timetable;
+package com.nirmalhk7.nirmalhk7.DialogFragments;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -24,15 +24,17 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
 import androidx.fragment.app.DialogFragment;
 
+import com.nirmalhk7.nirmalhk7.ArrayAdapters.TimetableArrayAdapter;
 import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.common;
 import com.nirmalhk7.nirmalhk7.controllers.Converters;
 import com.nirmalhk7.nirmalhk7.controllers.TimetableController;
 import com.nirmalhk7.nirmalhk7.controllers.TimetableDialogControllerInterface;
+import com.nirmalhk7.nirmalhk7.TimetableLoopingPagerAdapter;
 
 import java.util.Calendar;
 
-public class TimetableDialog extends DialogFragment {
+public class TimetableDialogFragment extends DialogFragment {
     public int key;
     private String PAGE_TAG;
     private TimetableArrayAdapter ttadapter;

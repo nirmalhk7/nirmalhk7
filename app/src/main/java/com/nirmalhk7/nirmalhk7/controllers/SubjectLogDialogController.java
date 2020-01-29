@@ -11,7 +11,7 @@ import android.widget.ListView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.nirmalhk7.nirmalhk7.DBGateway;
-import com.nirmalhk7.nirmalhk7.attendance.AttendanceArrayAdapter;
+import com.nirmalhk7.nirmalhk7.ArrayAdapters.AttendanceArrayAdapter;
 import com.nirmalhk7.nirmalhk7.model.AttendanceListItem;
 import com.nirmalhk7.nirmalhk7.model.SubjectlogDAO;
 import com.nirmalhk7.nirmalhk7.model.SubjectlogEntity;

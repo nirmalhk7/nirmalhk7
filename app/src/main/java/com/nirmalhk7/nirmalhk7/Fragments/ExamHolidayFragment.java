@@ -1,4 +1,4 @@
-package com.nirmalhk7.nirmalhk7.examholidays;
+package com.nirmalhk7.nirmalhk7.Fragments;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,11 +16,12 @@ import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.leinardi.android.speeddial.SpeedDialView;
+import com.nirmalhk7.nirmalhk7.ArrayAdapters.ExamHolidayArrayAdapter;
 import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.controllers.ExamHolidaysController;
 import com.nirmalhk7.nirmalhk7.util.MyBottomSheetDialogFragment;
 
-import static com.nirmalhk7.nirmalhk7.attendance.SubjectLogDialogFragment.TAG;
+import static com.nirmalhk7.nirmalhk7.DialogFragments.SubjectLogDialogFragment.TAG;
 
 public class ExamHolidayFragment extends Fragment {
 

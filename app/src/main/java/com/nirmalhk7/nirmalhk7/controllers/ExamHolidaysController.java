@@ -17,8 +17,8 @@ import com.leinardi.android.speeddial.SpeedDialActionItem;
 import com.leinardi.android.speeddial.SpeedDialView;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
-import com.nirmalhk7.nirmalhk7.examholidays.ExamHolidayArrayAdapter;
-import com.nirmalhk7.nirmalhk7.examholidays.ExamHolidaysDialog;
+import com.nirmalhk7.nirmalhk7.ArrayAdapters.ExamHolidayArrayAdapter;
+import com.nirmalhk7.nirmalhk7.DialogFragments.ExamHolidaysDialogFragment;
 import com.nirmalhk7.nirmalhk7.model.ExamholidaysDAO;
 import com.nirmalhk7.nirmalhk7.model.ExamholidaysEntity;
 
@@ -58,7 +58,7 @@ public class ExamHolidaysController implements FragmentControllerInterface {
         speed.setOnActionSelectedListener(new SpeedDialView.OnActionSelectedListener() {
             @Override
             public boolean onActionSelected(SpeedDialActionItem speedDialActionItem) {
-                ExamHolidaysDialog newFragment = new ExamHolidaysDialog();
+                ExamHolidaysDialogFragment newFragment = new ExamHolidaysDialogFragment();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 Bundle b = new Bundle();

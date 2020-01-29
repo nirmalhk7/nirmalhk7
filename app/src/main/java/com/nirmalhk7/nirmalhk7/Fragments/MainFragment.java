@@ -1,4 +1,4 @@
-package com.nirmalhk7.nirmalhk7;
+package com.nirmalhk7.nirmalhk7.Fragments;
 
 import android.Manifest;
 import android.content.Intent;
@@ -30,11 +30,12 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.leinardi.android.speeddial.SpeedDialView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.nirmalhk7.nirmalhk7.DBGateway;
+import com.nirmalhk7.nirmalhk7.R;
+import com.nirmalhk7.nirmalhk7.common;
 import com.nirmalhk7.nirmalhk7.controllers.Converters;
-import com.nirmalhk7.nirmalhk7.examholidays.ExamHolidayFragment;
 import com.nirmalhk7.nirmalhk7.model.ExamholidaysEntity;
 import com.nirmalhk7.nirmalhk7.model.TimetableEntity;
-import com.nirmalhk7.nirmalhk7.timetable.Timetable;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -239,9 +240,9 @@ public class MainFragment extends Fragment {
         toolbar.setTitle("Dashboard");
         common C=new common(getContext());
 
-        Intent notificationIntent = new Intent(getContext(), Timetable.class);
+        Intent notificationIntent = new Intent(getContext(), TimetableFragment.class);
         notificationIntent.putExtra("NIRMALHK7", 1);
-//        notificationIntent.putExtra(Timetable.NOTIFICATION, notification);
+//        notificationIntent.putExtra(TimetableFragment.NOTIFICATION, notification);
 //        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 //
 //        long futureInMillis = SystemClock.elapsedRealtime() + 50000;
@@ -265,7 +266,7 @@ public class MainFragment extends Fragment {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 transaction.setCustomAnimations(android.R.anim.fade_in,android.R.anim.fade_out);
                 Fragment newFragment;
-                newFragment = new Timetable();
+                newFragment = new TimetableFragment();
                 transaction.replace(R.id.fullscreen, newFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();

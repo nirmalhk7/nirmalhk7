@@ -1,4 +1,4 @@
-package com.nirmalhk7.nirmalhk7.attendance;
+package com.nirmalhk7.nirmalhk7.Fragments;
 
 
 import android.net.Uri;
@@ -17,6 +17,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.leinardi.android.speeddial.SpeedDialView;
+import com.nirmalhk7.nirmalhk7.DialogFragments.SubjectLogDialogFragment;
 import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.controllers.AttendanceController;
 import com.nirmalhk7.nirmalhk7.model.AttendanceListItem;

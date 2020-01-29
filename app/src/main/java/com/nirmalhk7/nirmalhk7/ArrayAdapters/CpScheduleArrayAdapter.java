@@ -1,4 +1,4 @@
-package com.nirmalhk7.nirmalhk7.cpschedule;
+package com.nirmalhk7.nirmalhk7.ArrayAdapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;

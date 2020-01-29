@@ -1,16 +1,17 @@
-package com.nirmalhk7.nirmalhk7.callmanager;
+package com.nirmalhk7.nirmalhk7.Fragments;
 
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import androidx.fragment.app.Fragment;
+
+import com.nirmalhk7.nirmalhk7.ArrayAdapters.CallManagerArrayAdapter;
 import com.nirmalhk7.nirmalhk7.R;
+import com.nirmalhk7.nirmalhk7.model.CallManagerListItem;
 
 import java.util.ArrayList;
 

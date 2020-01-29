@@ -1,12 +1,9 @@
-package com.nirmalhk7.nirmalhk7.cpschedule;
+package com.nirmalhk7.nirmalhk7.Fragments;
 
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,8 +12,12 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.nirmalhk7.nirmalhk7.ArrayAdapters.CpScheduleArrayAdapter;
 import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.model.CpScheduleListItem;
 
@@ -32,12 +33,12 @@ import cz.msebera.android.httpclient.Header;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link CpSchedule.OnFragmentInteractionListener} interface
+ * {@link CpScheduleFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link CpSchedule#newInstance} factory method to
+ * Use the {@link CpScheduleFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CpSchedule extends Fragment {
+public class CpScheduleFragment extends Fragment {
 
     private String MODULE_TAG="CPSCH/";
     // TODO: Rename parameter arguments, choose names that match
@@ -52,7 +53,7 @@ public class CpSchedule extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public CpSchedule() {
+    public CpScheduleFragment() {
         // Required empty public constructor
     }
 
@@ -62,11 +63,11 @@ public class CpSchedule extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment CpSchedule.
+     * @return A new instance of fragment CpScheduleFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static CpSchedule newInstance(String param1, String param2) {
-        CpSchedule fragment = new CpSchedule();
+    public static CpScheduleFragment newInstance(String param1, String param2) {
+        CpScheduleFragment fragment = new CpScheduleFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

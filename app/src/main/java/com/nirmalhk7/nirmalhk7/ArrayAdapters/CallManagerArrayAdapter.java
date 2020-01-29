@@ -1,4 +1,4 @@
-package com.nirmalhk7.nirmalhk7.callmanager;
+package com.nirmalhk7.nirmalhk7.ArrayAdapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.nirmalhk7.nirmalhk7.R;
+import com.nirmalhk7.nirmalhk7.model.CallManagerListItem;
 
 import java.util.ArrayList;
 

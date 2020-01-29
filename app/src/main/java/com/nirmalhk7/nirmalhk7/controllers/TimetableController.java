@@ -7,7 +7,7 @@ import android.view.View;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.nirmalhk7.nirmalhk7.DBGateway;
-import com.nirmalhk7.nirmalhk7.timetable.TimetableArrayAdapter;
+import com.nirmalhk7.nirmalhk7.ArrayAdapters.TimetableArrayAdapter;
 import com.nirmalhk7.nirmalhk7.model.TimetableDAO;
 import com.nirmalhk7.nirmalhk7.model.TimetableEntity;
 
