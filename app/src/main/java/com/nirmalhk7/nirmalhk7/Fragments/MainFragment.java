@@ -364,13 +364,15 @@ public class MainFragment extends Fragment {
         }catch (NullPointerException e)
         {
             Log.e(getClass().getName(),e.getMessage());
+            TextView nextClass=v.findViewById(R.id.nextClassName);
+            nextClass.setText("Done for the day!");
         }
         try{
             Log.d("CHECKXE","Next "+exam.getmName());
             TextView nextExam=v.findViewById(R.id.nextExam);
             nextExam.setText(exam.getmName());
             TextView nextExamDate=v.findViewById(R.id.nextExamDate);
-            nextExamDate.setText(Converters.date_to(holiday.getStart(),"dd MMM yyyy"));
+            nextExamDate.setText(Converters.date_to(exam.getStart(),"MMM dd"));
         }catch(NullPointerException e)
         {
             Log.e(getClass().getName(),e.getMessage());
@@ -380,7 +382,7 @@ public class MainFragment extends Fragment {
             TextView nextHoliday=v.findViewById(R.id.nextHoliday);
             nextHoliday.setText(holiday.getmName());
             TextView nextHolidayDate=v.findViewById(R.id.nextHolidayDate);
-            nextHolidayDate.setText(Converters.date_to(holiday.getStart(),"dd MMM yyyy"));
+            nextHolidayDate.setText(Converters.date_to(holiday.getStart(),"MMM dd"));
         }catch(NullPointerException e)
         {
             Log.e(getClass().getName(),e.getMessage());

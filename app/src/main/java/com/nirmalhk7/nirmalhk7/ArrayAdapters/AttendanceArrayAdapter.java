@@ -200,7 +200,7 @@ public class AttendanceArrayAdapter extends ArrayAdapter<AttendanceListItem> {
                 final SubjectlogEntity sl=new SubjectlogEntity();
                 TextView subjName_subj = listitemview.findViewById(R.id.subjName_subject);
                 sl.setSubject(subjName_subj.getText().toString());
-
+                sl.setPrabca(2);
                 DateFormat dtf = new SimpleDateFormat("dd MMM yyyy EEE hh:mm a");
                 Date curdate= Converters.to_date(dtf.format(Calendar.getInstance().getTime()),"dd MMMM yyyy hh:mm a");
                 sl.setDaytime(curdate);

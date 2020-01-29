@@ -67,9 +67,9 @@ public class ExamHolidayArrayAdapter extends ArrayAdapter<ExamholidaysEntity> {
 
 
         TextView date = listItemView.findViewById(R.id.holidayExam_date);
-        String eventDate= Converters.date_to(currentWord.getStart(),"dd MM yyyy");
+        String eventDate= Converters.date_to(currentWord.getStart(),"MMM dd,yy");
         if(currentWord.getEnd()!=null)
-            eventDate+=" - "+ Converters.date_to(currentWord.getEnd(),"dd MM yyyy");
+            eventDate+=" - "+ Converters.date_to(currentWord.getEnd(),"MMM dd,yy");
 
         date.setText(eventDate);
         return listItemView;
