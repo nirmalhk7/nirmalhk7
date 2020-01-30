@@ -37,6 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:padding="5dp"
+            android:paddingStart="0dp"
             android:textAllCaps="true"
             android:textSize="10sp"
             tools:text="Can skip this class" />

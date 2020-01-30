@@ -8,8 +8,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.Controllers.Converters;
+import com.nirmalhk7.nirmalhk7.model.AttendanceEntity;
 import com.nirmalhk7.nirmalhk7.model.TimetableEntity;
 
 import java.util.List;
@@ -23,6 +25,7 @@ public class TimetableArrayAdapter extends ArrayAdapter<TimetableEntity> {
         super(context, 0, words);
     }
 
+    private double attendanceMinimum;
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Check if an existing view is being reused, otherwise inflate the view
@@ -60,7 +63,47 @@ public class TimetableArrayAdapter extends ArrayAdapter<TimetableEntity> {
         TextView subjcode=listItemView.findViewById(R.id.fsd_subjabbr);
         subjcode.setText(currentWord.getSubjCode());
 
+        TextView mandatory=listItemView.findViewById(R.id.mandatory);
+        if(currentWord.getDay()==Converters.day_to_dayno(Converters.today_get("EEE")))
+        {
+            DBGateway dbGateway=DBGateway.getInstance(getContext());
+            try{
+                AttendanceEntity attendanceEntity=dbGateway.getATTDao().getSubjectbyName(currentWord.getTask());
+                int present=attendanceEntity.getPresent();
+                int absent=attendanceEntity.getAbsent();
+                attendanceMinimum=0.80;
+                float ifskipped=(float)present/(present+absent+1);
+                if(ifskipped>attendanceMinimum)
+                {
+                    float skipPossibility=1;
+                    int canbunk;
+                    for(canbunk=0;skipPossibility>attendanceMinimum;++canbunk)
+                    {
+                        skipPossibility=(float)present/(present+absent+canbunk);
+                    }
+                    Log.d("CLASSNOTFOUNDX",currentWord.getTask()+" Possibility "+skipPossibility+" canBunk "+canbunk);
+                    if(canbunk>1)
+                    {
+                        mandatory.setText("Can skip "+canbunk+" classes");
+                    }
+                }
+                else
+                {
+                    float upAttendance=0;
+                    int mustAttend;
+                    for(mustAttend=0;upAttendance<attendanceMinimum;++mustAttend)
+                    {
+                        upAttendance=(present+mustAttend)/(present+mustAttend+absent);
+                    }
+                    mandatory.setText("Must attend next "+mustAttend+" classes");
+                }
+            }
+            catch (NullPointerException e)
+            {
+                Log.d(getClass().getName()+" CLASSNOTFOUND ",currentWord.getTask()+" -"+e.getMessage());
+            }
 
+        }
         TextView id=listItemView.findViewById(R.id.itemid);
         id.setText(String.valueOf(currentWord.getId()));
 

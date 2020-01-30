@@ -12,7 +12,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
@@ -94,9 +93,6 @@ public class AttendanceDialogControllerInterface implements DialogControllerInte
             {
                 updateSubjectLog(subj);
             }
-
-            Toast.makeText(mActivity, "Refresh to Update",
-                    Toast.LENGTH_LONG).show();
 
         }
 

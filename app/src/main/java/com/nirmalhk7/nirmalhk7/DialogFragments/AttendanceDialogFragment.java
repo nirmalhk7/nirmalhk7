@@ -52,7 +52,6 @@ public class AttendanceDialogFragment extends DialogFragment{
             Log.d("ATT/FSD","Bundle Passed: "+dbNo);
 
             LinearLayout topIcons = rootView.findViewById(R.id.attendanceDialog);
-            attendanceDialogController.onEditSetup(dbNo,topIcons);
             Present.setText(bundle.getInt("present")+"");
             Absent.setText(bundle.getInt("absent")+"");
 
