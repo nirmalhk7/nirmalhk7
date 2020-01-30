@@ -3,6 +3,7 @@ package com.nirmalhk7.nirmalhk7.model;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+
 import java.util.Date;
 
 @Entity
@@ -10,9 +11,12 @@ public class ExamholidaysEntity {
     @PrimaryKey(autoGenerate = true)
     int id;
     int holexa;
+
     String mName;
+    String mDateStart;
     Date Start;
     Date End;
+    String mDateEnd;
     String mType;
     String mDescription;
 
