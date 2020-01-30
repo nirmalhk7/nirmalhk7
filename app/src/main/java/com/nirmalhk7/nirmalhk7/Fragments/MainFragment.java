@@ -1,14 +1,12 @@
 package com.nirmalhk7.nirmalhk7.Fragments;
 
 import android.Manifest;
-import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +20,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
-import androidx.core.widget.TextViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -30,20 +27,17 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.leinardi.android.speeddial.SpeedDialView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
-import com.nirmalhk7.nirmalhk7.DBGateway;
+import com.nirmalhk7.nirmalhk7.Controllers.MainFragmentController;
 import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.common;
-import com.nirmalhk7.nirmalhk7.Controllers.Converters;
-import com.nirmalhk7.nirmalhk7.model.ExamholidaysEntity;
-import com.nirmalhk7.nirmalhk7.model.TimetableEntity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
-
 import cz.msebera.android.httpclient.Header;
 import mumayank.com.airlocationlibrary.AirLocation;
+
+import static android.content.Context.MODE_PRIVATE;
 
 //import static androidx.constraintlayout.Constraints.TAG;
 
@@ -107,8 +101,8 @@ public class MainFragment extends Fragment {
 
     }
 
-
-    public void requestData(String url, final String category, final View rootview) {
+    private MainFragmentController mainFragmentController;
+    private void requestData(String url, final String category, final View rootview) {
         //Everything below is part of the Android Asynchronous HTTP Client
 
         AsyncHttpClient client = new AsyncHttpClient();
@@ -127,63 +121,25 @@ public class MainFragment extends Fragment {
                         String temp = response.getJSONObject("currently").getString("temperature");
                         String summary = response.getJSONObject("currently").getString("summary");
                         String rainWeek = response.getJSONObject("currently").getString("precipProbability");
-                        Log.d(MODULE_TAG+"WeatherAPI", icon + "with" + temp);
-                        weather = rootview.findViewById(R.id.weather);
-                        ImageView weatherIcon = rootview.findViewById(R.id.weatherIcon);
-
-
-                        if (icon.equals("clear-day")) {
-                            weatherIcon.setImageResource(R.drawable.ic_iconfinder_sunny);
-                        } else if (icon.equals("clear-night")) {
-                            weatherIcon.setImageResource(R.drawable.ic_iconfinder_moony);
-                             
-                        } else if (icon.equals("rain")) {
-                            weatherIcon.setImageResource(R.drawable.ic_iconfinder_rainy);
-                            
-                        } else if (icon.equals("wind")) {
-                            weatherIcon.setImageResource(R.drawable.ic_iconfinder_windy);
-                            
-                        } else if (icon.equals("fog")) {
-                            weatherIcon.setImageResource(R.drawable.ic_iconfinder_foggy);
-                            
-                        } else if (icon.equals("cloudy")) {
-                            weatherIcon.setImageResource(R.drawable.ic_iconfinder_cloudy);
-                            
-                        } else if (icon.equals("partly-cloudy-day")) {
-                            weatherIcon.setImageResource(R.drawable.ic_iconfinder_partly_cloudy_sunny);
-                            
-                        } else if (icon.equals("partly-cloudy-night")) {
-                            weatherIcon.setImageResource(R.drawable.ic_iconfinder_moony);
-                            
+                        try{
+                            SharedPreferences sharedPref = getActivity().getPreferences(MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPref.edit();
+                            editor.putString("icon", icon);
+                            editor.putString("temp", temp);
+                            editor.putString("summary", summary);
+                            editor.putString("rainWeek", rainWeek);
+                            editor.apply();
+                        }catch (NullPointerException e)
+                        {
+                            Log.d(getClass().getName(),e.getMessage());
                         }
-                        Log.d(MODULE_TAG+"WeatherAPI", icon + temp);
 
+
+                        Log.d(MODULE_TAG+"WeatherAPI", icon + "with" + temp);
+                        ImageView weatherIcon = rootview.findViewById(R.id.weatherIcon);
                         LinearLayout weatherDesc = rootview.findViewById(R.id.weatherDesc);
 
-                        TextView summaryText = new TextView(getContext());
-                        summaryText.setText(summary + "." );
-                        TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(summaryText,1,20,1,TypedValue.COMPLEX_UNIT_DIP);
-
-                        TextView tempT=new TextView(getContext());
-                        tempT.setText(temp+"C");
-                        TextView dailyProbability = new TextView(getContext());
-                        if (Float.parseFloat(rainWeek) > 0.5) {
-                            dailyProbability.setText(Float.parseFloat(rainWeek) * 100 + "% chance of rain!");
-                        } else if (Float.parseFloat(rainWeek) < 0.5 && Float.parseFloat(rainWeek) > 0.2) {
-                            dailyProbability.setText("Small probability of rain!");
-                        } else {
-                            dailyProbability.setText("Expect no rain!");
-                        }
-                        dailyProbability.setAllCaps(true);
-                        dailyProbability.setTextSize(12);
-                        weatherDesc.addView(summaryText);
-                        weatherDesc.addView(tempT);
-                        weatherDesc.addView(dailyProbability);
-                        summaryText.setTextColor(getActivity().getResources().getColor(R.color.colorFontLight));
-                        summaryText.setTextSize(15);
-                        tempT.setTextColor(getActivity().getResources().getColor(R.color.colorFontLight));
-                        tempT.setTextSize(12);
-                        dailyProbability.setTextColor(getActivity().getResources().getColor(R.color.colorFontLight));
+                        mainFragmentController.setWeather(icon,temp,summary,rainWeek,weatherIcon,weatherDesc);
                         Log.d(MODULE_TAG+"END",weatherDesc.getChildCount()+" Count");
                     }
 
@@ -206,42 +162,21 @@ public class MainFragment extends Fragment {
         });
     }
 
-    private boolean isOnline() {
-        // get Connectivity Manager object to check connection
-        ConnectivityManager connec = (ConnectivityManager) getActivity().getSystemService(getActivity().getBaseContext().CONNECTIVITY_SERVICE);
-
-        // Check for network connections
-        if (connec.getNetworkInfo(0).getState() ==
-                android.net.NetworkInfo.State.CONNECTED ||
-                connec.getNetworkInfo(0).getState() ==
-                        android.net.NetworkInfo.State.CONNECTING ||
-                connec.getNetworkInfo(1).getState() ==
-                        android.net.NetworkInfo.State.CONNECTING ||
-                connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTED) {
-
-            return true;
-        } else if (
-                connec.getNetworkInfo(0).getState() ==
-                        android.net.NetworkInfo.State.DISCONNECTED ||
-                        connec.getNetworkInfo(1).getState() ==
-                                android.net.NetworkInfo.State.DISCONNECTED) {
-
-            return false;
-        }
-        return false;
-    }
-    private File assistantLocation;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View v = inflater.inflate(R.layout.fragment_main, container, false);
         Toolbar toolbar=getActivity().findViewById(R.id.toolbar);
+        SharedPreferences sharedPref = getActivity().getPreferences(MODE_PRIVATE);
+
         toolbar.setTitle("Dashboard");
         common C=new common(getContext());
+        mainFragmentController=new MainFragmentController(getContext(),v,getActivity());
+        mAPILink = "https://api.darksky.net/forecast/60569b87b5b2a6220c135e9b2e91646b/";
 
-        Intent notificationIntent = new Intent(getContext(), TimetableFragment.class);
-        notificationIntent.putExtra("NIRMALHK7", 1);
+//        Intent notificationIntent = new Intent(getContext(), TimetableFragment.class);
+//        notificationIntent.putExtra("NIRMALHK7", 1);
 //        notificationIntent.putExtra(TimetableFragment.NOTIFICATION, notification);
 //        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 //
@@ -249,16 +184,8 @@ public class MainFragment extends Fragment {
 //        AlarmManager alarmManager = (AlarmManager)getContext().getSystemService(Context.ALARM_SERVICE);
 //        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
 
+        mainFragmentController.setSpeedDial((SpeedDialView)getActivity().findViewById(R.id.speedDial));
 
-        assistantLocation = new File(getActivity().getFilesDir(), "snips");
-        //extractAssistantIfNeeded(assistantLocation);
-        if (ensurePermissions()) {
-          //  startSnips(assistantLocation);
-        }
-
-        mAPILink = "https://api.darksky.net/forecast/60569b87b5b2a6220c135e9b2e91646b/";
-        SpeedDialView dial=getActivity().findViewById(R.id.speedDial);
-        dial.setVisibility(View.INVISIBLE);
         CardView das=v.findViewById(R.id.dailySchedule);
         das.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -286,7 +213,7 @@ public class MainFragment extends Fragment {
             }
         });
         weather = getActivity().findViewById(R.id.weather);
-        if (isOnline()) {
+        if (mainFragmentController.isOnline()) {
             mAirLocation = new AirLocation(getActivity(), true, true, new AirLocation.Callbacks() {
                 @Override
                 public void onSuccess(Location location) {
@@ -319,75 +246,25 @@ public class MainFragment extends Fragment {
             Log.d(MODULE_TAG+"API","No Internet connection");
             TextView display=new TextView(getContext());
             ImageView i=v.findViewById(R.id.weatherIcon);
-            i.setImageResource(R.drawable.ic_signal_wifi_off);
-            display.setText("Phone is not connected");
-            display.setTextColor(getActivity().getResources().getColor(R.color.colorFontLight));
             LinearLayout l=v.findViewById(R.id.weatherDesc);
-            l.addView(display);
-
+            SharedPreferences sharedPreferences = getActivity().getPreferences(MODE_PRIVATE);
+            String icon=sharedPreferences.getString("icon","null");
+            String temp=sharedPreferences.getString("temp","null");
+            String summary=sharedPreferences.getString("summary","null")+" (Disconnected)";
+            String rainWeek=sharedPreferences.getString("rainWeek","null");
+            mainFragmentController.setWeather(icon,temp,summary,rainWeek,i,l);
         }
-
-        fillEntryDisplay(v);
-
+        TextView nextClass=v.findViewById(R.id.nextClassName);
+        TextView nextTime=v.findViewById(R.id.nextClassTime);
+        TextView nextExam=v.findViewById(R.id.nextExam);
+        TextView nextExamDate=v.findViewById(R.id.nextExamDate);
+        TextView nextHoliday=v.findViewById(R.id.nextHoliday);
+        TextView nextHolidayDate=v.findViewById(R.id.nextHolidayDate);
+        mainFragmentController.fillEntryDisplay(nextClass,nextTime,nextExam,nextHoliday,nextExamDate,nextHolidayDate);
         return v;
     }
 
-    void fillEntryDisplay(View v)
-    {
-        DBGateway database = DBGateway.getInstance(getContext());
-        TimetableEntity timetableEntities=database.getTTDao().getScheduleByDayAndTime(
-                Converters.day_to_dayno(
-                        Converters.today_get("EEE")
-                ),
-                Converters.to_date(
-                        Converters.today_get("hh:mm a"),
-                        "hh:mm a"));
-        ExamholidaysEntity exam=database.getEHDAO().getNextEvent(
-                Converters.to_date(
-                        Converters.today_get("dd MM yyyy"),
-                        "dd MM yyyy"),
-                1
-        );
-        ExamholidaysEntity holiday=database.getEHDAO().getNextEvent(
-                Converters.to_date(
-                        Converters.today_get("dd MM yyyy"),
-                        "dd MM yyyy"),
-                2
-        );
 
-        try{
-            Log.d("CHECKX","Next "+timetableEntities.getTask());
-            TextView nextClass=v.findViewById(R.id.nextClassName);
-            nextClass.setText(timetableEntities.getTask());
-            TextView nextTime=v.findViewById(R.id.nextClassTime);
-            nextTime.setText(Converters.date_to(timetableEntities.getStartTime(),"hh:mm a"));
-        }catch (NullPointerException e)
-        {
-            Log.e(getClass().getName(),e.getMessage());
-            TextView nextClass=v.findViewById(R.id.nextClassName);
-            nextClass.setText("Done for the day!");
-        }
-        try{
-            Log.d("CHECKXE","Next "+exam.getmName());
-            TextView nextExam=v.findViewById(R.id.nextExam);
-            nextExam.setText(exam.getmName());
-            TextView nextExamDate=v.findViewById(R.id.nextExamDate);
-            nextExamDate.setText(Converters.date_to(exam.getStart(),"MMM dd"));
-        }catch(NullPointerException e)
-        {
-            Log.e(getClass().getName(),e.getMessage());
-        }
-        try{
-            Log.d("CHECKXH","Next "+holiday.getmName());
-            TextView nextHoliday=v.findViewById(R.id.nextHoliday);
-            nextHoliday.setText(holiday.getmName());
-            TextView nextHolidayDate=v.findViewById(R.id.nextHolidayDate);
-            nextHolidayDate.setText(Converters.date_to(holiday.getStart(),"MMM dd"));
-        }catch(NullPointerException e)
-        {
-            Log.e(getClass().getName(),e.getMessage());
-        }
-    }
 
 
     private boolean ensurePermissions() {
@@ -451,8 +328,6 @@ public class MainFragment extends Fragment {
             public void onRefresh() {
                 //Here you can update your data from internet or from local SQLite data
                 Log.d("DAS/DSL","Refreshing");
-                requestData(mAPILink, "weather",rootview);
-                fillEntryDisplay(rootview);
                 pullToRefresh.setRefreshing(false);
             }
         });
