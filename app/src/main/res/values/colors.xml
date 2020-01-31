@@ -4,14 +4,16 @@
     <color name="colorPrimaryDark">#1976D2</color>
     <color name="colorAccent">#D81B60</color>
     <color name="colorAccentLight">#eb8daf</color>
-
     <color name="colorPrimaryLight">#BBDEFB</color>
-    <color name="colorDark">#33343B</color>
+    <color name="colorDark">#121212</color>
+    <color name="colorDarkOverlay">#555555</color>
+
     <color name="colorLightDark">#6C6D81</color>
+
     <color name="colorFontDark">#FFF</color>
     <color name="colorFontHintDark">#969696</color>
-
-
+    <color name="gradient_start">#2AF598</color>
+    <color name="gradient_end">#08B3E5</color>
     <color name="colorFontLight">#000</color>
     <color name="colorVermillion">#D03D33</color>
     <color name="colorGreen">#77ab59</color>

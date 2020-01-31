@@ -3,6 +3,7 @@
     android:id="@+id/listSingleItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/colorDark"
     android:orientation="horizontal"
     android:padding="@dimen/standard_dimen">
 

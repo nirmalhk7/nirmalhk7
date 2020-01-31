@@ -2,6 +2,7 @@ package com.nirmalhk7.nirmalhk7.ArrayAdapters;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +49,7 @@ public class ExamHolidayArrayAdapter extends ArrayAdapter<ExamholidaysEntity> {
 
         if(start<today && end<today)
         {
+            Log.d(getClass().getName(),"DebugDB + Name "+currentWord.getmName()+" Today "+today+" start "+start+" end "+end);
             listItemView.setBackgroundColor(Color.parseColor("#66494949"));
         }
 
@@ -67,9 +69,9 @@ public class ExamHolidayArrayAdapter extends ArrayAdapter<ExamholidaysEntity> {
 
 
         TextView date = listItemView.findViewById(R.id.holidayExam_date);
-        String eventDate= Converters.date_to(currentWord.getStart(),"MMM dd,yy");
-        if(currentWord.getEnd()!=null)
-            eventDate+=" - "+ Converters.date_to(currentWord.getEnd(),"MMM dd,yy");
+        String eventDate= Converters.date_to(currentWord.getStart(),"MMM dd,yyyy");
+        if(eventDate!=Converters.date_to(currentWord.getEnd(),"MMM dd,yyyy"))
+            eventDate+=" - "+ Converters.date_to(currentWord.getEnd(),"MMM dd,yyyy");
 
         date.setText(eventDate);
         return listItemView;

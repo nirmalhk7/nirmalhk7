@@ -179,11 +179,8 @@ public class MainFragment extends Fragment {
                         weatherDesc.addView(summaryText);
                         weatherDesc.addView(tempT);
                         weatherDesc.addView(dailyProbability);
-                        summaryText.setTextColor(getActivity().getResources().getColor(R.color.colorFontLight));
                         summaryText.setTextSize(15);
-                        tempT.setTextColor(getActivity().getResources().getColor(R.color.colorFontLight));
                         tempT.setTextSize(12);
-                        dailyProbability.setTextColor(getActivity().getResources().getColor(R.color.colorFontLight));
                         Log.d(MODULE_TAG+"END",weatherDesc.getChildCount()+" Count");
                     }
 

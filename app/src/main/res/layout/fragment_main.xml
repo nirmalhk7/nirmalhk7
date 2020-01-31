@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".entrydisplay.MainFragment">
@@ -17,6 +18,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/standard_dimen"
+            app:cardBackgroundColor="@color/colorDarkOverlay"
+
             android:padding="@dimen/standard_dimen">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -44,6 +47,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/dailySchedule"
             android:padding="@dimen/standard_dimen"
+            app:cardBackgroundColor="@color/colorDarkOverlay"
             android:layout_margin="@dimen/standard_dimen">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -56,22 +60,22 @@
 
                 <TextView
                     android:layout_width="match_parent"
+
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
                     android:textAllCaps="true"
-                    android:text="Next Class"
-                    android:textColor="@color/colorFontLight"/>
+                    android:text="Next Class"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_weight="1"
                         android:id="@+id/nextClassName"
                         android:layout_height="wrap_content"
                         android:textSize="20sp"
                         tools:text="Class Name is a reakky reakky big name for no reason"
-                        android:textColor="@color/colorFontLight"/>
+                        />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -89,6 +93,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/examHolidayNext"
+            app:cardBackgroundColor="@color/colorDarkOverlay"
+
             android:padding="@dimen/standard_dimen"
             android:layout_margin="@dimen/standard_dimen">
             <LinearLayout
@@ -107,8 +113,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="12sp"
                         android:textAllCaps="true"
-                        android:text="Next Holiday"
-                        android:textColor="@color/colorFontLight"/>
+                        android:text="Next Holiday"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -125,8 +130,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
                     tools:text="Makar Sankranti"
-                    android:id="@+id/nextHoliday"
-                    android:textColor="@color/colorFontLight"/>
+                    android:id="@+id/nextHoliday"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -136,8 +140,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="12sp"
                         android:textAllCaps="true"
-                        android:text="Next Exam"
-                        android:textColor="@color/colorFontLight"/>
+                        android:text="Next Exam"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -155,8 +158,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
                     tools:text="Physics Midsem"
-                    android:id="@+id/nextExam"
-                    android:textColor="@color/colorFontLight"/>
+                    android:id="@+id/nextExam"/>
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -168,7 +170,8 @@
             android:layout_margin="@dimen/standard_dimen">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:background="@android:color/holo_purple"
+
+                android:background="@drawable/gradientshiny"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_gravity="center_vertical"
@@ -186,6 +189,7 @@
                         android:layout_width="wrap_content"
                         android:layout_weight="1"
                         android:orientation="vertical"
+
                         android:paddingLeft="10dp"
                         android:layout_height="match_parent"
                         android:id="@+id/veronicaDesc">
@@ -195,7 +199,7 @@
                             android:layout_height="match_parent"
                             android:fontFamily="@font/orbitron"
                             android:gravity="center_vertical|left"
-                            android:text="Veronica"
+                            android:text="Veronica by NirmalHK7"
 
                             android:textColor="@color/colorFontDark"
                             android:textSize="17sp" />
