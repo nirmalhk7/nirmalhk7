@@ -3,26 +3,18 @@ package com.nirmalhk7.nirmalhk7.Fragments;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.leinardi.android.speeddial.SpeedDialView;
-import com.nirmalhk7.nirmalhk7.DialogFragments.SubjectLogDialogFragment;
-import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.Controllers.AttendanceController;
-import com.nirmalhk7.nirmalhk7.model.AttendanceListItem;
-
-import java.util.ArrayList;
+import com.nirmalhk7.nirmalhk7.R;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -87,39 +79,39 @@ public class AttendanceFragment extends Fragment {
 
         ListView listView = rootView.findViewById(R.id.list_item_allsubjects);
 
-        ArrayList<AttendanceListItem> SubjectItem=attController.fetchAttendance();
         attController.attachAdapter(listView);
 
         attController.swipeToRefresh((SwipeRefreshLayout) rootView.findViewById(R.id.pullToRefresh));
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.d("ATT/ALS","LongClick!");
-                SubjectLogDialogFragment x=new SubjectLogDialogFragment();
-                TextView subject=view.findViewById(R.id.subjName_subject);
-                TextView percent=view.findViewById(R.id.percent_subject);
-                TextView prabca=view.findViewById(R.id.presentabsent_subject);
 
-                String zpercent=percent.getText().toString().substring(8,percent.getText().toString().indexOf('%'));
-                String absent=prabca.getText().toString().substring(prabca.getText().toString().indexOf('A')+7);
-                String present=prabca.getText().toString().substring(8,prabca.getText().toString().indexOf('/')-1);
-
-
-
-                Log.d("ATT/ALS","OnLongItemListener "+zpercent+" / "+absent+" / "+present);
-                Bundle bundle=new Bundle();
-                bundle.putString("subject",subject.getText().toString());
-                bundle.putInt("present",Integer.parseInt(present));
-                bundle.putInt("absent",Integer.parseInt(absent));
-
-                bundle.putString("percent",zpercent);
-                x.setArguments(bundle);
-
-
-                FragmentTransaction ft=getFragmentManager().beginTransaction();
-                x.show(ft, SubjectLogDialogFragment.TAG);
-            }
-        });
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                Log.d("ATT/ALS","LongClick!");
+//                SubjectLogDialogFragment x=new SubjectLogDialogFragment();
+//                TextView subject=view.findViewById(R.id.subjName_subject);
+//                TextView percent=view.findViewById(R.id.percent_subject);
+//                TextView prabca=view.findViewById(R.id.presentabsent_subject);
+//
+//                String zpercent=percent.getText().toString().substring(8,percent.getText().toString().indexOf('%'));
+//                String absent=prabca.getText().toString().substring(prabca.getText().toString().indexOf('A')+7);
+//                String present=prabca.getText().toString().substring(8,prabca.getText().toString().indexOf('/')-1);
+//
+//
+//
+//                Log.d("ATT/ALS","OnLongItemListener "+zpercent+" / "+absent+" / "+present);
+//                Bundle bundle=new Bundle();
+//                bundle.putString("subject",subject.getText().toString());
+//                bundle.putInt("present",Integer.parseInt(present));
+//                bundle.putInt("absent",Integer.parseInt(absent));
+//
+//                bundle.putString("percent",zpercent);
+//                x.setArguments(bundle);
+//
+//
+//                FragmentTransaction ft=getFragmentManager().beginTransaction();
+//                x.show(ft, SubjectLogDialogFragment.TAG);
+//            }
+//        });
         SpeedDialView speedDialView =getActivity().findViewById(R.id.speedDial);
         speedDialView.setVisibility(View.VISIBLE);
         speedDialView.clearActionItems();

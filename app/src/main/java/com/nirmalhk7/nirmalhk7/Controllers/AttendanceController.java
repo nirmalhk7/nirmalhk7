@@ -127,12 +127,13 @@ public class AttendanceController implements FragmentControllerInterface {
         });
     }
 
-
     @Override
-    public void attachAdapter(ListView listView) {
+    public void attachAdapter(ListView listView)
+    {
         mAttendanceAdapter = new AttendanceArrayAdapter(mContext, fetchAttendance(),1);
         listView.setAdapter(mAttendanceAdapter);
     }
+
 
     @Override
     public void addSpeedDialOptions(SpeedDialView speed, Resources resources, Resources.Theme theme) {
@@ -165,11 +166,8 @@ public class AttendanceController implements FragmentControllerInterface {
     public void swipeToRefresh(final SwipeRefreshLayout pullToRefresh){
         pullToRefresh.setEnabled(true);
         pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            int Refreshcounter = 1; //Counting how many times user have refreshed the layout
-
             @Override
             public void onRefresh() {
-                //Here you can update your data from internet or from local SQLite data
                 Log.d("ATT/ALS","Refreshing");
                 //   ALSfetchDB(rootview);
                 mAttendanceAdapter.clear();
@@ -178,6 +176,7 @@ public class AttendanceController implements FragmentControllerInterface {
                 mAttendanceAdapter.addAll(newlist);
                 mAttendanceAdapter.notifyDataSetChanged();
                 pullToRefresh.setRefreshing(false);
+
             }
         });
     }

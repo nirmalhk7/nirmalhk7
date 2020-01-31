@@ -9,10 +9,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.room.Room;
 
-import com.nirmalhk7.nirmalhk7.Controllers.AttendanceController;
 import com.nirmalhk7.nirmalhk7.Controllers.Converters;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
@@ -22,8 +22,6 @@ import com.nirmalhk7.nirmalhk7.model.AttendanceListItem;
 import com.nirmalhk7.nirmalhk7.model.SubjectlogDAO;
 import com.nirmalhk7.nirmalhk7.model.SubjectlogEntity;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -63,9 +61,6 @@ public class AttendanceArrayAdapter extends ArrayAdapter<AttendanceListItem> {
             TextView attendanceCount=listItemView.findViewById(R.id.presentabsent_subject);
             TextView id;
             float present,absent,result;
-
-
-
             mCurrentItem = getItem(position);
 
             subjectName.setText(mCurrentItem.getSubjName());
@@ -83,9 +78,6 @@ public class AttendanceArrayAdapter extends ArrayAdapter<AttendanceListItem> {
             id.setText(mCurrentItem.getmId()+"");
 
             btnlistener(listItemView,Integer.parseInt(id.getText().toString()));
-
-            AttendanceController attendanceController=new AttendanceController(getContext());
-
 
         }
         else if(mSubject ==2){
@@ -136,8 +128,7 @@ public class AttendanceArrayAdapter extends ArrayAdapter<AttendanceListItem> {
 
     private void btnlistener(final View listitemview,final int id)
     {
-        ImageButton p=listitemview.findViewById(R.id.present_btn);
-        ImageButton a=listitemview.findViewById(R.id.absent_btn);
+
         final DBGateway database = Room.databaseBuilder(mContext, DBGateway.class, "finalDB")
                 .allowMainThreadQueries()
                 .fallbackToDestructiveMigration()
@@ -160,32 +151,38 @@ public class AttendanceArrayAdapter extends ArrayAdapter<AttendanceListItem> {
         final SubjectlogEntity sl=new SubjectlogEntity();
         TextView subjName_subj = listitemview.findViewById(R.id.subjName_subject);
         sl.setSubject(subjName_subj.getText().toString());
+        ImageButton p=listitemview.findViewById(R.id.present_btn);
+        ImageButton a=listitemview.findViewById(R.id.absent_btn);
         p.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d(getClass().getName(),"ATTARR Click Present!");
                 int pr=att.getPresent();
                 att.setPresent(++pr);
                 sl.setPrabca(1);
-
+                Toast.makeText(getContext(),"Present marked for "+sl.getSubject(),Toast.LENGTH_LONG).show();
             }
         });
         a.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Log.d(getClass().getName(),"ATTARR Click Absent!");
                 int ab=att.getAbsent();
                 att.setAbsent(++ab);
-
                 sl.setPrabca(2);
+                Toast.makeText(getContext(),"Absent marked for "+sl.getSubject(),Toast.LENGTH_LONG).show();
             }
         });
         attendanceDAO.updateSubject(att);
-        DateFormat dtf = new SimpleDateFormat("dd MMM yyyy EEE hh:mm a");
-        Date curdate= Converters.to_date(dtf.format(Calendar.getInstance().getTime()),"dd MMMM yyyy hh:mm a");
-        sl.setDaytime(curdate);
+        sl.setDaytime(Converters.to_date(
+                Converters.today_get("dd MMM yyyy hh:mm a"),
+                "dd MMM yyyy hh:mm a"));
 
 
-        Log.d("datex",dtf.format(Calendar.getInstance().getTime())+"//"+curdate.getTime());
+        Log.d("datex","-"+Converters.today_get("dd MMM yyyy hh:mm a"));
         SLDAO.insertLog(sl);
+        attendanceDAO.updateSubject(att);
 
     }
 }
