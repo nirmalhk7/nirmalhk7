@@ -163,8 +163,9 @@ public class ExamHolidaysDialogFragment extends DialogFragment {
         dismiss();
 
     }
+    private EditText date;
     void datelistener(final EditText startdate,final EditText enddate,final int i){
-        EditText date=new EditText(getContext());
+        date=new EditText(getContext());
         if(i==1)
         {
             date=startdate;
@@ -177,9 +178,18 @@ public class ExamHolidaysDialogFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 final Calendar c = Calendar.getInstance();
-                mYear = c.get(Calendar.YEAR);
-                mMonth = c.get(Calendar.MONTH);
-                mDay = c.get(Calendar.DAY_OF_MONTH);
+                if(date.getText()==null)
+                {
+                    mYear = c.get(Calendar.YEAR);
+                    mMonth = c.get(Calendar.MONTH);
+                    mDay = c.get(Calendar.DAY_OF_MONTH);
+                }
+                else{
+                    String dateText=date.getText().toString();
+                    mYear=Integer.parseInt(Converters.dtConverter(dateText,"MMM d, yyyy","yyyy"));
+                    mMonth=Integer.parseInt(Converters.dtConverter(dateText,"MMM d, yyyy","M"))-1;
+                    mDay=Integer.parseInt(Converters.dtConverter(dateText,"MMM d, yyyy","d"));
+                }
                 final Calendar date=Calendar.getInstance();
                 DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), AlertDialog.THEME_DEVICE_DEFAULT_DARK,
                         new DatePickerDialog.OnDateSetListener() {

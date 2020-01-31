@@ -157,13 +157,15 @@ public class TimetableDialogFragment extends DialogFragment {
                 EditText taskTimeEndEdit = getActivity().findViewById(R.id.taskEnd);
                 RadioGroup day=getActivity().findViewById(R.id.rgDay);
                 if(Validation(rootView))
+                {
                     ttdController.saveTimetable(taskNameEdit.getText().toString(),SubjCode.getText().toString(),taskTimeStartEdit.getText().toString(),
-                            taskTimeEndEdit.getText().toString(),
-                            getDayChecked(rootView,day),bundle.getBoolean("editing"),dbNo);
-                ttController.refreshOnSave(TimetableLoopingPagerAdapter.ttadapter,ttController);
+                    taskTimeEndEdit.getText().toString(),
+                    getDayChecked(rootView,day),bundle.getBoolean("editing"),dbNo);
+                    ttController.refreshOnSave(TimetableLoopingPagerAdapter.ttadapter,ttController);
+                    mCommon.hideKeyboard(rootView);
+                    dismiss();
+                }
 
-                mCommon.hideKeyboard(rootView);
-                dismiss();
             }
         });
         return rootView;

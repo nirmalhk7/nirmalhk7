@@ -47,6 +47,7 @@
             android:id="@+id/dailySchedule"
             android:padding="@dimen/standard_dimen"
             app:cardBackgroundColor="@color/colorDarkOverlay"
+
             android:layout_margin="@dimen/standard_dimen">
             <LinearLayout
                 android:layout_width="match_parent"
