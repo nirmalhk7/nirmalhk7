@@ -15,6 +15,9 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.leinardi.android.speeddial.SpeedDialView;
 import com.nirmalhk7.nirmalhk7.Controllers.AttendanceController;
 import com.nirmalhk7.nirmalhk7.R;
+import com.nirmalhk7.nirmalhk7.model.AttendanceListItem;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -75,17 +78,17 @@ public class AttendanceFragment extends Fragment {
         Toolbar toolbar=getActivity().findViewById(R.id.toolbar);
         toolbar.setTitle("Attendance");
 
-        AttendanceController attController=new AttendanceController(getContext(),getActivity());
+        AttendanceController attController=new AttendanceController(getContext(),getActivity(),getFragmentManager());
 
         ListView listView = rootView.findViewById(R.id.list_item_allsubjects);
 
+        ArrayList<AttendanceListItem> SubjectItem=attController.fetchAttendance();
         attController.attachAdapter(listView);
 
         attController.swipeToRefresh((SwipeRefreshLayout) rootView.findViewById(R.id.pullToRefresh));
-
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
 //            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 //                Log.d("ATT/ALS","LongClick!");
 //                SubjectLogDialogFragment x=new SubjectLogDialogFragment();
 //                TextView subject=view.findViewById(R.id.subjName_subject);
@@ -100,7 +103,7 @@ public class AttendanceFragment extends Fragment {
 //
 //                Log.d("ATT/ALS","OnLongItemListener "+zpercent+" / "+absent+" / "+present);
 //                Bundle bundle=new Bundle();
-//                bundle.putString("subject",subject.getText().toString());
+//                bundle.putStringcc("subject",subject.getText().toString());
 //                bundle.putInt("present",Integer.parseInt(present));
 //                bundle.putInt("absent",Integer.parseInt(absent));
 //
@@ -110,6 +113,7 @@ public class AttendanceFragment extends Fragment {
 //
 //                FragmentTransaction ft=getFragmentManager().beginTransaction();
 //                x.show(ft, SubjectLogDialogFragment.TAG);
+//                return false;
 //            }
 //        });
         SpeedDialView speedDialView =getActivity().findViewById(R.id.speedDial);

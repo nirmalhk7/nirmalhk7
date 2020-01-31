@@ -35,10 +35,12 @@ public class AttendanceController implements FragmentControllerInterface {
     private AttendanceArrayAdapter mAttendanceAdapter;
     private Activity mActivity;
     private AttendanceListItem mCurrentItem;
-    public AttendanceController(Context context,Activity activity){
+    private FragmentManager Fmgr;
+    public AttendanceController(Context context,Activity activity,FragmentManager Fmg){
         
         mContext=context;
         mActivity=activity;
+        Fmgr=Fmg;
     }
     public AttendanceController(Context context){
         mContext=context;
@@ -130,7 +132,7 @@ public class AttendanceController implements FragmentControllerInterface {
     @Override
     public void attachAdapter(ListView listView)
     {
-        mAttendanceAdapter = new AttendanceArrayAdapter(mContext, fetchAttendance(),1);
+        mAttendanceAdapter = new AttendanceArrayAdapter(mContext, fetchAttendance(),1,Fmgr);
         listView.setAdapter(mAttendanceAdapter);
     }
 

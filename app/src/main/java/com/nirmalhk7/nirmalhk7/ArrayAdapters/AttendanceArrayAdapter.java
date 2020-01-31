@@ -2,19 +2,23 @@ package com.nirmalhk7.nirmalhk7.ArrayAdapters;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.room.Room;
 
 import com.nirmalhk7.nirmalhk7.Controllers.Converters;
 import com.nirmalhk7.nirmalhk7.DBGateway;
+import com.nirmalhk7.nirmalhk7.DialogFragments.SubjectLogDialogFragment;
 import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.model.AttendanceDAO;
 import com.nirmalhk7.nirmalhk7.model.AttendanceEntity;
@@ -22,6 +26,8 @@ import com.nirmalhk7.nirmalhk7.model.AttendanceListItem;
 import com.nirmalhk7.nirmalhk7.model.SubjectlogDAO;
 import com.nirmalhk7.nirmalhk7.model.SubjectlogEntity;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -31,17 +37,18 @@ public class AttendanceArrayAdapter extends ArrayAdapter<AttendanceListItem> {
     private int mSubject;
     private Context mContext;
     private AttendanceListItem mCurrentItem;
-
-    public AttendanceArrayAdapter(Context context, ArrayList<AttendanceListItem> attendanceListItem) {
-        super(context, 0, attendanceListItem);
-        mSubject =0;
-        this.mContext=context;
-    }
+    private FragmentManager Fmgr;
 
     public AttendanceArrayAdapter(Context context, ArrayList<AttendanceListItem> SubjectItem, int key) {
         super(context, 0, SubjectItem);
         mSubject = key;
         this.mContext=context;
+    }
+    public AttendanceArrayAdapter(Context context, ArrayList<AttendanceListItem> SubjectItem, int key,FragmentManager Fmr) {
+        super(context, 0, SubjectItem);
+        mSubject = key;
+        this.mContext=context;
+        Fmgr=Fmr;
     }
 
     @Override
@@ -78,7 +85,24 @@ public class AttendanceArrayAdapter extends ArrayAdapter<AttendanceListItem> {
             id.setText(mCurrentItem.getmId()+"");
 
             btnlistener(listItemView,Integer.parseInt(id.getText().toString()));
+            LinearLayout linearLayout=listItemView.findViewById(R.id.subjectDetails);
+            linearLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                                    Log.d("ATT/ALS","LongClick!");
+                SubjectLogDialogFragment x=new SubjectLogDialogFragment();
+                TextView subject=view.findViewById(R.id.subjName_subject);
 
+                Bundle bundle=new Bundle();
+                bundle.putString("subject",subject.getText().toString());
+
+                x.setArguments(bundle);
+
+
+                FragmentTransaction ft=Fmgr.beginTransaction();
+                x.show(ft, SubjectLogDialogFragment.TAG);
+                }
+            });
         }
         else if(mSubject ==2){
             //For Subject Attendance Log
@@ -156,33 +180,47 @@ public class AttendanceArrayAdapter extends ArrayAdapter<AttendanceListItem> {
         p.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(getClass().getName(),"ATTARR Click Present!");
                 int pr=att.getPresent();
                 att.setPresent(++pr);
+                attendanceDAO.updateSubject(att);
+
+                SubjectlogDAO SLDAO=database.getSALDAO();
+                final SubjectlogEntity sl=new SubjectlogEntity();
+                TextView subjName_subj = listitemview.findViewById(R.id.subjName_subject);
+                sl.setSubject(subjName_subj.getText().toString());
                 sl.setPrabca(1);
-                Toast.makeText(getContext(),"Present marked for "+sl.getSubject(),Toast.LENGTH_LONG).show();
+
+                DateFormat dtf = new SimpleDateFormat("dd MMM yyyy EEE hh:mm a");
+                Date curdate= Converters.to_date(dtf.format(Calendar.getInstance().getTime()),"dd MMMM yyyy hh:mm a");
+                sl.setDaytime(curdate);
+
+
+                Log.d("datex",dtf.format(Calendar.getInstance().getTime())+"//"+curdate.getTime());
+                SLDAO.insertLog(sl);
             }
         });
         a.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Log.d(getClass().getName(),"ATTARR Click Absent!");
                 int ab=att.getAbsent();
                 att.setAbsent(++ab);
+                attendanceDAO.updateSubject(att);
+
+                SubjectlogDAO SLDAO=database.getSALDAO();
+                final SubjectlogEntity sl=new SubjectlogEntity();
+                TextView subjName_subj = listitemview.findViewById(R.id.subjName_subject);
+                sl.setSubject(subjName_subj.getText().toString());
                 sl.setPrabca(2);
-                Toast.makeText(getContext(),"Absent marked for "+sl.getSubject(),Toast.LENGTH_LONG).show();
+                DateFormat dtf = new SimpleDateFormat("dd MMM yyyy EEE hh:mm a");
+                Date curdate= Converters.to_date(dtf.format(Calendar.getInstance().getTime()),"dd MMMM yyyy hh:mm a");
+                sl.setDaytime(curdate);
+
+
+                Log.d("datex",dtf.format(Calendar.getInstance().getTime())+"//"+curdate.getTime());
+
+                SLDAO.insertLog(sl);
             }
         });
-        attendanceDAO.updateSubject(att);
-        sl.setDaytime(Converters.to_date(
-                Converters.today_get("dd MMM yyyy hh:mm a"),
-                "dd MMM yyyy hh:mm a"));
-
-
-        Log.d("datex","-"+Converters.today_get("dd MMM yyyy hh:mm a"));
-        SLDAO.insertLog(sl);
-        attendanceDAO.updateSubject(att);
 
     }
 }

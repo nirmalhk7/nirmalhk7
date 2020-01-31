@@ -2,6 +2,7 @@ package com.nirmalhk7.nirmalhk7.DialogFragments;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +13,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.nirmalhk7.nirmalhk7.Controllers.SubjectLogDialogController;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
-import com.nirmalhk7.nirmalhk7.Controllers.SubjectLogDialogController;
+import com.nirmalhk7.nirmalhk7.model.AttendanceEntity;
 import com.nirmalhk7.nirmalhk7.model.TimetableDAO;
 import com.nirmalhk7.nirmalhk7.model.TimetableEntity;
 
@@ -50,9 +52,19 @@ public class SubjectLogDialogFragment extends DialogFragment {
         toolbar.setTitle("Subject Log");
         Bundle b=this.getArguments();
         String subject=b.getString("subject");
-        int p=b.getInt("present");
-        int a=b.getInt("absent");
-        int c=b.getInt("cancelled");
+
+        DBGateway database=DBGateway.getInstance(getContext());
+        int p,a;
+        try{
+            AttendanceEntity attendanceEntity=database.getATTDao().getSubjectbyName(subject);
+            p=attendanceEntity.getPresent();
+            a=attendanceEntity.getAbsent();
+        }catch (Exception e)
+        {
+            p=0;
+            a=0;
+            Log.d(getClass().getName(),"SubjMiss "+e.getMessage());
+        }
 
         TextView subjName=rootView.findViewById(R.id.sal_subject);
         subjName.setText(subject);
@@ -60,11 +72,8 @@ public class SubjectLogDialogFragment extends DialogFragment {
         present.setText(Integer.toString(p));
         TextView absent=rootView.findViewById(R.id.sal_a);
         absent.setText(Integer.toString(a));
-        TextView cancel=rootView.findViewById(R.id.sal_c);
-        cancel.setText(Integer.toString(c));
-        DBGateway database2 = DBGateway.getInstance(getContext());
 
-        TimetableDAO SDAO=database2.getTTDao();
+        TimetableDAO SDAO=database.getTTDao();
         List<TimetableEntity> x=SDAO.getScheduleCodeByTaskName(subjName.getText().toString());
         if(x.size()==1)
         {
