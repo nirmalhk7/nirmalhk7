@@ -12,11 +12,10 @@ import android.widget.TextView;
 
 import androidx.room.Room;
 
-import com.daimajia.swipe.SwipeLayout;
-import com.nirmalhk7.nirmalhk7.DBGateway;
-import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.Controllers.AttendanceController;
 import com.nirmalhk7.nirmalhk7.Controllers.Converters;
+import com.nirmalhk7.nirmalhk7.DBGateway;
+import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.model.AttendanceDAO;
 import com.nirmalhk7.nirmalhk7.model.AttendanceEntity;
 import com.nirmalhk7.nirmalhk7.model.AttendanceListItem;
@@ -70,14 +69,14 @@ public class AttendanceArrayAdapter extends ArrayAdapter<AttendanceListItem> {
             mCurrentItem = getItem(position);
 
             subjectName.setText(mCurrentItem.getSubjName());
-            attendanceCount.setText("Present "+ mCurrentItem.getmPresent()+" / Absent "+ mCurrentItem.getmAbsent());
+            attendanceCount.setText("Pr."+ mCurrentItem.getmPresent()+" / Ab."+ mCurrentItem.getmAbsent());
             present = mCurrentItem.getmPresent();
             absent= mCurrentItem.getmAbsent();
             result=present/(present+absent);
             result = (float) Math.round(result * 100);
 
             TextView percentAttendance = listItemView.findViewById(R.id.percent_subject);
-            percentAttendance.setText("Percent: "+result+"%");
+            percentAttendance.setText(result+"%");
 
             id=listItemView.findViewById(R.id.attendance_id);
             Log.d("XXXC",""+ mCurrentItem.getmId());
@@ -85,16 +84,7 @@ public class AttendanceArrayAdapter extends ArrayAdapter<AttendanceListItem> {
 
             btnlistener(listItemView,Integer.parseInt(id.getText().toString()));
 
-            SwipeLayout swipeLayout = listItemView.findViewById(R.id.swipeswipe);
-            //set show mode.
-            swipeLayout.setShowMode(SwipeLayout.ShowMode.LayDown);
-            //add drag edge.(If the BottomView has 'layout_gravity' attribute, this line is unnecessary)
-            swipeLayout.addDrag(SwipeLayout.DragEdge.Right, listItemView.findViewById(R.id.bottom_wrapper));
-            final ImageButton deleteb=listItemView.findViewById(R.id.trash_swipe);
-            final ImageButton editb=listItemView.findViewById(R.id.edit_swipe);
-
             AttendanceController attendanceController=new AttendanceController(getContext());
-            attendanceController.swipeLayout(swipeLayout,deleteb,editb,mCurrentItem);
 
 
         }
@@ -148,7 +138,6 @@ public class AttendanceArrayAdapter extends ArrayAdapter<AttendanceListItem> {
     {
         ImageButton p=listitemview.findViewById(R.id.present_btn);
         ImageButton a=listitemview.findViewById(R.id.absent_btn);
-        ImageButton c=listitemview.findViewById(R.id.cancel_btn);
         final DBGateway database = Room.databaseBuilder(mContext, DBGateway.class, "finalDB")
                 .allowMainThreadQueries()
                 .fallbackToDestructiveMigration()
@@ -167,26 +156,17 @@ public class AttendanceArrayAdapter extends ArrayAdapter<AttendanceListItem> {
 
         Log.d("ATT/ALS","Recieved "+att.getSubject()+" "+att.getPresent()+" "+att.getAbsent());
 
+        SubjectlogDAO SLDAO=database.getSALDAO();
+        final SubjectlogEntity sl=new SubjectlogEntity();
+        TextView subjName_subj = listitemview.findViewById(R.id.subjName_subject);
+        sl.setSubject(subjName_subj.getText().toString());
         p.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int pr=att.getPresent();
                 att.setPresent(++pr);
-                attendanceDAO.updateSubject(att);
-
-                SubjectlogDAO SLDAO=database.getSALDAO();
-                final SubjectlogEntity sl=new SubjectlogEntity();
-                TextView subjName_subj = listitemview.findViewById(R.id.subjName_subject);
-                sl.setSubject(subjName_subj.getText().toString());
                 sl.setPrabca(1);
 
-                DateFormat dtf = new SimpleDateFormat("dd MMM yyyy EEE hh:mm a");
-                Date curdate= Converters.to_date(dtf.format(Calendar.getInstance().getTime()),"dd MMMM yyyy hh:mm a");
-                sl.setDaytime(curdate);
-
-
-                Log.d("datex",dtf.format(Calendar.getInstance().getTime())+"//"+curdate.getTime());
-                SLDAO.insertLog(sl);
             }
         });
         a.setOnClickListener(new View.OnClickListener() {
@@ -194,49 +174,18 @@ public class AttendanceArrayAdapter extends ArrayAdapter<AttendanceListItem> {
             public void onClick(View v) {
                 int ab=att.getAbsent();
                 att.setAbsent(++ab);
-                attendanceDAO.updateSubject(att);
 
-                SubjectlogDAO SLDAO=database.getSALDAO();
-                final SubjectlogEntity sl=new SubjectlogEntity();
-                TextView subjName_subj = listitemview.findViewById(R.id.subjName_subject);
-                sl.setSubject(subjName_subj.getText().toString());
                 sl.setPrabca(2);
-                DateFormat dtf = new SimpleDateFormat("dd MMM yyyy EEE hh:mm a");
-                Date curdate= Converters.to_date(dtf.format(Calendar.getInstance().getTime()),"dd MMMM yyyy hh:mm a");
-                sl.setDaytime(curdate);
-
-
-                Log.d("datex",dtf.format(Calendar.getInstance().getTime())+"//"+curdate.getTime());
-
-                SLDAO.insertLog(sl);
             }
         });
-        c.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int ca=att.getCancelled();
-                att.setCancelled(++ca);
-                attendanceDAO.updateSubject(att);
-
-                SubjectlogDAO SLDAO=database.getSALDAO();
-                final SubjectlogEntity sl=new SubjectlogEntity();
-                TextView subjName_subj = listitemview.findViewById(R.id.subjName_subject);
-                sl.setSubject(subjName_subj.getText().toString());
-                sl.setPrabca(3);
-
-                DateFormat dtf = new SimpleDateFormat("dd MMM yyyy EEE hh:mm a");
-                Date curdate= Converters.to_date(dtf.format(Calendar.getInstance().getTime()),"dd MMMM yyyy hh:mm a");
-                sl.setDaytime(curdate);
+        attendanceDAO.updateSubject(att);
+        DateFormat dtf = new SimpleDateFormat("dd MMM yyyy EEE hh:mm a");
+        Date curdate= Converters.to_date(dtf.format(Calendar.getInstance().getTime()),"dd MMMM yyyy hh:mm a");
+        sl.setDaytime(curdate);
 
 
-                Log.d("datex",dtf.format(Calendar.getInstance().getTime())+"//"+curdate.getTime());
-
-
-                SLDAO.insertLog(sl);
-            }
-        });
-
-
+        Log.d("datex",dtf.format(Calendar.getInstance().getTime())+"//"+curdate.getTime());
+        SLDAO.insertLog(sl);
 
     }
 }

@@ -17,9 +17,10 @@ import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
 import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.nirmalhk7.nirmalhk7.Controllers.AttendanceDialogControllerInterface;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
-import com.nirmalhk7.nirmalhk7.Controllers.AttendanceDialogControllerInterface;
+import com.nirmalhk7.nirmalhk7.common;
 import com.nirmalhk7.nirmalhk7.model.AttendanceDAO;
 import com.nirmalhk7.nirmalhk7.model.SubjectlogDAO;
 
@@ -68,12 +69,12 @@ public class AttendanceDialogFragment extends DialogFragment{
 
 
         attendanceDialogController.changeTotal(rootView, Present, Absent);
-
-
+        final common cmn=new common(getContext());
         //Close button action
         (rootView.findViewById(R.id.button_close)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                cmn.hideKeyboard(getActivity().getCurrentFocus());
                 dismiss();
             }
         });

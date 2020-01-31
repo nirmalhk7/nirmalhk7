@@ -91,9 +91,9 @@ public class AttendanceFragment extends Fragment {
         attController.attachAdapter(listView);
 
         attController.swipeToRefresh((SwipeRefreshLayout) rootView.findViewById(R.id.pullToRefresh));
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Log.d("ATT/ALS","LongClick!");
                 SubjectLogDialogFragment x=new SubjectLogDialogFragment();
                 TextView subject=view.findViewById(R.id.subjName_subject);
@@ -118,7 +118,6 @@ public class AttendanceFragment extends Fragment {
 
                 FragmentTransaction ft=getFragmentManager().beginTransaction();
                 x.show(ft, SubjectLogDialogFragment.TAG);
-                return false;
             }
         });
         SpeedDialView speedDialView =getActivity().findViewById(R.id.speedDial);
