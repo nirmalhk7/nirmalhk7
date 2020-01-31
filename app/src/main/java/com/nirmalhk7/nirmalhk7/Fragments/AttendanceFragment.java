@@ -119,7 +119,7 @@ public class AttendanceFragment extends Fragment {
         SpeedDialView speedDialView =getActivity().findViewById(R.id.speedDial);
         speedDialView.setVisibility(View.VISIBLE);
         speedDialView.clearActionItems();
-
+        speedDialView.setOnClickListener(null);
         attController.addSpeedDialOptions(speedDialView,getResources(),getActivity().getTheme());
         attController.speedDialOnClick(speedDialView,getActivity().getSupportFragmentManager());
 

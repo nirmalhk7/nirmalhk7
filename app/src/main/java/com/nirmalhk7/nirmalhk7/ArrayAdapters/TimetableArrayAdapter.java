@@ -72,6 +72,7 @@ public class TimetableArrayAdapter extends ArrayAdapter<TimetableEntity> {
                 int present=attendanceEntity.getPresent();
                 int absent=attendanceEntity.getAbsent();
                 attendanceMinimum=0.80;
+                Log.d(getClass().getName(),"Calculating for "+attendanceEntity.getSubject()+" P "+attendanceEntity.getPresent()+" A "+attendanceEntity.getAbsent());
                 float ifskipped=(float)present/(present+absent+1);
                 if(ifskipped>attendanceMinimum)
                 {
@@ -89,13 +90,14 @@ public class TimetableArrayAdapter extends ArrayAdapter<TimetableEntity> {
                 }
                 else
                 {
-                    float upAttendance=0;
-                    int mustAttend;
-                    for(mustAttend=0;upAttendance<attendanceMinimum;++mustAttend)
-                    {
-                        upAttendance=(present+mustAttend)/(present+mustAttend+absent);
-                    }
-                    mandatory.setText("Must attend next "+mustAttend+" classes");
+//                    float upAttendance=ifskipped;
+//                    int mustAttend;
+//                    for(mustAttend=0;upAttendance<attendanceMinimum;++mustAttend)
+//                    {
+//                        upAttendance=(present+mustAttend)/(present+mustAttend+absent);
+//
+//                    }
+                    mandatory.setText("Must attend this class");
                 }
             }
             catch (NullPointerException e)

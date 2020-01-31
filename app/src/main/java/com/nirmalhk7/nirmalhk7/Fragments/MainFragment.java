@@ -30,10 +30,10 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.leinardi.android.speeddial.SpeedDialView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.nirmalhk7.nirmalhk7.Controllers.Converters;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.common;
-import com.nirmalhk7.nirmalhk7.Controllers.Converters;
 import com.nirmalhk7.nirmalhk7.model.ExamholidaysEntity;
 import com.nirmalhk7.nirmalhk7.model.TimetableEntity;
 
@@ -357,8 +357,13 @@ public class MainFragment extends Fragment {
             TextView nextClass=v.findViewById(R.id.nextClassName);
             nextClass.setText(timetableEntities.getTask());
             TextView nextTime=v.findViewById(R.id.nextClassTime);
+            if(timetableEntities.getDay()!=Converters.day_to_dayno(Converters.today_get("EEE")))
+            {
+                TextView nextClassNotToday=v.findViewById(R.id.nextClassNotToday);
+                nextClassNotToday.setText("Next Class ("+Converters.dayno_to_day(timetableEntities.getDay())+")");
+            }
             nextTime.setText(Converters.date_to(timetableEntities.getStartTime(),"hh:mm a"));
-        }catch (NullPointerException e)
+        }catch (Exception e)
         {
             Log.e(getClass().getName(),e.getMessage());
             TextView nextClass=v.findViewById(R.id.nextClassName);

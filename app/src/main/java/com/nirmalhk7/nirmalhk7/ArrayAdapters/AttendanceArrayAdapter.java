@@ -71,7 +71,7 @@ public class AttendanceArrayAdapter extends ArrayAdapter<AttendanceListItem> {
             mCurrentItem = getItem(position);
 
             subjectName.setText(mCurrentItem.getSubjName());
-            attendanceCount.setText("Pr."+ mCurrentItem.getmPresent()+" / Ab."+ mCurrentItem.getmAbsent());
+            attendanceCount.setText("Pr. "+ mCurrentItem.getmPresent()+" / Ab. "+ mCurrentItem.getmAbsent());
             present = mCurrentItem.getmPresent();
             absent= mCurrentItem.getmAbsent();
             result=present/(present+absent);
