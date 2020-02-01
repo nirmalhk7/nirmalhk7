@@ -40,7 +40,6 @@ public class SubjectLogDialogFragment extends DialogFragment {
 
         Toolbar toolbar = rootView.findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_keyboard_arrow);
-
         //Close button action
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

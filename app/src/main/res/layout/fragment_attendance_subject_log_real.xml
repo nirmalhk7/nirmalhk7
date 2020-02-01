@@ -14,6 +14,27 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingEnd="@dimen/standard_dimen"
+            android:paddingStart="@dimen/standard_dimen">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/deleteAttendanceSubject"
+                android:gravity="center_vertical"
+                android:layout_alignParentEnd="true"
+                android:text="DELETE" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingEnd="20dp"
+                android:id="@+id/editAttendanceSubject"
+                android:layout_toStartOf="@+id/deleteAttendanceSubject"
+                android:src="@drawable/ic_edit" />
+        </RelativeLayout>
+
     </androidx.appcompat.widget.Toolbar>
 
 </com.google.android.material.appbar.AppBarLayout>
