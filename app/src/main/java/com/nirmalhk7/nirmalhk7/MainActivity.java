@@ -3,6 +3,7 @@ package com.nirmalhk7.nirmalhk7;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,12 +18,16 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.navigation.NavigationView;
+import com.nirmalhk7.nirmalhk7.Controllers.Converters;
 import com.nirmalhk7.nirmalhk7.Fragments.AttendanceFragment;
 import com.nirmalhk7.nirmalhk7.Fragments.CallManagerFragment;
 import com.nirmalhk7.nirmalhk7.Fragments.CpScheduleFragment;
 import com.nirmalhk7.nirmalhk7.Fragments.ExamHolidayFragment;
 import com.nirmalhk7.nirmalhk7.Fragments.MainFragment;
 import com.nirmalhk7.nirmalhk7.Fragments.TimetableFragment;
+
+import java.util.Calendar;
+import java.util.Date;
 
 
 public class MainActivity extends AppCompatActivity
@@ -34,6 +39,10 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Date today= Converters.to_date(Converters.today_get("dd MMM yyyy"),"dd MMM yyyy");
+        Calendar cal=Calendar.getInstance();
+        cal.setTime(today);
+        Log.d("CHECX",cal.getTime()+" TODYA");
         DBGateway database=DBGateway.getInstance(this);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
