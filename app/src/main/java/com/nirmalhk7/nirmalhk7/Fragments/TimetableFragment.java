@@ -1,5 +1,7 @@
 package com.nirmalhk7.nirmalhk7.Fragments;
 
+import android.app.NotificationManager;
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,9 +17,9 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.asksira.loopingviewpager.LoopingViewPager;
 import com.leinardi.android.speeddial.SpeedDialView;
+import com.nirmalhk7.nirmalhk7.Controllers.Converters;
 import com.nirmalhk7.nirmalhk7.DialogFragments.TimetableDialogFragment;
 import com.nirmalhk7.nirmalhk7.R;
-import com.nirmalhk7.nirmalhk7.Controllers.Converters;
 import com.nirmalhk7.nirmalhk7.TimetableLoopingPagerAdapter;
 
 import java.util.ArrayList;
@@ -83,6 +85,10 @@ public class TimetableFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView= inflater.inflate(R.layout.fragment_timetable, container, false);
         vpgr=rootView.findViewById(R.id.viewpager);
+
+
+        NotificationManager mNotificationManager = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_NONE);
 
         Log.d(getClass().getName(),"Todays Time "+Integer.parseInt(Converters.today_get("u")));
 

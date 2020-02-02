@@ -1,5 +1,7 @@
 package com.nirmalhk7.nirmalhk7.Fragments;
 
+import android.app.NotificationManager;
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -67,7 +69,8 @@ public class ExamHolidayFragment extends Fragment {
         ListView listView = rootView.findViewById(R.id.list_item_examholiday);
         SpeedDialView speed = getActivity().findViewById(R.id.speedDial);
         ExamHolidaysController ehController=new ExamHolidaysController(rootView,getContext(),listView);
-
+        NotificationManager mNotificationManager = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_ALL);
         try{
             Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
             toolbar.setTitle("Exams & Holidays");
