@@ -13,16 +13,7 @@ import java.util.List;
 @Dao
 public interface TimetableDAO {
     @Insert
-    void insertOnlySingleSchedule(TimetableEntity movies);
-
-    @Insert
-    void insertMultipleSchedule(List<TimetableEntity> moviesList);
-
-   /* @Query(“SELECT * FROM TimetableEntity WHERE movieId =:movieId“)
-    TimetableEntity fetchOneSchedulebyMovieId(int movieId);*/
-
-    @Query("SELECT * FROM TimetableEntity")
-    List<TimetableEntity> getItems();
+    void insertOnlySingleSchedule(TimetableEntity schedule);
 
     @Query("SELECT * FROM TimetableEntity WHERE mDay =:Day ORDER BY mStartTime")
     List<TimetableEntity> getScheduleByDay(int Day);
@@ -33,7 +24,7 @@ public interface TimetableDAO {
     @Query("SELECT * FROM TimetableEntity WHERE mTask=:Task")
     TimetableEntity getScheduleDetails(String Task);
 
-    @Query("SELECT mTask,mDay,mStartTime,mEndTime,id FROM TimetableEntity WHERE mStartTime>:starttime OR mDay>:Day ORDER BY mStartTime LIMIT 1")
+    @Query("SELECT mTask,mDay,mStartTime,mEndTime,id FROM TimetableEntity WHERE (mStartTime<:starttime AND mDay=:Day) ORDER BY mStartTime LIMIT 1")
     TimetableEntity getScheduleByDayAndTime(int Day,Date starttime);
 
     @Delete
@@ -44,9 +35,6 @@ public interface TimetableDAO {
 
     @Query("SELECT DISTINCT * FROM TimetableEntity WHERE mLabel=:Label AND id IN (SELECT MAX(id) FROM TimetableEntity GROUP BY mSubjCode)")
     List<TimetableEntity> getUnqiueSubjects(String Label);
-
-    @Query("SELECT COUNT(DISTINCT mTask) FROM TimetableEntity WHERE mLabel=:Label")
-    int getSubjectCount(String Label);
 
     @Query("SELECT * FROM TimetableEntity WHERE id=:Id")
     TimetableEntity getScheduleById(int Id);

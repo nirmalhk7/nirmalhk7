@@ -246,13 +246,6 @@ public class MainFragment extends Fragment {
 //        AlarmManager alarmManager = (AlarmManager)getContext().getSystemService(Context.ALARM_SERVICE);
 //        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
 
-
-        assistantLocation = new File(getActivity().getFilesDir(), "snips");
-        //extractAssistantIfNeeded(assistantLocation);
-        if (ensurePermissions()) {
-          //  startSnips(assistantLocation);
-        }
-
         mAPILink = "https://api.darksky.net/forecast/60569b87b5b2a6220c135e9b2e91646b/";
         SpeedDialView dial=getActivity().findViewById(R.id.speedDial);
         dial.setVisibility(View.INVISIBLE);
@@ -329,13 +322,20 @@ public class MainFragment extends Fragment {
         return v;
     }
 
-    void fillEntryDisplay(View v)
+    private void fillEntryDisplay(View v)
     {
         DBGateway database = DBGateway.getInstance(getContext());
+        int dayno=Converters.day_to_dayno(
+                Converters.today_get("EEE")
+        )+1;
+        Log.d("SUNDAY",Converters.today_get("EEE"));
+        if(Converters.today_get("EEE").equals("Sun"))
+        {
+            Log.d(getClass().getName(),"SUNDAY TODAY");
+            dayno=-1;
+        }
         TimetableEntity timetableEntities=database.getTTDao().getScheduleByDayAndTime(
-                Converters.day_to_dayno(
-                        Converters.today_get("EEE")
-                ),
+                dayno,
                 Converters.to_date(
                         Converters.today_get("hh:mm a"),
                         "hh:mm a"));
@@ -357,10 +357,10 @@ public class MainFragment extends Fragment {
             TextView nextClass=v.findViewById(R.id.nextClassName);
             nextClass.setText(timetableEntities.getTask());
             TextView nextTime=v.findViewById(R.id.nextClassTime);
-            if(timetableEntities.getDay()!=Converters.day_to_dayno(Converters.today_get("EEE")))
+            if(timetableEntities.getDay()!=dayno)
             {
                 TextView nextClassNotToday=v.findViewById(R.id.nextClassNotToday);
-                nextClassNotToday.setText("Next Class ("+Converters.dayno_to_day(timetableEntities.getDay())+")");
+                nextClassNotToday.setText("Next Class ("+Converters.dayno_to_day(timetableEntities.getDay())+") "+timetableEntities.getDay());
             }
             nextTime.setText(Converters.date_to(timetableEntities.getStartTime(),"hh:mm a"));
         }catch (Exception e)
@@ -441,7 +441,7 @@ public class MainFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    SwipeRefreshLayout pullToRefresh;
+    private SwipeRefreshLayout pullToRefresh;
     ArrayAdapter adapter;
     public void DSLonRefresh(final View rootview){
         pullToRefresh = rootview.findViewById(R.id.pullToRefresh);
