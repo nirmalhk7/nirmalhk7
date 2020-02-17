@@ -401,25 +401,25 @@ public class MainFragment extends Fragment {
             TextView nextClass=v.findViewById(R.id.nextClassName);
             nextClass.setText("Done for the day!");
         }
+        TextView nextExam=v.findViewById(R.id.nextExam);
+        TextView nextHoliday=v.findViewById(R.id.nextHoliday);
         try{
-            Log.d("CHECKXE","Next "+exam.getmName());
-            TextView nextExam=v.findViewById(R.id.nextExam);
             nextExam.setText(exam.getmName());
             TextView nextExamDate=v.findViewById(R.id.nextExamDate);
             nextExamDate.setText(Converters.date_to(exam.getStart(),"MMM dd"));
         }catch(NullPointerException e)
         {
             Log.e(getClass().getName(),e.getMessage());
+            nextExam.setText("No more exams!");
         }
         try{
-            Log.d("CHECKXH","Next "+holiday.getmName());
-            TextView nextHoliday=v.findViewById(R.id.nextHoliday);
             nextHoliday.setText(holiday.getmName());
             TextView nextHolidayDate=v.findViewById(R.id.nextHolidayDate);
             nextHolidayDate.setText(Converters.date_to(holiday.getStart(),"MMM dd"));
         }catch(NullPointerException e)
         {
             Log.e(getClass().getName(),e.getMessage());
+            nextHoliday.setText("No more holidays!");
         }
     }
 
