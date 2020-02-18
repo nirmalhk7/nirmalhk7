@@ -1,6 +1,7 @@
 package com.nirmalhk7.nirmalhk7.Fragments;
 
 import android.Manifest;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -22,6 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
 import androidx.core.widget.TextViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -32,7 +34,10 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.nirmalhk7.nirmalhk7.Controllers.Converters;
 import com.nirmalhk7.nirmalhk7.DBGateway;
+import com.nirmalhk7.nirmalhk7.MainActivity;
+import com.nirmalhk7.nirmalhk7.NotificationController;
 import com.nirmalhk7.nirmalhk7.R;
+import com.nirmalhk7.nirmalhk7.SplashActivity;
 import com.nirmalhk7.nirmalhk7.common;
 import com.nirmalhk7.nirmalhk7.model.ExamholidaysEntity;
 import com.nirmalhk7.nirmalhk7.model.TimetableEntity;
@@ -325,11 +330,38 @@ public class MainFragment extends Fragment {
         }
 
         fillEntryDisplay(v);
+        Intent intent = new Intent(getContext(), MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(getContext(), 0, intent, 0);
+
+        String CHANNEL_ID="channelID";
+        Intent snoozeIntent= new Intent(getContext(), SplashActivity.class);
+        snoozeIntent.setAction("Present");
+        PendingIntent snoozePendingIntent =
+                PendingIntent.getBroadcast(getContext(), 0, snoozeIntent, 0);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_app)
+                .setContentTitle("Demo Notification")
+                .setChannelId(CHANNEL_ID)
+                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+                .setCategory(NotificationCompat.CATEGORY_EVENT)
+                .setContentText("Demo Content")
+                .setColor(getResources().getColor(R.color.colorDark,getActivity().getTheme()))
+                .setContentIntent(pendingIntent)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setAutoCancel(true)
+                .addAction(R.drawable.ic_app,"Present",snoozePendingIntent)
+                .addAction(R.drawable.ic_app,"Absent",snoozePendingIntent);
+
+        NotificationController notificationManager=new NotificationController();
+        notificationManager.createNotificationChannel(getContext(),CHANNEL_ID);
+        notificationManager.showNotification(getContext(),0,builder);
 
         return v;
     }
 
-    void fillEntryDisplay(View v)
+    private void fillEntryDisplay(View v)
     {
         DBGateway database = DBGateway.getInstance(getContext());
         TimetableEntity timetableEntities=database.getTTDao().getScheduleByDayAndTime(
@@ -369,25 +401,25 @@ public class MainFragment extends Fragment {
             TextView nextClass=v.findViewById(R.id.nextClassName);
             nextClass.setText("Done for the day!");
         }
+        TextView nextExam=v.findViewById(R.id.nextExam);
+        TextView nextHoliday=v.findViewById(R.id.nextHoliday);
         try{
-            Log.d("CHECKXE","Next "+exam.getmName());
-            TextView nextExam=v.findViewById(R.id.nextExam);
             nextExam.setText(exam.getmName());
             TextView nextExamDate=v.findViewById(R.id.nextExamDate);
             nextExamDate.setText(Converters.date_to(exam.getStart(),"MMM dd"));
         }catch(NullPointerException e)
         {
             Log.e(getClass().getName(),e.getMessage());
+            nextExam.setText("No more exams!");
         }
         try{
-            Log.d("CHECKXH","Next "+holiday.getmName());
-            TextView nextHoliday=v.findViewById(R.id.nextHoliday);
             nextHoliday.setText(holiday.getmName());
             TextView nextHolidayDate=v.findViewById(R.id.nextHolidayDate);
             nextHolidayDate.setText(Converters.date_to(holiday.getStart(),"MMM dd"));
         }catch(NullPointerException e)
         {
             Log.e(getClass().getName(),e.getMessage());
+            nextHoliday.setText("No more holidays!");
         }
     }
 
