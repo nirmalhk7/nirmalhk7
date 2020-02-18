@@ -20,7 +20,7 @@ public interface SubjectlogDAO {
    /* @Query(“SELECT * FROM SubjectlogEntity WHERE movieId =:movieId“)
     SubjectlogEntity fetchOneSchedulebyMovieId(int movieId);*/
 
-    @Query("SELECT * FROM SubjectlogEntity WHERE mSubject=:subjName")
+    @Query("SELECT * FROM SubjectlogEntity WHERE mSubject=:subjName ORDER BY daytime desc")
     List<SubjectlogEntity> getAllLog(String subjName);
     
     @Update

@@ -1,7 +1,5 @@
 package com.nirmalhk7.nirmalhk7.Fragments;
 
-import android.app.NotificationManager;
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -87,8 +85,8 @@ public class TimetableFragment extends Fragment {
         vpgr=rootView.findViewById(R.id.viewpager);
 
 
-        NotificationManager mNotificationManager = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
-        mNotificationManager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_NONE);
+//        NotificationManager mNotificationManager = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
+//        mNotificationManager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_NONE);
 
         Log.d(getClass().getName(),"Todays Time "+Integer.parseInt(Converters.today_get("u")));
 

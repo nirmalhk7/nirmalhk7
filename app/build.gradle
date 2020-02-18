@@ -6,7 +6,7 @@ android {
         applicationId "com.nirmalhk7.nirmalhk7"
         minSdkVersion 23
         targetSdkVersion 28
-        versionName "2.2"
+        versionName "2.3"
         resValue "string", "gitBranch", gitBranch()
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

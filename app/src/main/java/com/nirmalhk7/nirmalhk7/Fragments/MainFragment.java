@@ -23,7 +23,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
-import androidx.core.app.NotificationCompat;
 import androidx.core.widget.TextViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -35,7 +34,6 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.nirmalhk7.nirmalhk7.Controllers.Converters;
 import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.MainActivity;
-import com.nirmalhk7.nirmalhk7.NotificationController;
 import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.SplashActivity;
 import com.nirmalhk7.nirmalhk7.common;
@@ -340,23 +338,23 @@ public class MainFragment extends Fragment {
         PendingIntent snoozePendingIntent =
                 PendingIntent.getBroadcast(getContext(), 0, snoozeIntent, 0);
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_app)
-                .setContentTitle("Demo Notification")
-                .setChannelId(CHANNEL_ID)
-                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-                .setCategory(NotificationCompat.CATEGORY_EVENT)
-                .setContentText("Demo Content")
-                .setColor(getResources().getColor(R.color.colorDark,getActivity().getTheme()))
-                .setContentIntent(pendingIntent)
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setAutoCancel(true)
-                .addAction(R.drawable.ic_app,"Present",snoozePendingIntent)
-                .addAction(R.drawable.ic_app,"Absent",snoozePendingIntent);
-
-        NotificationController notificationManager=new NotificationController();
-        notificationManager.createNotificationChannel(getContext(),CHANNEL_ID);
-        notificationManager.showNotification(getContext(),0,builder);
+//        NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), CHANNEL_ID)
+//                .setSmallIcon(R.drawable.ic_app)
+//                .setContentTitle("Demo Notification")
+//                .setChannelId(CHANNEL_ID)
+//                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+//                .setCategory(NotificationCompat.CATEGORY_EVENT)
+//                .setContentText("Demo Content")
+//                .setColor(getResources().getColor(R.color.colorDark,getActivity().getTheme()))
+//                .setContentIntent(pendingIntent)
+//                .setPriority(NotificationCompat.PRIORITY_HIGH)
+//                .setAutoCancel(true)
+//                .addAction(R.drawable.ic_app,"Present",snoozePendingIntent)
+//                .addAction(R.drawable.ic_app,"Absent",snoozePendingIntent);
+//
+//        NotificationController notificationManager=new NotificationController();
+//        notificationManager.createNotificationChannel(getContext(),CHANNEL_ID);
+//        notificationManager.showNotification(getContext(),0,builder);
 
         return v;
     }
