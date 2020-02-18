@@ -1,5 +1,6 @@
 package com.nirmalhk7.nirmalhk7;
 
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -39,6 +40,9 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Intent i=new Intent(this,MyService.class);
+        i.putExtra("KEY1", "Value to be used by the service");
+        startService(i);
         Date today= Converters.to_date(Converters.today_get("dd MMM yyyy"),"dd MMM yyyy");
         Calendar cal=Calendar.getInstance();
         cal.setTime(today);
