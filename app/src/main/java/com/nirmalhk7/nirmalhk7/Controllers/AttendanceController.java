@@ -4,25 +4,20 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.ListView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.daimajia.swipe.SwipeLayout;
 import com.leinardi.android.speeddial.SpeedDialActionItem;
 import com.leinardi.android.speeddial.SpeedDialView;
-import com.nirmalhk7.nirmalhk7.DBGateway;
-import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.ArrayAdapters.AttendanceArrayAdapter;
+import com.nirmalhk7.nirmalhk7.DBGateway;
 import com.nirmalhk7.nirmalhk7.DialogFragments.AttendanceDialogFragment;
+import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.model.AttendanceDAO;
 import com.nirmalhk7.nirmalhk7.model.AttendanceEntity;
 import com.nirmalhk7.nirmalhk7.model.AttendanceListItem;
@@ -45,69 +40,7 @@ public class AttendanceController implements FragmentControllerInterface {
     public AttendanceController(Context context){
         mContext=context;
     }
-    public void swipeLayout(final SwipeLayout swipeLayout, final ImageView deleteb, final ImageView editb, AttendanceListItem attListItem)
-    {
-        mCurrentItem=attListItem;
-        swipeLayout.addSwipeListener(new SwipeLayout.SwipeListener() {
-            @Override
-            public void onStartOpen(SwipeLayout layout) {
 
-            }
-
-            @Override
-            public void onOpen(SwipeLayout layout) {
-
-                DBGateway database = DBGateway.getInstance(mContext);
-
-                final AttendanceDAO attendanceDAO = database.getATTDao();
-                deleteb.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        AttendanceEntity x=attendanceDAO.getSubjectbyId(mCurrentItem.getmId());
-                        attendanceDAO.deleteSchedule(x);
-                        swipeLayout.close();
-
-                    }
-                });
-                editb.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Log.d("ATT/ATA","Clicked");
-                        AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                        AttendanceDialogFragment newFragment = new AttendanceDialogFragment();
-                        Bundle bundle=new Bundle();
-                        bundle.putInt("key", mCurrentItem.getmId());
-                        bundle.putInt("present", mCurrentItem.getmPresent());
-                        bundle.putInt("absent", mCurrentItem.getmAbsent());
-                        bundle.putString("subject", mCurrentItem.getSubjName());
-                        newFragment.setArguments(bundle);
-                        activity.getSupportFragmentManager().beginTransaction().add(android.R.id.content, newFragment).addToBackStack(null).addToBackStack(null).commit();
-
-                    }
-                });
-            }
-
-            @Override
-            public void onStartClose(SwipeLayout layout) {
-
-            }
-
-            @Override
-            public void onClose(SwipeLayout layout) {
-
-            }
-
-            @Override
-            public void onUpdate(SwipeLayout layout, int leftOffset, int topOffset) {
-
-            }
-
-            @Override
-            public void onHandRelease(SwipeLayout layout, float xvel, float yvel) {
-
-            }
-        });
-    }
     @Override
     public void speedDialOnClick(SpeedDialView speed, final FragmentManager fragmentManager) {
         speed.setOnActionSelectedListener( new SpeedDialView.OnActionSelectedListener() {

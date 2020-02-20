@@ -17,8 +17,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.leinardi.android.speeddial.SpeedDialView;
 import com.nirmalhk7.nirmalhk7.ArrayAdapters.ExamHolidayArrayAdapter;
-import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.Controllers.ExamHolidaysController;
+import com.nirmalhk7.nirmalhk7.R;
 import com.nirmalhk7.nirmalhk7.util.MyBottomSheetDialogFragment;
 
 import static com.nirmalhk7.nirmalhk7.DialogFragments.SubjectLogDialogFragment.TAG;
@@ -67,7 +67,8 @@ public class ExamHolidayFragment extends Fragment {
         ListView listView = rootView.findViewById(R.id.list_item_examholiday);
         SpeedDialView speed = getActivity().findViewById(R.id.speedDial);
         ExamHolidaysController ehController=new ExamHolidaysController(rootView,getContext(),listView);
-
+//        NotificationManager mNotificationManager = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
+//        mNotificationManager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_ALL);
         try{
             Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
             toolbar.setTitle("Exams & Holidays");
