@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:text="NEXT CLASS"
         android:id="@+id/widgetTodayOrTomm"
-        android:textSize="15sp"/>
+        android:textSize="10sp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
                 tools:text="Automata Compiler Design"
                 android:id="@+id/widgetClassName"
                 android:textColor="@android:color/white"
-                android:textSize="25sp"/>
+                android:textSize="20sp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -43,14 +43,15 @@
             android:layout_gravity="center_vertical"
             android:textColor="@color/colorAccent"
             android:id="@+id/widgetClassTime"
-            android:textSize="20sp"/>
+            android:textSize="15sp"/>
     </LinearLayout>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="NEXT EXAM"
+        android:textColor="@android:color/white"
         android:paddingTop="20dp"
-        android:textSize="15sp"/>
+        android:textSize="10sp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -64,8 +65,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:text="Automata Compiler Design"
+                android:textColor="@android:color/white"
                 android:id="@+id/widgetExamName"
-                android:textSize="25sp"/>
+                android:textSize="20sp"/>
         </LinearLayout>
         <TextView
             android:layout_width="wrap_content"
@@ -74,14 +76,15 @@
             android:layout_gravity="center_vertical"
             android:textColor="@color/colorAccent"
             android:id="@+id/widgetExamDate"
-            android:textSize="20sp"/>
+            android:textSize="15sp"/>
     </LinearLayout>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="NEXT HOLIDAY"
         android:paddingTop="20dp"
-        android:textSize="15sp"/>
+        android:textColor="@android:color/white"
+        android:textSize="10sp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -96,7 +99,8 @@
                 android:layout_height="wrap_content"
                 tools:text="Automata Compiler Design"
                 android:id="@+id/widgetHolidayName"
-                android:textSize="25sp"/>
+                android:textColor="@android:color/white"
+                android:textSize="20sp"/>
         </LinearLayout>
         <TextView
             android:layout_width="wrap_content"
@@ -105,7 +109,21 @@
             android:layout_gravity="center_vertical"
             android:id="@+id/widgetHolidayTime"
             android:textColor="@color/colorAccent"
-            android:textSize="20sp"/>
+            android:textSize="15sp"/>
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:background="@android:color/darker_gray"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:id="@+id/widgetLastUp"
+        android:layout_height="wrap_content"
+        android:textAllCaps="true"
+        android:textSize="10sp"
+        android:textColor="@android:color/darker_gray"
+        tools:text="Last Updated: 1:56 PM"/>
 
 </LinearLayout>

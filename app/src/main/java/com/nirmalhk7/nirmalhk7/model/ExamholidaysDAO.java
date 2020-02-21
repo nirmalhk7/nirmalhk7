@@ -40,4 +40,7 @@ public interface ExamholidaysDAO {
     @Query("SELECT * FROM ExamholidaysEntity WHERE Start>:date AND holexa=:type LIMIT 1")
     ExamholidaysEntity getNextEvent(Date date, int type);
 
+    @Query("SELECT * FROM ExamholidaysEntity WHERE Start>:date LIMIT 1")
+    ExamholidaysEntity getAnyNextEvent(Date date);
+
 }

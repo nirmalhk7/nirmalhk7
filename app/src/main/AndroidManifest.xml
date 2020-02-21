@@ -18,7 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <service
-            android:name=".MyService"
+            android:name=".widget.WidgetService"
             android:enabled="true"
             android:exported="true"></service>
 

@@ -178,52 +178,51 @@ public class ExamHolidaysDialogFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 final Calendar c = Calendar.getInstance();
-                if(date.getText()==null)
+                Log.d("EXR",date.getText()+"-");
+                String dateText=date.getText().toString();
+                try{
+                    mYear=Integer.parseInt(Converters.dtConverter(dateText,"MMM d, yyyy","yyyy"));
+                    mMonth=Integer.parseInt(Converters.dtConverter(dateText,"MMM d, yyyy","M"))-1;
+                    mDay=Integer.parseInt(Converters.dtConverter(dateText,"MMM d, yyyy","d"));
+                }catch(NumberFormatException e)
                 {
                     mYear = c.get(Calendar.YEAR);
                     mMonth = c.get(Calendar.MONTH);
                     mDay = c.get(Calendar.DAY_OF_MONTH);
                 }
-                else{
-                    String dateText=date.getText().toString();
-                    mYear=Integer.parseInt(Converters.dtConverter(dateText,"MMM d, yyyy","yyyy"));
-                    mMonth=Integer.parseInt(Converters.dtConverter(dateText,"MMM d, yyyy","M"))-1;
-                    mDay=Integer.parseInt(Converters.dtConverter(dateText,"MMM d, yyyy","d"));
-                }
                 final Calendar date=Calendar.getInstance();
                 DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), AlertDialog.THEME_DEVICE_DEFAULT_DARK,
-                        new DatePickerDialog.OnDateSetListener() {
+                    new DatePickerDialog.OnDateSetListener() {
 
-                            @Override
-                            public void onDateSet(DatePicker view, int year,
-                                                  int monthOfYear, int dayOfMonth) {
-                                String dsel="";
-                                if(dayOfMonth<10)
-                                {
-                                    dsel+="0";
-                                }
-                                dsel+=dayOfMonth+"/";
-                                if(monthOfYear<10)
-                                {
-                                    dsel+="0";
-                                }
-                                dsel+=(monthOfYear+1)+"/"+year;
-                                dsel= Converters.dtConverter(dsel,"dd/MM/yyyy","MMM d, yyyy");
-
-                                if(i==1)
-                                {
-                                    startdate.setText(dsel);
-                                    enddate.setText(dsel);
-                                }
-                                else if(i==2)
-                                {
-                                    enddate.setText(dsel);
-                                }
-                                date.set(dayOfMonth,(monthOfYear + 1), year);
-
+                        @Override
+                        public void onDateSet(DatePicker view, int year,
+                                              int monthOfYear, int dayOfMonth) {
+                            String dsel="";
+                            if(dayOfMonth<10)
+                            {
+                                dsel+="0";
                             }
-                        }, mYear, mMonth, mDay);
+                            dsel+=dayOfMonth+"/";
+                            if(monthOfYear<10)
+                            {
+                                dsel+="0";
+                            }
+                            dsel+=(monthOfYear+1)+"/"+year;
+                            dsel= Converters.dtConverter(dsel,"dd/MM/yyyy","MMM d, yyyy");
 
+                            if(i==1)
+                            {
+                                startdate.setText(dsel);
+                                enddate.setText(dsel);
+                            }
+                            else if(i==2)
+                            {
+                                enddate.setText(dsel);
+                            }
+                            date.set(dayOfMonth,(monthOfYear + 1), year);
+
+                        }
+                    }, mYear, mMonth, mDay);
                 datePickerDialog.show();
 
 
