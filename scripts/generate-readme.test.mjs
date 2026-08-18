@@ -49,7 +49,7 @@ const repos = [
   },
 ];
 
-test('builds a latest-project block from active first-party repositories', () => {
+test('builds a compact project grid from active first-party repositories', () => {
   const block = buildLatestProjects(repos, 'nirmalhk7/nirmalhk7', 2);
 
   assert.match(block, /newest-tool/);
@@ -57,6 +57,9 @@ test('builds a latest-project block from active first-party repositories', () =>
   assert.ok(block.indexOf('newest-tool') < block.indexOf('older-tool'));
   assert.doesNotMatch(block, /forked-tool|nirmalhk7\/nirmalhk7/);
   assert.match(block, /TypeScript/);
+  assert.match(block, /<table>/);
+  assert.match(block, /Aug 16/);
+  assert.doesNotMatch(block, /A tool for agentic workflows/);
 });
 
 test('replaces only the marked generated section', () => {

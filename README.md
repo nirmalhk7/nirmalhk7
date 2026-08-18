@@ -1,70 +1,99 @@
 <div align="center">
 
-# Nirmal Khedkar
-
-### AI systems builder · security-minded engineer · infrastructure tinkerer
-
 <a href="https://nirmalhk7.com/?utm_source=github"><img src="https://img.shields.io/badge/website-nirmalhk7.com-111827?style=flat-square&logo=googlechrome&logoColor=white" alt="Website"></a>
 <a href="https://www.linkedin.com/in/nirmalhk7"><img src="https://img.shields.io/badge/LinkedIn-nirmalhk7-0A66C2?style=flat-square&logo=linkedin&logoColor=white" alt="LinkedIn"></a>
 <a href="mailto:nirmalhk7@gmail.com"><img src="https://img.shields.io/badge/email-nirmalhk7%40gmail.com-EA4335?style=flat-square&logo=gmail&logoColor=white" alt="Email"></a>
 <a href="https://github.com/nirmalhk7"><img src="https://img.shields.io/github/followers/nirmalhk7?label=follow&style=flat-square&logo=github" alt="GitHub followers"></a>
 <img src="https://komarev.com/ghpvc/?username=nirmalhk7&style=flat-square&color=6e40c9&label=profile+views" alt="Profile views">
 
+<br><br>
+
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&size=17&duration=2800&pause=900&color=8B5CF6&center=true&vCenter=true&width=760&lines=AI+systems+builder;security-minded+engineer;infrastructure+tinkerer;shipping+tools+for+people+who+ship+tools" alt="AI systems builder · security-minded engineer · infrastructure tinkerer">
+
+# Nirmal Khedkar
+
+<sub>Boulder, Colorado · MSCS @ CU Boulder · Ex-Visa</sub>
+
 </div>
 
-> I build software that makes engineering work more capable, observable, and hard to break.
+<br>
 
-Boulder, Colorado · MSCS @ CU Boulder · Ex-Visa
+<div align="center">
 
-## The signal
+> **I build software that makes engineering work more capable, observable, and hard to break.**
 
-I like the seam where **LLMs meet real systems**: agents with tools, workflows with evidence, and infrastructure that can survive contact with reality. My favorite projects are a little opinionated, a little over-instrumented, and useful enough to keep running after the demo.
+`prompt` → `agents` → `evidence` → `human approval` → `shipped systems`
 
-Right now, I’m building **[Khan](https://github.com/nirmalhk7/khan)** — a local multi-agent decision system for software engineering. It turns a broad prompt into a tracked pipeline: plan, build in isolation, cross-review, then let a human explicitly adopt or reject the result.
+</div>
 
-```text
-prompt → agents → isolated worktrees → cross-review → evidence → human approval
-```
+<table align="center">
+<tr>
+<td><b>🧠 Currently building</b></td>
+<td><a href="https://github.com/nirmalhk7/khan"><b>Khan</b></a> — local multi-agent decision systems for software engineering</td>
+</tr>
+<tr>
+<td><b>🛡️ Optimizing for</b></td>
+<td>useful abstractions · explicit evidence · systems that survive the demo</td>
+</tr>
+<tr>
+<td><b>⚡ Curious about</b></td>
+<td>tool-using LLMs · developer experience · security automation · GitOps</td>
+</tr>
+</table>
 
-## Builds worth stalking
+## Open-source signal
 
-| Project | What it is | Why it is interesting |
-| --- | --- | --- |
-| **[Khan](https://github.com/nirmalhk7/khan)** | Local multi-agent engineering orchestration | Provider-neutral sessions, durable records, duels, reviews, and explicit adoption |
-| **[agentproxy](https://github.com/nirmalhk7/agentproxy)** | OpenAI-compatible service backed by `cursor-agent` | Makes a local coding agent composable from ordinary API clients |
-| **[ATSKit](https://github.com/nirmalhk7/atskit)** | Python toolkit for public ATS job discovery | Streaming results, polite HTTP, nine ATS backends, and a caller-owned SQLite model |
-| **[Sentinel](https://github.com/nirmalhk7/sentinel)** | Security audit dashboard | Website, local-network, GitHub-exposure, and OSINT-style checks in one stream |
-| **[The Other Side](https://github.com/nirmalhk7/theotherside)** | Healthcare research workflow | PDF-grounded GPT answers, search, auth, and document ingestion |
-| **[Operations Center](https://github.com/nirmalhk7/operationscenter)** | GitOps homelab | Proxmox, Terraform, Ansible, Kubernetes, FluxCD, Nginx, and sealed secrets |
+<table>
+<tr>
+<td><a href="https://github.com/nirmalhk7/khan"><img src="https://github-readme-stats-fast.vercel.app/api/pin/?username=nirmalhk7&repo=khan&theme=radical&hide_border=true" alt="Khan repository card"></a></td>
+<td><a href="https://github.com/nirmalhk7/agentproxy"><img src="https://github-readme-stats-fast.vercel.app/api/pin/?username=nirmalhk7&repo=agentproxy&theme=radical&hide_border=true" alt="agentproxy repository card"></a></td>
+</tr>
+<tr>
+<td><a href="https://github.com/nirmalhk7/atskit"><img src="https://github-readme-stats-fast.vercel.app/api/pin/?username=nirmalhk7&repo=atskit&theme=radical&hide_border=true" alt="ATSKit repository card"></a></td>
+<td><a href="https://github.com/nirmalhk7/sentinel"><img src="https://github-readme-stats-fast.vercel.app/api/pin/?username=nirmalhk7&repo=sentinel&theme=radical&hide_border=true" alt="Sentinel repository card"></a></td>
+</tr>
+</table>
+
+<div align="center">
+<sub>Also shipping: <a href="https://github.com/nirmalhk7/theotherside">The Other Side</a> · <a href="https://github.com/nirmalhk7/operationscenter">Operations Center</a> · <a href="https://github.com/nirmalhk7/basera">Basera</a> · <a href="https://github.com/nirmalhk7/skybridge">Skybridge</a></sub>
+</div>
 
 <!-- START_AUTOMATED_PROJECTS -->
-### Latest signals
+### Fresh from the forge
 
-_Auto-refreshed daily from my public repositories._
+<sub>Auto-refreshed daily · active first-party repositories · sorted by recent activity</sub>
 
-- [**skybridge**](https://github.com/nirmalhk7/skybridge) · `TypeScript` — Sponsorship marketplace for matching fundraisers and sponsors.
-- [**operationscenter**](https://github.com/nirmalhk7/operationscenter) · `TypeScript` — Homelab config files
-- [**nirmalhk7.github.io**](https://github.com/nirmalhk7/nirmalhk7.github.io) · `TypeScript` — My personal website!
-- [**dotfiles**](https://github.com/nirmalhk7/dotfiles) · `Shell` — Portable Zsh, Git, and helper scripts for a reproducible local shell setup.
-- [**basera**](https://github.com/nirmalhk7/basera) · `TypeScript` — Interactive India Terrain & Geospatial Explorer - featuring live administrative border detection, demographic profiles, and climate telemetry.
-- [**khan**](https://github.com/nirmalhk7/khan) · `Python` — No description yet.
-- [**atskit**](https://github.com/nirmalhk7/atskit) · `Python` — ATS adapter kit: discover jobs across Greenhouse, Lever, Ashby, Workday, and more
-- [**sentinel**](https://github.com/nirmalhk7/sentinel) · `TypeScript` — Next.js security dashboard for website, local network, GitHub, and OSINT scanning.
+<table>
+<tr><td width="50%"><a href="https://github.com/nirmalhk7/skybridge"><b>skybridge</b></a><br><sub><code>TypeScript</code> · updated Aug 15</sub></td><td width="50%"><a href="https://github.com/nirmalhk7/operationscenter"><b>operationscenter</b></a><br><sub><code>TypeScript</code> · updated Jul 30</sub></td></tr>
+<tr><td width="50%"><a href="https://github.com/nirmalhk7/nirmalhk7.github.io"><b>nirmalhk7.github.io</b></a><br><sub><code>TypeScript</code> · updated Jun 28</sub></td><td width="50%"><a href="https://github.com/nirmalhk7/dotfiles"><b>dotfiles</b></a><br><sub><code>Shell</code> · updated Aug 10</sub></td></tr>
+<tr><td width="50%"><a href="https://github.com/nirmalhk7/basera"><b>basera</b></a><br><sub><code>TypeScript</code> · updated Aug 9</sub></td><td width="50%"><a href="https://github.com/nirmalhk7/khan"><b>khan</b></a><br><sub><code>Python</code> · updated Jun 27</sub></td></tr>
+<tr><td width="50%"><a href="https://github.com/nirmalhk7/atskit"><b>atskit</b></a><br><sub><code>Python</code> · updated Jun 20</sub></td><td width="50%"><a href="https://github.com/nirmalhk7/sentinel"><b>sentinel</b></a><br><sub><code>TypeScript</code> · updated Jun 6</sub></td></tr>
+</table>
 <!-- END_AUTOMATED_PROJECTS -->
 
-## The stack I keep reaching for
+<details>
+<summary><b>🔧 Stack & working style</b></summary>
+<br>
 
 `Python` · `TypeScript` · `Next.js` · `Node.js` · `OpenAI-compatible APIs` · `Kubernetes` · `Terraform` · `FluxCD` · `GitHub Actions`
 
-## GitHub, but make it a dashboard
+I prefer small, composable tools; observable workflows; and a human-controlled boundary between generated work and adopted work.
+
+</details>
+
+## At a glance
 
 <div align="center">
-  <img height="170" src="https://github-readme-stats.vercel.app/api?username=nirmalhk7&show_icons=true&hide_border=true&rank_icon=github&theme=radical&include_all_commits=true" alt="Nirmal's GitHub stats">
-  <img height="170" src="https://github-readme-stats.vercel.app/api/top-langs/?username=nirmalhk7&layout=compact&hide_border=true&langs_count=8&theme=radical" alt="Nirmal's top languages">
+  <img height="165" src="https://github-readme-stats-fast.vercel.app/api?username=nirmalhk7&show_icons=true&hide_border=true&rank_icon=github&theme=radical&include_all_commits=true" alt="Nirmal's GitHub stats">
+  <img height="165" src="https://github-readme-stats-fast.vercel.app/api/top-langs/?username=nirmalhk7&layout=compact&hide_border=true&langs_count=8&theme=radical" alt="Nirmal's top languages">
 </div>
 
 <div align="center">
-  <a href="https://github.com/nirmalhk7?tab=repositories">Browse the repos</a> ·
-  <a href="https://nirmalhk7.com/resume?utm_source=github_r">Read the resume</a> ·
-  <a href="https://nirmalhk7.com/?utm_source=github">Visit the site</a>
+  <img src="https://github-readme-activity-graph.vercel.app/graph?username=nirmalhk7&theme=react-dark&hide_border=true&area=true&custom_title=Contribution%20flow" alt="Nirmal's contribution graph">
+</div>
+
+<div align="center">
+  <a href="https://github.com/nirmalhk7?tab=repositories">Browse all repos</a> ·
+  <a href="https://nirmalhk7.com/resume?utm_source=github_r">Resume</a> ·
+  <a href="https://nirmalhk7.com/?utm_source=github">Website</a>
 </div>

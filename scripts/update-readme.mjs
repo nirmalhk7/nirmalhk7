@@ -4,8 +4,22 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 export const START_MARKER = '<!-- START_AUTOMATED_PROJECTS -->';
 export const END_MARKER = '<!-- END_AUTOMATED_PROJECTS -->';
 
-function escapeMarkdown(value) {
-  return String(value).replace(/[\\`*_[\]<>]/g, '\\$&');
+function escapeHtml(value) {
+  return String(value).replace(/[&<>"']/g, (character) => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;',
+  })[character]);
+}
+
+function formatDate(value) {
+  return new Intl.DateTimeFormat('en-US', {
+    month: 'short',
+    day: 'numeric',
+    timeZone: 'UTC',
+  }).format(new Date(value));
 }
 
 export function buildLatestProjects(repositories, profileRepository, limit = 8) {
@@ -23,7 +37,7 @@ export function buildLatestProjects(repositories, profileRepository, limit = 8) 
   const lines = [
     '### Latest signals',
     '',
-    '_Auto-refreshed daily from my public repositories._',
+    '<sub>Auto-refreshed daily · active first-party repositories · sorted by recent activity</sub>',
     '',
   ];
 
@@ -32,11 +46,25 @@ export function buildLatestProjects(repositories, profileRepository, limit = 8) 
     return lines.join('\n');
   }
 
-  for (const project of projects) {
-    const language = project.language ? ` · \`${escapeMarkdown(project.language)}\`` : '';
-    const description = escapeMarkdown(project.description || 'No description yet.');
-    lines.push(`- [**${escapeMarkdown(project.name)}**](${project.html_url})${language} — ${description}`);
+  lines.push('<table>');
+
+  for (let index = 0; index < projects.length; index += 2) {
+    const row = projects.slice(index, index + 2).map((project) => {
+      const name = escapeHtml(project.name);
+      const url = escapeHtml(project.html_url);
+      const language = project.language ? ` · <code>${escapeHtml(project.language)}</code>` : '';
+      const updated = formatDate(project.pushed_at);
+      return `<td width="50%"><a href="${url}"><b>${name}</b></a><br><sub>${language ? language.slice(3) : 'Repository'} · updated ${updated}</sub></td>`;
+    });
+
+    if (row.length === 1) {
+      row.push('<td width="50%"></td>');
+    }
+
+    lines.push(`<tr>${row.join('')}</tr>`);
   }
+
+  lines.push('</table>');
 
   return lines.join('\n');
 }
