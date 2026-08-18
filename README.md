@@ -59,15 +59,15 @@
 </div>
 
 <!-- START_AUTOMATED_PROJECTS -->
-### Fresh from the forge
+### Latest signals
 
 <sub>Auto-refreshed daily · active first-party repositories · sorted by recent activity</sub>
 
 <table>
-<tr><td width="50%"><a href="https://github.com/nirmalhk7/skybridge"><b>skybridge</b></a><br><sub><code>TypeScript</code> · updated Aug 15</sub></td><td width="50%"><a href="https://github.com/nirmalhk7/operationscenter"><b>operationscenter</b></a><br><sub><code>TypeScript</code> · updated Jul 30</sub></td></tr>
-<tr><td width="50%"><a href="https://github.com/nirmalhk7/nirmalhk7.github.io"><b>nirmalhk7.github.io</b></a><br><sub><code>TypeScript</code> · updated Jun 28</sub></td><td width="50%"><a href="https://github.com/nirmalhk7/dotfiles"><b>dotfiles</b></a><br><sub><code>Shell</code> · updated Aug 10</sub></td></tr>
+<tr><td width="50%"><a href="https://github.com/nirmalhk7/skybridge"><b>skybridge</b></a><br><sub><code>TypeScript</code> · updated Aug 15</sub></td><td width="50%"><a href="https://github.com/nirmalhk7/operationscenter"><b>operationscenter</b></a><br><sub><code>TypeScript</code> · updated Aug 15</sub></td></tr>
+<tr><td width="50%"><a href="https://github.com/nirmalhk7/nirmalhk7.github.io"><b>nirmalhk7.github.io</b></a><br><sub><code>TypeScript</code> · updated Aug 11</sub></td><td width="50%"><a href="https://github.com/nirmalhk7/dotfiles"><b>dotfiles</b></a><br><sub><code>Shell</code> · updated Aug 10</sub></td></tr>
 <tr><td width="50%"><a href="https://github.com/nirmalhk7/basera"><b>basera</b></a><br><sub><code>TypeScript</code> · updated Aug 9</sub></td><td width="50%"><a href="https://github.com/nirmalhk7/khan"><b>khan</b></a><br><sub><code>Python</code> · updated Jun 27</sub></td></tr>
-<tr><td width="50%"><a href="https://github.com/nirmalhk7/atskit"><b>atskit</b></a><br><sub><code>Python</code> · updated Jun 20</sub></td><td width="50%"><a href="https://github.com/nirmalhk7/sentinel"><b>sentinel</b></a><br><sub><code>TypeScript</code> · updated Jun 6</sub></td></tr>
+<tr><td width="50%"><a href="https://github.com/nirmalhk7/atskit"><b>atskit</b></a><br><sub><code>Python</code> · updated Jun 20</sub></td><td width="50%"><a href="https://github.com/nirmalhk7/sentinel"><b>sentinel</b></a><br><sub><code>TypeScript</code> · updated Jun 5</sub></td></tr>
 </table>
 <!-- END_AUTOMATED_PROJECTS -->
 
