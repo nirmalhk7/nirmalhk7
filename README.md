@@ -64,10 +64,10 @@
 <sub>Auto-refreshed daily · active first-party repositories · sorted by recent activity</sub>
 
 <table>
-<tr><td width="50%"><a href="https://github.com/nirmalhk7/operationscenter"><b>operationscenter</b></a><br><sub><code>TypeScript</code> · updated Oct 28</sub></td><td width="50%"><a href="https://github.com/nirmalhk7/nirmalhk7.github.io"><b>nirmalhk7.github.io</b></a><br><sub><code>TypeScript</code> · updated Oct 27</sub></td></tr>
-<tr><td width="50%"><a href="https://github.com/nirmalhk7/thor"><b>thor</b></a><br><sub><code>Rust</code> · updated Oct 27</sub></td><td width="50%"><a href="https://github.com/nirmalhk7/betafundhackathon"><b>betafundhackathon</b></a><br><sub><code>Python</code> · updated Oct 23</sub></td></tr>
-<tr><td width="50%"><a href="https://github.com/nirmalhk7/wayfarer"><b>wayfarer</b></a><br><sub><code>TypeScript</code> · updated Oct 23</sub></td><td width="50%"><a href="https://github.com/nirmalhk7/whirlwind"><b>whirlwind</b></a><br><sub><code>Python</code> · updated Oct 21</sub></td></tr>
-<tr><td width="50%"><a href="https://github.com/nirmalhk7/dotfiles"><b>dotfiles</b></a><br><sub><code>Shell</code> · updated Sep 23</sub></td><td width="50%"><a href="https://github.com/nirmalhk7/skybridge"><b>skybridge</b></a><br><sub><code>TypeScript</code> · updated Aug 15</sub></td></tr>
+<tr><td width="50%"><a href="https://github.com/nirmalhk7/operationscenter"><b>operationscenter</b></a><br><sub><code>TypeScript</code> · updated Oct 29</sub></td><td width="50%"><a href="https://github.com/nirmalhk7/moneytrace"><b>moneytrace</b></a><br><sub><code>TypeScript</code> · updated Oct 29</sub></td></tr>
+<tr><td width="50%"><a href="https://github.com/nirmalhk7/nirmalhk7.github.io"><b>nirmalhk7.github.io</b></a><br><sub><code>TypeScript</code> · updated Oct 27</sub></td><td width="50%"><a href="https://github.com/nirmalhk7/thor"><b>thor</b></a><br><sub><code>Rust</code> · updated Oct 27</sub></td></tr>
+<tr><td width="50%"><a href="https://github.com/nirmalhk7/betafundhackathon"><b>betafundhackathon</b></a><br><sub><code>Python</code> · updated Oct 23</sub></td><td width="50%"><a href="https://github.com/nirmalhk7/wayfarer"><b>wayfarer</b></a><br><sub><code>TypeScript</code> · updated Oct 23</sub></td></tr>
+<tr><td width="50%"><a href="https://github.com/nirmalhk7/whirlwind"><b>whirlwind</b></a><br><sub><code>Python</code> · updated Oct 21</sub></td><td width="50%"><a href="https://github.com/nirmalhk7/dotfiles"><b>dotfiles</b></a><br><sub><code>Shell</code> · updated Sep 23</sub></td></tr>
 </table>
 <!-- END_AUTOMATED_PROJECTS -->
 
