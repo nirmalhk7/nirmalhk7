@@ -64,9 +64,9 @@
 <sub>Auto-refreshed daily · active first-party repositories · sorted by recent activity</sub>
 
 <table>
-<tr><td width="50%"><a href="https://github.com/nirmalhk7/nirmalhk7.github.io"><b>nirmalhk7.github.io</b></a><br><sub><code>TypeScript</code> · updated Nov 21</sub></td><td width="50%"><a href="https://github.com/nirmalhk7/whirlwind"><b>whirlwind</b></a><br><sub><code>Go</code> · updated Nov 21</sub></td></tr>
-<tr><td width="50%"><a href="https://github.com/nirmalhk7/guido"><b>guido</b></a><br><sub><code>HTML</code> · updated Nov 21</sub></td><td width="50%"><a href="https://github.com/nirmalhk7/thor"><b>thor</b></a><br><sub><code>Rust</code> · updated Nov 20</sub></td></tr>
-<tr><td width="50%"><a href="https://github.com/nirmalhk7/sueperman"><b>sueperman</b></a><br><sub><code>HTML</code> · updated Nov 19</sub></td><td width="50%"><a href="https://github.com/nirmalhk7/operationscenter"><b>operationscenter</b></a><br><sub><code>TypeScript</code> · updated Nov 16</sub></td></tr>
+<tr><td width="50%"><a href="https://github.com/nirmalhk7/whirlwind"><b>whirlwind</b></a><br><sub><code>Go</code> · updated Nov 24</sub></td><td width="50%"><a href="https://github.com/nirmalhk7/operationscenter"><b>operationscenter</b></a><br><sub><code>TypeScript</code> · updated Nov 24</sub></td></tr>
+<tr><td width="50%"><a href="https://github.com/nirmalhk7/thor"><b>thor</b></a><br><sub><code>Rust</code> · updated Nov 24</sub></td><td width="50%"><a href="https://github.com/nirmalhk7/nirmalhk7.github.io"><b>nirmalhk7.github.io</b></a><br><sub><code>TypeScript</code> · updated Nov 21</sub></td></tr>
+<tr><td width="50%"><a href="https://github.com/nirmalhk7/guido"><b>guido</b></a><br><sub><code>HTML</code> · updated Nov 21</sub></td><td width="50%"><a href="https://github.com/nirmalhk7/sueperman"><b>sueperman</b></a><br><sub><code>HTML</code> · updated Nov 19</sub></td></tr>
 <tr><td width="50%"><a href="https://github.com/nirmalhk7/moneytrace"><b>moneytrace</b></a><br><sub><code>TypeScript</code> · updated Nov 2</sub></td><td width="50%"><a href="https://github.com/nirmalhk7/janedoe"><b>janedoe</b></a><br><sub><code>Python</code> · updated Oct 23</sub></td></tr>
 </table>
 <!-- END_AUTOMATED_PROJECTS -->
