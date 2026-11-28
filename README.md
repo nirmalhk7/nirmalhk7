@@ -64,8 +64,8 @@
 <sub>Auto-refreshed daily · active first-party repositories · sorted by recent activity</sub>
 
 <table>
-<tr><td width="50%"><a href="https://github.com/nirmalhk7/wayfarer"><b>wayfarer</b></a><br><sub><code>TypeScript</code> · updated Nov 27</sub></td><td width="50%"><a href="https://github.com/nirmalhk7/operationscenter"><b>operationscenter</b></a><br><sub><code>TypeScript</code> · updated Nov 27</sub></td></tr>
-<tr><td width="50%"><a href="https://github.com/nirmalhk7/whirlwind"><b>whirlwind</b></a><br><sub><code>Go</code> · updated Nov 26</sub></td><td width="50%"><a href="https://github.com/nirmalhk7/nirmalhk7.github.io"><b>nirmalhk7.github.io</b></a><br><sub><code>TypeScript</code> · updated Nov 26</sub></td></tr>
+<tr><td width="50%"><a href="https://github.com/nirmalhk7/operationscenter"><b>operationscenter</b></a><br><sub><code>TypeScript</code> · updated Nov 28</sub></td><td width="50%"><a href="https://github.com/nirmalhk7/wayfarer"><b>wayfarer</b></a><br><sub><code>TypeScript</code> · updated Nov 28</sub></td></tr>
+<tr><td width="50%"><a href="https://github.com/nirmalhk7/whirlwind"><b>whirlwind</b></a><br><sub><code>Go</code> · updated Nov 28</sub></td><td width="50%"><a href="https://github.com/nirmalhk7/nirmalhk7.github.io"><b>nirmalhk7.github.io</b></a><br><sub><code>TypeScript</code> · updated Nov 26</sub></td></tr>
 <tr><td width="50%"><a href="https://github.com/nirmalhk7/thor"><b>thor</b></a><br><sub><code>Rust</code> · updated Nov 25</sub></td><td width="50%"><a href="https://github.com/nirmalhk7/basera"><b>basera</b></a><br><sub><code>TypeScript</code> · updated Nov 25</sub></td></tr>
 <tr><td width="50%"><a href="https://github.com/nirmalhk7/guido"><b>guido</b></a><br><sub><code>HTML</code> · updated Nov 25</sub></td><td width="50%"><a href="https://github.com/nirmalhk7/sueperman"><b>sueperman</b></a><br><sub><code>HTML</code> · updated Nov 19</sub></td></tr>
 </table>
